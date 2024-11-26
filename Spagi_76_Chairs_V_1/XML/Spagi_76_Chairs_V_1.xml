@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--  JAZZ live AARAU Layout Restaurant Spagi by Marcello -->
+<Layout>
+  <PremisesName>SPAGI by Marcello</PremisesName>
+  <PremisesWidth>8000</PremisesWidth>
+  <PremisesHeight>14000</PremisesHeight>
+  <MaxReservationsProcent>100</MaxReservationsProcent>
+  <MaxWidhtPixel>900</MaxWidhtPixel>
+  <WallThickness>300</WallThickness>
+  <OrganizerName>JAZZ live AARAU</OrganizerName>
+  <OrganizerTextLogo>ImagesLayout/jazz_live_aarau_text_logo.png</OrganizerTextLogo>
+  <OrganizerTextLogoWidth>400px</OrganizerTextLogoWidth>
+  <OrganizerTextLogoHeight>40px</OrganizerTextLogoHeight>
+  <OrganizerLogo>ImagesLayout/jazz_live_aarau_logo.png</OrganizerLogo>
+  <OrganizerLogoWidth>384px</OrganizerLogoWidth>
+  <OrganizerLogoHeight>392px</OrganizerLogoHeight>
+  <SponsorsImage>ImagesLayout/jazz_live_aarau_sponsor_logos.png</SponsorsImage>
+  <SponsorsImageWidth>937px</SponsorsImageWidth>
+  <SponsorsImageHeight>100px</SponsorsImageHeight>
+  <TableColor>rgb(179, 202, 239)</TableColor>
+  <TableStrokeColor>rgb(106, 156, 237)</TableStrokeColor>
+  <TableStrokeWidth>4</TableStrokeWidth>
+  <TableTextRelXProcent>40</TableTextRelXProcent>
+  <TableTextRelYProcent>50</TableTextRelYProcent>
+  <TableTextColor>red</TableTextColor>
+  <!--  Stage data Start -->
+  <StageUpperLeftX>600</StageUpperLeftX>
+  <StageUpperLeftY>970</StageUpperLeftY>
+  <StageWidth>6800</StageWidth>
+  <StageHeight>950</StageHeight>
+  <StageText>Bühne</StageText>
+  <StageColor>rgb(244, 241, 66)</StageColor>
+  <StageStrokeColor>rgb(135, 132, 5)</StageStrokeColor>
+  <StageStrokeWidth>10</StageStrokeWidth>
+  <StageTextRelXProcent>30</StageTextRelXProcent>
+  <StageTextRelYProcent>46</StageTextRelYProcent>
+  <StageTextColor>blue</StageTextColor>
+  <StageImage>ImagesLayout/icon_stage.png</StageImage>
+  <StageImageWidth>750px</StageImageWidth>
+  <StageImageHeight>150px</StageImageHeight>
+  <!--  Stage data End -->
+  <!--  Cash-desk data Start -->
+  <CashUpperLeftX>5900</CashUpperLeftX>
+  <CashUpperLeftY>11500</CashUpperLeftY>
+  <CashImage>ImagesLayout/icon_cash_desk.png</CashImage>
+  <CashImageWidth>130px</CashImageWidth>
+  <CashImageHeight>230px</CashImageHeight>
+  <!--  Cash-desk data End -->  
+  <!--  Text images Start -->
+  <TextImageSelectSeats>ImagesApp/text_select_seats.png</TextImageSelectSeats>
+  <TextImageReserveSeats>ImagesApp/text_reserve_seats.png</TextImageReserveSeats>
+  <TextImageReserveSelectUndef>ImagesApp/text_reserve_select_undef.png</TextImageReserveSelectUndef>
+  <TextImageAddReservation>ImagesApp/text_add_reservation.png</TextImageAddReservation>
+  <TextImageDeleteOff>ImagesApp/text_delete_off.png</TextImageDeleteOff>
+  <TextImageDeleteOn>ImagesApp/text_delete_on.png</TextImageDeleteOn>
+  <TextImageReservationList>ImagesApp/text_reservation_list.png</TextImageReservationList>
+  <TextImageReservationPrint>ImagesApp/text_reservation_print.png</TextImageReservationPrint>
+  <TextImageSaveReservation>ImagesApp/text_save_reservation.png</TextImageSaveReservation>
+  <TextImageSaveReservationWhite>ImagesApp/text_save_reservation_white.png</TextImageSaveReservationWhite>
+  <!--  Text images End -->  
+  <Door>  
+    <DoorType>right</DoorType>
+    <DoorPosition>5300</DoorPosition>
+	<DoorHeight>1200</DoorHeight>
+	<DoorText>Personal</DoorText>
+    <DoorImage>ImagesLayout/icon_door_staff.png</DoorImage>
+    <DoorImageWidth>73px</DoorImageWidth>
+    <DoorImageHeight>163px</DoorImageHeight>
+  </Door>   
+  <Door>  
+    <DoorType>right</DoorType>
+    <DoorPosition>9500</DoorPosition>
+	<DoorHeight>1600</DoorHeight>
+	<DoorText>Eingangstür</DoorText>
+    <DoorImage>ImagesLayout/icon_door_main.png</DoorImage>
+    <DoorImageWidth>73px</DoorImageWidth>
+    <DoorImageHeight>235px</DoorImageHeight>
+  </Door>  
+  <Door>  
+    <DoorType>lower</DoorType>
+    <DoorPosition>500</DoorPosition>
+	<DoorHeight>1000</DoorHeight>
+	<DoorText>Hintertür</DoorText>
+    <DoorImage>ImagesLayout/icon_door_back.png</DoorImage>
+    <DoorImageWidth>163px</DoorImageWidth>
+    <DoorImageHeight>73px</DoorImageHeight>
+  </Door>  
+  <TableGroup>
+    <TableGroupText>Erster Tisch links vorne am Fenster</TableGroupText>
+    <Table>
+      <Number>10</Number>
+      <UpperLeftX>1000</UpperLeftX>
+      <UpperLeftY>2500</UpperLeftY>
+      <Width>900</Width>
+      <Height>2200</Height>
+      <NumberLeftRightSeats>10</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatTwoLeft>true</SeatTwoLeft>
+      <SeatThreeLeft>true</SeatThreeLeft>
+      <SeatFourLeft>true</SeatFourLeft>
+      <SeatFiveLeft>true</SeatFiveLeft>	
+      <SeatOneRight>true</SeatOneRight>
+      <SeatTwoRight>true</SeatTwoRight>
+      <SeatThreeRight>true</SeatThreeRight>
+      <SeatFourRight>true</SeatFourRight>
+      <SeatFiveRight>true</SeatFiveRight>	
+      <SeatUpper>true</SeatUpper>
+      <SeatLower>true</SeatLower>	  
+      <Text>Erster Tisch links am Fenster</Text>
+    </Table>
+  </TableGroup>
+  <TableGroup>
+    <TableGroupText>Erster Tisch in der mitte</TableGroupText>
+    <Table>
+      <Number>12</Number>
+      <UpperLeftX>3400</UpperLeftX>
+      <UpperLeftY>2500</UpperLeftY>
+      <Width>900</Width>
+      <Height>2200</Height>
+      <NumberLeftRightSeats>10</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatTwoLeft>true</SeatTwoLeft>
+      <SeatThreeLeft>true</SeatThreeLeft>
+      <SeatFourLeft>true</SeatFourLeft>
+      <SeatFiveLeft>true</SeatFiveLeft>	
+      <SeatOneRight>true</SeatOneRight>
+      <SeatTwoRight>true</SeatTwoRight>
+      <SeatThreeRight>true</SeatThreeRight>
+      <SeatFourRight>true</SeatFourRight>
+      <SeatFiveRight>true</SeatFiveRight>	
+      <SeatUpper>true</SeatUpper>
+      <SeatLower>true</SeatLower>	  
+      <Text>Tisch Reihe Mitte Vorne</Text>
+    </Table>
+  </TableGroup>
+  <TableGroup>
+    <TableGroupText>Erster Tisch rechts</TableGroupText>
+    <Table>
+      <Number>13</Number>
+      <UpperLeftX>5800</UpperLeftX>
+      <UpperLeftY>2500</UpperLeftY>
+      <Width>900</Width>
+      <Height>2640</Height>
+      <NumberLeftRightSeats>12</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatTwoLeft>true</SeatTwoLeft>
+      <SeatThreeLeft>true</SeatThreeLeft>
+      <SeatFourLeft>true</SeatFourLeft>
+      <SeatFiveLeft>true</SeatFiveLeft>	
+      <SeatSixLeft>true</SeatSixLeft>	
+      <SeatOneRight>true</SeatOneRight>
+      <SeatTwoRight>true</SeatTwoRight>
+      <SeatThreeRight>true</SeatThreeRight>
+      <SeatFourRight>true</SeatFourRight>
+      <SeatFiveRight>true</SeatFiveRight>	
+      <SeatSixRight>true</SeatSixRight>		
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Erster Tisch rechts</Text>
+    </Table>
+  </TableGroup>     
+  <TableGroup>
+    <TableGroupText>Zweiter Tisch links am Fenster</TableGroupText>
+    <Table>
+      <Number>21</Number>
+      <UpperLeftX>1000</UpperLeftX>
+      <UpperLeftY>5500</UpperLeftY>
+      <Width>900</Width>
+      <Height>1320</Height>
+      <NumberLeftRightSeats>6</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatTwoLeft>true</SeatTwoLeft>
+      <SeatThreeLeft>true</SeatThreeLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatTwoRight>true</SeatTwoRight>
+      <SeatThreeRight>true</SeatThreeRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Zweiter Tisch links am Fenster</Text>
+    </Table>
+  </TableGroup> 
+   <TableGroup>
+    <TableGroupText>Zweiter Tisch mitte</TableGroupText>
+    <Table>
+      <Number>22</Number>
+      <UpperLeftX>3400</UpperLeftX>
+      <UpperLeftY>5500</UpperLeftY>
+      <Width>900</Width>
+      <Height>1320</Height>
+      <NumberLeftRightSeats>6</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatTwoLeft>true</SeatTwoLeft>
+      <SeatThreeLeft>true</SeatThreeLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatTwoRight>true</SeatTwoRight>
+      <SeatThreeRight>true</SeatThreeRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Zweiter Tisch mitte</Text>
+    </Table>
+    </TableGroup>  
+    <TableGroup>
+      <TableGroupText>Zweiter Tisch rechts</TableGroupText>
+      <Table>
+        <Number>23</Number>
+        <UpperLeftX>5800</UpperLeftX>
+        <UpperLeftY>7000</UpperLeftY>
+        <Width>900</Width>
+        <Height>1760</Height>
+        <NumberLeftRightSeats>8</NumberLeftRightSeats>
+         <SeatOneLeft>true</SeatOneLeft>
+        <SeatTwoLeft>true</SeatTwoLeft>
+        <SeatThreeLeft>true</SeatThreeLeft>
+        <SeatFourLeft>true</SeatFourLeft>
+        <SeatOneRight>true</SeatOneRight>
+        <SeatTwoRight>true</SeatTwoRight>
+        <SeatThreeRight>true</SeatThreeRight>
+        <SeatFourRight>true</SeatFourRight>
+        <SeatUpper>false</SeatUpper>
+        <SeatLower>false</SeatLower>	  
+        <Text>Zweiter Tisch rechts</Text>
+      </Table>
+    </TableGroup>  
+    <TableGroup>
+      <TableGroupText>Dritter Tisch links am Fenster</TableGroupText>
+      <Table>
+        <Number>31</Number>
+        <UpperLeftX>1000</UpperLeftX>
+        <UpperLeftY>7200</UpperLeftY>
+        <Width>900</Width>
+        <Height>1760</Height>
+        <NumberLeftRightSeats>8</NumberLeftRightSeats>
+        <SeatOneLeft>true</SeatOneLeft>
+        <SeatTwoLeft>true</SeatTwoLeft>
+        <SeatThreeLeft>true</SeatThreeLeft>
+        <SeatFourLeft>true</SeatFourLeft>
+        <SeatOneRight>true</SeatOneRight>
+        <SeatTwoRight>true</SeatTwoRight>
+        <SeatThreeRight>true</SeatThreeRight>
+        <SeatFourRight>true</SeatFourRight>
+        <SeatUpper>false</SeatUpper>
+        <SeatLower>false</SeatLower>	  
+        <Text>Dritter Tisch links am Fenster</Text>
+      </Table>
+    </TableGroup> 
+     <TableGroup>
+      <TableGroupText>Zweiter Tisch mitte</TableGroupText>
+      <Table>
+        <Number>32</Number>
+        <UpperLeftX>3400</UpperLeftX>
+        <UpperLeftY>7200</UpperLeftY>
+        <Width>900</Width>
+        <Height>1760</Height>
+        <NumberLeftRightSeats>8</NumberLeftRightSeats>
+        <SeatOneLeft>true</SeatOneLeft>
+        <SeatTwoLeft>true</SeatTwoLeft>
+        <SeatThreeLeft>true</SeatThreeLeft>
+        <SeatFourLeft>true</SeatFourLeft>
+        <SeatOneRight>true</SeatOneRight>
+        <SeatTwoRight>true</SeatTwoRight>
+        <SeatThreeRight>true</SeatThreeRight>
+        <SeatFourRight>true</SeatFourRight>
+        <SeatUpper>false</SeatUpper>
+        <SeatLower>false</SeatLower>	  
+        <Text>Dritter Tisch mitte</Text>
+      </Table>
+      </TableGroup>  
+  <TableGroup>
+    <TableGroupText>Hochtische Links</TableGroupText>
+    <Table>
+      <Number>41</Number>
+      <UpperLeftX>1200</UpperLeftX>
+      <UpperLeftY>10500</UpperLeftY>
+      <Width>1000</Width>
+      <Height>1000</Height>
+      <NumberLeftRightSeats>2</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Hochtisch</Text>
+    </Table>
+    <Table>
+      <Number>51</Number>
+      <UpperLeftX>1200</UpperLeftX>
+      <UpperLeftY>11500</UpperLeftY>
+      <Width>1000</Width>
+      <Height>1000</Height>
+      <NumberLeftRightSeats>2</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Hochtisch</Text>
+    </Table>
+  </TableGroup> 
+  <TableGroup>
+    <TableGroupText>Hochtische mitte</TableGroupText>
+    <Table>
+      <Number>42</Number>
+      <UpperLeftX>3500</UpperLeftX>
+      <UpperLeftY>10500</UpperLeftY>
+      <Width>1000</Width>
+      <Height>1000</Height>
+      <NumberLeftRightSeats>2</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Hochtisch</Text>
+    </Table>
+    <Table>
+      <Number>52</Number>
+      <UpperLeftX>3500</UpperLeftX>
+      <UpperLeftY>11500</UpperLeftY>
+      <Width>1000</Width>
+      <Height>1000</Height>
+      <NumberLeftRightSeats>2</NumberLeftRightSeats>
+      <SeatOneLeft>true</SeatOneLeft>
+      <SeatOneRight>true</SeatOneRight>
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
+      <Text>Hochtisch</Text>
+    </Table>
+  </TableGroup>  
+</Layout>

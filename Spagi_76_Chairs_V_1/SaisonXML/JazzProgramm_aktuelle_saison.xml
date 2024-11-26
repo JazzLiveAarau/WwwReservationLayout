@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--  JAZZ live AARAU Saisonprogramm 2024-2025-->
+<Saison>
+  <YearAutum>2024</YearAutum>
+  <YearSpring>2025</YearSpring>
+  <PublishProgram>TRUE</PublishProgram>
+  <!--  Konzert 1 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>10</Month>
+    <Day>5</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Victoria Mozalevskaya Trio feat. Dimitri Howald</BandName>
+    <ShortText>Als Manifest für die Freiheit jenseits von Grenzen durch Kultur, Gesellschaft oder Religion erweitert die russische Überfliegerin am Sax ihr 2013 gegründetes Trio für das Jubiläumsprogramm mit dem Berner ,Rising Star’ an der Gitarre zum Quartett.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241005_Victoria_M_D_Howald/PlakatNewsletter20241005.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241005_Victoria_M_D_Howald/PlakatNewsletter20241005_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241005_Victoria_M_D_Howald/d20241005_Victoria_M_D_Howald_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.victoriamozalevskaya.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241005_Victoria_M_D_Howald/d20241005_Victoria_M_D_Howald_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241005_Victoria_M_D_Howald/d20241005_Victoria_M_D_Howald_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Victoria Mozalevskaya</ContactPerson>
+    <ContactEmail>victoriamusic@mail.com</ContactEmail>
+    <ContactTelephone>+41 78 852 35 43</ContactTelephone>
+    <ContactStreet>Morgenstrasse 35</ContactStreet>
+    <ContactPostCode>8620</ContactPostCode>
+    <IbanNumber>CH97 0079 0042 4255 4954 8</IbanNumber>
+    <ContactRemark>BEKB Berner Kantonalbank</ContactRemark>
+    <ContactCity>Wetzikon</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Victoria Mozalevskaya</Name>
+        <Instrument>ts</Instrument>
+        <Text>Die russische, in Kasachstan geborene, Musikerin kommt 2008 für ein Studium an die Swiss Jazz School nach Bern. Vorher besuchte sie bereits das Musik-College in Nowosibirsk, einzige Jazz-Ausbildungsstätte in Sibirien. 2012 verwirklicht sie ihren grössten Traum, lebt ein ganzes Jahr in New York City und lässt sich dort vom unermüdlichen Puls der Jazz-Metropole beflügeln. Zurück in der Schweiz, beendet Victoria 2014 ihr Masterstudium in Music-Performance an der HKB in Bern.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>female</Gender>
+      </Musician>
+      <Musician>
+        <Name>Thomas Dürst</Name>
+        <Instrument>b</Instrument>
+        <Text>Seit Jahrzehnten einer der meistgefragten Bassisten und seit 1976 in unzähligen Engagements für Konzerte, Festivals, Tourneen, Studio, Sinfonieorchester, Theater- und Filmmusik unterwegs. Beginnt mit 12 Jahren auf dem Elektrobass und wechselt drei Jahre später auf den Kontrabass. Studium an der Swiss Jazz School in Bern und anschliessend langjährige Lehrertätigkeit an der selbigen sowie an der HKB in Bern.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Pius Baschnagel</Name>
+        <Instrument>dr</Instrument>
+        <Text>Als Zehnjähriger beginnt er mit Schlagzeugunterricht und studiert später an der Jazzschule Zürich sowie am Musicians Institute (PIT) in Kalifornien. Mehrere Auszeichnungen als Schlagzeuger sowie nationale und internationale Auftritte u.a. mit Barbara Dennerlein, Rhoda Scott, Benny Golson, Benny Baley, Joshua Redman und George Gruntz. Zudem ist er als Jazz-Dozent an der Zürcher Hochschule der Künste tätig.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Dimitri Howald</Name>
+        <Instrument>g</Instrument>
+        <Text>Tritt als Gitarrist und Komponist mit verschiedenen eigenen Formationen in Erscheinung, komponiert und ist daneben aktiv als Sideman in ausgewählten Projekten beschäftigt. Seine einzigartige Mischung aus Einflüssen von Jazz, 80-er New Wave, Drum-Machines sowie brasilianischer und isländischer Musik ist bereits mehrfach auf Alben dokumentiert. Der Musiker ist in der nationalen sowie internationalen Jazzszene überaus aktiv und hat mit vielen verschiedenen Künstlerinnen zusammengearbeitet.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 1 End  -->
+  <!--  Konzert 2 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>10</Month>
+    <Day>19</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Dominic Egli Plurism</BandName>
+    <ShortText>Ein gnadenlos groovendes Rhythmusgespann trifft auf eine hochenergetisch aufspielende Gebläsetruppe um den legendären südafrikanischen Trompeter. Auf der zweiten gemeinsamen Tour präsentieren sie ihr neues Album, Musik von einer Intensität, die einen unweigerlich umhaut.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241019_Dominic_Egli_Plur/PlakatNewsletter20241019.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241019_Dominic_Egli_Plur/PlakatNewsletter20241019_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241019_Dominic_Egli_Plur/d20241019_Dominic_Egli_Plur_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>http://www.dominicegli.ch/site/plurism.php</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241019_Dominic_Egli_Plur/d20241019_Dominic_Egli_Plur_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241019_Dominic_Egli_Plur/d20241019_Dominic_Egli_Plur_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Dominic Egli</ContactPerson>
+    <ContactEmail>dominicegli@posteo.de</ContactEmail>
+    <ContactTelephone>+41 79 348 91 11</ContactTelephone>
+    <ContactStreet>Rue Cité-Derrière 20</ContactStreet>
+    <ContactPostCode>1005</ContactPostCode>
+    <IbanNumber>CH87 0027 6276 8199 4140 J</IbanNumber>
+    <ContactRemark>UBS</ContactRemark>
+    <ContactCity>Lausanne</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Feya Faku</Name>
+        <Instrument>tp</Instrument>
+        <Text>Der mit mehreren Awards ausgezeichnete Trompeter gehört zu den talentiertesten Jazzmusikern Südafrikas und ist international unter anderem als Bandmitglied von Abdullah Ibrahim und dem im September 2008 verstorbenen Bheki Mseleku bekannt geworden. Ab 2006 war er, unterstützt von Pro Helvetia, Artist in Residence im Basler Jazz Club The Bird’s Eye.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Mthunzi Mvubu</Name>
+        <Instrument>as, fl</Instrument>
+        <Text>Beginnt nach erstem Klavier- und Theorieunterricht an der Music Academy of Gauteng mit 14 Jahren zuerst als Pianist öffentlich aufzutreten und wechselt später ans Altsaxofon. Tourt international mit der Band ,Shabaka Hutchings and the Ancestors’ und leitet sein eigenes Quartett, zu hören auf dem Album ,The First Gospel’.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Sisonke Xonti</Name>
+        <Instrument>ts</Instrument>
+        <Text>Nur wenige würden vermuten, dass der südafrikanische Musiker die Musik erst dann zum Beruf machte, nachdem der Uniabschluss in Jura vorlag. Nach Veröffentlichung seines Debütalbums im Jahr 2017 ist der Saxofonist inzwischen Gewinner des renommierten Standard Bank Young Artist Award 2020.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Raffaele Bossard</Name>
+        <Instrument>b</Instrument>
+        <Text>Die kraftvollen akustischen Linien können jederzeit das Fundament sein und doch Räume für Erkundungen öffnen, provozieren, die Ideen der anderen Spieler unterstützen und sie zu unerwarteten Umwegen verleiten. Sein Erfahrungsschatz aus der Zusammenarbeit mit Hip-Hop- und Straight-Ahead-Projekten verleiht seinen Improvisationen eine kompositorische Qualität, ebenso wie seine gefühlvollen Soli die Musik als Ganzes inspirieren.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Dominic Egli</Name>
+        <Instrument>dr</Instrument>
+        <Text>Seine Klangästhetik ist in der Black American Music verwurzelt, was ihn zusammen mit seiner stilistischen Vielfalt und seinem melodiösen, kommunikativen Improvisationsansatz zu einem aussergewöhnlichen Musiker macht, der sowohl internationale Stars als auch zahlreiche kreative Bands aus der Schweiz begleitet. Der Drummer ist auf über 65 Alben zu hören!</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 2 End  -->
+  <!--  Konzert 3 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>11</Month>
+    <Day>2</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Felix Huber COMPROject</BandName>
+    <ShortText>Nach langen beinahe acht Jahren besucht uns endlich wieder der ausserordentliche Quasi-Aarauer-Pianist und -Komponist mit seinem brandneuen, generationenübergreifenden Trio. Vater und Sohn kollaborieren hier mit einem der sensibelsten Trommler der hiesigen Jazzszene.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241102_Felix_Huber_3/PlakatNewsletter20241102.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241102_Felix_Huber_3/PlakatNewsletter20241102_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241102_Felix_Huber_3/d20241102_Felix_Huber_3_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://felixhuber.ch/de/projekte,-bands.html</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241102_Felix_Huber_3/d20241102_Felix_Huber_3_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241102_Felix_Huber_3/d20241102_Felix_Huber_3_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Felix Huber</ContactPerson>
+    <ContactEmail>huber.felix@bluewin.ch</ContactEmail>
+    <ContactTelephone>+41 79 266 00 38</ContactTelephone>
+    <ContactStreet>Höhenweg 14</ContactStreet>
+    <ContactPostCode>5102</ContactPostCode>
+    <IbanNumber>CH64 0830 7000 2304 0030 2</IbanNumber>
+    <ContactRemark>Hypothekarbank Lenzburg</ContactRemark>
+    <ContactCity>Rupperswil</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Christoph Huber</Name>
+        <Instrument>ts, bcl</Instrument>
+        <Text>Von einem musikalischen Haushalt in einem kleinen Schweizer Dorf bis zum Leben und
+Arbeiten in New York City hat er bereits in einer Vielzahl von musikalischen Umgebungen mitgewirkt. All diese Einflüsse inspirieren ihn dazu, einzigartige Verbindungen zwischen musikalischen Elementen zu finden. Seine auf dem Sax erworbenen handwerklichen Fähigkeiten sowie die Flexibilität dienen ihm dabei als Grundlage für seine Entdeckungen. Sein musikalisches Zuhause hat er sich in einem alten Industriegebäude in der Nähe des Badischen Bahnhofs in Basel eingerichtet, wo er die Verbindung von akustischen Klängen mit Elektronik erforscht.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Felix Huber</Name>
+        <Instrument>p</Instrument>
+        <Text>Der in Frick geborene Pianist entdeckte schon früh das Improvisieren und war Gründungsmitglied von ,Jigsaw’, der ersten Jazz-Rock Formation im Kanton. Studien am Konservatorium und der Swiss Jazz School in Bern sowie am Berklee College of Music in Boston mit einer Coast-to-Coast Tour durch 30 der grössten Städte der USA. Huber verfasste Kompositionen und Arrangements für Sinfonieorchester, Streicher- und Kammerensembles, Jazzcombos, Big-Bands, Chor und Solo-Instrumente, erhält Auszeichnungen und gewinnt verschiedene Wettbewerbe.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Tony Renold</Name>
+        <Instrument>dr</Instrument>
+        <Text>Der Aargauer Jazzdrummer gehört landesweit bereits seit längerem zu den bedeutendsten Vertretern seines Fachs. Technisch höchst versiert und mit perfektem Timing versehen, benutzt der feinfühlige Rhythmiker diese Attribute nie zum Selbstzweck. Im musikalischen Diskurs mit seinen Kollegen saugt er deren Inputs fast schon ein, versetzt sie mit seinen eigenen Kreativbeiträgen und bringt das Resultat auf die Trommeln und Cymbals, dass es eine regelrechte Freude ist. Ihm dabei auf der Bühne zuzusehen, rundet das akustische Bild ab - ein Musician’s Musician erster Güte!</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 3 End  -->
+  <!--  Konzert 4 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>11</Month>
+    <Day>16</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Yuri Storione Quartet feat. Perico Sambeat</BandName>
+    <ShortText>Nach beeindruckendem Einstand vor drei Jahren besucht uns erneut der in Basel lebende Pianist aus Sizilien mit seinem Quartett. Mit dabei selbstverständlich wieder der mit allen Wassern gewaschene spanische Star-Saxofonist am Alto.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241116_Yuri_Storione_Sambeat/PlakatNewsletter20241116.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241116_Yuri_Storione_Sambeat/PlakatNewsletter20241116_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241116_Yuri_Storione_Sambeat/d20241116_Yuri_Storione_Sambeat_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.yuristorione.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241116_Yuri_Storione_Sambeat/d20241116_Yuri_Storione_Sambeat_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241116_Yuri_Storione_Sambeat/d20241116_Yuri_Storione_Sambeat_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Yuri Storione</ContactPerson>
+    <ContactEmail>ystorione@icloud.com</ContactEmail>
+    <ContactTelephone>+41 76 523 16 50</ContactTelephone>
+    <ContactStreet>Clarastrasse 45</ContactStreet>
+    <ContactPostCode>4058</ContactPostCode>
+    <IbanNumber>CH69 0483 5319 0483 7000 0</IbanNumber>
+    <ContactRemark>Credit Suisse</ContactRemark>
+    <ContactCity>Basel</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Perico Sambeat</Name>
+        <Instrument>as</Instrument>
+        <Text>Der spanische ,Sax Colossus' hat für seine außergewöhnliche berufliche Laufbahn sowohl innerhalb als auch außerhalb seines Landes enormes Ansehen erworben. Mit über zwanzig Alben als Leader und mehr als hundert als Side Man sticht seine Arbeit mit großen Persönlichkeiten wie Brad Mehldau, Kurt Rosenwinkel, Tete Montoliu, Michael Brecker, Pat Metheny und vielen anderen heraus.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Yuri Storione</Name>
+        <Instrument>p</Instrument>
+        <Text>Sizilien → Basel einfach - Nach umfangreichen Studien, erlangt der überaus sympathische sowie hochtalentierte Pianist am renommierten Jazz Campus der Musikhochschule Basel 2019 seinen dritten Masterabschluss und bleibt dem Dreiländereck seither erhalten. Gut für uns, so wir ihn relativ bequem nach Aarau lotsen können; gut auch für Storione, um relativ einfach und zügig in die europäische Jazzwelt eintauchen zu können.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Joan Codina</Name>
+        <Instrument>b</Instrument>
+        <Text>Wie Perico in València geboren, beginnt der junge Joan seine musikalische Reise auf dem Cello. Später verliert er jedoch das Interesse an dieser Welt und erforscht lieber die Naturwissenschaften mit Abschluss in Physik. Erst in seinen späten Teenagerjahren entdeckt er den Kontrabass und damit seine wahre Leidenschaft. Studiert momentan bei Leuten wie Larry Grenadier, Jeff Ballard und Lionel Loueke, die ihn als ausgereiften Bassisten mit großem Potenzial loben.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Marton Juhasz</Name>
+        <Instrument>dr</Instrument>
+        <Text>Aufgewachsen in Ungarn und Gewinner des ersten nationalen Preises für Solopercussion. Studien an den Tech Music Schools in London sowie am Berklee College of Music in Boston. Sein perfektes Timing und seine tiefe Sensibilität für musikalische Prozesse geben jeder Band, in welcher er spielt, besonderen Halt und ein präzises rhythmisches Fundament. 2010 erhält er den Jahrespreis der Stiftung für ungarische Perkussionskultur.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 4 End  -->
+  <!--  Konzert 5 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>11</Month>
+    <Day>30</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Silvan Joray Trio</BandName>
+    <ShortText>Eine selten gehörte Perfektion in Sachen Technik, Dynamik und Ausdruck bestimmen das mühelose Spiel des in New York lebenden Solothurners - einer der aktuell aufregendsten jungen Jazzgitarristen der Internationalen Jazzszene.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241130_Silvan_Joray_3/PlakatNewsletter20241130.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241130_Silvan_Joray_3/PlakatNewsletter20241130_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241130_Silvan_Joray_3/d20241130_Silvan_Joray_3_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.silvanjoray.com/home.html</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241130_Silvan_Joray_3/d20241130_Silvan_Joray_3_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241130_Silvan_Joray_3/d20241130_Silvan_Joray_3_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Silvan Joray</ContactPerson>
+    <ContactEmail>silvan.joray@icloud.com</ContactEmail>
+    <ContactTelephone>+41 78 907 52 60</ContactTelephone>
+    <ContactStreet>Lilienstrasse 1</ContactStreet>
+    <ContactPostCode>4563</ContactPostCode>
+    <IbanNumber>CH81 8080 8007 7951 5193 1</IbanNumber>
+    <ContactRemark>Raiffeisen</ContactRemark>
+    <ContactCity>Gerlafingen</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Silvan Joray</Name>
+        <Instrument>g</Instrument>
+        <Text>Ein Schweizer Jazzgitarrist und Komponist, der derzeit in New York City lebt. Er gewann Sonderpreise beim UNISA International Strings Competition in Südafrika 2022 und beim Smietana Jazz Guitar Competition 2019 in Polen und hat sich so in der Jazz-Community einen Namen gemacht. Auftritte bei renommierten Jazzfestivals, darunter Krakow Summer Jazz Festival, Offbeat Jazzfestival Basel und International Jazz Festival Bern. Tourneen und Konzerte führten ihn nach Deutschland, Norwegen, Polen, Spanien und Israel. Sein zweites Album als Leader zeigt seinen zukunftsweisenden, originellen Stil, der sich durch einen transparenten Ton, knackige Artikulation, kreative rhythmische Ideen und erweiterte Techniken wie Vierteltöne und ,Tapping’ auszeichnet, die traditionell eher nicht mit der Jazzgitarre in Verbindung gebracht werden.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Arne Huber</Name>
+        <Instrument>b</Instrument>
+        <Text>Bereits während dem Jazz-Studium an der Musikhochschule Mannheim sowie dem anschliessenden Klassik-Studium an der Musikhochschule Freiburg geht es beim deutschen Kontrabassisten schon ziemlich los. Auftritte an allen wichtigen Festivals führen ihn durch halb Europa und nebenbei gewinnt er bei verschiedenen Wettbewerben 1. Preise. Seit 2011 besitzt Arne Huber einen Lehrauftrag an der Musikhochschule Mannheim und leitet seit 2020 als Professor an der Musikhochschule Basel Jazzcampus den Bachelor Studiengang.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Paul Amereller</Name>
+        <Instrument>dr</Instrument>
+        <Text>Der 1991 geborene und in Zürich lebende Musiker erforscht Substanzen für Improvisation und Rhythmus-Sound. Im Alter von vier Jahren begann er Schlagzeug zu spielen und wurde später von seinen Mentoren K.T. Geier und Peter Frei in Swing bzw. Black American Music unterrichtet. Absolvierte ein Masterstudium an der Zürcher Musikhochschule bei Tony Renold, Dominik Burkhalter, Chris Wisendanger und Ziv Ravitz. Als Co-Leader der beiden Bands District Five und Kush K spielte er internationale Tourneen und veröffentlichte verschiedene Alben.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 5 End  -->
+  <!--  Konzert 6 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2024</Year>
+    <Month>12</Month>
+    <Day>14</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Sonja Indin und Band</BandName>
+    <ShortText>And Then She Wrote / Poetry Goes Jazz - Die Zürcher Sängerin wendet sich weiblichen Dichterinnen zu und interpretiert deren Poesie mit jazzigen Klängen. Dabei führt das passende Verhältnis von Wort und Musik dazu, dass sich die Wirkungen beider Elemente je gegenseitig verstärken.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20241214_Sonja_Indin/PlakatNewsletter20241214.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20241214_Sonja_Indin/PlakatNewsletter20241214_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241214_Sonja_Indin/d20241214_Sonja_Indin_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.sonjaindin.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241214_Sonja_Indin/d20241214_Sonja_Indin_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20241214_Sonja_Indin/d20241214_Sonja_Indin_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Sonja Inderbitzin</ContactPerson>
+    <ContactEmail>info@sonjaindin.com</ContactEmail>
+    <ContactTelephone>+41 78 848 18 09</ContactTelephone>
+    <ContactStreet>Obsthaldenstrasse 163</ContactStreet>
+    <ContactPostCode>8046</ContactPostCode>
+    <IbanNumber>CH48 0900 0000 8742 5067 9</IbanNumber>
+    <ContactRemark>PostFinance</ContactRemark>
+    <ContactCity>Zürich</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Sonja Indin</Name>
+        <Instrument>voc</Instrument>
+        <Text>Absolviert an der ZhdK ihr Jazzgesangstudium bei Marianne Racine und erwirbt 2010 den Masterabschluss. Zudem je ein Semester in Basel bei Lisette Spinnler sowie am Royal Welsh College of Music and Drama bei Nia Lynn. 2011 erscheint ihre Debüt CD und 2015 leitet sie erfolgreich das Projekt ,Augen in der Grossstadt’, eine Tucholsky Hommage, mit gleichnamiger CD-Produktion.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>female</Gender>
+      </Musician>
+      <Musician>
+        <Name>Roman Tulei</Name>
+        <Instrument>p</Instrument>
+        <Text>In Moldawien geboren, beginnt es im Alter von acht Jahren mit dem Klavierspiel. Er geniesst eine klassische Pianistenausbildung am Musikkollegium in St. Neaga und später an der Musikhochschule G. Musicescu, wo er seine Ausbildung als professioneller Pianist 2003 abschliesst. Engagements als Solopianist führen ihn schliesslich in die Schweiz, wo er sich zu einem Studium an der HKB in Bern einschreibt. Der Pianist lebt in Zürich und arbeitet als Lehrer an der Musikschule Konservatorium Zürich.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Fridolin Blumer</Name>
+        <Instrument>b</Instrument>
+        <Text>Beginnt mit acht Jahren auf dem Cello und entdeckt das kammermusikalische Zusammenspiel, bevor er sieben Jahre später zum Kontrabass wechselt. Studium an der Musikhochschule Basel, Abteilung Jazz, bei Bänz Oester. Der Bassist spielt seit 2009 mit Sonja Indin, bereits auf ihrem Debütalbum ,Do You Know Me’ wirkt er mit.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Peter Preibisch</Name>
+        <Instrument>dr</Instrument>
+        <Text>Verbringt sieben Jahre in den USA, wo er in Boston (Berklee School of Music) sowie in New York (Manhattan School of Music) mit Master abschliesst. Während dieser Zeit spielt er u.a. mit Kurt Rosenwinkel, Roy Hargrove und Jason Moran. Zurück in der Schweiz als gefragter Schlagzeuger und Komponist in verschiedensten Projekten tätig - von Trio bis Big Band. Produzierte bislang drei CDs mit ,Peter’s Playstation’, u.a. hochkarätig besetzt mit Andy Scherrer, Michael Zisman und Andi Pupato.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 6 End  -->
+  <!--  Konzert 7 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>1</Month>
+    <Day>11</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Oliver Pellet Group feat. Seamus Blake</BandName>
+    <ShortText>Pandemie 2020, die Welt steht still, und inmitten des Erstaunens, der Angst und der Ungewissheit entsteht ein Bild der Menschheit auf einer völlig neuen Ebene: Der ganze Planet als ein lebendiges Wesen in voller Blüte eines neuen Lichts und als Botschaft des Friedens und der Hoffnung …</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250111_Oliver_Pellet_Blake/PlakatNewsletter20250111.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250111_Oliver_Pellet_Blake/PlakatNewsletter20250111_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250111_Oliver_Pellet_Blake/d20250111_Oliver_Pellet_Blake_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.oliverpellet.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250111_Oliver_Pellet_Blake/d20250111_Oliver_Pellet_Blake_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250111_Oliver_Pellet_Blake/d20250111_Oliver_Pellet_Blake_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Oliver Pellet Santos</ContactPerson>
+    <ContactEmail>oliver@oliverpellet.com</ContactEmail>
+    <ContactTelephone>+41 76 323 63 27</ContactTelephone>
+    <ContactStreet>Allmendstrasse 2</ContactStreet>
+    <ContactPostCode>4123</ContactPostCode>
+    <IbanNumber>CH92 0900 0000 2555 9872 8</IbanNumber>
+    <ContactRemark>PostFinance</ContactRemark>
+    <ContactCity>Allschwil</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Rodrigo Botter Maio</Name>
+        <Instrument>ss, fl</Instrument>
+        <Text>Musikhochschule Graz sowie Berklee College of Music heissen die Ausbildungsstationen des gebürtigen Brasilianers. Als Bandleader von verschiedensten Projekten spielt er mit namhaften Musikern an Festivals und Jazz Clubs im In- und Ausland, blickt auf mehrere CD-Aufnahmen mit diversen Bands, neun CDs unter eigenen Namen sowie zwei eigenen didaktischen Songbooks zurück.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Oliver Pellet</Name>
+        <Instrument>g</Instrument>
+        <Text>Der Gitarrist beginnt seine Karriere als Musiker zuhause in Brasilien, wo er an der Parana Universität in Curitiba den Bachelor in Musik erwirbt. Weitere Studien führen in nach New York und schliesslich an die Hochschule für Musik in Basel zu Wolfgang Muthspiel sowie weiteren der besten Lehrer der Jazz-Szene wie Guillermo Klein, Larry Grenadier, Domenic Landolf oder Malcolm Braff.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Simone Bollini</Name>
+        <Instrument>p</Instrument>
+        <Text>Nach klassischem Unterricht in Como fokussiert Bollini fortan auf Jazz und besucht die Musica Viva Jazz Workshops in Sondrio. Jazz Piano Diplom der Jazzschule Mailand, Master in Sound Design and Engineering am Polytechnikum Mailand sowie Studium am Conservatory of Music in Como. 2013 erlangt der Pianist den Master of Arts in Music an der Musik Akademie Basel.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Roberto Koch</Name>
+        <Instrument>b</Instrument>
+        <Text>Gilt als einer der vielseitigsten Bassisten Venezuelas. Seit Abschluss seiner Studien in Caracas spielt der auf dem akustischen Bass beeindruckend virtuose Musiker mit unzähligen der prominentesten Künstlern und Bands Venezuelas. Auch viele internationale Stars zählt er zu seinem Kundenkreis, namentlich Leute wie Paquito D’Rivera, Dave Kikoski, Mike Stern, Anat Cohen und viele mehr.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Alberto García</Name>
+        <Instrument>perc</Instrument>
+        <Text>Lebt in Basel und tritt mit verschiedenen Formationen in ganz Europa auf, sowohl auf der Bühne wie auch im Studio. Neben eigenen Projekten teilt er die internationale Bühne mit Chico Freeman, Jeff Ballard, Guillermo Klein oder Mark Turner, um nur einige zu nennen. García unterrichtet am Konservatorium Winterthur und dem Jazzcampus Basel.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Paulo Almeida</Name>
+        <Instrument>dr</Instrument>
+        <Text>Der brasilianische Schlagzeuger, Perkussionist und Komponist ist eine wichtige Referenz in der instrumentalen Musikszene seines Landes. Als Schlagzeuger drückt er sich in einzigartiger Weise durch melodische Kreation aus, wobei er nach verschiedenen Klangfarben sucht und eine starke afro-brasilianische rhythmische Beeinflussung zeigt. Nach Studien in São Paulo und Tatuí fand der Musiker 2019/2020 Eingang ins FocusYear-Programm an der Musikhochschule Basel unter der Leitung von Wolfgang Muthspiel.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Seamus Blake</Name>
+        <Instrument>ts</Instrument>
+        <Text>John Scofield, der ihn für seine Quiet Band engagiert, nennt seinen Musiker ,extraordinary, a total saxophonist’. Aufgewachsen im kanadischen Vancouver, wird der Saxofonist noch während seiner Studien am prestigeträchtigen Berklee College angefragt, um mit dem legendären Drummer Victor Lewis aufzunehmen. Nach Umzug in die Jazz-Hauptstadt etabliert sich Blake rasend schnell in der New Yorker Jazz-Szene und spielt mit allen, die dort was zu sagen haben. 2018 übersiedelt der mit Auszeichnungen überhäufte Mann nach Paris und ist so glücklicherweise regelmässig auf europäischen Bühnen zu hören.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 7 End  -->
+  <!--  Konzert 8 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>1</Month>
+    <Day>25</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Switalo Jazz</BandName>
+    <ShortText>Und weil das Quartett vor sechs Jahren so unglaublich eingefahren ist, möchten wir die Truppe um den Tausendsassa, Multiinstrumentalisten und Frontmann unserem Publikum nicht länger vorenthalten und heissen willkommen im DREAMLAND …</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250125_Switalo_Jazz/PlakatNewsletter20250125.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250125_Switalo_Jazz/PlakatNewsletter20250125_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250125_Switalo_Jazz/d20250125_Switalo_Jazz_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>http://www.luciomarelli.ch/switalojazz</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250125_Switalo_Jazz/d20250125_Switalo_Jazz_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250125_Switalo_Jazz/d20250125_Switalo_Jazz_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Lucio Marelli</ContactPerson>
+    <ContactEmail>elmarelli@gmail.com</ContactEmail>
+    <ContactTelephone>+41 78 679 00 01</ContactTelephone>
+    <ContactStreet>Jurastrasse 39</ContactStreet>
+    <ContactPostCode>4053</ContactPostCode>
+    <IbanNumber>CH36 0023 3233 6796 9840 Q</IbanNumber>
+    <ContactRemark>UBS</ContactRemark>
+    <ContactCity>Basel</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Attilio Troiano</Name>
+        <Instrument>ts, fl, voc</Instrument>
+        <Text>Der grosse italienische Trompeter Enrico Rava findet die treffendsten Worte: ‚Attilio ist ein einzigartiger Musiker. In meinem ganzen Leben habe ich noch nie einen Musiker wie ihn getroffen oder von einem reden gehört. Nicht nur beherrscht er hervorragend alle nur vorstellbaren Instrumente, er singt auch sehr gut und bewegt sich mit Leichtigkeit in allen musikalischen Stilen.’</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Simone Bollini</Name>
+        <Instrument>p</Instrument>
+        <Text>Wurde in Lugano geboren, lebt in Basel und arbeitet als Pianist und Klavierlehrer. Seine künstlerische und musikalische Aktivität konzentriert sich auf Jazz, wobei sein Fokus stets auf Konzerten, Studioaufnahmen und dem Komponieren liegt. Als Leader arbeitet er im eigenen Trio und Quartett. Ausbildung in Como, Mailand und Basel.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Giuseppe Venezia</Name>
+        <Instrument>p</Instrument>
+        <Text>Ein sehr gefragter Bassist in Italien, der dort regelmässig an vielen bedeutenden Festivals mit bekannten Jazzgrössen aus Europa und den USA spielt. Seine Qualitäten als Begleiter wurden schon von Musikern wie Emmet Cohen, Benny Bennack III, Peter Bernstein, Jerry Bergonzi und Enrico Rava sehr geschätzt. Zudem ist er künstlerischer Leiter des Festivals Basilijazz in Süditalien.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Lucio Marelli</Name>
+        <Instrument>dr</Instrument>
+        <Text>Der Initiator des Quartetts studierte Schlagzeug in Basel, wo er lebt und unterrichtet. Seine Konzerttätigkeit als Leader sowie als Sideman brachten ihn schon in viele Länder Europas und darüber hinaus. Er ist künstlerischer Leiter verschiedener Jazzkonzerte und -reihen. Seine italienischen Wurzeln bringen ihn immer wieder mit Musikern aus diesem Land zusammen und animierten ihn dazu, das Projekt ‚Switalo Jazz’ zu gründen.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 8 End  -->
+  <!--  Konzert 9 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>2</Month>
+    <Day>8</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Patrick Joray Quintet</BandName>
+    <ShortText>Namhafte Exponenten der hiesigen treffen auf Newcomer der internationalen Jazzszene. Beim Konvent der zwei verschiedenen Generationen entstehen musikalische Dialoge auf höchstem Niveau, gleichermassen inspiriert von Tradition und Moderne.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250208_Patrick_Joray_5/PlakatNewsletter20250208.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250208_Patrick_Joray_5/PlakatNewsletter20250208_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250208_Patrick_Joray_5/d20250208_Patrick_Joray_5_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.patrickjoray.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250208_Patrick_Joray_5/d20250208_Patrick_Joray_5_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250208_Patrick_Joray_5/d20250208_Patrick_Joray_5_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Patrick Joray</ContactPerson>
+    <ContactEmail>joray.patrick@bluewin.ch</ContactEmail>
+    <ContactTelephone>+41 79 889 13 44</ContactTelephone>
+    <ContactStreet>Lilienstrasse 1</ContactStreet>
+    <ContactPostCode>4563</ContactPostCode>
+    <IbanNumber>CH23 0026 2262 1191 7140 K</IbanNumber>
+    <ContactRemark>UBS</ContactRemark>
+    <ContactCity>Gerlafingen</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Oscar Latorre</Name>
+        <Instrument>tp</Instrument>
+        <Text>Schliesst 2018 den Bachelor an der Escola Superior de Música de Catalunya in Barcelona mit Auszeichnung ab. Bis anhin v.a. in der spanischen Jazzszene aktiv, wird er 2019 als Trompeter für das einjährige FocusYear-Programm am Jazzcampus in Basel ausgewählt. Momentan studiert er dort im Master of Performance bei Ambrose Akinmusire und Mark Turner. Seit 2021 als Dozent für Jazztrompete am ,Conservatori Liceu’ in Barcelona tätig.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Patrick Joray</Name>
+        <Instrument>ts</Instrument>
+        <Text>Nach Ukulele und Gitarre entdeckt der Teenager auf dem Sax seine Begeisterung für den Jazz und gründet zusammen mit seinem Bruder Silvan die Formation ,Joray Brothers Quartet/Quintet’. Nach der Matura absolviert er den Bachelor of Arts in Music am Jazzcampus in Basel, gewinnt 2021 eines der renommierten Friedl-Wald Stipendien, ist 2022 Preisträger des Kulturförderpreises Musik des Kantons Solothurn und erhält 2023 einen Förderpreis der ,Kurt und Barbara Alten-Stiftung’ aus Solothurn.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Michael Beck</Name>
+        <Instrument>p</Instrument>
+        <Text>Michael Beck hat sich schon früh am Klavier zu schaffen gemacht und spielt als Teenager in verschiedenen Bands. Nach einem Abstecher an die Uni wechselt er an die Swiss Jazz School zu Joe Haider, gewinnt 1992 in Perugia eines der begehrten Berklee-Stipendien und studiert dort Komposition und Klavier. Die folgenden zwei Jahre verbringt er in New York, wo er mehrmals wöchentlich auftritt. Seit seiner Rückkehr aus den USA ist der Pianist ein gern gesehener Gast auf den Bühnen sowohl der Schweiz als auch der benachbarten Länder.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Tobias Melcher</Name>
+        <Instrument>b</Instrument>
+        <Text>Der Österreicher startet seine musikalische Laufbahn bereits im Alter von sechs Jahren als Klavierschüler. Mit dreizehn wechselt er zum E-Bass und spielt erste Auftritte in Jazz- und Rockensembles. Seine Liebe zum Jazz führt ihn schliesslich zur Musikhochschule in Graz, wo er sich inzwischen auf dem Kontrabass zum fixen Bestandteil der Musikszene spielt. Um neue Erfahrungen zu sammeln und sich weiter zu entwickeln, zieht der Bassist 2020 nach Basel und beginnt sein Master-Studium bei Larry Grenadier.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Elmar Frey</Name>
+        <Instrument>dr</Instrument>
+        <Text>… und dann kommt Elmar, es vergeht einem Hören und Sehen, denn es groovt einfach ohne Ende :-)</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 9 End  -->
+  <!--  Konzert 10 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>2</Month>
+    <Day>22</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Seven Things</BandName>
+    <ShortText>Werden die Augen geschlossen, fühlt man sich in die Sechziger zurückversetzt, als das Quintett eines der einflussreichsten Trompeter und Bandleader als Mass aller Dinge galt. Seine Kunst war sowas von zeitlos, ist es bis heute geblieben und wird es wohl noch lange so bleiben.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250222_Seven_Things/PlakatNewsletter20250222.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250222_Seven_Things/PlakatNewsletter20250222_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250222_Seven_Things/d20250222_Seven_Things_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.klauskoenig.ch/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250222_Seven_Things/d20250222_Seven_Things_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250222_Seven_Things/d20250222_Seven_Things_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Klaus Koenig</ContactPerson>
+    <ContactEmail>klauskoenig@sunrise.ch</ContactEmail>
+    <ContactTelephone>+41 78 670 60 87</ContactTelephone>
+    <ContactStreet>Zürichholzstr. 5</ContactStreet>
+    <ContactPostCode>8057</ContactPostCode>
+    <IbanNumber>CH81 0483 5015 3852 1000 1</IbanNumber>
+    <ContactRemark>Credit Suisse</ContactRemark>
+    <ContactCity>Zürich</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Daniel Schenker</Name>
+        <Instrument>tp</Instrument>
+        <Text>Bekommt im Alter von zehn Jahren ersten Trompetenunterricht, studiert schliesslich an der Swiss Jazz School Bern bei Bert Joris, Tom Harrell, Wynton Marsalis und Malte Burba und erlangt dort sein Berufsdiplom. Als viel gefragter Side Man in Gross- und Kleinformationen hat der Zürcher Trompeter bisher an mehr als 50 CD-Einspielungen teilgenommen und ist heute Dozent an den Hochschulen der Künste in Zürich (ZhdK) und Bern (HKB).</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Christoph Merki</Name>
+        <Instrument>as</Instrument>
+        <Text>Besucht das Klostergymnasium in Einsiedeln und studiert anschliessend Geschichte an der Uni Zürich. Gleichzeitig absolviert er ein Studium an der Musikhochschule Luzern und schliesst es 1998 mit Auszeichnung ab. Ständiger redaktioneller Mitarbeiter im Kulturressort des Zürcher Tages-Anzeigers und seit 2001 Dozent für Musikgeschichte und Ensemble an der ZhdK.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Klaus Koenig</Name>
+        <Instrument>p</Instrument>
+        <Text>1964 überträgt ihm Radio SRF die Verantwortung für die Begleitung von Gastsolisten für die Konzertreihe ,Jazz Live’. Zusammen mit Isla Eckinger, Peter Frei, Peter Schmidlin und Pierre Favre ist er bis 1982 in über 100 Direktsendungen mit Solisten aus aller Welt zu hören, darunter vielen internationalen Stars wie Johnny Griffin, Lee Konitz, Sal Nistico, Franco Ambrosetti und vielen anderen.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Patrick Sommer</Name>
+        <Instrument>b</Instrument>
+        <Text>Studiert Kontra- sowie Elektrobass zuerst an der Swiss Jazz School in Bern, dann in Los Angeles und ist inzwischen einer der gefragtesten Bassisten der Schweizer Musikszene mit entsprechend grossem Band-Portfolio und umfangreicher Diskographie. Er lebt als freischaffender Musiker in Zürich, betreibt eine rege Konzerttätigkeit im In- und Ausland und wirkt als Spieler und Komponist bei Theater- und Tanzprojekten mit.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Andi Wettstein</Name>
+        <Instrument>dr</Instrument>
+        <Text>Ausbildung am Musicians Institute in Los Angeles sowie an der ZhdK. Eine ausgedehnte Konzerttätigkeit bringt ihn u.a. mit Franco Ambrosetti, Peter Madsen, Theo Kapiladis, Adrian Frey und Tobias Preisig zusammen. Unterrichtet neben seiner künstlerischen Tätigkeit an der Musikschule Staufen.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 10 End  -->
+  <!--  Konzert 11 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>3</Month>
+    <Day>8</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>PrismE</BandName>
+    <ShortText>Modern und europäisch präsentiert sich das erst vor drei Jahren auf der Westschweizer Jazzszene aufgetauchte Trio der Genfer Pianistin und entführt uns in ein verträumtes, luftiges und poetisches Universum mit Ohren flutenden, aufgeräumten Melodien und Texturen.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250308_PrismE/PlakatNewsletter20250308.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250308_PrismE/PlakatNewsletter20250308_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250308_PrismE/d20250308_PrismE_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://prisme-music.com/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250308_PrismE/d20250308_PrismE_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250308_PrismE/d20250308_PrismE_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Leïla Kramis</ContactPerson>
+    <ContactEmail>leila.kramis@gmail.com</ContactEmail>
+    <ContactTelephone>+41 78 793 50 72</ContactTelephone>
+    <ContactStreet>1a ch de Mon-soleil</ContactStreet>
+    <ContactPostCode>1202</ContactPostCode>
+    <IbanNumber>CH69 0900 0000 1286 7309 0</IbanNumber>
+    <ContactRemark>PostFinance (Verein ,Upside Down Music')</ContactRemark>
+    <ContactCity>Genève</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Leïla Kramis</Name>
+        <Instrument>p</Instrument>
+        <Text>Im Alter von sechs Jahren beginnt die spätere Bandleaderin am Institut Jacques Dalcroze in Genf sich in Solfège und Klavier unterrichten zu lassen und erhält dort ein erstes Zertifikat für klassisches Piano. In der Folge orientiert sie sich an aktueller Musik und spielt in diversen Rockformationen. Nach einem Jahr an der Jazzschule Berlin, wo sie jeweils die schulinternen Gesangsklassen begleitet, kehrt sie nach Genf zurück, erwirbt am AMR (Association pour l'encouragement de la Musique impRovisée) ihr Berufsdiplom in Jazzpiano sowie anschliessend den Masterabschluss in Pädagogik am Konservatorium. Nach kurzen Ausflügen zu französischem Chanson und R&amp;B verschreibt sie sich endgültig dem Jazz in all seinen Schattierungen sowie mit verschiedensten Besetzungen.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>female</Gender>
+      </Musician>
+      <Musician>
+        <Name>Stéphane Fisch</Name>
+        <Instrument>b</Instrument>
+        <Text>Macht als Elektrobassist in zahlreichen Formationen seine ersten Bühnenerfahrungen und tourt später mit Underground-Bands  durch Europa. Studien am Conservatoire Populaire de Musique de Genève sowie am AMR und Erwerb eines Zertifikats mit Auszeichnung 1998. Der junge Künstler wendet sich nun zielstrebig dem Kontrabass zu. Nach seiner Begegnung mit Archie Shepp nimmt er Privatunterricht beim Solisten des Orchestre de Lyon, Ferenc Bokany, und ist Teil der Master Classes von u.a. Miroslav Vitous.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Sylvain Fournier</Name>
+        <Instrument>dr</Instrument>
+        <Text>Vom Tambour in der lokalen Blaskapelle bis zu seinem ersten Konzert mit einer Speed Metal Band benötigt es vier Jahre - inklusive einiger Schlagzeuglektionen. Seine Jugend verbringt er mit Experimentieren durch Aufnehmen stundenlanger Musik und verrückter Geschichten. Bald wollen weitere Schlaginstrumente aus fernen Ländern gelernt werden, und zwar im direkten Kontakt mit Musikern aus diesen Kulturen. Des weiteren Gitarre, Ukulele, Mandoline, die singende Säge sowie zusätzliche Percussion - mehr oder weniger legal - hauptsächlich aber autodidaktisch, beim Proben mit Ensembles aller Stilrichtungen sowie in Theater- und Tanzaufführungen.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 11 End  -->
+  <!--  Konzert 12 Start  -->
+  <Concert>
+    <DayName>Samstag</DayName>
+    <Year>2025</Year>
+    <Month>3</Month>
+    <Day>22</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <ConcertCancelled>FALSE</ConcertCancelled>
+    <BandName>Raphael Jost Quintett</BandName>
+    <ShortText>Nachdem sein Trio als letzter von acht Gigs pandemiebedingt abgesagt werden musste, erwarten wir nun vier Jahre später das nigelnagelneue Quintett des bereits für sein Debut-Album mit dem Jazz Award ausgezeichneten Winterthurer Pianisten und Sängers.</ShortText>
+    <AdditionalText>NotYetSetNodeValue</AdditionalText>
+    <LabelAdditionalText>NotYetSetNodeValue</LabelAdditionalText>
+    <FlyerTextHomepagePublish>TRUE</FlyerTextHomepagePublish>
+    <LabelFlyerText>NotYetSetNodeValue</LabelFlyerText>
+    <FlyerText>NotYetSetNodeValue</FlyerText>
+    <PosterBigSize>NotYetSetNodeValue</PosterBigSize>
+    <PosterMidSize>PlakateFlyersBilletsVorlagen/d20250322_Raphael_Jost_5/PlakatNewsletter20250322.jpg</PosterMidSize>
+    <PosterSmallSize>PlakateFlyersBilletsVorlagen/d20250322_Raphael_Jost_5/PlakatNewsletter20250322_Klein.jpg</PosterSmallSize>
+    <SoundSample>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250322_Raphael_Jost_5/d20250322_Raphael_Jost_5_Sound_Sample.mp3</SoundSample>
+    <BandWebsite>https://www.raphaeljost.ch/</BandWebsite>
+    <SoundSampleQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250322_Raphael_Jost_5/d20250322_Raphael_Jost_5_Sound_QR_code.png</SoundSampleQrCode>
+    <BandWebsiteQrCode>https://jazzliveaarau.ch/PlakateFlyersBilletsVorlagen/d20250322_Raphael_Jost_5/d20250322_Raphael_Jost_5_Website_QR_code.png</BandWebsiteQrCode>
+    <PhotoGalleryOne>NotYetSetNodeValue</PhotoGalleryOne>
+    <PhotoGalleryTwo>NotYetSetNodeValue</PhotoGalleryTwo>
+    <PhotoGalleryOneZip>NotYetSetNodeValue</PhotoGalleryOneZip>
+    <PhotoGalleryTwoZip>NotYetSetNodeValue</PhotoGalleryTwoZip>
+    <ContactPerson>Raphael Jost</ContactPerson>
+    <ContactEmail>mail@raphaeljost.ch</ContactEmail>
+    <ContactTelephone>+41 79 662 12 62</ContactTelephone>
+    <ContactStreet>Obere Schöntalstrasse 46</ContactStreet>
+    <ContactPostCode>8406</ContactPostCode>
+    <IbanNumber>CH47 0900 0000 8509 2840 5</IbanNumber>
+    <ContactRemark>PostFinance</ContactRemark>
+    <ContactCity>Winterthur</ContactCity>
+    <LoginPassword>musiker</LoginPassword>
+    <Musicians>
+      <Musician>
+        <Name>Bastien Rieser</Name>
+        <Instrument>tp, flgh</Instrument>
+        <Text>Die Musik des deutschen Jazztrompeters führt ihn neben Europa nach Afrika, Asien und in die USA, wo er 2020 sein Studium am Berklee College of Music in Boston mit ,summa cum laude’ absolviert - als nur einer von zwei internationalen Studenten mit ,Presidential Scholarship’, einem erweiterten Vollstipendium. Spielte u.a. mit Gary Burton, Bill Frisell, Dick Oatts, Michael Gibbs sowie dem Jazz at Lincoln Center Orchestra.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Alex Hendriksen</Name>
+        <Instrument>ts</Instrument>
+        <Text>Der Basler beginnt seine musikalische Laufbahn auf der Querflöte und entdeckt als Teenager das Sax. Mit einem Stipendium des Berklee College of Music zieht er nach Boston, um dort zu studieren. Zurück in der Schweiz, arbeitet der vielseitige Saxofonist mit Bands unterschiedlichster Genres und gilt als einer der stilsichersten und groovigsten Tenoristen der Schweiz. Nach Udo Jürgens, Dave Grusin und Quincy Jones steht er aktuell für Patent Ochsner oder Pepe Lienhard auf der Bühne.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Raphael Jost</Name>
+        <Instrument>voc, p</Instrument>
+        <Text>Elton John oder Michael Jackson spielte er am liebsten auf dem Klavier nach und hätte nie für möglich gehalten, mal seine Liebe zum Jazz zu finden. Erst der britische Sänger und Pianist Jamie Cullum und dessen Mix aus Jazz und Pop eröffnet dem damals 18-Jährigen eine neue musikalische Welt und führt ihn schliesslich zu einem ZHdK-Studium.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Raphael Walser</Name>
+        <Instrument>b</Instrument>
+        <Text>Schon ab Geburt hat er täglich Musik um die Ohren und beginnt als 4-jähriger mit Klavierunterricht - dann Kontrabass und später Studium an der ZhdK. Neben seiner eigenen sowie bereits mehrfach ausgezeichneten Band GangArt ist der Bassist fester Bestandteil verschiedener Rhythm Sections und spielt als gefragter Sideman an renommierten Jazzfestivals.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+      <Musician>
+        <Name>Luke Tomlinson</Name>
+        <Instrument>dr</Instrument>
+        <Text>Der Schlagzeuger, Bandleader und Pädagoge aus London erwirbt an der Royal Academy of Music den First Class Honours Degree, etabliert sich als einer der gefragtesten jungen Musiker in der Metropole und tritt regelmäßig an renommierten Veranstaltungsorten in Großbritannien auf. Dazu gehören die Royal Festival Hall, die Birmingham Symphony Hall, der Ronnie Scott's Jazz Club, das Jazz Café Camden sowie eine Reihe von Auftritten bei BBC Radio 2 und Radio 3.</Text>
+        <BirthYear>NotYetSetNodeValue</BirthYear>
+        <Gender>male</Gender>
+      </Musician>
+    </Musicians>
+  </Concert>
+  <!--  Konzert 12 End  -->
+</Saison>

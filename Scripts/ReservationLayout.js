@@ -72,17 +72,15 @@ function createUploadLayoutFiles()
 
     var result_server_directory_name = g_layout_server_dir_text_box.getValue();
 
-    var reservation_layout_full_path = 'https://jazzliveaarau.ch/Reservation/Layout/'; 
+    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
 
     var path_file_name = reservation_layout_full_path + result_server_directory_name + '/' + layout_case + '.htm';
-
-    var path_file_name_relative = result_server_directory_name + '/' + layout_case + '.htm';
 
     var layout_html = new LayoutHtml(g_layout_xml, layout_case);
 
     var layout_html_code = layout_html.get();
 
-    UtilServer.saveFileCallback(path_file_name_relative, layout_html_code, afterSaveHtml)
+    UtilServer.saveFileCallback(path_file_name, layout_html_code, afterSaveHtml)
 
 } // createUploadLayoutFiles
 

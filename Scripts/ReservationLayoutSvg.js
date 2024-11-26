@@ -833,7 +833,7 @@ class TableSvg
 
         var n_groups = group_data_array.length;
 
-        n_groups = 2; // QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ  Temp
+        // n_groups = 2; // QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ  Temp
 
         for (var index_group=0; index_group < n_groups; index_group++)
         {
