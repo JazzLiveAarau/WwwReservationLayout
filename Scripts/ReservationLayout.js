@@ -80,6 +80,10 @@ function createUploadLayoutFiles()
 
     var layout_html_code = layout_html.get();
 
+    // The HTML file has to exist. If not the file is not writable. 
+    // This is checked by UtilServerSaveFile.php.
+    // Solution remove check or copy start HTML file TODO
+
     UtilServer.saveFileCallback(path_file_name, layout_html_code, afterSaveHtml)
 
 } // createUploadLayoutFiles

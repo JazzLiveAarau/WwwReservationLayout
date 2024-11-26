@@ -104,8 +104,8 @@
       <SeatThreeRight>true</SeatThreeRight>
       <SeatFourRight>true</SeatFourRight>
       <SeatFiveRight>true</SeatFiveRight>	
-      <SeatUpper>true</SeatUpper>
-      <SeatLower>true</SeatLower>	  
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
       <Text>Erster Tisch links am Fenster</Text>
     </Table>
   </TableGroup>
@@ -128,8 +128,8 @@
       <SeatThreeRight>true</SeatThreeRight>
       <SeatFourRight>true</SeatFourRight>
       <SeatFiveRight>true</SeatFiveRight>	
-      <SeatUpper>true</SeatUpper>
-      <SeatLower>true</SeatLower>	  
+      <SeatUpper>false</SeatUpper>
+      <SeatLower>false</SeatLower>	  
       <Text>Tisch Reihe Mitte Vorne</Text>
     </Table>
   </TableGroup>

@@ -990,8 +990,8 @@ class TableData
 
        this.setSeatDataFromXml(this.m_number_left_right_seats, this.m_table_number);
 	      
-	   this.m_seat_upper = this.m_layout_xml.getTableSeatUpper(this.m_table_number);
-	   this.m_seat_lower = this.m_layout_xml.getTableSeatLower(this.m_table_number);
+	   this.m_seat_upper = TableData.booleanStringToBoolean(this.m_layout_xml.getTableSeatUpper(this.m_table_number));
+	   this.m_seat_lower = TableData.booleanStringToBoolean(this.m_layout_xml.getTableSeatLower(this.m_table_number));
 	   this.m_text = this.m_layout_xml.getTableText(this.m_table_number);
 	   
     } // setDataFromXml
