@@ -1,0 +1,514 @@
+/* 
+File: ReservationLayout.css Date: 2024-11-12
+
+Author: Gunnar Liden
+
+General information
+====================
+
+Defines all style classes for the application reservation layout
+
+*/
+
+/* The whole page */
+.cl_div_layout_page
+{
+    border: solid 2px blue;
+    font-family: 'Arial';
+    font-size: 15px;
+    font-weight: bold;
+    width: 350px;
+    margin-top: 20px;
+    margin-left: 20px;
+
+    min-height: 420px;
+}
+
+
+/* Text logo <div> element */
+.cl_div_layout_text_logo
+{
+    /* border: solid 2px yellow; */
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;   
+    width: 100%;
+}
+
+/* For all <label> elements */
+label
+{
+    margin-left: 10px;
+}
+
+.cl_div_layout_result_dir
+{
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_rectangular_table_dropdown
+{
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_round_table_dropdown
+{
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_premises_door_dropdown
+{
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_layout_button_row_one
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;
+}
+
+.cl_div_layout_button_row_two
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;
+}
+
+.cl_div_layout_bottom_row
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;
+}
+
+
+.cl_div_layout_button_one
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_two
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_three
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_four
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_five
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_six
+{
+    margin-left: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_seven
+{
+    margin-right: 3%;
+    float: right;
+}
+
+.cl_div_layout_button_cancel
+{
+    margin-right: 3%;
+    float: right;
+}
+
+.cl_div_layout_button_save
+{
+    margin-right: 3%;
+    float: right;
+}
+
+/* For some <button> elements */
+button
+{
+    border: solid 2px black;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 95%;
+}
+
+
+
+.cl_div_guestbook_title_info
+{
+    /* border: solid 1px yellow; */
+    clear: both;
+}
+
+.cl_div_guestbook_title
+{
+     /* border: solid 1px white; */
+     margin-left: 10%;
+    font-size: 15px;
+    width: 78%;
+    float: left;
+}
+
+.cl_div_guestbook_info
+{
+    /* border: solid 1px white; */
+    text-align: right;
+    padding-right: 6px;
+    width: 8%;
+    float: right;
+    cursor: pointer;
+}
+
+.cl_div_button_contact
+{
+    /* border: solid 1px yellow; */
+    margin-top: 70px;
+    clear: both;
+}
+
+.cl_div_button_contact button
+{
+    background-color: white;
+}
+
+.cl_div_container_contact
+{
+    /* border: solid 1px yellow; */
+    padding-left: 25px;
+    overflow: hidden;
+    clear: both;
+}
+
+.cl_div_contact_textbox_from
+{
+    /* border: solid 1px green; */
+    margin-top: 5px;
+    clear: both;    
+}
+
+.cl_div_contact_textbox_mail
+{
+    /* border: solid 1px green; */
+    margin-top: 5px;
+    clear: both;    
+}
+
+.cl_div_contact_dropdown_case
+{
+    /* border: solid 1px green; */
+    margin-top: 10px;
+    clear: both;    
+}
+
+.cl_div_contact_textbox_last_rec
+{
+    /* border: solid 1px green; */
+    margin-top: 10px;
+    overflow: hidden;
+    clear: both;    
+}
+
+.cl_div_contact_textarea_message
+{
+    /* border: solid 1px green; */
+    margin-top: 10px;
+    clear: both;    
+}
+
+.cl_div_contact_buttons_cancel_send
+{
+    /* border: solid 1px green; */
+    margin-top: 15px;
+    padding-right: 15px;
+    overflow: hidden;
+    clear: both;       
+}
+
+.cl_div_contact_button_cancel
+{
+    /* border: solid 1px green; */
+    width: 40%;
+    float: left;     
+}
+
+.cl_div_contact_button_send
+{
+    /* border: solid 1px green; */
+    width: 40%;
+    float: right;     
+}
+
+.cl_jazz_notes_title
+{
+    clear: both;
+}
+
+/* Image <img> Elemente in <div> element logo */
+.cl_jazz_notes_title img
+{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.cl_div_upload_names_email_code
+{
+    /*  border: solid 1px black; */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;   
+    clear: both;    
+}
+
+.cl_div_upload_names
+{
+    /* border: solid 1px yellow; */
+    margin-bottom: 10px;
+    clear: both;    
+}
+
+.cl_div_upload_names input
+{
+    font-weight: bold;
+}
+
+.cl_div_upload_email
+{
+    /* border: solid 1px yellow; */
+    clear: both;    
+}
+
+
+.cl_div_upload_email input
+{
+    font-weight: bold;
+}
+
+.cl_div_upload_button_code
+{
+    /* border: solid 1px yellow; */
+    clear: both;    
+}
+
+.cl_div_upload_code
+{
+    /* border: solid 1px yellow; */
+    overflow: hidden;
+    clear: both;    
+}
+
+.cl_div_upload_code_cell_one
+{
+    /* border: solid 1px green; */
+    min-width: 30px;
+    margin-left: 5px;
+    float: left;
+}
+
+.cl_div_upload_code_cell
+{
+    /* border: solid 1px blue; */
+    padding-top: 16px;
+    min-width: 30px;
+    margin-left: 5px;
+    float: left;
+}
+
+.cl_div_upload_code_cell_one input
+{
+    font-weight: bold;
+    text-align: center;
+}
+
+.cl_div_upload_code_cell input
+{
+    font-weight: bold;
+    text-align: center;
+}
+
+.cl_div_upload_button_send
+{
+    /* border: solid 1px yellow; */
+    margin-top: 5px;
+    clear: both;    
+}
+
+.cl_div_start_instructions
+{
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center; 
+    padding: 10px;
+    clear: both;    
+}
+
+/* Alternative start instructions with a picture  */
+.cl_div_upload_icon
+{
+    clear: both;   
+}
+
+.cl_div_upload_icon img
+{
+    margin-top: 5px;
+    margin-left: 2px;
+    width: 320px;
+}
+
+.cl_div_upload_container_part_two
+{
+    /* border: solid 1px red; */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    overflow: hidden;   
+    clear: both;    
+}
+
+
+.cl_div_upload_button_back_forward_part_two
+{
+    /* border: solid 1px green; */
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_upload_button_back_part_two
+{
+    /* border: solid 1px yellow; */
+    margin-left: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    float: left;
+}
+
+.cl_div_upload_button_forward_part_two
+{
+    /* border: solid 1px yellow; */
+    margin-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    float: right;
+}
+
+.cl_div_upload_button_back_part_three
+{
+    /* border: solid 1px yellow; */
+    margin-left: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    float: left;
+}
+
+.cl_div_upload_button_forward_part_three
+{
+    /* border: solid 1px yellow; */
+    margin-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    float: right;
+}
+
+
+.cl_div_upload_texts
+{
+    /* border: solid 1px black; */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;   
+    clear: both;    
+}
+
+.cl_div_upload_button_back_forward_part_three
+{
+    /* border: solid 1px green; */
+    overflow: hidden;   
+    clear: both;
+}
+
+/* For part two <button> elements */
+.cl_div_upload_container_part_two button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 110px;
+}
+
+/* For part three <button> elements */
+.cl_div_upload_texts button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 110px;
+}
+
+.cl_div_upload_texts_concert
+{
+    margin-top: 10px;
+    clear: both;
+}
+
+.cl_div_upload_texts_concert select
+{
+    font-size: 15px;
+}
+
+.cl_div_upload_texts_title
+{
+    margin-top: 10px;
+    clear: both;
+}
+
+.cl_div_upload_texts_text
+{
+    margin-top: 10px;
+    clear: both;
+}
+
+.cl_div_upload_texts_remark
+{
+    margin-top: 10px;
+    clear: both;
+}
+
+.cl_div_upload_image_text
+{
+    min-height: 30px;
+    clear: both;    
+}
+
