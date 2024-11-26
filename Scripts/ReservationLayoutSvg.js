@@ -1067,6 +1067,22 @@ class TableSvg
         
     } // twoSeats
 
+    // Returns the circle (seat) event function
+    circleEventFunction(i_table_number, i_seat_character)
+    {
+        var mouse_down_str = 'onmousedown=';
+
+        var function_name = 'EventMouseDown';
+
+        var table_number_str = i_table_number.toString();
+
+        var ret_str = ' ' + mouse_down_str + '"' + function_name + '(' +
+                     table_number_str + ', ' + i_seat_character + ')' + '"' + ' ';
+
+        return ret_str;
+
+    } // circleEventFunction
+
     // Returns SVG code for one seat (circle) if it shall be created
     oneSeat(i_b_create_seat, i_circle_coordinate_x_pixel, i_circle_coordinate_y_pixel, i_circle_radius_pixel, i_seat_character, i_table_side, i_table_number)
     {
@@ -1078,9 +1094,11 @@ class TableSvg
         }
         
         var circle_id_str =  i_table_number + "_" + i_seat_character;
+
+        var cir_event_str = this.circleEventFunction(i_table_number, i_seat_character);
             
         var cir_svg = LayoutSvg.tab(3) + '<circle ' + ' cx=' + i_circle_coordinate_x_pixel + ' cy=' + i_circle_coordinate_y_pixel + ' r=' + i_circle_radius_pixel 
-                    + ' id="' + circle_id_str + '" ' + LayoutSvg.styleCursorPointer() 
+                    + ' id="' + circle_id_str + '" '  + cir_event_str + LayoutSvg.styleCursorPointer()
                     + '  stroke=' + this.m_color_seat_circle +' stroke-width="4"  fill="' + this.m_fill_color_circle + '"/>';
 
         one_cir_svg = one_cir_svg + cir_svg + '\n';
