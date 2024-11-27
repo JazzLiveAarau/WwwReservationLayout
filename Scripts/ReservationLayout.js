@@ -76,7 +76,7 @@ function createUploadLayoutFiles()
 
     var path_file_name = reservation_layout_full_path + result_server_directory_name + '/' + layout_case + '.htm';
 
-    var layout_html = new LayoutHtml(g_layout_xml, layout_case);
+    var layout_html = new LayoutHtml(g_layout_xml, result_server_directory_name, layout_case);
 
     var layout_html_code = layout_html.get();
 
