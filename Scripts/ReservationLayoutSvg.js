@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-11-25
+// Date: 2024-11-27
 // Authors: Gunnar Lidén
 
 // Content
@@ -60,7 +60,7 @@ class LayoutSvg
 
         this.m_svg_code = '';
 
-        this.m_svg_code = this.m_svg_code + LayoutSvg.tab(2) + this.startLineSvg();
+        this.m_svg_code = this.m_svg_code + LayoutSvg.tab(3) + this.startLineSvg();
 
         var premises_svg = new PremisesSvg(this.m_layout_xml, this.m_scale_dimension);
 
@@ -84,7 +84,7 @@ class LayoutSvg
 
 
  
-        this.m_svg_code = this.m_svg_code + LayoutSvg.tab(2) + this.endLineSvg();
+        this.m_svg_code = this.m_svg_code + LayoutSvg.tab(3) + this.endLineSvg();
 
     } // execute
 
@@ -284,7 +284,7 @@ class PremisesSvg
         var premises_svg = '';
         
         // Rectangle defining the premises
-        var rectangle_svg = LayoutSvg.tab(3) + '<rect width=' + premises_width_pixel + ' height=' + premises_height_pixel +  ' />';
+        var rectangle_svg = LayoutSvg.tab(4) + '<rect width=' + premises_width_pixel + ' height=' + premises_height_pixel +  ' />';
         premises_svg = premises_svg + rectangle_svg + '\n';
      
         // Position and dimension of the left wall	
@@ -294,7 +294,7 @@ class PremisesSvg
         var wall_left_height_pixel = premises_height_pixel;
        
         // Rectangle defining the left wall
-        rectangle_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + wall_left_x_pixel + ' y=' + wall_left_y_pixel
+        rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_left_x_pixel + ' y=' + wall_left_y_pixel
           + ' width=' + wall_left_width_pixel + ' height=' + wall_left_height_pixel     
           + this.m_style_wall +  ' />';
         premises_svg = premises_svg + rectangle_svg + '\n';
@@ -306,7 +306,7 @@ class PremisesSvg
         var wall_right_height_pixel = premises_height_pixel;
     
         // Rectangle defining the right wall
-        rectangle_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + wall_right_x_pixel + ' y=' + wall_right_y_pixel
+        rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_right_x_pixel + ' y=' + wall_right_y_pixel
           + ' width=' + wall_right_width_pixel + ' height=' + wall_right_height_pixel     
           + this.m_style_wall +  ' />';
         premises_svg = premises_svg + rectangle_svg + '\n';   
@@ -318,7 +318,7 @@ class PremisesSvg
         var wall_upper_height_pixel = 3*wall_thickness_pixel;
     
         // Rectangle defining the upper wall (color black)	
-        rectangle_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + wall_upper_x_pixel + ' y=' + wall_upper_y_pixel
+        rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_upper_x_pixel + ' y=' + wall_upper_y_pixel
           + ' width=' + wall_upper_width_pixel + ' height=' + wall_upper_height_pixel     
           + this.m_style_wall_black +  ' />';
         premises_svg = premises_svg + rectangle_svg + '\n'; 	  
@@ -330,7 +330,7 @@ class PremisesSvg
         var wall_lower_height_pixel = wall_thickness_pixel;
     
         // Rectangle defining the lower wall
-        rectangle_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + wall_lower_x_pixel + ' y=' + wall_lower_y_pixel
+        rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_lower_x_pixel + ' y=' + wall_lower_y_pixel
           + ' width=' + wall_lower_width_pixel + ' height=' + wall_lower_height_pixel     
           + this.m_style_wall +  ' />';
         premises_svg = premises_svg + rectangle_svg + '\n';
@@ -340,7 +340,7 @@ class PremisesSvg
         var jazz_text_y_pixel = wall_upper_y_pixel + wall_upper_height_pixel - parseInt(wall_upper_height_pixel*0.96);
         
         // JAZZ live AARAU text object
-        var text_svg = LayoutSvg.tab(3) + '<text x=' + jazz_text_x_pixel + ' y=' + jazz_text_y_pixel + 
+        var text_svg = LayoutSvg.tab(4) + '<text x=' + jazz_text_x_pixel + ' y=' + jazz_text_y_pixel + 
                   LayoutSvg.fontBig() + LayoutSvg.colorJazzLiveAarau() + '>' + 
                   organizer_name + '</text>';
         // premises_svg = premises_svg + text_svg + '\n';   
@@ -349,12 +349,21 @@ class PremisesSvg
         var image_height = '40px';
         var image_file = organizer_text_logo;
         
-        var image_svg = LayoutSvg.tab(3) + '<image x= ' + jazz_text_x_pixel + ' y= ' + jazz_text_y_pixel + 
+        var image_svg = LayoutSvg.tab(4) + '<image x= ' + jazz_text_x_pixel + ' y= ' + jazz_text_y_pixel + 
                         ' width=' + image_width + ' height=' + image_height + 
                         ' xlink:href=' +image_file + '>' +
                         ' <title>'+ organizer_name +' Text Logo</title> ' + 
                         ' </image>';	
         premises_svg = premises_svg + image_svg + '\n'; 
+/*
+   Missing element
+        <rect x="670" y="5" width="220" height="29" id="button_send_email" onmousedown="mouseDownSendEmailOrMakeReservation(  )" style="cursor: pointer;fill:white;stroke-width:1;stroke:black"></rect>
+        <image id="text_image_send_email" onmousedown="mouseDownSendEmailOrMakeReservationText(  )" x="680" y="6" width="168px" height="26px" xlink:href="text_reserve_select_undef.png" style="cursor: pointer; "> <title>Sitzplätze reservieren: 
+        Die Reservation wird registriert und eine Bestätigungs-E-Mail wird gesendet.</title>  </image>
+
+*/
+
+
 
         this.m_svg_code = premises_svg;
  
@@ -440,7 +449,7 @@ class StageSvg
         var state_svg = '';
 
         // Draw the rectangle representing the stage defined by a relative value
-        var rect_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + stage_upper_left_x_pixel + ' y=' + stage_upper_left_y_pixel
+        var rect_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + stage_upper_left_x_pixel + ' y=' + stage_upper_left_y_pixel
         + ' width=' + stage_width_pixel + ' height=' + stage_height_pixel     
         + ' style="fill:' + stage_color + ';stroke-width:' + stage_stroke_width + ';stroke:' + stage_stroke_color + '"' +  ' />';
         // state_svg = state_svg + rect_svg + '\n';
@@ -462,7 +471,7 @@ class StageSvg
         var text_y_pixel = parseInt(text_y*this.m_scale_dimension);
 
         // Stage text object
-        var text_svg = LayoutSvg.tab(3) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel 
+        var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel 
                     + LayoutSvg.fontBig() + stage_text_color + 
                     '>' + stage_text + '</text>';
         // state_svg = state_svg + text_svg + '\n';
@@ -471,7 +480,7 @@ class StageSvg
         var image_x_pixel = stage_upper_left_x_pixel + 8;
         var image_y_pixel = stage_upper_left_y_pixel - 25;
                         
-        var stage_image_svg = LayoutSvg.tab(3) + '<image x= ' + image_x_pixel + ' y= ' + image_y_pixel + 
+        var stage_image_svg = LayoutSvg.tab(4) + '<image x= ' + image_x_pixel + ' y= ' + image_y_pixel + 
                         ' width=' + stage_image_width + ' height=' + stage_image_height + 
                         ' xlink:href=' + stage_image + '>' +
                         ' <title>Bühne</title> ' + 
@@ -549,7 +558,7 @@ class CashierSvg
         var cashier_svg = '';
 
         // Cash desk image object	
-        var cashier_image_svg = LayoutSvg.tab(3) + '<image x= ' + cashier_upper_left_x_pixel + ' y= ' + cashier_upper_left_y_pixel + 
+        var cashier_image_svg = LayoutSvg.tab(4) + '<image x= ' + cashier_upper_left_x_pixel + ' y= ' + cashier_upper_left_y_pixel + 
                         ' width=' + cashier_image_width + ' height=' + cashier_image_height + 
                         ' xlink:href=' + cashier_image + '>' +
                         ' <title>Kasse</title> ' + 
@@ -693,7 +702,7 @@ class DoorSvg
             var right_image_x_pixel = premises_width_pixel - 2 * wall_thickness_pixel;
             var right_image_y_pixel = door_position_pixel;
                         
-            var right_image_svg = LayoutSvg.tab(3) + '<image x= ' + right_image_x_pixel + ' y= ' + right_image_y_pixel + 
+            var right_image_svg = LayoutSvg.tab(4) + '<image x= ' + right_image_x_pixel + ' y= ' + right_image_y_pixel + 
                         ' width=' + door_image_width_pixel + ' height=' + door_image_height_pixel + 
                         ' xlink:href=' + door_image + '>' +
                         ' <title>Tür</title> ' + 
@@ -729,7 +738,7 @@ class DoorSvg
             var lower_image_x_pixel = lower_coordinate_x_pixel;
             var lower_image_y_pixel = lower_coordinate_y_pixel - wall_thickness_pixel;
                         
-            var lower_image_svg = LayoutSvg.tab(3) + '<image x= ' + lower_image_x_pixel + ' y= ' + lower_image_y_pixel + 
+            var lower_image_svg = LayoutSvg.tab(4) + '<image x= ' + lower_image_x_pixel + ' y= ' + lower_image_y_pixel + 
                         ' width=' + door_image_width_pixel + ' height=' + door_image_height_pixel + 
                         ' xlink:href=' + door_image + '>' +
                         ' <title>Tür</title> ' + 
@@ -914,7 +923,7 @@ class TableSvg
         var table_upper_left_x_pixel = parseInt(i_upper_left_x*this.m_scale_dimension); 
         var table_upper_left_y_pixel = parseInt(i_upper_left_y*this.m_scale_dimension);
     
-        var rect_svg = LayoutSvg.tab(3) + '<rect ' + ' x=' + table_upper_left_x_pixel + ' y=' + table_upper_left_y_pixel
+        var rect_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + table_upper_left_x_pixel + ' y=' + table_upper_left_y_pixel
                         + ' width=' + table_width_pixel + ' height=' + table_height_pixel     
                         + ' style="fill:' + this.m_color + ';stroke-width:' + this.m_stroke_width + ';stroke:' + this.m_stroke_color + '"' +  ' />';
 
@@ -945,7 +954,7 @@ class TableSvg
         var text_x_pixel = parseInt(text_x*this.m_scale_dimension);
         var text_y_pixel = parseInt(text_y*this.m_scale_dimension);
     
-        var text_svg = LayoutSvg.tab(3) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' fill=' + 
+        var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' fill=' + 
             this.m_text_color + '>' + i_table_number + '</text>';
 
         table_text_svg = table_text_svg + text_svg;
@@ -1097,7 +1106,7 @@ class TableSvg
 
         var cir_event_str = this.circleEventFunction(i_table_number, i_seat_character);
             
-        var cir_svg = LayoutSvg.tab(3) + '<circle ' + ' cx=' + i_circle_coordinate_x_pixel + ' cy=' + i_circle_coordinate_y_pixel + ' r=' + i_circle_radius_pixel 
+        var cir_svg = LayoutSvg.tab(4) + '<circle ' + ' cx=' + i_circle_coordinate_x_pixel + ' cy=' + i_circle_coordinate_y_pixel + ' r=' + i_circle_radius_pixel 
                     + ' id="' + circle_id_str + '" '  + cir_event_str + LayoutSvg.styleCursorPointer()
                     + '  stroke=' + this.m_color_seat_circle +' stroke-width="4"  fill="' + this.m_fill_color_circle + '"/>';
 
@@ -1108,12 +1117,12 @@ class TableSvg
         if ("left" == i_table_side)
         {
             text_x_pixel = text_x_pixel + 2*i_circle_radius_pixel;
-            text_y_pixel = text_y_pixel + 4
+            text_y_pixel = text_y_pixel + 4;
         }
         else if ("right" == i_table_side)
         {
             text_x_pixel = text_x_pixel - 2*i_circle_radius_pixel - 8;
-            text_y_pixel = text_y_pixel + 4
+            text_y_pixel = text_y_pixel + 4;
         }
         else if ("upper" == i_table_side)
         {
@@ -1128,7 +1137,7 @@ class TableSvg
         
         var circle_text_id_str =  "cir_text_" + i_table_number + "_" + i_seat_character;
         
-        var text_svg = LayoutSvg.tab(3) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' id="' + circle_text_id_str + '" ' + 
+        var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' id="' + circle_text_id_str + '" ' + 
                         ' fill=' + TableSvg.tableText + '>' + i_seat_character + '</text>';
 
         one_cir_svg = one_cir_svg + text_svg + '\n';

@@ -288,24 +288,42 @@ class LayoutBody
 
     } // constructor
 
-    // Create (construct) the HTML code for the bpdy section <head>
+    // Create (construct) the HTML code for the body section <head>
     execute()
     {
         this.m_html_body_code = ''; 
 
-        this.m_html_body_code = this.m_html_body_code + LayoutHtml.tab(1) + this.startString() + LayoutHtml.endRow();
+        this.m_html_body_code = this.m_html_body_code + this.startString();
 
         this.m_html_body_code = this.m_html_body_code + this.setXml();
 
+        this.m_html_body_code = this.m_html_body_code + this.startTableTbody();
+
+        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
+
+        this.m_html_body_code = this.m_html_body_code + this.divSearch();
+
+        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
+
+        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
+
+        this.m_html_body_code = this.m_html_body_code + this.divSelectConcert();
+
+        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
+
+        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
+
         var layout_svg = new LayoutSvg(this.m_layout_xml);
 
-        var layout_svg_code = layout_svg.get();
+        var layout_svg_code = layout_svg.get() + LayoutHtml.endRow();
 
-        this.m_html_body_code = this.m_html_body_code + layout_svg_code + LayoutHtml.endRow();
+        this.m_html_body_code = this.m_html_body_code + layout_svg_code;
 
+        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
 
+        this.m_html_body_code = this.m_html_body_code + this.endTableTbody();
 
-        this.m_html_body_code = this.m_html_body_code + LayoutHtml.tab(1) + LayoutBody.endString() + LayoutHtml.endRow();        
+        this.m_html_body_code = this.m_html_body_code + this.endString();        
 
 
     } // execute
@@ -325,6 +343,10 @@ class LayoutBody
 
         xml_str = xml_str + LayoutHtml.tab(3) + '// XML file defining the layout of the concert premises' + LayoutHtml.endRow();
 
+        xml_str = xml_str + LayoutHtml.tab(3) + '// This global variable was previously defined in the file ReservationSalmen.js' + LayoutHtml.endRow();
+
+        xml_str = xml_str + LayoutHtml.tab(3) + '// This file ReservationSalmen.js is no longer included in the <head> section' + LayoutHtml.endRow();
+
         xml_str = xml_str + LayoutHtml.tab(3) + 'g_url_file_layout_xml = "XML/' + this.m_output_dir + '.xml;"' + LayoutHtml.endRow();
 
         xml_str = xml_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();
@@ -335,17 +357,48 @@ class LayoutBody
 
     } // setXml
 
+    divSearch()
+    {
+        return LayoutHtml.tab(4) + '<div id="id_reservation_search_seats"> </div>'  + LayoutHtml.endRow();
+    }
+
+    divSelectConcert()
+    {
+        return LayoutHtml.tab(4) + '<div id="id_reservation_select_concert"> </div>'  + LayoutHtml.endRow();
+    }
+
+
     startString()
     {
-        return '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_case + '()" scrolling="auto">';
+        return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_case + '()" scrolling="auto">' + LayoutHtml.endRow();
 
     } // startString
 
-    static endString()
+    endString()
     {
-        return '</body>'
+        return LayoutHtml.tab(1) + '</body>' + LayoutHtml.endRow();
         
     } // endString
+
+    startTableTbody()
+    {
+        return  LayoutHtml.tab(2) + '<table><tbody>'  +  LayoutHtml.endRow();
+    }
+
+    endTableTbody()
+    {
+        return  LayoutHtml.tab(2) + '</tbody></table>'  +  LayoutHtml.endRow();
+    }    
+
+    startTrTd()
+    {
+        return  LayoutHtml.tab(3) + '<tr><td>'  +  LayoutHtml.endRow();
+    }
+
+    endTrTd()
+    {
+        return  LayoutHtml.tab(3) + '</td></tr>'  +  LayoutHtml.endRow();
+    }    
     
 } // LayoutBody
 
@@ -388,22 +441,22 @@ class LayoutScript
 
         if (this.m_layout_case == 'MakeReservation' )
         {
-            path_file_array[ 0] = 'scripts/Reservation.js';
-            path_file_array[ 1] = 'scripts/ReservationXmlTags.js';
-            path_file_array[ 2] = 'scripts/ReservationConcerts.js';
-            path_file_array[ 3] = 'scripts/ReservationEmail.js';
-            path_file_array[ 4] = 'scripts/ReservationFiles.js';
-            path_file_array[ 5] = 'scripts/ReservationStrings.js';
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js';
+            path_file_array[ 3] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js';
+            path_file_array[ 4] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
+            path_file_array[ 5] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js';
             path_file_array[ 6] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
-            path_file_array[ 7] = 'scripts/CoronaForm.js';
-            //path_file_array[ 8] = 'scripts/ReservationEvents.js';
-            //path_file_array[ 9] = 'scripts/ReservationSalmen.js';
-            //path_file_array[10] = 'scripts/ReservationSvg.js';
-            //path_file_array[11] = 'scripts/ReservationPremises.js';
-            //path_file_array[12] = 'scripts/ReservationStage.js';
-            //path_file_array[13] = 'scripts/ReservationDoors.js';
-            //path_file_array[14] = 'scripts/ReservationTables.js';
-            //path_file_array[15] = 'scripts/ReservationSalmenEvents.js';
+            path_file_array[ 7] = 'https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js';
+            //path_file_array[ 8] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js';
+            //path_file_array[ 9] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmen.js';
+            //path_file_array[10] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSvg.js';
+            //path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js';
+            //path_file_array[12] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStage.js';
+            //path_file_array[13] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationDoors.js';
+            //path_file_array[14] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationTables.js';
+            //path_file_array[15] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmenEvents.js';
         }
         else
         {
@@ -428,6 +481,8 @@ class LayoutScript
         this.m_html_script_code = this.m_html_script_code + LayoutHtml.endRow();
 
         this.m_html_script_code = this.m_html_script_code + this.noScript();
+
+        this.m_html_script_code = this.m_html_script_code + this.setEventFunctions();
 
         this.m_html_script_code = this.m_html_script_code + this.eventMouse();
 
@@ -475,6 +530,40 @@ class LayoutScript
 
     } // eventMouse
 
+    // Please refer to the below text inside the function
+    setEventFunctions()
+    {
+        var set_event_str = '';
+		
+        if (this.m_layout_case == 'MakeReservation' )
+        {
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.endRow();  
+        }
+
+        return set_event_str;
+
+        // setEventFunctions(); // ReservationSalmenEvents.js
+
+    } // setEventFunctions
+
     tempMainFunction()
     {
         var main_str = '';
@@ -483,13 +572,17 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
+            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times. This function is obviously preferred...' + LayoutHtml.endRow(); 
 
             main_str = main_str + LayoutHtml.tab(3) + 'function MainMakeReservation()' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'alert("MainMakeReservation Enter")' + LayoutHtml.endRow();  
+            main_str = main_str + LayoutHtml.tab(4) + 'alert("MainMakeReservation Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
