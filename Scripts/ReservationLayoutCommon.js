@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-11-26
+// Date: 2024-11-28
 // Authors: Gunnar Lidén
 
 // Content
@@ -724,6 +724,29 @@ function getTextImageCaptionsFromXml(i_layout_xml)
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Text Image Captions ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+    getLayoutButton(){return this.m_tag_layout_button;}
+    getButtonId(){return this.m_tag_button_id;}
+    getButtonTitle(){return this.m_tag_button_title;}
+    getButtonEventFunction(){return this.m_tag_button_event_function;}
+    getButtonUpperLeftX(){return this.m_tag_button_upper_left_x;}
+    getButtonUpperLeftY(){return this.m_tag_button_upper_left_y;}
+    getButtonWidth(){return this.m_tag_button_upper_width;}
+    getButtonHeight(){return this.m_tag_button_upper_height;}
+    getButtonImageId(){return this.m_tag_button_image_id;}
+    getButtonImageOne(){return this.m_tag_button_image_one;}
+    getButtonImageTwo(){return this.m_tag_button_image_two;}
+    getButtonImageThree(){return this.m_tag_button_image_three;}
+    getButtonImageWidth(){return this.m_tag_button_image_width;}
+    getButtonImageHeight(){return this.m_tag_button_image_height;}
+    getButtonType(){return this.m_tag_button_type;}
+ 
+*/
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Class Door Data ///////////////////////////////////////////

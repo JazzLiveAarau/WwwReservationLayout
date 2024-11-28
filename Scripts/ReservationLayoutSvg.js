@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-11-27
+// Date: 2024-11-28
 // Authors: Gunnar Lidén
 
 // Content
@@ -355,15 +355,6 @@ class PremisesSvg
                         ' <title>'+ organizer_name +' Text Logo</title> ' + 
                         ' </image>';	
         premises_svg = premises_svg + image_svg + '\n'; 
-/*
-   Missing element
-        <rect x="670" y="5" width="220" height="29" id="button_send_email" onmousedown="mouseDownSendEmailOrMakeReservation(  )" style="cursor: pointer;fill:white;stroke-width:1;stroke:black"></rect>
-        <image id="text_image_send_email" onmousedown="mouseDownSendEmailOrMakeReservationText(  )" x="680" y="6" width="168px" height="26px" xlink:href="text_reserve_select_undef.png" style="cursor: pointer; "> <title>Sitzplätze reservieren: 
-        Die Reservation wird registriert und eine Bestätigungs-E-Mail wird gesendet.</title>  </image>
-
-*/
-
-
 
         this.m_svg_code = premises_svg;
  

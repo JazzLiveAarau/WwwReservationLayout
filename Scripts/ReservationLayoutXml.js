@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2024-11-26
+// Date: 2024-11-28
 // Author: Gunnar Lidén
 
 // File content
@@ -768,11 +768,235 @@ class ReservationLayoutXml
     } // setTextImageSaveReservationWhite
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Set Layout Functions ///////((/(///////////////////////////////
+    /////// End Set Layout Functions //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+
+
     ///////////////////////////////////////////////////////////////////////////
-    /////// Start Get Door Functions //////////(///////////////////////////////
+    /////// Start Get Layout Button Functions /////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the button identity for a given button number
+    getButtonId(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonId(), i_button_number);
+        
+    } // getButtonId
+
+    // Returns the button title for a given button number
+    getButtonTitle(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonTitle(), i_button_number);
+        
+    } // getButtonTitle
+
+    // Returns the button event function for a given button number
+    getButtonEventFunction(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonEventFunction(), i_button_number);
+        
+    } // getButtonEventFunction
+
+    // Returns the button upper left X for a given button number
+    getButtonUpperLeftX(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonUpperLeftX(), i_button_number);
+        
+    } // getButtonUpperLeftX
+
+    // Returns the button upper left Y for a given button number
+    getButtonUpperLeftY(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonUpperLeftY(), i_button_number);
+        
+    } // getButtonUpperLeftY
+
+    // Sets the button upper left Y for a given button number
+    setButtonUpperLeftY(i_button_number, i_button_upper_left_y)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonUpperLeftY(), i_button_number, i_button_upper_left_y);
+        
+    } // setButtonUpperLeftY
+
+    // Returns the button width for a given button number
+    getButtonWidth(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonWidth(), i_button_number);
+        
+    } // getButtonWidth
+
+    // Returns the button height for a given button number
+    getButtonHeight(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonHeight(), i_button_number);
+        
+    } // getButtonHeight
+
+    // Returns the button image identity for a given button number
+    getButtonImageId(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageId(), i_button_number);
+        
+    } // getButtonImageId
+
+    // Returns the button image one for a given button number
+    getButtonImageOne(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageOne(), i_button_number);
+        
+    } // getButtonImageOne
+
+    // Returns the button image two for a given button number
+    getButtonImageTwo(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageTwo(), i_button_number);
+        
+    } // getButtonImageTwo
+
+    // Returns the button image three for a given button number
+    getButtonImageThree(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageThree(), i_button_number);
+        
+    } // getButtonImageThree
+
+    // Returns the button image width for a given button number
+    getButtonImageWidth(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageWidth(), i_button_number);
+        
+    } // getButtonImageWidth
+
+    // Returns the button image height for a given button number
+    getButtonImageHeight(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageHeight(), i_button_number);
+        
+    } // getButtonImageHeight
+
+    // Returns the button type for a given button number
+    getButtonType(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonType(), i_button_number);
+        
+    } // getButtonType
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Get Layout Button Functions ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Set Layout Button Functions /////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the button identity for a given button number
+    setButtonId(i_button_number, i_button_id)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonId(), i_button_number, i_button_id);
+        
+    } // setButtonId
+
+    // Sets the button title for a given button number
+    setButtonTitle(i_button_number, i_button_title)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonTitle(), i_button_number, i_button_title);
+        
+    } // setButtonTitle
+
+    // Sets the button event function for a given button number
+    setButtonEventFunction(i_button_number, i_button_event_function)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonEventFunction(), i_button_number, i_button_event_function);
+        
+    } // setButtonEventFunction
+
+    // Sets the button upper left X for a given button number
+    setButtonUpperLeftX(i_button_number, i_button_upper_left_x)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonUpperLeftX(), i_button_number, i_button_upper_left_x);
+        
+    } // setButtonUpperLeftX
+	
+    // Sets the button upper left Y for a given button number
+    setButtonUpperLeftY(i_button_number, i_button_upper_left_y)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonUpperLeftY(), i_button_number, i_button_upper_left_y);
+        
+    } // setButtonUpperLeftY
+
+    // Sets the button width for a given button number
+    setButtonWidth(i_button_number, i_button_width)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonWidth(), i_button_number, i_button_width);
+        
+    } // setButtonWidth
+
+    // Sets the button height for a given button number
+    setButtonHeight(i_button_number, i_button_height)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonHeight(), i_button_number, i_button_height);
+        
+    } // setButtonHeight
+
+    // Sets the button image identity for a given button number
+    setButtonImageId(i_button_number, i_button_image_id)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageId(), i_button_number, i_button_image_id);
+        
+    } // setButtonImageId
+
+    // Sets the button image one for a given button number
+    setButtonImageOne(i_button_number, i_button_image_one)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageOne(), i_button_number, i_button_image_one);
+        
+    } // setButtonImageOne
+
+    // Sets the button image two for a given button number
+    setButtonImageTwo(i_button_number, i_button_image_two)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageTwo(), i_button_number, i_button_image_two);
+        
+    } // setButtonImageTwo
+
+    // Sets the button image three for a given button number
+    setButtonImageThree(i_button_number, i_button_image_three)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageThree(), i_button_number, i_button_image_three);
+        
+    } // setButtonImageThree
+
+    // Sets the button image width for a given button number
+    setButtonImageWidth(i_button_number, i_button_image_width)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageWidth(), i_button_number, i_button_image_width);
+        
+    } // setButtonImageWidth
+
+    // Sets the button image height for a given button number
+    setButtonImageHeight(i_button_number, i_button_image_height)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageHeight(), i_button_number, i_button_image_height);
+        
+    } // setButtonImageHeight
+
+    // Sets the button type for a given button number
+    setButtonType(i_button_number, i_button_type)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonType(), i_button_number, i_button_type);
+        
+    } // setButtonType
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Set Layout Button Functions ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get Door Functions //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     // Returns the  door type for a given door number
@@ -1672,6 +1896,66 @@ class ReservationLayoutXml
         
     } // setDoorNodeValue
 
+
+
+    // Returns the button node value for a given tag name and a given button number
+    getButtonNodeValue(i_tag_button_element, i_button_number)
+    {
+        var ret_node_value = '';
+
+        if(!this.checkButtonNumber(i_button_number)) { return ret_node_value; }
+
+        var index_button = i_button_number - 1;
+        
+        var button_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutButton())[index_button];
+
+        var button_node_elements = button_node.getElementsByTagName(i_tag_button_element);
+
+        if (button_node_elements.length != 1)
+        {
+            alert("ReservationLayoutXml.getButtonNodeValue Number of button node elements is " +  button_node_elements.length.toString() + 
+            ".  There must only be one button element with the tag " + i_tag_button_element);
+
+            return ret_node_value; 
+        }
+
+        var button_node_element = button_node_elements[0];
+
+        var button_element_node_value = button_node_element.childNodes[0].nodeValue;
+        
+        ret_node_value = this.removeFlagNodeValueNotSet(button_element_node_value);
+        
+        return ret_node_value;
+        
+    } // getButtonNodeValue
+
+    // Sets the button node value for a given tag name and a given button number
+    setButtonNodeValue(i_tag_button_element, i_button_number, i_button_elemen_value)
+    {
+        if(!this.checkButtonNumber(i_button_number)) { return; }
+
+        var index_button = i_button_number - 1;
+        
+        var button_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutButton())[index_button];
+
+        var button_node_elements = button_node.getElementsByTagName(i_tag_button_element);
+
+        if (button_node_elements.length != 1)
+        {
+            alert("ReservationLayoutXml.setButtonNodeValue Number of button node elements is " +  button_node_elements.length.toString() + 
+            ".  There must only be one button element with the tag " + i_tag_button_element);
+
+            return; 
+        }
+
+        var button_elemen_value = this.setFlagNodeValueIsNotSetForEmptyString(i_button_elemen_value);
+
+        var button_node_element = button_node_elements[0];
+
+        button_node_element.childNodes[0].nodeValue = button_elemen_value;
+        
+    } // setButtonNodeValue
+
     // Returns the table node value for a given tag name and a given table number
     getTableNodeValue(i_tag_table_element, i_table_number)
     {
@@ -1836,6 +2120,47 @@ class ReservationLayoutXml
         }
 
     } // checkDoorNumber
+
+    // Returns the number of button records
+    getNumberOfButtons()
+    {
+        var ret_n_records = -1;
+
+        if (!this.checkLayoutXml()){ return ret_n_records; }
+
+        var button_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutButton());
+
+        ret_n_records = button_rec_nodes.length;
+
+        return ret_n_records;
+
+    } // getNumberOfButtons
+
+    // Return true if the input button record number exists
+    checkButtonNumber(i_button_number)
+    {
+        var n_buttons = this.getNumberOfButtons();
+
+        if (n_buttons < 0)
+        {
+            alert("ReservationLayputXml.checkButtonNumber Returned nummber of buttons is negative ");
+
+            return false;
+        }
+
+        if (i_button_number >= 1 && i_button_number <= n_buttons)
+        {
+            return true;
+        }
+        else
+        {
+            alert("ReservationLayoutXml.checkButtonNumber Input button number " +  i_button_number.toString() + 
+                                " is not between 1 and " + n_buttons.toString());
+
+            return false;
+        }
+
+    } // checkButtonNumber	
   
     // Returns the number of table records
     getNumberOfTables()
@@ -2233,6 +2558,10 @@ class ReservationLayoutTags
         this.m_tag_cash_image_width = "CashImageWidth";
         this.m_tag_cash_image_height = "CashImageHeight";
 
+        //////////////////////////////////////////////////////////
+        ////////////// Button Data ///////////////////////////////
+        //////////////////////////////////////////////////////////
+
         // File names for images with text that are used as button captions
         this.m_tag_text_image_select_seats = "TextImageSelectSeats";
         this.m_tag_text_image_reserve_seats = "TextImageReserveSeats";
@@ -2244,6 +2573,23 @@ class ReservationLayoutTags
         this.m_tag_text_image_reservation_print = "TextImageReservationPrint";
         this.m_tag_text_image_save_reservation = "TextImageSaveReservation";
         this.m_tag_text_image_save_reservation_white = "TextImageSaveReservationWhite";
+
+        this.m_tag_layout_button = "LayoutButton";
+        this.m_tag_button_id = "ButtonId";
+        this.m_tag_button_title = "ButtonTitle";
+        this.m_tag_button_event_function = "ButtonEventFunction";
+        this.m_tag_button_upper_left_x = "ButtonUpperLeftX";
+        this.m_tag_button_upper_left_y = "ButtonUpperLeftY";
+        this.m_tag_button_upper_width = "ButtonWidth";
+        this.m_tag_button_upper_height = "ButtonHeight";
+        this.m_tag_button_image_id = "ButtonImageId";
+        this.m_tag_button_image_one = "ButtonImageOne";
+        this.m_tag_button_image_two = "ButtonImageTwo";
+        this.m_tag_button_image_three = "ButtonImageThree";
+        this.m_tag_button_image_width = "ButtonImageWidth";
+        this.m_tag_button_image_height = "ButtonImageHeight";
+        this.m_tag_button_type = "ButtonType";
+
 
         //////////////////////////////////////////////////////////
         ////////////// Door Data /////////////////////////////////
@@ -2380,6 +2726,10 @@ class ReservationLayoutTags
     getCashImageWidth(){return this.m_tag_cash_image_width;}
     getCashImageHeight(){return this.m_tag_cash_image_height;}
 
+    //////////////////////////////////////////////////////////
+    ////////////// Button Data ///////////////////////////////
+    //////////////////////////////////////////////////////////
+
     // File names for images with text that are used as button captions
     getTextImageSelectSeats(){return this.m_tag_text_image_select_seats;}
     getTextImageReserveSeats(){return this.m_tag_text_image_reserve_seats;}
@@ -2392,82 +2742,99 @@ class ReservationLayoutTags
     getTextImageSaveReservation(){return this.m_tag_text_image_save_reservation;}
     getTextImageSaveReservationWhite(){return this.m_tag_text_image_save_reservation_white;}
 
-        //////////////////////////////////////////////////////////
-        ////////////// Door Data /////////////////////////////////
-        //////////////////////////////////////////////////////////
 
-        getDoor(){return this.m_tag_door;}
-        getDoorType(){return this.m_tag_door_type;}
-        getDoorPosition(){return this.m_tag_door_position;}
-        getDoorHeight(){return this.m_tag_door_height;}
-        getDoorText(){return this.m_tag_door_text;}
-        getDoorImage(){return this.m_tag_door_image;}
-        getDoorImageWidth(){return this.m_tag_door_image_width;}
-        getDoorImageHeight(){return this.m_tag_door_image_height;}
+    getLayoutButton(){return this.m_tag_layout_button;}
+    getButtonId(){return this.m_tag_button_id;}
+    getButtonTitle(){return this.m_tag_button_title;}
+    getButtonEventFunction(){return this.m_tag_button_event_function;}
+    getButtonUpperLeftX(){return this.m_tag_button_upper_left_x;}
+    getButtonUpperLeftY(){return this.m_tag_button_upper_left_y;}
+    getButtonWidth(){return this.m_tag_button_upper_width;}
+    getButtonHeight(){return this.m_tag_button_upper_height;}
+    getButtonImageId(){return this.m_tag_button_image_id;}
+    getButtonImageOne(){return this.m_tag_button_image_one;}
+    getButtonImageTwo(){return this.m_tag_button_image_two;}
+    getButtonImageThree(){return this.m_tag_button_image_three;}
+    getButtonImageWidth(){return this.m_tag_button_image_width;}
+    getButtonImageHeight(){return this.m_tag_button_image_height;}
+    getButtonType(){return this.m_tag_button_type;}
 
-        //////////////////////////////////////////////////////////
-        ////////////// Table Data ////////////////////////////////
-        //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    ////////////// Door Data /////////////////////////////////
+    //////////////////////////////////////////////////////////
 
-        getGroup(){return this.m_tag_group;}
-        getGroupText(){return this.m_tag_group_text;}
+    getDoor(){return this.m_tag_door;}
+    getDoorType(){return this.m_tag_door_type;}
+    getDoorPosition(){return this.m_tag_door_position;}
+    getDoorHeight(){return this.m_tag_door_height;}
+    getDoorText(){return this.m_tag_door_text;}
+    getDoorImage(){return this.m_tag_door_image;}
+    getDoorImageWidth(){return this.m_tag_door_image_width;}
+    getDoorImageHeight(){return this.m_tag_door_image_height;}
 
-        getTable(){return this.m_tag_table;}
+    //////////////////////////////////////////////////////////
+    ////////////// Table Data ////////////////////////////////
+    //////////////////////////////////////////////////////////
 
-        getTableNumber(){return this.m_tag_table_number;}
-        getTableUpperLeftX(){return this.m_tag_table_upper_left_x;}
-        getTableUpperLeftY(){return this.m_tag_table_upper_left_y;}
-        getTableWidth(){return this.m_tag_table_width;}
-        getTableHeight(){return this.m_tag_table_height;}
+    getGroup(){return this.m_tag_group;}
+    getGroupText(){return this.m_tag_group_text;}
 
-        getTableNumberLeftRightSeats(){return this.m_tag_table_number_left_right_seats;}
+    getTable(){return this.m_tag_table;}
 
-        getTableSeatOneLeft(){return this.m_tag_table_seat_one_left;}
-        getTableSeatTwoLeft(){return this.m_tag_table_seat_two_left;}
-        getTableSeatThreeLeft(){return this.m_tag_table_seat_three_left;}
-        getTableSeatFourLeft(){return this.m_tag_table_seat_four_left;}
-        getTableSeatFiveLeft(){return this.m_tag_table_seat_five_left;}
-        getTableSeatSixLeft(){return this.m_tag_table_seat_six_left;}
-        getTableSeatSevenLeft(){return this.m_tag_table_seat_seven_left;}
-        getTableSeatEightLeft(){return this.m_tag_table_seat_eight_left;}
-        getTableSeatNineLeft(){return this.m_tag_table_seat_nine_left;}
-        getTableSeatTenLeft(){return this.m_tag_table_seat_ten_left;}
-        getTableSeatElevenLeft(){return this.m_tag_table_seat_eleven_left;}
-        getTableSeatTwelveLeft(){return this.m_tag_table_seat_twelve_left;}
-        getTableSeatThirteenLeft(){return this.m_tag_table_seat_thirteen_left;}
-        getTableSeatFourteenLeft(){return this.m_tag_table_seat_fourteen_left;}
-        getTableSeatSeatFifteenLeft(){return this.m_tag_table_seat_fifteen_left;}
-        getTableSeatSixteenLeft(){return this.m_tag_table_seat_sixteen_left;}
-        getTableSeatSeventeenLeft(){return this.m_tag_table_seat_seventeen_left;}
-        getTableSeatEighteenLeft(){return this.m_tag_table_seat_eightteen_left;}
-        getTableSeatNineteenLeft(){return this.m_tag_table_seat_nineteen_left;}
-        getTableSeatTwentyLeft(){return this.m_tag_table_seat_twenty_left;}
+    getTableNumber(){return this.m_tag_table_number;}
+    getTableUpperLeftX(){return this.m_tag_table_upper_left_x;}
+    getTableUpperLeftY(){return this.m_tag_table_upper_left_y;}
+    getTableWidth(){return this.m_tag_table_width;}
+    getTableHeight(){return this.m_tag_table_height;}
 
-        getTableSeatOneRight(){return this.m_tag_table_seat_one_right;}
-        getTableSeatTwoRight(){return this.m_tag_table_seat_two_right;}
-        getTableSeatThreeRight(){return this.m_tag_table_seat_three_right;}
-        getTableSeatFourRight(){return this.m_tag_table_seat_four_right;}
-        getTableSeatFiveRight(){return this.m_tag_table_seat_five_right;}
-        getTableSeatSixRight(){return this.m_tag_table_seat_six_right;}
-        getTableSeatSevenRight(){return this.m_tag_table_seat_seven_right;}
-        getTableSeatEightRight(){return this.m_tag_table_seat_eight_right;}
-        getTableSeatNineRight(){return this.m_tag_table_seat_nine_right;}
-        getTableSeatTenRight(){return this.m_tag_table_seat_ten_right;}
-        getTableSeatElevenRight(){return this.m_tag_table_seat_eleven_right;}
-        getTableSeatTwelveRight(){return this.m_tag_table_seat_twelve_right;}
-        getTableSeatThirteenRight(){return this.m_tag_table_seat_thirteen_right;}
-        getTableSeatFourteenRight(){return this.m_tag_table_seat_fourteen_right;}
-        getTableSeatSeatFifteenRight(){return this.m_tag_table_seat_fifteen_right;}
-        getTableSeatSixteenRight(){return this.m_tag_table_seat_sixteen_right;}
-        getTableSeatSeventeenRight(){return this.m_tag_table_seat_seventeen_right;}
-        getTableSeatEighteenRight(){return this.m_tag_table_seat_eightteen_right;}
-        getTableSeatNineteenRight(){return this.m_tag_table_seat_nineteen_right;}
-        getTableSeatTwentyRight(){return this.m_tag_table_seat_twenty_right;}
+    getTableNumberLeftRightSeats(){return this.m_tag_table_number_left_right_seats;}
 
-        getTableSeatUpper(){return this.m_tag_table_seat_upper;}
-        getTableSeatLower(){return this.m_tag_table_seat_lower;}
+    getTableSeatOneLeft(){return this.m_tag_table_seat_one_left;}
+    getTableSeatTwoLeft(){return this.m_tag_table_seat_two_left;}
+    getTableSeatThreeLeft(){return this.m_tag_table_seat_three_left;}
+    getTableSeatFourLeft(){return this.m_tag_table_seat_four_left;}
+    getTableSeatFiveLeft(){return this.m_tag_table_seat_five_left;}
+    getTableSeatSixLeft(){return this.m_tag_table_seat_six_left;}
+    getTableSeatSevenLeft(){return this.m_tag_table_seat_seven_left;}
+    getTableSeatEightLeft(){return this.m_tag_table_seat_eight_left;}
+    getTableSeatNineLeft(){return this.m_tag_table_seat_nine_left;}
+    getTableSeatTenLeft(){return this.m_tag_table_seat_ten_left;}
+    getTableSeatElevenLeft(){return this.m_tag_table_seat_eleven_left;}
+    getTableSeatTwelveLeft(){return this.m_tag_table_seat_twelve_left;}
+    getTableSeatThirteenLeft(){return this.m_tag_table_seat_thirteen_left;}
+    getTableSeatFourteenLeft(){return this.m_tag_table_seat_fourteen_left;}
+    getTableSeatSeatFifteenLeft(){return this.m_tag_table_seat_fifteen_left;}
+    getTableSeatSixteenLeft(){return this.m_tag_table_seat_sixteen_left;}
+    getTableSeatSeventeenLeft(){return this.m_tag_table_seat_seventeen_left;}
+    getTableSeatEighteenLeft(){return this.m_tag_table_seat_eightteen_left;}
+    getTableSeatNineteenLeft(){return this.m_tag_table_seat_nineteen_left;}
+    getTableSeatTwentyLeft(){return this.m_tag_table_seat_twenty_left;}
 
-        getTableText(){return this.m_tag_table_text;}
+    getTableSeatOneRight(){return this.m_tag_table_seat_one_right;}
+    getTableSeatTwoRight(){return this.m_tag_table_seat_two_right;}
+    getTableSeatThreeRight(){return this.m_tag_table_seat_three_right;}
+    getTableSeatFourRight(){return this.m_tag_table_seat_four_right;}
+    getTableSeatFiveRight(){return this.m_tag_table_seat_five_right;}
+    getTableSeatSixRight(){return this.m_tag_table_seat_six_right;}
+    getTableSeatSevenRight(){return this.m_tag_table_seat_seven_right;}
+    getTableSeatEightRight(){return this.m_tag_table_seat_eight_right;}
+    getTableSeatNineRight(){return this.m_tag_table_seat_nine_right;}
+    getTableSeatTenRight(){return this.m_tag_table_seat_ten_right;}
+    getTableSeatElevenRight(){return this.m_tag_table_seat_eleven_right;}
+    getTableSeatTwelveRight(){return this.m_tag_table_seat_twelve_right;}
+    getTableSeatThirteenRight(){return this.m_tag_table_seat_thirteen_right;}
+    getTableSeatFourteenRight(){return this.m_tag_table_seat_fourteen_right;}
+    getTableSeatSeatFifteenRight(){return this.m_tag_table_seat_fifteen_right;}
+    getTableSeatSixteenRight(){return this.m_tag_table_seat_sixteen_right;}
+    getTableSeatSeventeenRight(){return this.m_tag_table_seat_seventeen_right;}
+    getTableSeatEighteenRight(){return this.m_tag_table_seat_eightteen_right;}
+    getTableSeatNineteenRight(){return this.m_tag_table_seat_nineteen_right;}
+    getTableSeatTwentyRight(){return this.m_tag_table_seat_twenty_right;}
+
+    getTableSeatUpper(){return this.m_tag_table_seat_upper;}
+    getTableSeatLower(){return this.m_tag_table_seat_lower;}
+
+    getTableText(){return this.m_tag_table_text;}
 
 } // ReservationLayoutTags
 
