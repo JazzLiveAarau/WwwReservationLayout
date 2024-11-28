@@ -726,27 +726,227 @@ function getTextImageCaptionsFromXml(i_layout_xml)
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-/*
-    getLayoutButton(){return this.m_tag_layout_button;}
-    getButtonId(){return this.m_tag_button_id;}
-    getButtonTitle(){return this.m_tag_button_title;}
-    getButtonEventFunction(){return this.m_tag_button_event_function;}
-    getButtonUpperLeftX(){return this.m_tag_button_upper_left_x;}
-    getButtonUpperLeftY(){return this.m_tag_button_upper_left_y;}
-    getButtonWidth(){return this.m_tag_button_upper_width;}
-    getButtonHeight(){return this.m_tag_button_upper_height;}
-    getButtonImageId(){return this.m_tag_button_image_id;}
-    getButtonImageOne(){return this.m_tag_button_image_one;}
-    getButtonImageTwo(){return this.m_tag_button_image_two;}
-    getButtonImageThree(){return this.m_tag_button_image_three;}
-    getButtonImageWidth(){return this.m_tag_button_image_width;}
-    getButtonImageHeight(){return this.m_tag_button_image_height;}
-    getButtonType(){return this.m_tag_button_type;}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Layout Button Data //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class holding Layout Button Data for buttons
+class ButtonData
+{
+    // Creates the instance of the class
+    // i_case: get_data_from_xml, get_default_data, set_xml_object, check_data
+    // i_layout_xml: Object for a reservation layout XML file. May be null for case get_default_data
+    constructor(i_case, i_layout_xml, i_input_data_object, i_button_number) 
+    {
+        // Member variables
+        // ================
+
+        // Constructor case
+        this.m_case = i_case;
+
+       // Layout XML object
+       this.m_layout_xml = i_layout_xml;
+
+       // An instance of this class to be used for case set_xml_object
+       this.m_input_data_object = i_input_data_object;
+
+       // Button number
+       this.m_button_number = i_button_number;
+
+       this.m_id = "";
+       this.m_title = "";
+       this.m_event_function = "";
+       this.m_upper_left_x = -12345;
+       this.m_upper_left_y = -12345;
+       this.m_width = -12345;
+       this.m_height = -12345;
+       this.m_image_id = "";
+       this.m_image_one = "";
+       this.m_image_two = "";
+       this.m_image_three = "";
+       this.m_image_width = "";
+       this.m_image_height = "";
+       this.m_type = "";
  
-*/
+
+	   
+       this.execute();
+
+    } // constructor
+
+    // Execute
+    execute()
+    {
+        if (this.m_case == "get_data_from_xml")
+        {
+            this.setDataFromXml();
+        }
+        else
+        {
+            alert("TextImageCaptionData.execute Not yet an implemented case " + this.m_case);
+        }
+
+    } // execute
+
+    // Get and set functions for the member variables
+    getId(){ return this.m_id; }
+    setId(i_id){ this.m_id = i_id; }
+
+    getTitle(){ return this.m_title; }
+    setTitle(i_title){ this.m_title = i_title; }
+
+    getEventFunction(){ return this.m_event_function; }
+    setEventFunction(i_event_function){ this.m_event_function = i_event_function; }
+
+    getUpperLeftX(){ return this.m_upper_left_x; }
+    setUpperLeftX(i_upper_left_x){ this.m_upper_left_x = i_upper_left_x; }
+
+    getUpperLeftY(){ return this.m_upper_left_y; }
+    setUpperLeftY(i_upper_left_y){ this.m_upper_left_y = i_upper_left_y; }
+
+    getWidth(){ return this.m_width; }
+    setWidth(i_width){ this.m_width = i_width; }
+
+    getHeight(){ return this.m_height; }
+    setHeight(i_height){ this.m_height = i_height; }
+
+    getImageId(){ return this.m_image_id; }
+    setImageId(i_image_id){ this.m_image_id = i_image_id; }
+
+    getImageOne(){ return this.m_image_one; }
+    setImageOne(i_image_one){ this.m_image_one = i_image_one; }
+
+    getImageTwo(){ return this.m_image_two; }
+    setImageTwo(i_image_two){ this.m_image_two = i_image_two; }
+
+    getImageThree(){ return this.m_image_three; }
+    setImageThree(i_image_three){ this.m_image_three = i_image_three; }
+
+    getImageWidth(){ return this.m_image_width; }
+    setImageWidth(i_image_width){ this.m_image_width = i_image_width; }
+
+    getImageHeight(){ return this.m_image_height; }
+    setImageHeight(i_image_height){ this.m_image_height = i_image_height; }
+
+    getType(){ return this.m_type; }
+    setType(i_type){ this.m_type = i_type; }
+
+    // Sets the dat from the XML object m_layout_xml
+    setDataFromXml()
+    {
+       this.m_id = this.m_layout_xml.getButtonId(this.m_button_number);
+
+       this.m_title = this.m_layout_xml.getButtonTitle(this.m_button_number);
+       this.m_event_function = this.m_layout_xml.getButtonEventFunction(this.m_button_number);
+       this.m_upper_left_x = parseInt(this.m_layout_xml.getButtonUpperLeftX(this.m_button_number));
+       this.m_upper_left_y = parseInt(this.m_layout_xml.getButtonUpperLeftY(this.m_button_number));
+       this.m_width = parseInt(this.m_layout_xml.getButtonWidth(this.m_button_number));
+       this.m_height = parseInt(this.m_layout_xml.getButtonHeight(this.m_button_number));
+       this.m_image_id = this.m_layout_xml.getButtonImageId(this.m_button_number);
+       this.m_image_one = this.m_layout_xml.getButtonImageOne(this.m_button_number);
+       this.m_image_two = this.m_layout_xml.getButtonImageTwo(this.m_button_number);
+       this.m_image_three = this.m_layout_xml.getButtonImageThree(this.m_button_number);
+       this.m_image_width = this.m_layout_xml.getButtonImageWidth(this.m_button_number);
+       this.m_image_height = this.m_layout_xml.getButtonImageHeight(this.m_button_number);
+       this.m_type = this.m_layout_xml.getButtonType(this.m_button_number);    
+
+    } // setDataFromXml
+
+    // Checks the data
+    checkData()
+    {
+        var ret_b_check = true;
+
+        if(!LayoutDataInput.check(this.m_case, this.m_layout_xml, this.m_input_data_object, "ButtonData"))
+        {
+            ret_b_check = false;
+
+            return ret_b_check;
+        }
+
+        // TODO Add checks of member variables
 
 
 
+        return ret_b_check;
+
+    } // checkData
+
+} // ButtonData
+
+// Returns an object with Layout Button Data for buttons. Data is retrieved from the 
+// i_layout_xml: Object for a reservation layout XML file
+function getButtonDataFromXml(i_layout_xml, i_button_number)
+{
+    var layout_case = "get_data_from_xml";
+
+    var input_data_object = null;
+
+    var ret_object = new ButtonData(layout_case, i_layout_xml, input_data_object, i_button_number);
+
+    if (!ret_object.checkData())
+    {
+        return null;
+    }
+
+    return ret_object;
+
+} // getButtonDataFromXml
+
+// Returns an array of ButtonData objects
+function getButtonDataArrayFromXml(i_layout_xml)
+{
+    var ret_button_array = [];
+
+    var n_buttons = i_layout_xml.getNumberOfButtons();
+
+    for (var button_number=1; button_number <=  n_buttons; button_number++)
+    {
+        var button_data = getButtonDataFromXml(i_layout_xml, button_number);
+
+        ret_button_array[button_number - 1] = button_data;
+    }
+
+    return ret_button_array;
+ 
+} // getButtonDataArrayFromXml
+
+// Returns a ButtonData object for a given button identity
+function getButtonDataForId(i_layout_xml, i_button_id)
+{
+    var ret_button_data = null;
+
+    var button_dat_array = getButtonDataArrayFromXml(i_layout_xml);
+
+    var n_buttons = button_dat_array.length;
+
+    for (var index_button=0; index_button < n_buttons; index_button++)
+    {
+        var button_data = button_dat_array[index_button];
+
+        var button_id = button_data.getId();
+
+        if (button_id == i_button_id)
+        {
+            ret_button_data = button_data;
+
+            break;
+        }
+    }
+
+    if (null == ret_button_data)
+    {
+        alert("getButtonDataForId There is no ButtonData object with the identity= " + i_button_id);
+    }
+
+    return ret_button_data;
+
+} // getButtonDataForId
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Layout Button Data ////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Class Door Data ///////////////////////////////////////////
@@ -880,18 +1080,18 @@ function getDoorDataFromXml(i_layout_xml, i_door_number)
 // Returns an array of DoorData objects
 function getDoorDataArrayFromXml(i_layout_xml)
 {
-    var ret_table_array = [];
+    var ret_door_array = [];
 
     var n_doors = i_layout_xml.getNumberOfDoors();
 
     for (var door_number=1; door_number <=  n_doors; door_number++)
     {
-        var table_data = getDoorDataFromXml(i_layout_xml, door_number);
+        var door_data = getDoorDataFromXml(i_layout_xml, door_number);
 
-        ret_table_array[door_number - 1] = table_data;
+        ret_door_array[door_number - 1] = door_data;
     }
 
-    return ret_table_array;
+    return ret_door_array;
  
 } // getDoorDataArrayFromXml
 

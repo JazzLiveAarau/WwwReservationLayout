@@ -50,7 +50,7 @@ function callbackAfterLoadOfXmlLayout()
 {
     debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
 
-    var button_id = g_layout_xml.getButtonId(1);
+    var button_dat_array = getButtonDataArrayFromXml(g_layout_xml);
 
     var dum_int = 1;
 
