@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-11-28
+// Date: 2024-11-30
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -50,7 +50,10 @@ function callbackAfterLoadOfXmlLayout()
 {
     debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
 
-    var button_dat_array = getButtonDataArrayFromXml(g_layout_xml);
+    var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
+
+    var layout_file_number = 1;
+    var layou_file_description = g_layout_xml.getLayoutFileDescription(layout_file_number);
 
     var dum_int = 1;
 

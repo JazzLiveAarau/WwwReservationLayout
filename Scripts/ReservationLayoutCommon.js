@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-11-28
+// Date: 2024-11-30
 // Authors: Gunnar Lidén
 
 // Content
@@ -192,6 +192,138 @@ function getPremisesDataFromXml(i_layout_xml)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Premises Data /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Layout File Data ////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class holding layout file Data
+class LayoutFileData
+{
+    // Creates the instance of the class
+    // i_case: get_data_from_xml, get_default_data, set_xml_object, check_data
+    // i_layout_xml: Object for a reservation layout XML file. May be null for case get_default_data
+    constructor(i_case, i_layout_xml, i_input_data_object, i_layout_file_number) 
+    {
+        // Member variables
+        // ================
+
+        // Layout case
+        this.m_case = i_case;
+
+       // Layout XML object
+       this.m_layout_xml = i_layout_xml;
+
+       // An instance of this class to be used for case set_xml_object
+       this.m_input_data_object = i_input_data_object;
+
+	   // File number
+	   this.m_layout_file_number = i_layout_file_number;
+
+       this.m_name = "";
+       this.m_description = "";
+       // TODO this.m_button_id = "";
+
+	   
+       this.execute();
+
+    } // constructor
+
+    // Execute
+    execute()
+    {
+        if (this.m_case == "get_data_from_xml")
+        {
+            this.setDataFromXml();
+        }
+        else
+        {
+            alert("LayoutFileData.execute Not yet an implemented case " + this.m_case);
+        }
+
+    } // execute
+
+    // Get and set functions for the member variables
+    getName(){ return this.m_name; }
+    setName(i_name){ this.m_name = i_name; }
+
+    getDescription(){ return this.m_description; }
+    setDescription(i_description){ this.m_description = i_description; }
+
+    // TODO getButtonId(){ return this.m_button_id; }
+    // TODO setButtonId(i_button_id){ this.m_button_id = i_button_id; }
+
+    // Sets the dat from the XML object m_layout_xml
+    setDataFromXml()
+    {
+       this.m_name = this.m_layout_xml.getLayoutFileName(this.m_layout_file_number);
+       this.m_description = this.m_layout_xml.getLayoutFileDescription(this.m_layout_file_number);
+       // TODO this.m_button_id = this.m_layout_xml.getLayoutFileButtonId(this.m_layout_file_number);      
+
+    } // setDataFromXml
+
+    // Checks the data
+    checkData()
+    {
+        var ret_b_check = true;
+
+        if(!LayoutDataInput.check(this.m_case, this.m_layout_xml, this.m_input_data_object, "LayoutFileData"))
+        {
+            ret_b_check = false;
+
+            return ret_b_check;
+        }
+
+        // TODO Add checks of member variables
+
+
+
+        return ret_b_check;
+
+    } // checkData
+
+} // LayoutFileData
+
+// Returns an object with layout file data. Data is retrieved from the 
+// i_layout_xml: Object for a reservation layout XML file
+function getLayoutFileDataFromXml(i_layout_xml, i_layout_file_number)
+{
+    var layout_case = "get_data_from_xml";
+
+    var input_data_object = null;
+
+    var ret_object = new LayoutFileData(layout_case, i_layout_xml, input_data_object, i_layout_file_number);
+
+    if (!ret_object.checkData())
+    {
+        return null;
+    }
+
+    return ret_object;
+
+} // getLayoutFileDataFromXml
+
+// Returns an array of LayoutFileData objects
+function getLayoutFileDataArrayFromXml(i_layout_xml)
+{
+    var ret_layout_file_array = [];
+
+    var n_layout_files = i_layout_xml.getNumberOfLayoutFiles();
+
+    for (var layout_file_number=1; layout_file_number <=  n_layout_files; layout_file_number++)
+    {
+        var layout_file_data = getLayoutFileDataFromXml(i_layout_xml, layout_file_number);
+
+        ret_layout_file_array[layout_file_number - 1] = layout_file_data;
+    }
+
+    return ret_layout_file_array;
+ 
+} // getLayoutFileDataArrayFromXml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Layout File Data //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -724,8 +856,6 @@ function getTextImageCaptionsFromXml(i_layout_xml)
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Text Image Captions ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Class Layout Button Data //////////////////////////////////

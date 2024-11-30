@@ -14,6 +14,8 @@
   <OrganizerLogo>ImagesLayout/jazz_live_aarau_logo.png</OrganizerLogo>
   <OrganizerLogoWidth>384px</OrganizerLogoWidth>
   <OrganizerLogoHeight>392px</OrganizerLogoHeight>
+  <OrganizerTwintName>392px</OrganizerTwintName>
+  <OrganizerTwintTelephone>392px</OrganizerTwintTelephone>
   <SponsorsImage>ImagesLayout/jazz_live_aarau_sponsor_logos.png</SponsorsImage>
   <SponsorsImageWidth>937px</SponsorsImageWidth>
   <SponsorsImageHeight>100px</SponsorsImageHeight>
@@ -46,6 +48,40 @@
   <CashImageWidth>130px</CashImageWidth>
   <CashImageHeight>230px</CashImageHeight>
   <!--  Cash-desk data End -->  
+  <!--  Layout cases Start -->
+  <LayoutFile> 
+    <LayoutFileName>MakeReservation</LayoutFileName>
+    <LayoutFileHtmlFile>MakeReservation.htm</LayoutFileHtmlFile>
+    <LayoutFileDescription>The reservation HTML file for the concert guests</LayoutFileDescription>
+    <LayoutFileButtonId>button_send_email</LayoutFileButtonId>
+  </LayoutFile> 
+    <LayoutFile> 
+    <LayoutFileName>ShowLayout</LayoutFileName>
+    <LayoutFileHtmlFile>ShowLayout.htm</LayoutFileHtmlFile>
+    <LayoutFileDescription>The HTML file that displays the concert premises</LayoutFileDescription>
+    <LayoutFileButtonId>button_send_email</LayoutFileButtonId>
+  </LayoutFile> 
+  <LayoutFile> 
+    <LayoutFileName>AddReservation</LayoutFileName>
+    <LayoutFileHtmlFile>AddReservation.htm</LayoutFileHtmlFile>
+    <LayoutFileDescription>The HTML file for the administration of the reservations</LayoutFileDescription>
+    <LayoutFileButtonId>delete_reservation_mode</LayoutFileButtonId>
+    <LayoutFileButtonId>button_list_reservations</LayoutFileButtonId>
+    <LayoutFileButtonId>button_print_reservations</LayoutFileButtonId>
+    <LayoutFileButtonId>button_init_reservation</LayoutFileButtonId>
+    <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
+  </LayoutFile> 
+    <LayoutFile> 
+    <LayoutFileName>SearchReservation</LayoutFileName>
+    <LayoutFileHtmlFile>SearchReservation.htm</LayoutFileHtmlFile>
+    <LayoutFileDescription>The HTML file for the search of reserved seats</LayoutFileDescription>
+    <LayoutFileButtonId>delete_reservation_mode</LayoutFileButtonId>
+    <LayoutFileButtonId>button_list_reservations</LayoutFileButtonId>
+    <LayoutFileButtonId>button_print_reservations</LayoutFileButtonId>
+    <LayoutFileButtonId>button_init_reservation</LayoutFileButtonId>
+    <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
+  </LayoutFile> 
+  <!--  Layout files End -->
   <!--  Layout Buttons Start -->
   <LayoutButton> 
     <ButtonId>button_send_email</ButtonId>
@@ -106,6 +142,8 @@
   </Door>  
   <TableGroup>
     <TableGroupText>Erster Tisch links vorne am Fenster</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>10</Number>
       <UpperLeftX>1000</UpperLeftX>
@@ -130,6 +168,8 @@
   </TableGroup>
   <TableGroup>
     <TableGroupText>Erster Tisch in der mitte</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>12</Number>
       <UpperLeftX>3400</UpperLeftX>
@@ -154,6 +194,8 @@
   </TableGroup>
   <TableGroup>
     <TableGroupText>Erster Tisch rechts</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>13</Number>
       <UpperLeftX>5800</UpperLeftX>
@@ -180,6 +222,8 @@
   </TableGroup>     
   <TableGroup>
     <TableGroupText>Zweiter Tisch links am Fenster</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>21</Number>
       <UpperLeftX>1000</UpperLeftX>
@@ -200,6 +244,8 @@
   </TableGroup> 
    <TableGroup>
     <TableGroupText>Zweiter Tisch mitte</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>22</Number>
       <UpperLeftX>3400</UpperLeftX>
@@ -220,6 +266,8 @@
     </TableGroup>  
     <TableGroup>
       <TableGroupText>Zweiter Tisch rechts</TableGroupText>
+      <TableGroupPrice>25 Franken</TableGroupPrice>
+      <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
       <Table>
         <Number>23</Number>
         <UpperLeftX>5800</UpperLeftX>
@@ -242,6 +290,8 @@
     </TableGroup>  
     <TableGroup>
       <TableGroupText>Dritter Tisch links am Fenster</TableGroupText>
+      <TableGroupPrice>25 Franken</TableGroupPrice>
+      <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
       <Table>
         <Number>31</Number>
         <UpperLeftX>1000</UpperLeftX>
@@ -264,6 +314,8 @@
     </TableGroup> 
      <TableGroup>
       <TableGroupText>Zweiter Tisch mitte</TableGroupText>
+      <TableGroupPrice>25 Franken</TableGroupPrice>
+      <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
       <Table>
         <Number>32</Number>
         <UpperLeftX>3400</UpperLeftX>
@@ -286,6 +338,8 @@
       </TableGroup>  
   <TableGroup>
     <TableGroupText>Hochtische Links</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>41</Number>
       <UpperLeftX>1200</UpperLeftX>
@@ -315,6 +369,8 @@
   </TableGroup> 
   <TableGroup>
     <TableGroupText>Hochtische mitte</TableGroupText>
+    <TableGroupPrice>25 Franken</TableGroupPrice>
+    <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
       <Number>42</Number>
       <UpperLeftX>3500</UpperLeftX>
