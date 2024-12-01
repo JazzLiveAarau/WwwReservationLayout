@@ -78,7 +78,15 @@ function createUploadLayoutFiles()
 {
     debugReservationLayout('createUploadLayoutFiles Enter');
 
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+
+    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
+
+    var path_file_name_array = [];
+
+    var layout_html_code_array = [];
 
     for (var layout_file_number=1; layout_file_number <= layout_file_data_array.length; layout_file_number++)
     {
@@ -86,33 +94,33 @@ function createUploadLayoutFiles()
 
         var layout_file_case = file_data.getFileCase();
 
-        var html_file_name = file_data.getHtmlName();
-
         var layout_file_description = file_data.getDescription();
 
-        var n_button_ids = file_data.getNumberButtonId();
+        // var n_button_ids = file_data.getNumberButtonId();
 
         var button_id_array = file_data.getButtonIdArray();
 
+        var layout_html = new LayoutHtml(g_layout_xml, result_server_directory_name, layout_file_case, layout_file_description, button_id_array);
+
+        var layout_html_code = layout_html.get();
+
+        var html_file_name = file_data.getHtmlName();
+
+        var path_file_name = reservation_layout_full_path + result_server_directory_name + '/' + html_file_name;
+
+        var index_data = layout_file_number - 1;
+
+        path_file_name_array[index_data] = path_file_name;
+
+        layout_html_code_array[index_data] = layout_html_code;
+
     } // index_file_data
-
-    var layout_case = 'MakeReservation';
-
-    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
-
-    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
-
-    var path_file_name = reservation_layout_full_path + result_server_directory_name + '/' + layout_case + '.htm';
-
-    var layout_html = new LayoutHtml(g_layout_xml, result_server_directory_name, layout_case);
-
-    var layout_html_code = layout_html.get();
 
     // The HTML file has to exist. If not the file is not writable. 
     // This is checked by UtilServerSaveFile.php.
     // Solution remove check or copy start HTML file TODO
 
-    UtilServer.saveFileCallback(path_file_name, layout_html_code, afterSaveHtml)
+    UtilServer.saveFileCallback(path_file_name_array[0], layout_html_code_array[0], afterSaveHtml);
 
 } // createUploadLayoutFiles
 

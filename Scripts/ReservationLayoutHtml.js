@@ -19,9 +19,9 @@ class LayoutHtml
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
     // i_output_dir: Name of the output server directory and the layout XML file
-    // i_layout_case: Layout creation case
-    //                MakeReservation
-    constructor(i_layout_xml, i_output_dir, i_layout_case) 
+    // i_layout_file_case: Layout file creation case
+    //                     MakeReservation, ShowLayout, AddReservation, SearchReservation
+    constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_layout_file_description, i_button_id_array) 
     {
         // Member variables
         // ================
@@ -32,8 +32,14 @@ class LayoutHtml
        // Name of the output server directory and the layout XML file
        this.m_output_dir = i_output_dir;
 
-       // Layout creation case
-       this.m_layout_case = i_layout_case;
+       // Layout file creation case
+       this.m_layout_file_case = i_layout_file_case;
+
+       // Button identities
+       this.m_button_id_array = i_button_id_array;
+
+       // Description of the layout file cases
+       this.m_layout_file_description = i_layout_file_description;
 
        // All HTML code from this class
        this.m_html_code = ''; 
@@ -57,11 +63,11 @@ class LayoutHtml
 
         this.m_html_code = this.m_html_code + LayoutHtml.htmlStartString() + LayoutHtml.endRow();
 
-        var header_str = new LayoutHeader(this.m_layout_xml, this.m_layout_case);
+        var header_str = new LayoutHeader(this.m_layout_xml, this.m_layout_file_case);
 
         this.m_html_code = this.m_html_code + header_str.get() + LayoutHtml.endRow();
 
-        var body_str = new LayoutBody(this.m_layout_xml, this.m_output_dir, this.m_layout_case);
+        var body_str = new LayoutBody(this.m_layout_xml, this.m_output_dir, this.m_layout_file_case);
 
         this.m_html_code = this.m_html_code + body_str.get() + LayoutHtml.endRow();
 
@@ -119,16 +125,28 @@ class LayoutHtml
 
     } // tab
 
-    // Returns true if it is a valid layout case
+    // Returns true if it is a valid layout file case
     validLayoutCase()
     {
-        if (this.m_layout_case == 'MakeReservation')
+        if (this.m_layout_file_case == 'MakeReservation')
+        {
+            return true;
+        }
+        else if (this.m_layout_file_case == 'ShowLayout')
+        {
+            return true;
+        }
+        else if (this.m_layout_file_case == 'AddReservation')
+        {
+            return true;
+        }
+        else if (this.m_layout_file_case == 'SearchReservation')
         {
             return true;
         }
         else
         {
-            alert("LayoutHtml.validLayoutCase Not an implemented case= " + this.m_layout_case);
+            alert("LayoutHtml.validLayoutCase Not an implemented layout file case m_layout_file_case= " + this.m_layout_file_case);
 
             return false;
         }
@@ -151,7 +169,7 @@ class LayoutHeader
 {
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
-    constructor(i_layout_xml, i_layout_case) 
+    constructor(i_layout_xml, i_layout_file_case) 
     {
         // Member variables
         // ================
@@ -159,8 +177,8 @@ class LayoutHeader
        // Layout XML object
        this.m_layout_xml = i_layout_xml;
 
-       // Layout creation case
-       this.m_layout_case = i_layout_case;
+       // Layout file creation case
+       this.m_layout_file_case = i_layout_file_case;
 
        // All HTML code from this class
        this.m_html_header_code = ''; 
@@ -182,7 +200,7 @@ class LayoutHeader
 
         this.m_html_header_code = this.m_html_header_code + this.title() + LayoutHtml.endRow();
 
-        var header_script_code = new LayoutScript(this.m_layout_xml, this.m_layout_case);
+        var header_script_code = new LayoutScript(this.m_layout_xml, this.m_layout_file_case);
 
         this.m_html_header_code = this.m_html_header_code + header_script_code.get() + LayoutHtml.endRow();
 
@@ -266,7 +284,7 @@ class LayoutBody
 {
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
-    constructor(i_layout_xml, i_output_dir, i_layout_case) 
+    constructor(i_layout_xml, i_output_dir, i_layout_file_case) 
     {
         // Member variables
         // ================
@@ -277,8 +295,8 @@ class LayoutBody
        // Name of the output server directory and the layout XML file
        this.m_output_dir = i_output_dir;
 
-       // Layout creation case
-       this.m_layout_case = i_layout_case;
+       // Layout file creation case
+       this.m_layout_file_case = i_layout_file_case;
 
        // All HTML code from this class
        this.m_html_body_code = ''; 
@@ -370,7 +388,7 @@ class LayoutBody
 
     startString()
     {
-        return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+        return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
 
     } // startString
 
@@ -415,7 +433,7 @@ class LayoutScript
 {
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
-    constructor(i_layout_xml, i_layout_case) 
+    constructor(i_layout_xml, i_layout_file_case) 
     {
         // Member variables
         // ================
@@ -423,8 +441,8 @@ class LayoutScript
        // Layout XML object
        this.m_layout_xml = i_layout_xml;
 
-       // Layout creation case
-       this.m_layout_case = i_layout_case;
+       // Layout file creation case
+       this.m_layout_file_case = i_layout_file_case;
 
        // All HTML code from this class
        this.m_html_script_code = ''; 
@@ -439,7 +457,7 @@ class LayoutScript
     {
         var path_file_array = [];
 
-        if (this.m_layout_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' )
         {
             path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
             path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js';
@@ -460,7 +478,7 @@ class LayoutScript
         }
         else
         {
-            alert("LayoutScript.execute Not an implemented case= " + this.m_layout_case);
+            alert("LayoutScript.execute Not an implemented case= " + this.m_layout_file_case);
 
             return;            
         }
@@ -493,7 +511,7 @@ class LayoutScript
     eventMouse()
     {
         var event_str = '';
-        if (this.m_layout_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' )
         {
             event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
@@ -535,7 +553,7 @@ class LayoutScript
     {
         var set_event_str = '';
 		
-        if (this.m_layout_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' )
         {
             set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
@@ -568,7 +586,7 @@ class LayoutScript
     {
         var main_str = '';
 		
-        if (this.m_layout_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' )
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
