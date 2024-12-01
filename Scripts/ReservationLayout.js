@@ -50,8 +50,8 @@ function callbackAfterLoadOfXmlLayout()
 {
     debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
-    var file_name = g_layout_xml.getLayoutFileName(4);
-    g_layout_xml.setLayoutFileName("NewFileName.htm", 4);
+    var file_case = g_layout_xml.getLayoutFileCase(4);
+    g_layout_xml.setLayoutFileCase("NewFileName.htm", 4);
     var layout_file_number = 3;  var button_id_number = 3;
     var button_id = g_layout_xml.getLayoutFileButtonId(layout_file_number, button_id_number);
     var n_id_buttons = g_layout_xml.getNumberOfLayoutFileIdButtons(layout_file_number);
@@ -84,7 +84,7 @@ function createUploadLayoutFiles()
     {
         var file_data = getLayoutFileDataFromXml(g_layout_xml, layout_file_number);
 
-        var layout_file_name = file_data.getName();
+        var layout_file_case = file_data.getFileCase();
 
         var layout_file_description = file_data.getDescription();
 

@@ -221,7 +221,7 @@ class LayoutFileData
 	   // File number
 	   this.m_layout_file_number = i_layout_file_number;
 
-       this.m_name = "";
+       this.m_file_case = "";
        this.m_description = "";
        this.m_button_id_array = [];
 
@@ -245,8 +245,8 @@ class LayoutFileData
     } // execute
 
     // Get and set functions for the member variables
-    getName(){ return this.m_name; }
-    setName(i_name){ this.m_name = i_name; }
+    getFileCase(){ return this.m_file_case; }
+    setFileCase(i_file_case){ this.m_file_case = i_file_case; }
 
     getDescription(){ return this.m_description; }
     setDescription(i_description){ this.m_description = i_description; }
@@ -304,7 +304,7 @@ class LayoutFileData
     // Sets the dat from the XML object m_layout_xml
     setDataFromXml()
     {
-       this.m_name = this.m_layout_xml.getLayoutFileName(this.m_layout_file_number);
+       this.m_file_case = this.m_layout_xml.getLayoutFileCase(this.m_layout_file_number);
        this.m_description = this.m_layout_xml.getLayoutFileDescription(this.m_layout_file_number);
 
        this.m_button_id_array = [];

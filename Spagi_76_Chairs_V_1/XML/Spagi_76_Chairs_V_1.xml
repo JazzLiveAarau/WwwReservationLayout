@@ -50,19 +50,19 @@
   <!--  Cash-desk data End -->  
   <!--  Layout cases Start -->
   <LayoutFile> 
-    <LayoutFileName>MakeReservation</LayoutFileName>
+    <LayoutFileCase>MakeReservation</LayoutFileCase>
     <LayoutFileHtmlFile>MakeReservation.htm</LayoutFileHtmlFile>
     <LayoutFileDescription>The reservation HTML file for the concert guests</LayoutFileDescription>
     <LayoutFileButtonId>button_send_email</LayoutFileButtonId>
   </LayoutFile> 
   <LayoutFile> 
-    <LayoutFileName>ShowLayout</LayoutFileName>
+    <LayoutFileCase>ShowLayout</LayoutFileCase>
     <LayoutFileHtmlFile>ShowLayout.htm</LayoutFileHtmlFile>
     <LayoutFileDescription>The HTML file that displays the concert premises</LayoutFileDescription>
     <LayoutFileButtonId>button_send_email</LayoutFileButtonId>
   </LayoutFile> 
   <LayoutFile> 
-    <LayoutFileName>AddReservation</LayoutFileName>
+    <LayoutFileCase>AddReservation</LayoutFileCase>
     <LayoutFileHtmlFile>AddReservation.htm</LayoutFileHtmlFile>
     <LayoutFileDescription>The HTML file for the administration of the reservations</LayoutFileDescription>
     <LayoutFileButtonId>delete_reservation_mode</LayoutFileButtonId>
@@ -72,7 +72,7 @@
     <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
   </LayoutFile> 
     <LayoutFile> 
-    <LayoutFileName>SearchReservation</LayoutFileName>
+    <LayoutFileCase>SearchReservation</LayoutFileCase>
     <LayoutFileHtmlFile>SearchReservation.htm</LayoutFileHtmlFile>
     <LayoutFileDescription>The HTML file for the search of reserved seats</LayoutFileDescription>
     <LayoutFileButtonId>delete_reservation_mode</LayoutFileButtonId>

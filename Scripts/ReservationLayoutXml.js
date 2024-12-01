@@ -45,12 +45,12 @@ class ReservationLayoutXml
     /////// Start Get Layout File Functions ///////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns the layout file name
-    getLayoutFileName(i_layout_file_number)
+    // Returns the layout file case
+    getLayoutFileCase(i_layout_file_number)
     {
-        return this.getLayoutFileNodeValue(this.m_tags.getLayoutFileName(), i_layout_file_number);
+        return this.getLayoutFileNodeValue(this.m_tags.getLayoutFileCase(), i_layout_file_number);
         
-    } // getLayoutFileName
+    } // getLayoutFileCase
 
     // Returns the layout file description
     getLayoutFileDescription(i_layout_file_number)
@@ -74,12 +74,12 @@ class ReservationLayoutXml
     /////// Start Set Layout File Functions ///////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     
-    // Sets the layout file name
-    setLayoutFileName(i_layout_case_name, i_layout_file_number)
+    // Sets the layout file case
+    setLayoutFileCase(i_layout_case_name, i_layout_file_number)
     {
-        this.setLayoutFileNodeValue(this.m_tags.getLayoutFileName(), i_layout_case_name, i_layout_file_number);
+        this.setLayoutFileNodeValue(this.m_tags.getLayoutFileCase(), i_layout_case_name, i_layout_file_number);
         
-    } // setLayoutFileName
+    } // setLayoutFileCase
 
     // Sets the the layout file description
     setLayoutFileDescription(i_layout_case_description, i_layout_file_number)
@@ -1891,15 +1891,8 @@ class ReservationLayoutXml
 
     } // setLayoutNodeValue
 
-
-/*
-    getLayoutFileName(){return this.m_tag_layout_file_name;}
-    getLayoutFileDescription(){return this.m_tag_layout_file_description;}
-    getLayoutFileButtonId(){return this.m_tag_layout_file_button_id;}
-*/
-
     // Get layout file object
-    // i_tag_layout_file_element: getLayoutFileName or getLayoutFileDescription
+    // i_tag_layout_file_element: getLayoutFileCase or getLayoutFileDescription
     //                            (not getLayoutFileButtonId)
     getLayoutFileObject(i_tag_layout_file_element, i_layout_file_number)
     {
@@ -2799,7 +2792,7 @@ class ReservationLayoutTags
 
         // Layout case
         this.m_tag_layout_file = "LayoutFile";
-        this.m_tag_layout_file_name = "LayoutFileName";
+        this.m_tag_layout_file_case = "LayoutFileCase";
         this.m_tag_layout_file_description = "LayoutFileDescription";
         this.m_tag_layout_file_button_id = "LayoutFileButtonId";
 
@@ -2973,7 +2966,7 @@ class ReservationLayoutTags
 
     // Layout file
     getLayoutFile(){return this.m_tag_layout_file;}
-    getLayoutFileName(){return this.m_tag_layout_file_name;}
+    getLayoutFileCase(){return this.m_tag_layout_file_case;}
     getLayoutFileDescription(){return this.m_tag_layout_file_description;}
     getLayoutFileButtonId(){return this.m_tag_layout_file_button_id;}
 
