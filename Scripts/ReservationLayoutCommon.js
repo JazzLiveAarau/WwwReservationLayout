@@ -322,6 +322,35 @@ function getLayoutFileDataArrayFromXml(i_layout_xml)
  
 } // getLayoutFileDataArrayFromXml
 
+// Returns an array of LayoutFileData objects
+function getLayoutButtonIdArrayFromXml(i_layout_xml, i_layout_file_number)
+{
+    var ret_button_id_array = [];
+
+    var layout_file_data_array =  getLayoutFileDataArrayFromXml(i_layout_xml);
+
+    if (null == layout_file_data_array || layout_file_data_array.length == 0)
+    {
+        return ret_button_id_array;
+    }
+
+    var layout_file_index = i_layout_file_number - 1;
+
+
+
+    var n_layout_files = i_layout_xml.getNumberOfLayoutFiles();
+
+    for (var layout_file_number=1; layout_file_number <=  n_layout_files; layout_file_number++)
+    {
+        var layout_file_data = getLayoutFileDataFromXml(i_layout_xml, layout_file_number);
+
+        ret_layout_file_array[layout_file_number - 1] = layout_file_data;
+    }
+
+    return ret_button_id_array;
+ 
+} // getLayoutFileDataArrayFromXml
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Layout File Data //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////

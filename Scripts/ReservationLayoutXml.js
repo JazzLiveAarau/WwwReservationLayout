@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2024-11-30
+// Date: 2024-12-01
 // Author: Gunnar Lidén
 
 // File content
@@ -59,10 +59,10 @@ class ReservationLayoutXml
         
     } // getLayoutFileDescription
 
-    // Returns the layout file description
-    getLayoutFileButtonId(i_layout_file_number)
+    // Returns the layout file button identity for a given layout number and button id number
+    getLayoutFileButtonId(i_layout_file_number, i_button_id_number)
     {
-        return this.getLayoutFileNodeValue(this.m_tags.getLayoutFileButtonId(), i_layout_file_number);
+        return this.getLayoutFileButtonIdNodeValue(i_layout_file_number, i_button_id_number);
         
     } // getLayoutFileButtonId
 
@@ -75,25 +75,25 @@ class ReservationLayoutXml
     ///////////////////////////////////////////////////////////////////////////
     
     // Sets the layout file name
-    setLayoutCaseName(i_layout_case_name, i_layout_file_number)
+    setLayoutFileName(i_layout_case_name, i_layout_file_number)
     {
         this.setLayoutFileNodeValue(this.m_tags.getLayoutFileName(), i_layout_case_name, i_layout_file_number);
         
-    } // setLayoutCaseName
+    } // setLayoutFileName
 
     // Sets the the layout file description
-    setLayoutCaseDescription(i_layout_case_description, i_layout_file_number)
+    setLayoutFileDescription(i_layout_case_description, i_layout_file_number)
     {
         this.setLayoutFileNodeValue(this.m_tags.getLayoutFileDescription(), i_layout_case_description, i_layout_file_number);
         
-    } // setLayoutCaseDescription
+    } // setLayoutFileDescription
 
-    // Sets the the layout file description
-    setLayoutCaseButtonId(i_layout_case_description, i_layout_file_number)
+    // Sets  the layout file button identity for a given layout number and button id number
+    setLayoutFileButtonId(i_button_id, i_layout_file_number, i_button_id_number)
     {
-        this.setLayoutFileNodeValue(this.m_tags.getLayoutFileButtonId(), i_layout_case_description, i_layout_file_number);
+        this.setLayoutFileButtonIdNodeValue(i_button_id, i_button_id_number, i_layout_file_number);
         
-    } // setLayoutCaseButtonId
+    } // setLayoutFileButtonId
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set Layout File Functions /////////////////////////////////////
@@ -1891,7 +1891,16 @@ class ReservationLayoutXml
 
     } // setLayoutNodeValue
 
+
+/*
+    getLayoutFileName(){return this.m_tag_layout_file_name;}
+    getLayoutFileDescription(){return this.m_tag_layout_file_description;}
+    getLayoutFileButtonId(){return this.m_tag_layout_file_button_id;}
+*/
+
     // Get layout file object
+    // i_tag_layout_file_element: getLayoutFileName or getLayoutFileDescription
+    //                            (not getLayoutFileButtonId)
     getLayoutFileObject(i_tag_layout_file_element, i_layout_file_number)
     {
         var ret_object = null;
@@ -1917,33 +1926,34 @@ class ReservationLayoutXml
         return ret_object;
 
     } // getLayoutFileObject
-   
-    // Returns the layout file node value for a given tag name and a given layout file number
-    getLayoutFileNodeValue(i_tag_layout_file_element, i_layout_file_number)
+
+    // Get layout file id button object (getLayoutFileButtonId)
+    getLayoutFileButtonIdObject(i_layout_file_number, i_id_button_number)
     {
-        var ret_node_value = '';
+        var ret_object = null;
 
-        /*QQQQQQ
-
-        if(!this.checkLayoutFileNumber(i_layout_file_number)) { return ret_node_value; }
+        if(!this.checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)) { return ret_object; }
 
         var index_layout_file = i_layout_file_number - 1;
         
         var layout_file_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile())[index_layout_file];
 
-        var layout_file_node_elements = layout_file_node.getElementsByTagName(i_tag_layout_file_element);
+        var tag_id_button_element = this.m_tags.getLayoutFileButtonId();
 
-        if (layout_file_node_elements.length != 1)
-        {
-            alert("ReservationLayoutXml.getLayoutFileNodeValue Number of layout file node elements is " +  layout_file_node_elements.length.toString() + 
-            ".  There must only be one layout file element with the tag " + i_tag_layout_file_element);
+        var id_button_elements = layout_file_node.getElementsByTagName(tag_id_button_element);
 
-            return ret_node_value; 
-        }
+        var index_id_button = i_id_button_number - 1;
 
-        var layout_file_node_element = layout_file_node_elements[0];
+        ret_object = id_button_elements[index_id_button];
+       
+        return ret_object;
 
-        QQQQ*/
+    } // getLayoutFileButtonIdObject
+   
+    // Returns the layout file node value for a given tag name and a given layout file number
+    getLayoutFileNodeValue(i_tag_layout_file_element, i_layout_file_number)
+    {
+        var ret_node_value = '';
 
         var layout_file_node_element = this.getLayoutFileObject(i_tag_layout_file_element, i_layout_file_number);
 
@@ -1961,29 +1971,8 @@ class ReservationLayoutXml
     } // getLayoutFileNodeValue
 
     // Sets the layout file node value for a given tag name and a given layout file number
-    setLayoutFileNodeValue(i_tag_layout_file_element, i_layout_file_number, i_layout_file_elemen_value)
+    setLayoutFileNodeValue(i_tag_layout_file_element,i_layout_file_elemen_value, i_layout_file_number)
     {
-        /*QQQQ
-        if(!this.checkLayoutFileNumber(i_layout_file_number)) { return; }
-
-        var index_layout_file = i_layout_file_number - 1;
-        
-        var layout_file_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile())[index_layout_file];
-
-        var layout_file_node_elements = layout_file_node.getElementsByTagName(i_tag_layout_file_element);
-
-        if (layout_file_node_elements.length != 1)
-        {
-            alert("ReservationLayoutXml.setLayoutFileNodeValue Number of layout file node elements is " +  layout_file_node_elements.length.toString() + 
-            ".  There must only be one layout file element with the tag " + i_tag_layout_file_element);
-
-            return; 
-        }
-
-        var layout_file_node_element = layout_file_node_elements[0];
-
-        QQQ*/
-
         var layout_file_elemen_value = this.setFlagNodeValueIsNotSetForEmptyString(i_layout_file_elemen_value);
 
         var layout_file_node_element = this.getLayoutFileObject(i_tag_layout_file_element, i_layout_file_number);
@@ -1999,104 +1988,46 @@ class ReservationLayoutXml
     } // setLayoutFileNodeValue
 
     // Returns the layout file button identity node value for a given tag name, a layout file number and a button number
-    getLayoutFileButtinIdNodeValue(i_tag_layout_file_id_input_element, i_layout_file_number, i_id_button_number)
+    getLayoutFileButtonIdNodeValue(i_layout_file_number, i_id_button_number)
     {
         var ret_node_value = '';
 
         if(!this.checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)) { return ret_node_value; }
 
-        var index_layout_file = i_layout_file_id_button_number - 1;
-        
-        var layout_file_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile())[index_layout_file];
+        var button_id_element = this.getLayoutFileButtonIdObject(i_layout_file_number, i_id_button_number);
 
-        var layout_file_node_elements = layout_file_node.getElementsByTagName(i_tag_layout_file_element);
-
-        if (layout_file_node_elements.length != 1)
+        if (null == button_id_element)
         {
-            alert("ReservationLayoutXml.getLayoutFileButtinIdNodeValue Number of layout file button identity node elements is " +  layout_file_node_elements.length.toString() + 
-            ".  There must only be one layout file element with the tag " + i_tag_layout_file_element);
-
-            return ret_node_value; 
+            return ret_node_value;
         }
 
-        var layout_file_node_element = layout_file_node_elements[0];
+        var button_id_node_value = button_id_element.childNodes[0].nodeValue;
 
-        var layout_file_element_node_value = layout_file_node_element.childNodes[0].nodeValue;
-        
-        ret_node_value = this.removeFlagNodeValueNotSet(layout_file_element_node_value);
+        ret_node_value = this.removeFlagNodeValueNotSet(button_id_node_value);
         
         return ret_node_value;
         
-    } // getLayoutFileButtinIdNodeValue
+    } // getLayoutFileButtonIdNodeValue
 
     // Sets the layout file button identity node value for a given tag name, a layout file number and a button number
-    setLayoutFileButtinIdNodeValue(i_tag_layout_file_id_input_element, i_layout_file_number, i_id_button_number, i_id_button_element_value)
+    setLayoutFileButtonIdNodeValue(i_button_id_element_value, i_layout_file_number, i_id_button_number)
     {
 
-        if(!this.checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)) { return ret_node_value; }
+        if(!this.checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)) { return; }
 
-        var index_layout_file = i_layout_file_id_button_number - 1;
+        var button_id_element = this.getLayoutFileButtonIdObject(i_layout_file_number, i_id_button_number);
+
+        if (null == button_id_element)
+        {
+            return;
+        }
+
+        var button_id__elemen_value = this.setFlagNodeValueIsNotSetForEmptyString(i_button_id_element_value);
+
+        button_id_element.childNodes[0].nodeValue = button_id__elemen_value;
         
-        var layout_file_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile())[index_layout_file];
+    } // setLayoutFileButtonIdNodeValue
 
-        var id_button_nodes = layout_file_node.getElementsByTagName(this.m_tags.getLayoutFileButtonId());
-
-        var index_id_button = i_id_button_number - 1;
-
-        var layout_file_node_elements = layout_file_node.getElementsByTagName(i_tag_layout_file_element);
-
-
-        var layout_file_elemen_value = this.setFlagNodeValueIsNotSetForEmptyString(i_layout_file_element_value);
-
-        var layout_file_node_element = layout_file_node_elements[0];
-
-        layout_file_node_element.childNodes[0].nodeValue = layout_file_elemen_value;
-        
-    } // setLayoutFileButtinIdNodeValue
-
-	
-    // Returns the number of layout file button records
-    getNumberOfLayoutFileIdButtons(i_layout_file_number)
-    {
-        var ret_n_records = -1;
-
-        if (!this.checkLayoutXml()){ return ret_n_records; }
-
-        var layout_file_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile());
-
-        ret_n_records = layout_file_rec_nodes.length;
-
-        return ret_n_records;
-
-    } // getNumberOfLayoutFileIdButtons
-
-    // Return true if the input layout file id button record number exists
-    checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)
-    {
-        if(!this.checkLayoutFileNumber(i_layout_file_number)) { return; }
-
-        var n_layout_files = this.getNumberOfLayoutFileIdButtons();
-
-        if (n_layout_files < 0)
-        {
-            alert("ReservationLayputXml.checkLayoutFileIdButtonNumber Returned nummber of ayout cases is negative ");
-
-            return false;
-        }
-
-        if (i_id_button_number >= 1 && i_id_button_number <= n_layout_files)
-        {
-            return true;
-        }
-        else
-        {
-            alert("ReservationLayoutXml.checkLayoutFileIdButtonNumber Input layout file number " +  i_layout_file_id_button_number.toString() + 
-                                " is not between 1 and " + n_layout_files.toString());
-
-            return false;
-        }
-
-    } // checkLayoutFileIdButtonNumber
 	
     // Returns the door node value for a given tag name and a given door number
     getDoorNodeValue(i_tag_door_element, i_door_number)
@@ -2378,6 +2309,57 @@ class ReservationLayoutXml
         }
 
     } // checkLayoutFileNumber	
+
+    // Returns the number of layout file button records
+    getNumberOfLayoutFileIdButtons(i_layout_file_number)
+    {
+        var ret_n_records = -1;
+
+        if (!this.checkLayoutXml()){ return ret_n_records; }
+
+        if(!this.checkLayoutFileNumber(i_layout_file_number)) { return ret_n_records; }
+
+        var index_layout_file = i_layout_file_number - 1;
+
+        var layout_file_node = this.getXmlObject().getElementsByTagName(this.m_tags.getLayoutFile())[index_layout_file];
+
+        var tag_id_button_element = this.m_tags.getLayoutFileButtonId();
+
+        var id_button_elements = layout_file_node.getElementsByTagName(tag_id_button_element);
+
+        ret_n_records = id_button_elements.length;
+
+        return ret_n_records;
+
+    } // getNumberOfLayoutFileIdButtons
+
+    // Return true if the input layout file id button record number exists
+    checkLayoutFileIdButtonNumber(i_layout_file_number, i_id_button_number)
+    {
+        if(!this.checkLayoutFileNumber(i_layout_file_number)) { return false; }
+
+        var n_id_buttons = this.getNumberOfLayoutFileIdButtons(i_layout_file_number);
+
+        if (n_id_buttons < 0)
+        {
+            alert("ReservationLayputXml.checkLayoutFileIdButtonNumber Returned nummber of layout file id buttons is negative ");
+
+            return false;
+        }
+
+        if (i_id_button_number >= 1 && i_id_button_number <= n_id_buttons)
+        {
+            return true;
+        }
+        else
+        {
+            alert("ReservationLayoutXml.checkLayoutFileIdButtonNumber Input layout file id button number " +  i_id_button_number.toString() + 
+                                " is not between 1 and " + i_id_button_number.toString());
+
+            return false;
+        }
+
+    } // checkLayoutFileIdButtonNumber
 
     // Returns the number of door records
     getNumberOfDoors()

@@ -49,11 +49,16 @@ function initReservationLayout()
 function callbackAfterLoadOfXmlLayout()
 {
     debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
-
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
+    var file_name = g_layout_xml.getLayoutFileName(4);
+    g_layout_xml.setLayoutFileName("NewFileName.htm", 4);
+    var layout_file_number = 3;  var button_id_number = 3;
+    var button_id = g_layout_xml.getLayoutFileButtonId(layout_file_number, button_id_number);
+    var n_id_buttons = g_layout_xml.getNumberOfLayoutFileIdButtons(layout_file_number);
+    g_layout_xml.setLayoutFileButtonId("id_test_button", layout_file_number, button_id_number);
+    g_layout_xml.setButtonTitle(1, "New Title");
 
-    var layout_file_number = 1;
-    var layou_file_description = g_layout_xml.getLayoutFileDescription(layout_file_number);
+    g_layout_xml.setDoorText(2, "New door text");
 
     var dum_int = 1;
 
