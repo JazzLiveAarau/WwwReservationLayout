@@ -86,6 +86,8 @@ function createUploadLayoutFiles()
 
         var layout_file_case = file_data.getFileCase();
 
+        var html_file_name = file_data.getHtmlName();
+
         var layout_file_description = file_data.getDescription();
 
         var n_button_ids = file_data.getNumberButtonId();

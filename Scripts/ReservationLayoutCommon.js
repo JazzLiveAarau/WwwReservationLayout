@@ -222,10 +222,10 @@ class LayoutFileData
 	   this.m_layout_file_number = i_layout_file_number;
 
        this.m_file_case = "";
+       this.m_html_name = "";
        this.m_description = "";
        this.m_button_id_array = [];
 
-	   
        this.execute();
 
     } // constructor
@@ -247,6 +247,9 @@ class LayoutFileData
     // Get and set functions for the member variables
     getFileCase(){ return this.m_file_case; }
     setFileCase(i_file_case){ this.m_file_case = i_file_case; }
+
+    getHtmlName(){ return this.m_html_name; }
+    setHtmlName(i_html_name){ this.m_html_name = i_html_name; }    
 
     getDescription(){ return this.m_description; }
     setDescription(i_description){ this.m_description = i_description; }
@@ -305,6 +308,7 @@ class LayoutFileData
     setDataFromXml()
     {
        this.m_file_case = this.m_layout_xml.getLayoutFileCase(this.m_layout_file_number);
+       this.m_html_name = this.m_layout_xml.getLayoutFileHtmlName(this.m_layout_file_number);
        this.m_description = this.m_layout_xml.getLayoutFileDescription(this.m_layout_file_number);
 
        this.m_button_id_array = [];

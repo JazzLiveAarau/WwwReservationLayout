@@ -52,6 +52,13 @@ class ReservationLayoutXml
         
     } // getLayoutFileCase
 
+    // Returns the name of the HTML file
+    getLayoutFileHtmlName(i_layout_file_number)
+    {
+        return this.getLayoutFileNodeValue(this.m_tags.getLayoutFileHtmlName(), i_layout_file_number);
+        
+    } // getLayoutFileHtmlName
+
     // Returns the layout file description
     getLayoutFileDescription(i_layout_file_number)
     {
@@ -80,6 +87,13 @@ class ReservationLayoutXml
         this.setLayoutFileNodeValue(this.m_tags.getLayoutFileCase(), i_layout_case_name, i_layout_file_number);
         
     } // setLayoutFileCase
+
+    // Sets  the name of the HTML file
+    setLayoutFileHtmlName(i_layout_htm_file_name, i_layout_file_number)
+    {
+        this.setLayoutFileNodeValue(this.m_tags.getLayoutFileHtmlName(), i_layout_htm_file_name, i_layout_file_number);
+        
+    } // setLayoutFileHtmlName
 
     // Sets the the layout file description
     setLayoutFileDescription(i_layout_case_description, i_layout_file_number)
@@ -2793,6 +2807,7 @@ class ReservationLayoutTags
         // Layout case
         this.m_tag_layout_file = "LayoutFile";
         this.m_tag_layout_file_case = "LayoutFileCase";
+        this.m_tag_layout_file_html_name = "LayoutFileHtmlName";
         this.m_tag_layout_file_description = "LayoutFileDescription";
         this.m_tag_layout_file_button_id = "LayoutFileButtonId";
 
@@ -2967,6 +2982,7 @@ class ReservationLayoutTags
     // Layout file
     getLayoutFile(){return this.m_tag_layout_file;}
     getLayoutFileCase(){return this.m_tag_layout_file_case;}
+    getLayoutFileHtmlName(){return this.m_tag_layout_file_html_name;}
     getLayoutFileDescription(){return this.m_tag_layout_file_description;}
     getLayoutFileButtonId(){return this.m_tag_layout_file_button_id;}
 
