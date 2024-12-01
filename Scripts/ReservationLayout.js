@@ -78,6 +78,22 @@ function createUploadLayoutFiles()
 {
     debugReservationLayout('createUploadLayoutFiles Enter');
 
+    var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
+
+    for (var layout_file_number=1; layout_file_number <= layout_file_data_array.length; layout_file_number++)
+    {
+        var file_data = getLayoutFileDataFromXml(g_layout_xml, layout_file_number);
+
+        var layout_file_name = file_data.getName();
+
+        var layout_file_description = file_data.getDescription();
+
+        var n_button_ids = file_data.getNumberButtonId();
+
+        var button_id_array = file_data.getButtonIdArray();
+
+    } // index_file_data
+
     var layout_case = 'MakeReservation';
 
     var result_server_directory_name = g_layout_server_dir_text_box.getValue();

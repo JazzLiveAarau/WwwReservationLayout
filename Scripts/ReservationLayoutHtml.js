@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-11-27
+// Date: 2024-12-01
 // Authors: Gunnar Lidén
 
 // Content

@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-11-30
+// Date: 2024-12-01
 // Authors: Gunnar Lidén
 
 // Content
@@ -223,7 +223,7 @@ class LayoutFileData
 
        this.m_name = "";
        this.m_description = "";
-       // TODO this.m_button_id = "";
+       this.m_button_id_array = [];
 
 	   
        this.execute();
@@ -251,15 +251,74 @@ class LayoutFileData
     getDescription(){ return this.m_description; }
     setDescription(i_description){ this.m_description = i_description; }
 
-    // TODO getButtonId(){ return this.m_button_id; }
-    // TODO setButtonId(i_button_id){ this.m_button_id = i_button_id; }
+    getNumberButtonId()
+    {
+        return this.m_button_id_array.length;
+    }
+
+    getButtonIdArray()
+    {
+        return this.m_button_id_array;
+    }
+
+    getButtonId(i_button_number)
+    { 
+        if (this.checkButtonIdNumber(i_button_number))
+        {
+            return "";
+        }
+
+        return this.m_button_id_array[i_button_number - 1];
+
+    } // getButtonId
+
+    setButtonId(i_button_number, i_button_id)
+    { 
+
+        if (this.checkButtonIdNumber(i_button_number))
+            {
+                return;
+            }
+
+            this.m_button_id_array[i_button_number - 1] = i_button_id;
+    }
+
+    checkButtonIdNumber(i_button_number)
+    {
+        var n_buttons = this.m_button_id_array.length;
+
+        if (i_button_number >= 1 && i_button_number <= n_buttons)
+        {
+            return true;
+        }
+        else
+        {
+            alert("LayoutFileData.checkButtonIdNumber i_button_number= " + 
+                i_button_number.toString() + " is not between 1 and " + n_buttons.toString());
+
+            return false;
+        }    
+
+    } // checkButtonIdNumber
 
     // Sets the dat from the XML object m_layout_xml
     setDataFromXml()
     {
        this.m_name = this.m_layout_xml.getLayoutFileName(this.m_layout_file_number);
        this.m_description = this.m_layout_xml.getLayoutFileDescription(this.m_layout_file_number);
-       // TODO this.m_button_id = this.m_layout_xml.getLayoutFileButtonId(this.m_layout_file_number);      
+
+       this.m_button_id_array = [];
+
+       var n_button_ids = g_layout_xml.getNumberOfLayoutFileIdButtons(this.m_layout_file_number);
+
+       for (var button_id_number=1; button_id_number <= n_button_ids; button_id_number++)
+       {
+            var button_id = g_layout_xml.getLayoutFileButtonId(this.m_layout_file_number, button_id_number);
+
+            var index_button = button_id_number - 1;
+
+            this.m_button_id_array[index_button] = button_id;
+       }   
 
     } // setDataFromXml
 
@@ -322,6 +381,7 @@ function getLayoutFileDataArrayFromXml(i_layout_xml)
  
 } // getLayoutFileDataArrayFromXml
 
+/*QQQQ
 // Returns an array of LayoutFileData objects
 function getLayoutButtonIdArrayFromXml(i_layout_xml, i_layout_file_number)
 {
@@ -335,6 +395,10 @@ function getLayoutButtonIdArrayFromXml(i_layout_xml, i_layout_file_number)
     }
 
     var layout_file_index = i_layout_file_number - 1;
+
+    var layout_file_data =  layout_file_data_array[layout_file_index];
+
+
 
 
 
@@ -350,6 +414,8 @@ function getLayoutButtonIdArrayFromXml(i_layout_xml, i_layout_file_number)
     return ret_button_id_array;
  
 } // getLayoutFileDataArrayFromXml
+
+QQQ*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Layout File Data //////////////////////////////////////

@@ -55,7 +55,7 @@
     <LayoutFileDescription>The reservation HTML file for the concert guests</LayoutFileDescription>
     <LayoutFileButtonId>button_send_email</LayoutFileButtonId>
   </LayoutFile> 
-    <LayoutFile> 
+  <LayoutFile> 
     <LayoutFileName>ShowLayout</LayoutFileName>
     <LayoutFileHtmlFile>ShowLayout.htm</LayoutFileHtmlFile>
     <LayoutFileDescription>The HTML file that displays the concert premises</LayoutFileDescription>
