@@ -95,7 +95,7 @@
     <ButtonImageId>text_image_send_email</ButtonImageId>
     <ButtonImageOne>ImagesApp/text_reserve_seats.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_reserve_select_undef.png</ButtonImageTwo>
-    <ButtonImageThree>NotYetSetNodeValue</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
     <ButtonImageWidth>168px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>

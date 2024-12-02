@@ -55,10 +55,10 @@ function callbackAfterLoadOfXmlLayout()
     var layout_file_number = 3;  var button_id_number = 3;
     var button_id = g_layout_xml.getLayoutFileButtonId(layout_file_number, button_id_number);
     var n_id_buttons = g_layout_xml.getNumberOfLayoutFileIdButtons(layout_file_number);
-    g_layout_xml.setLayoutFileButtonId("id_test_button", layout_file_number, button_id_number);
-    g_layout_xml.setButtonTitle(1, "New Title");
+    //g_layout_xml.setLayoutFileButtonId("id_test_button", layout_file_number, button_id_number);
+    //g_layout_xml.setButtonTitle(1, "Default tooltip (HTML title)");
 
-    g_layout_xml.setDoorText(2, "New door text");
+    //g_layout_xml.setDoorText(2, "New door text");
 
     var dum_int = 1;
 

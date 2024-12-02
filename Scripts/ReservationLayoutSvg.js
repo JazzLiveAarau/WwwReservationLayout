@@ -182,7 +182,8 @@ class LayoutSvg
 
 
 var g_font_button = ' font-family="arial" font-size="22px" ';
-var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:black" ';
+
+
 var g_style_button_blue = ' style="fill:blue;stroke-width:1;stroke:black" ';
 var g_style_button_purple = ' style="fill:purple;stroke-width:1;stroke:black" ';
 
@@ -256,9 +257,20 @@ class ButtonSvg
        // Array of identities for the buttons that shall be created
        this.m_button_id_array = i_button_id_array;   
 
-       //QQthis.m_style_wall = ' style="fill:rgb(222, 223, 224);stroke-width:1;stroke:black"';
+       this.m_style_rect = ' style="fill:white;stroke-width:1;stroke:black"';
       
+/*
+var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:black" ';
 
+    static styleCursorPointer()
+    {
+        return ' ' + 'style="cursor: pointer; " ';
+
+    } // styleCursorPinter
+
+*/
+
+       
        // All SVG code from this class
        this.m_svg_code = '';
 	   
@@ -340,43 +352,47 @@ class ButtonSvg
         var button_width_pixel = parseInt(button_width*this.m_scale_dimension);
         var button_height_pixel = parseInt(button_height*this.m_scale_dimension);
 
+        // Added properties
+        var delta_x_pixel = 10;
+        var delta_y_pixel = 1;
+        var image_button_upper_left_x_pixel = button_upper_left_x_pixel + delta_x_pixel;
+        var image_button_upper_left_y_pixel = button_upper_left_y_pixel + delta_y_pixel;
+
         var button_svg = '';
-	
+
+        var rect_svg = LayoutSvg.tab(4) + 
+                        '<rect ' + ' x=' + button_upper_left_x_pixel + ' y=' + button_upper_left_y_pixel +
+                        ' width= "' + button_width_pixel + '" height= "' + button_height_pixel + '" ' + '\n' + LayoutSvg.tab(5) +
+                        ' id= "' + button_id + '" ' + 
+                        this.m_style_rect + '></rect>';
+
+        button_svg =  button_svg + rect_svg + '\n'; 
+
+        var image_svg = LayoutSvg.tab(4) + 
+                        '<image ' + ' x=' + image_button_upper_left_x_pixel + ' y=' + image_button_upper_left_y_pixel +
+                        ' width= "' + button_image_width_pixel + '" height= "' + button_image_height_pixel + '" ' +
+                        ' id= "' + button_image_id + '" ' + '\n' + LayoutSvg.tab(5) +
+                        '  onmousedown="' + button_event_function + '()" ' + '\n' + LayoutSvg.tab(5) +
+                        ' xlink:href= "' + button_image_three + '" >' + '\n' + LayoutSvg.tab(5) +
+                        //Recommended ' href=' + button_image_three +
+                        ' <title>' + button_title + '</title> ' + '\n' + LayoutSvg.tab(5) +
+                        ' style="cursor: pointer; " ></image>';
+
+        button_svg =  button_svg + image_svg + '\n'; 
+
+
+
 /*
-
-        // Get premises data from the layout XML file 
-        var premises_data = getPremisesDataFromXml(this.m_layout_xml);
-        var premises_width = premises_data.getWidth(); 
-        var premises_height = premises_data.getHeight();
-        var wall_thickness = premises_data.getWallThickness();
-       
-        // Convert premises dimensions from mm to pixel
-        var premises_width_pixel = parseInt(premises_width*this.m_scale_dimension);
-        var premises_height_pixel = parseInt(premises_height*this.m_scale_dimension);
-        var wall_thickness_pixel = parseInt(wall_thickness*this.m_scale_dimension);        
+<image id="text_image_send_email" onmousedown="mouseDownSendEmailOrMakeReservationText(  )" x="680" y="6" width="168px" height="26px" 
+xlink:href="text_reserve_select_undef.png" style="cursor: pointer; "> 
+<title>Sitzplätze reservieren: 
+        Die Reservation wird registriert und eine Bestätigungs-E-Mail wird gesendet.</title>  </image>
 
 
-        var button_svg = '';	
-        
-		var coordinate_x_pixel = premises_width_pixel - wall_thickness_pixel;
-		var coordinate_y_pixel = button_position_pixel;
-		var width_pixel = premises_width_pixel;
-		var height_pixel = button_height_pixel;
-		
-		//var button_svg = '<rect ' + ' x=' + coordinate_x_pixel + ' y=' + coordinate_y_pixel +
-		//                    ' width=' + width_pixel + ' height=' + height_pixel + 
-		//                    ' style="fill:white;stroke-width:1;stroke:white"' +  ' />';
-						
-		// button_svg  = button_svg + button_svg + '\n';
-
-		//var text_x_pixel	= coordinate_x_pixel +  4;
-		//var text_y_pixel	= coordinate_y_pixel +  4;
-	
-		//var text_svg = '<text x=' + text_x_pixel + ' y=' + text_y_pixel + 
-		//                     ' transform="rotate(90, ' + text_x_pixel + ',' + + text_y_pixel + ')"' +
-		//                     ' font-family="arial" font-size="25px" fill=' + TableSvg.tableText + '>' + button_text + '</text>';
-					
-		// button_svg  = button_svg + text_svg + '\n';
+  <image href="mdn_logo_only_color.png" height="200" width="200" />
+  <circle cx="5" cy="5" r="4">
+    <title>I'm a circle</title>
+  </circle>
 		
 		// Right door image object	
 		var image_x_pixel = premises_width_pixel - 2 * wall_thickness_pixel;
@@ -388,9 +404,13 @@ class ButtonSvg
 					' <title>Tür</title> ' + 
 					' </image>';
 					
-		button_svg = button_svg + image_svg + '\n'; 		
+		
+        
+<rect x="670" y="5" width="220" height="29" id="button_send_email" onmousedown="mouseDownSendEmailOrMakeReservation(  )" style="cursor: pointer;fill:white;stroke-width:1;stroke:black"></rect>
+
 */ 
 
+        button_svg = button_svg + image_svg + '\n'; 
 
         return button_svg;
 
