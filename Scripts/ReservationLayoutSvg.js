@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-11-28
+// Date: 2024-12-02
 // Authors: Gunnar Lidén
 
 // Content
@@ -18,13 +18,16 @@ class LayoutSvg
 {
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
-    constructor(i_layout_xml) 
+    constructor(i_layout_xml, i_button_id_array) 
     {
         // Member variables
         // ================
 
        // Layout XML object
        this.m_layout_xml = i_layout_xml;
+
+       // Array of identities for the buttons that shall be created
+       this.m_button_id_array = i_button_id_array;       
 
        // The conversion factor mm to pixel
        this.m_scale_dimension = -0.123456789;
@@ -82,7 +85,9 @@ class LayoutSvg
 
         this.m_svg_code = this.m_svg_code + tables_svg.get();
 
-
+        var buttons_svg = new ButtonSvg(this.m_layout_xml, this.m_scale_dimension, this.m_button_id_array);
+        
+        this.m_svg_code = this.m_svg_code + buttons_svg.get();
  
         this.m_svg_code = this.m_svg_code + LayoutSvg.tab(3) + this.endLineSvg();
 
@@ -224,6 +229,184 @@ var g_color_seat_circle = "black";
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Layout Svg ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Button Svg //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class that creates all buttons SVG code for the reservation layout HTML files
+class ButtonSvg
+{
+    // Creates the instance of the class
+    // i_layout_xml: Object for a reservation layout XML file. 
+	// i_scale_dimension: The conversion factor mm to pixel
+    // i_button_id_array: Array of identities for the buttons that shall be created
+    constructor(i_layout_xml, i_scale_dimension, i_button_id_array) 
+    {
+        // Member variables
+        // ================
+
+       // Layout XML object
+       this.m_layout_xml = i_layout_xml;
+
+       // The conversion factor mm to pixel
+       this.m_scale_dimension = i_scale_dimension;
+
+       // Array of identities for the buttons that shall be created
+       this.m_button_id_array = i_button_id_array;   
+
+       //QQthis.m_style_wall = ' style="fill:rgb(222, 223, 224);stroke-width:1;stroke:black"';
+      
+
+       // All SVG code from this class
+       this.m_svg_code = '';
+	   
+       // Create (construct) the SVG code
+       this.execute();
+
+    } // constructor
+
+    // Create (construct) the SVG code
+    execute()
+    {
+        if (this.m_layout_xml == null)
+        {
+            alert("ButtonSvg.execute Layout XML object is null");
+
+            return;
+        }
+
+       // Get data for all buttons from the layout XML file  
+       var button_data_array = this.getButtonDataArray();  
+
+       var n_buttons = button_data_array.length;
+    
+        var all_buttons_svg = '';
+
+        for (var button_index=0; button_index < n_buttons; button_index++)
+        {
+            var button_data = button_data_array[button_index];
+
+            all_buttons_svg = all_buttons_svg + this.oneButton(button_data);
+        }
+
+        this.m_svg_code = all_buttons_svg;
+ 
+    } // execute
+
+    // Returns an array of ButtonData objects that shall be created
+    getButtonDataArray()
+    {
+        var ret_button_data_array = [];
+
+        var n_buttons = this.m_button_id_array.length;
+
+        for (var index_button=0; index_button < n_buttons; index_button++)
+        {
+            var button_id = this.m_button_id_array[index_button];
+
+            var button_data = getButtonDataForId(this.m_layout_xml, button_id);
+
+            ret_button_data_array[index_button] = button_data;
+        }
+
+        return ret_button_data_array;
+
+    } // getButtonDataArray
+
+    // Returns SVG code for one button
+    oneButton(i_button_data)
+    {
+        // Get button data from the layout XML file 
+        var button_id = i_button_data. getId();
+        var button_title = i_button_data. getTitle();
+        var button_event_function = i_button_data. getEventFunction();
+        var button_upper_left_x = i_button_data. getUpperLeftX();
+        var button_upper_left_y = i_button_data. getUpperLeftY();
+        var button_width = i_button_data. getWidth();
+        var button_height = i_button_data. getHeight();
+        var button_image_id = i_button_data. getImageId();
+        var button_image_one = i_button_data. getImageOne();
+        var button_image_two = i_button_data. getImageTwo();
+        var button_image_three = i_button_data. getImageThree();
+        var button_image_width_pixel = i_button_data. getImageWidth();
+        var button_image_height_pixel = i_button_data. getImageHeight();
+        var button_type = i_button_data. getType();
+
+        // Convert button dimensions from mm to pixel
+        var button_upper_left_x_pixel = parseInt(button_upper_left_x*this.m_scale_dimension);
+        var button_upper_left_y_pixel = parseInt(button_upper_left_y*this.m_scale_dimension);
+        var button_width_pixel = parseInt(button_width*this.m_scale_dimension);
+        var button_height_pixel = parseInt(button_height*this.m_scale_dimension);
+
+        var button_svg = '';
+	
+/*
+
+        // Get premises data from the layout XML file 
+        var premises_data = getPremisesDataFromXml(this.m_layout_xml);
+        var premises_width = premises_data.getWidth(); 
+        var premises_height = premises_data.getHeight();
+        var wall_thickness = premises_data.getWallThickness();
+       
+        // Convert premises dimensions from mm to pixel
+        var premises_width_pixel = parseInt(premises_width*this.m_scale_dimension);
+        var premises_height_pixel = parseInt(premises_height*this.m_scale_dimension);
+        var wall_thickness_pixel = parseInt(wall_thickness*this.m_scale_dimension);        
+
+
+        var button_svg = '';	
+        
+		var coordinate_x_pixel = premises_width_pixel - wall_thickness_pixel;
+		var coordinate_y_pixel = button_position_pixel;
+		var width_pixel = premises_width_pixel;
+		var height_pixel = button_height_pixel;
+		
+		//var button_svg = '<rect ' + ' x=' + coordinate_x_pixel + ' y=' + coordinate_y_pixel +
+		//                    ' width=' + width_pixel + ' height=' + height_pixel + 
+		//                    ' style="fill:white;stroke-width:1;stroke:white"' +  ' />';
+						
+		// button_svg  = button_svg + button_svg + '\n';
+
+		//var text_x_pixel	= coordinate_x_pixel +  4;
+		//var text_y_pixel	= coordinate_y_pixel +  4;
+	
+		//var text_svg = '<text x=' + text_x_pixel + ' y=' + text_y_pixel + 
+		//                     ' transform="rotate(90, ' + text_x_pixel + ',' + + text_y_pixel + ')"' +
+		//                     ' font-family="arial" font-size="25px" fill=' + TableSvg.tableText + '>' + button_text + '</text>';
+					
+		// button_svg  = button_svg + text_svg + '\n';
+		
+		// Right door image object	
+		var image_x_pixel = premises_width_pixel - 2 * wall_thickness_pixel;
+		var image_y_pixel = button_position_pixel;
+					
+		var image_svg = LayoutSvg.tab(4) + '<image x= ' + image_x_pixel + ' y= ' + image_y_pixel + 
+					' width=' + button_image_width_pixel + ' height=' + button_image_height_pixel + 
+					' xlink:href=' + button_image + '>' +
+					' <title>Tür</title> ' + 
+					' </image>';
+					
+		button_svg = button_svg + image_svg + '\n'; 		
+*/ 
+
+
+        return button_svg;
+
+    } // oneButton
+
+    // Get all SVG code for the body of the output HTML files
+    get()
+    {
+        return this.m_svg_code;
+
+    } // get
+
+} // ButtonSvg
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Button Svg ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 

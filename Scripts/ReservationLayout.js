@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-11-30
+// Date: 2024-12-02
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -84,11 +84,15 @@ function createUploadLayoutFiles()
 
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
 
+    var n_layout_file_data = layout_file_data_array.length;
+
+    n_layout_file_data = 1; // QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Temporary
+
     var path_file_name_array = [];
 
     var layout_html_code_array = [];
 
-    for (var layout_file_number=1; layout_file_number <= layout_file_data_array.length; layout_file_number++)
+    for (var layout_file_number=1; layout_file_number <= n_layout_file_data; layout_file_number++)
     {
         var file_data = getLayoutFileDataFromXml(g_layout_xml, layout_file_number);
 

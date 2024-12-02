@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-01
+// Date: 2024-12-02
 // Authors: Gunnar Lidén
 
 // Content
@@ -35,7 +35,7 @@ class LayoutHtml
        // Layout file creation case
        this.m_layout_file_case = i_layout_file_case;
 
-       // Button identities
+       // Array of identities for the buttons that shall be created for m_layout_file_case
        this.m_button_id_array = i_button_id_array;
 
        // Description of the layout file cases
@@ -67,7 +67,7 @@ class LayoutHtml
 
         this.m_html_code = this.m_html_code + header_str.get() + LayoutHtml.endRow();
 
-        var body_str = new LayoutBody(this.m_layout_xml, this.m_output_dir, this.m_layout_file_case);
+        var body_str = new LayoutBody(this.m_layout_xml, this.m_output_dir, this.m_layout_file_case, this.m_button_id_array);
 
         this.m_html_code = this.m_html_code + body_str.get() + LayoutHtml.endRow();
 
@@ -284,7 +284,7 @@ class LayoutBody
 {
     // Creates the instance of the class
     // i_layout_xml: Object for a reservation layout XML file. 
-    constructor(i_layout_xml, i_output_dir, i_layout_file_case) 
+    constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_button_id_array) 
     {
         // Member variables
         // ================
@@ -297,6 +297,9 @@ class LayoutBody
 
        // Layout file creation case
        this.m_layout_file_case = i_layout_file_case;
+
+       // Array of button identities that shall be created 
+       this.m_button_id_array = i_button_id_array;
 
        // All HTML code from this class
        this.m_html_body_code = ''; 
@@ -331,7 +334,7 @@ class LayoutBody
 
         this.m_html_body_code = this.m_html_body_code + this.startTrTd();
 
-        var layout_svg = new LayoutSvg(this.m_layout_xml);
+        var layout_svg = new LayoutSvg(this.m_layout_xml, this.m_button_id_array);
 
         var layout_svg_code = layout_svg.get() + LayoutHtml.endRow();
 
