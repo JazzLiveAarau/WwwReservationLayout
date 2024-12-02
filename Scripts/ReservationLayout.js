@@ -49,9 +49,11 @@ function initReservationLayout()
 function callbackAfterLoadOfXmlLayout()
 {
     debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
+
+    /*
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
     var file_case = g_layout_xml.getLayoutFileCase(4);
-    g_layout_xml.setLayoutFileCase("NewFileName.htm", 4);
+    // g_layout_xml.setLayoutFileCase("NewFileName.htm", 4);
     var layout_file_number = 3;  var button_id_number = 3;
     var button_id = g_layout_xml.getLayoutFileButtonId(layout_file_number, button_id_number);
     var n_id_buttons = g_layout_xml.getNumberOfLayoutFileIdButtons(layout_file_number);
@@ -59,6 +61,7 @@ function callbackAfterLoadOfXmlLayout()
     //g_layout_xml.setButtonTitle(1, "Default tooltip (HTML title)");
 
     //g_layout_xml.setDoorText(2, "New door text");
+    */
 
     var dum_int = 1;
 
@@ -86,7 +89,7 @@ function createUploadLayoutFiles()
 
     var n_layout_file_data = layout_file_data_array.length;
 
-    n_layout_file_data = 1; // QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Temporary
+    //n_layout_file_data = 1; // QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Temporary
 
     var path_file_name_array = [];
 
