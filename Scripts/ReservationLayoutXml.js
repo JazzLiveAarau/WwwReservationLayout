@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2024-12-01
+// Date: 2024-12-02
 // Author: Gunnar Lidén
 
 // File content
@@ -908,6 +908,13 @@ class ReservationLayoutXml
         
     } // getButtonImageId
 
+    // Returns the button image event function for a given button number
+    getButtonImageEventFunction(i_button_number)
+    {
+        return this.getButtonNodeValue(this.m_tags.getButtonImageEventFunction(), i_button_number);
+        
+    } // getButtonImageEventFunction
+
     // Returns the button image one for a given button number
     getButtonImageOne(i_button_number)
     {
@@ -1015,6 +1022,13 @@ class ReservationLayoutXml
         this.setButtonNodeValue(this.m_tags.getButtonImageId(), i_button_number, i_button_image_id);
         
     } // setButtonImageId
+
+    // Sets the button image event function for a given button number
+    setButtonImageEventFunction(i_button_number, i_button_image_event_function)
+    {
+        this.setButtonNodeValue(this.m_tags.getButtonImageEventFunction(), i_button_number, i_button_image_event_function);
+        
+    } // setButtonImageEventFunction
 
     // Sets the button image one for a given button number
     setButtonImageOne(i_button_number, i_button_image_one)
@@ -2879,6 +2893,7 @@ class ReservationLayoutTags
         this.m_tag_button_upper_width = "ButtonWidth";
         this.m_tag_button_upper_height = "ButtonHeight";
         this.m_tag_button_image_id = "ButtonImageId";
+        this.m_tag_button_image_event_function = "ButtonImageEventFunction";
         this.m_tag_button_image_one = "ButtonImageOne";
         this.m_tag_button_image_two = "ButtonImageTwo";
         this.m_tag_button_image_three = "ButtonImageThree";
@@ -3055,6 +3070,7 @@ class ReservationLayoutTags
     getButtonWidth(){return this.m_tag_button_upper_width;}
     getButtonHeight(){return this.m_tag_button_upper_height;}
     getButtonImageId(){return this.m_tag_button_image_id;}
+    getButtonImageEventFunction(){return this.m_tag_button_image_event_function;}
     getButtonImageOne(){return this.m_tag_button_image_one;}
     getButtonImageTwo(){return this.m_tag_button_image_two;}
     getButtonImageThree(){return this.m_tag_button_image_three;}

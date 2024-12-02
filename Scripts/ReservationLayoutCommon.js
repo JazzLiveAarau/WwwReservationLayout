@@ -991,15 +991,14 @@ class ButtonData
        this.m_width = -12345;
        this.m_height = -12345;
        this.m_image_id = "";
+       this.m_image_event_function = "";
        this.m_image_one = "";
        this.m_image_two = "";
        this.m_image_three = "";
        this.m_image_width = "";
        this.m_image_height = "";
        this.m_type = "";
- 
 
-	   
        this.execute();
 
     } // constructor
@@ -1043,6 +1042,9 @@ class ButtonData
     getImageId(){ return this.m_image_id; }
     setImageId(i_image_id){ this.m_image_id = i_image_id; }
 
+    getImageEventFunction(){ return this.m_image_event_function; }
+    setImageEventFunction(i_image_event_function){ this.m_image_event_function = i_image_event_function; }
+
     getImageOne(){ return this.m_image_one; }
     setImageOne(i_image_one){ this.m_image_one = i_image_one; }
 
@@ -1073,6 +1075,7 @@ class ButtonData
        this.m_width = parseInt(this.m_layout_xml.getButtonWidth(this.m_button_number));
        this.m_height = parseInt(this.m_layout_xml.getButtonHeight(this.m_button_number));
        this.m_image_id = this.m_layout_xml.getButtonImageId(this.m_button_number);
+       this.m_image_event_function = this.m_layout_xml.getButtonImageEventFunction(this.m_button_number);
        this.m_image_one = this.m_layout_xml.getButtonImageOne(this.m_button_number);
        this.m_image_two = this.m_layout_xml.getButtonImageTwo(this.m_button_number);
        this.m_image_three = this.m_layout_xml.getButtonImageThree(this.m_button_number);
