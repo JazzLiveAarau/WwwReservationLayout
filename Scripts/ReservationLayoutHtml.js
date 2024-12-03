@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-02
+// Date: 2024-12-03
 // Authors: Gunnar Lidén
 
 // Content
@@ -322,27 +322,13 @@ class LayoutBody
 
         this.m_html_body_code = this.m_html_body_code + this.startTableTbody();
 
-        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
+        this.m_html_body_code = this.m_html_body_code + this.divSearchTrTd();
 
-        this.m_html_body_code = this.m_html_body_code + this.divSearch();
+        this.m_html_body_code = this.m_html_body_code + this.divSelectConcertTrTd();
 
-        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
+        this.m_html_body_code = this.m_html_body_code + this.layoutSvgTrTd();
 
-        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
-
-        this.m_html_body_code = this.m_html_body_code + this.divSelectConcert();
-
-        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
-
-        this.m_html_body_code = this.m_html_body_code + this.startTrTd();
-
-        var layout_svg = new LayoutSvg(this.m_layout_xml, this.m_button_id_array);
-
-        var layout_svg_code = layout_svg.get() + LayoutHtml.endRow();
-
-        this.m_html_body_code = this.m_html_body_code + layout_svg_code;
-
-        this.m_html_body_code = this.m_html_body_code + this.endTrTd();
+        this.m_html_body_code = this.m_html_body_code + this.imageSponsorsTrTd();
 
         this.m_html_body_code = this.m_html_body_code + this.endTableTbody();
 
@@ -382,34 +368,155 @@ class LayoutBody
 
     divSearch()
     {
-        return LayoutHtml.tab(4) + '<div id="id_reservation_search_seats"> </div>'  + LayoutHtml.endRow();
+        return LayoutHtml.tab(4) + '<div id="id_reservation_search_seats">Section (division) search seats </div>'  + LayoutHtml.endRow();
     }
+
+    divSearchTrTd()
+    {
+        var ret_search = '';
+
+        ret_search = ret_search + this.startTrTd();
+
+        ret_search = ret_search + this.divSearch();
+
+        ret_search = ret_search +  this.endTrTd();
+
+        return ret_search;
+
+    } // divSearchTrTd
 
     divSelectConcert()
     {
-        return LayoutHtml.tab(4) + '<div id="id_reservation_select_concert"> </div>'  + LayoutHtml.endRow();
+        return LayoutHtml.tab(4) + '<div id="id_reservation_select_concert">Section (division) select concert </div>'  + LayoutHtml.endRow();
     }
+
+    divSelectConcertTrTd()
+    {
+        var ret_select_concert = '';
+
+        ret_select_concert = ret_select_concert + this.startTrTd();
+
+        ret_select_concert = ret_select_concert + this.divSelectConcert();
+
+        ret_select_concert = ret_select_concert + this.endTrTd();
+
+        return ret_select_concert;
+
+    } // divSelectConcertTrTd
+
+    layoutSvgTrTd()
+    {
+        var ret_svg = '';
+
+        var layout_svg = new LayoutSvg(this.m_layout_xml, this.m_button_id_array);
+
+        var layout_svg_code = layout_svg.get() + LayoutHtml.endRow();
+
+        ret_svg = ret_svg + this.startTrTd();
+
+        ret_svg = ret_svg + layout_svg_code;
+
+        ret_svg = ret_svg + this.endTrTd();
+
+        return ret_svg;
+
+    } // layoutSvgTrTd
+
+    imageSponsors()
+    {
+        var ret_sponsors_image = '';
+
+        var premises_data = getPremisesDataFromXml(this.m_layout_xml);
+
+        var sponsors_image = premises_data.getSponsorsImage();
+
+        if (sponsors_image.length < 3)
+        {
+            return ret_sponsors_image;
+        }
+
+        var sponsors_image_width = premises_data.getSponsorsImageWidth();
+
+        var sponsors_image_height = premises_data.getSponsorsImageHeight();
+
+        var size_str = '';
+
+        if (sponsors_image_width.length > 0 && sponsors_image_height.length > 0)
+        {
+            size_str = ' width= "'  + sponsors_image_width + '" height= "' + sponsors_image_height + '" ';
+        }
+        else if (sponsors_image_width.length > 0)
+        {
+            size_str = ' width= "'  + sponsors_image_width + '" ';
+        }
+        else if (sponsors_image_height.length > 0)
+        {
+            size_str = ' height= "' + sponsors_image_height + '" ';
+        }
+        else
+        {
+            alert("LayoutBody.imageSponsors Size (width and/or height is not defined for " + sponsors_image);
+
+            return ret_sponsors_image;
+        }
+
+        ret_sponsors_image = ret_sponsors_image + '<img id="id_sponsor_image" src="' + sponsors_image + '"';
+
+        ret_sponsors_image = ret_sponsors_image + ' alt="Sponsoren" ' + size_str + '>' + LayoutHtml.endRow();
+
+        return ret_sponsors_image;
+
+    } // imageSponsors
+
+    imageSponsorsTrTd()
+    {
+        var image_str = this.imageSponsors();
+
+        if (image_str.length == 0)
+        {
+            return '';
+        }
+
+        var ret_sponsors_str = '';
+
+        ret_sponsors_str = ret_sponsors_str + this.startTrTd();
+
+        ret_sponsors_str = ret_sponsors_str + image_str;
+
+        ret_sponsors_str = ret_sponsors_str + this.endTrTd();
+
+        return ret_sponsors_str;
+
+    } // imageSponsorsTrTd
 
 
     startString()
     {
+        // TODO Investigatehow ('Salmen') is used
+        var salmen_str = "('Salmen')";
+
+        // Please note Main and main
+        var onload_make_reservation_str =   'onload="Main' + this.m_layout_file_case + '()" ';
+        var onload_show_layout_str =        'onload="main' + this.m_layout_file_case + '()" ';
+        var onload_add_reservation_str =    'onload="Main' + this.m_layout_file_case + salmen_str + '"';
+        var onload_search_reservation_str = 'onload="main' + this.m_layout_file_case + salmen_str + '"';
+
+
         if (this.m_layout_file_case == "MakeReservation" )
         {
-            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+            return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_make_reservation_str + ' scrolling="auto">' + LayoutHtml.endRow();
         }
         if (this.m_layout_file_case == "ShowLayout" )
         {
-            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+            return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_show_layout_str + ' scrolling="auto">' + LayoutHtml.endRow();
         }
         else if (this.m_layout_file_case == "AddReservation" )
         {
-            // TODO Investigate ('Salmen')
-            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '(&apos;Salmen&apos;)" scrolling="auto">' + LayoutHtml.endRow();
+            return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_add_reservation_str + ' scrolling="auto">' + LayoutHtml.endRow();
         }
         else if (this.m_layout_file_case == "SearchReservation" )
         {
-            // TODO Investigate ('Salmen')
-            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="main' + this.m_layout_file_case + '(&apos;Salmen&apos;)" scrolling="auto">' + LayoutHtml.endRow();
+            return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_search_reservation_str + ' scrolling="auto">' + LayoutHtml.endRow();
         }
         else
         {

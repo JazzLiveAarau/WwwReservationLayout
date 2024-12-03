@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-12-01
+// Date: 2024-12-03
 // Authors: Gunnar Lidén
 
 // Content
@@ -114,13 +114,8 @@ class PremisesData
     getSponsorsImageWidth(){ return this.m_sponsors_image_width; }
     setSponsorsImageWidth(i_sponsors_image_width){ this.m_sponsors_image_width = i_sponsors_image_width; }
 
-    getSponsorsImageWidth(){ return this.m_sponsors_image_width; }
-    setSponsorsImageWidth(i_sponsors_image_width){ this.m_sponsors_image_width = i_sponsors_image_width; }
-
-
-    /*
-        this.m_sponsors_image_width = this.m_layout_xml.getSponsorsImageHeight(); 
-    */
+    getSponsorsImageHeight(){ return this.m_sponsors_image_height; }
+    setSponsorsImageHeight(i_sponsors_image_height){ this.m_sponsors_image_height = i_sponsors_image_height; }
 
 
     // Sets the data from the XML object m_layout_xml
