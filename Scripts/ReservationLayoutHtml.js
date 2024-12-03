@@ -253,6 +253,8 @@ class LayoutHeader
     {
         var premises_data = getPremisesDataFromXml(this.m_layout_xml);
 
+        // TODO Different titles for the HTML files
+
         return LayoutHtml.tab(2) + '<title>'+ premises_data.getOrganizerName() +  ' Reservation ' + premises_data.getName() + ' </title>' +  LayoutHtml.endRow();
 
     } // title
@@ -391,7 +393,28 @@ class LayoutBody
 
     startString()
     {
-        return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+        if (this.m_layout_file_case == "MakeReservation" )
+        {
+            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+        }
+        if (this.m_layout_file_case == "ShowLayout" )
+        {
+            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="main' + this.m_layout_file_case + '()" scrolling="auto">' + LayoutHtml.endRow();
+        }
+        else if (this.m_layout_file_case == "AddReservation" )
+        {
+            // TODO Investigate ('Salmen')
+            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="Main' + this.m_layout_file_case + '(&apos;Salmen&apos;)" scrolling="auto">' + LayoutHtml.endRow();
+        }
+        else if (this.m_layout_file_case == "SearchReservation" )
+        {
+            // TODO Investigate ('Salmen')
+            return LayoutHtml.tab(1) + '<body bgcolor="#dfe0e1" onload="main' + this.m_layout_file_case + '(&apos;Salmen&apos;)" scrolling="auto">' + LayoutHtml.endRow();
+        }
+        else
+        {
+            alert("LayoutBody.startString Not an implemented case= " + this.m_layout_file_case);
+        }
 
     } // startString
 
@@ -479,6 +502,39 @@ class LayoutScript
             //path_file_array[14] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationTables.js';
             //path_file_array[15] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmenEvents.js';
         }
+        else if (this.m_layout_file_case == 'ShowLayout' )
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js';
+            path_file_array[ 3] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js';
+            path_file_array[ 4] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
+            path_file_array[ 5] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js';
+            path_file_array[ 6] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+            path_file_array[ 7] = 'https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js';
+        }
+        else if (this.m_layout_file_case == 'AddReservation' )
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js';
+            path_file_array[ 3] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js';
+            path_file_array[ 4] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
+            path_file_array[ 5] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js';
+            path_file_array[ 6] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+            path_file_array[ 7] = 'https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js';
+        }
+        else if (this.m_layout_file_case == 'SearchReservation' )
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js';
+            path_file_array[ 3] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js';
+            path_file_array[ 4] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
+            path_file_array[ 5] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js';
+            path_file_array[ 6] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+            path_file_array[ 7] = 'https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js';
+        }
         else
         {
             alert("LayoutScript.execute Not an implemented case= " + this.m_layout_file_case);
@@ -514,6 +570,7 @@ class LayoutScript
     eventMouse()
     {
         var event_str = '';
+
         if (this.m_layout_file_case == 'MakeReservation' )
         {
             event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
@@ -546,6 +603,109 @@ class LayoutScript
 
             event_str = event_str + LayoutHtml.endRow();  
         }
+        else if (this.m_layout_file_case == 'ShowLayout' )
+        {
+            /*QQQQQ
+            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.endRow();  
+            QQQ*/
+        }
+        else if (this.m_layout_file_case == 'AddReservation' )
+        {
+            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'SearchReservation' )
+        {
+            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.endRow();  
+        }
+        else
+        {
+            alert("LayoutScript A not yet implemented file case.  m_layout_file_case= " + this.m_layout_file_case);
+        }
+    
 
         return event_str;
 
@@ -578,6 +738,76 @@ class LayoutScript
 
             set_event_str = set_event_str + LayoutHtml.endRow();  
         }
+        else if (this.m_layout_file_case == 'ShowLayout' )
+        {
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'AddReservation' )
+        {
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'SearchReservation' )
+        {
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + LayoutHtml.endRow();  
+        }
+        else
+        {
+            alert("LayoutScript.setEventFunctions A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
+        }
 
         return set_event_str;
 
@@ -597,7 +827,7 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
 
-            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times. This function is obviously preferred...' + LayoutHtml.endRow(); 
+            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
 
             main_str = main_str + LayoutHtml.tab(3) + 'function MainMakeReservation()' + LayoutHtml.endRow();  
 
@@ -610,6 +840,76 @@ class LayoutScript
             main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'ShowLayout' )
+        {
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for ShowLayout. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'function mainShowLayout()' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(4) + 'alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'AddReservation' )
+        {
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for Addreservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'function MainAddReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(4) + 'alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'SearchReservation' )
+        {
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            
+            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for SearchReservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'function mainSearchReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(4) + 'alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow();  
+        }
+        else
+        {
+            alert("LayoutScript.tempMainFunction A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
         }
 
         return main_str;

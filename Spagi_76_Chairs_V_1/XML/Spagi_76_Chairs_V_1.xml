@@ -113,7 +113,7 @@
 	  <ButtonImageEventFunction>mouseDownSaveReservationText</ButtonImageEventFunction>
     <ButtonImageOne>ImagesApp/text_save_reservation_white.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_save_reservation_white.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_save_reservation_white.png</ButtonImageThree>
     <ButtonImageWidth>222px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
@@ -130,7 +130,7 @@
     <ButtonImageEventFunction>mouseDownInitReservationText</ButtonImageEventFunction>
     <ButtonImageOne>ImagesApp/text_add_reservation.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_add_reservation.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_add_reservation.png</ButtonImageThree>
     <ButtonImageWidth>222px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
@@ -140,14 +140,14 @@
     <ButtonTitle>Reservationskarten für alle Sitzplätze generieren</ButtonTitle>
     <ButtonEventFunction>mouseDownPrintReservations</ButtonEventFunction>
     <ButtonUpperLeftX>5963</ButtonUpperLeftX>
-    <ButtonUpperLeftY>441</ButtonUpperLeftY>
+    <ButtonUpperLeftY>45</ButtonUpperLeftY>
     <ButtonWidth>1958</ButtonWidth>
     <ButtonHeight>258</ButtonHeight>
     <ButtonImageId>id_text_image_reservation_print</ButtonImageId>
     <ButtonImageEventFunction>mouseDownPrintReservationsText</ButtonImageEventFunction>
     <ButtonImageOne>ImagesApp/text_reservation_print.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_reservation_print.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_reservation_print.png</ButtonImageThree>
     <ButtonImageWidth>206px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
@@ -164,7 +164,7 @@
 	  <ButtonImageEventFunction>mouseDownListReservationsText</ButtonImageEventFunction>
     <ButtonImageOne>ImagesApp/text_reservation_list.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_reservation_list.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_reservation_list.png</ButtonImageThree>
     <ButtonImageWidth>188px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
@@ -181,7 +181,7 @@
 	  <ButtonImageEventFunction>mouseDownDeleteReservationModeText</ButtonImageEventFunction>
     <ButtonImageOne>ImagesApp/text_delete_off.png</ButtonImageOne>
     <ButtonImageTwo>ImagesApp/text_delete_on.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_reserve_select_undef.png</ButtonImageThree>
+    <ButtonImageThree>ImagesApp/text_delete_off.png</ButtonImageThree>
     <ButtonImageWidth>104px</ButtonImageWidth>
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>

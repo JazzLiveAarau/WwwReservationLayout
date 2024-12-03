@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-02
+// Date: 2024-12-03
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -123,20 +123,49 @@ function createUploadLayoutFiles()
 
     } // index_file_data
 
+   var g_create_html_file_index = -1;
+   g_path_file_name_array = path_file_name_array;
+   g_layout_html_code_array = layout_html_code_array; 
+
+    // Previously test UtilServer.saveFileCallback(path_file_name_array[3], layout_html_code_array[3], afterSaveHtml);
+
+    recursiveFileCreation();
+
+} // createUploadLayoutFiles
+
+// Loop index HTML file
+var g_create_html_file_index = -1;
+var g_path_file_name_array = [];
+var g_layout_html_code_array = []; 
+
+// Recursively create all HTML files
+function recursiveFileCreation()
+{
+    var n_files = g_path_file_name_array.length;
+
+    g_create_html_file_index = g_create_html_file_index + 1;
+
     // The HTML file has to exist. If not the file is not writable. 
     // This is checked by UtilServerSaveFile.php.
     // Solution remove check or copy start HTML file TODO
 
-    UtilServer.saveFileCallback(path_file_name_array[0], layout_html_code_array[0], afterSaveHtml);
+    if (g_create_html_file_index < n_files - 1)
+    {
+        UtilServer.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], recursiveFileCreation);
+    }
+    else
+    {
+        UtilServer.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], afterSaveAllHtml);
+    }
 
-} // createUploadLayoutFiles
+} // recursiveFileCreation
 
-// After saving the HTML file
-function afterSaveHtml()
+// After saving all the HTML files
+function afterSaveAllHtml()
 {
-    debugReservationLayout('afterSaveHtml Enter');
+    debugReservationLayout('afterSaveAllHtml Enter');
 
-} // afterSaveHtml
+} // afterSaveAllHtml
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Execute Functions ///////////////////////////////////////////
