@@ -481,13 +481,22 @@ class LayoutBody
 
         ret_sponsors_str = ret_sponsors_str + this.startTrTd();
 
-        ret_sponsors_str = ret_sponsors_str + image_str;
+        ret_sponsors_str = ret_sponsors_str +  LayoutHtml.tab(4) + image_str;
+
+        // Was 'always' here but should be changed to own element only for MakeReservation
+        ret_sponsors_str = ret_sponsors_str +  LayoutHtml.tab(4) + this.divCloseWindowText();
 
         ret_sponsors_str = ret_sponsors_str + this.endTrTd();
 
         return ret_sponsors_str;
 
     } // imageSponsorsTrTd
+
+
+    divCloseWindowText()
+    {
+        return '<div id="id_reservation_close_window_text"> </div>' + LayoutHtml.endRow();
+    }
 
 
     startString()
