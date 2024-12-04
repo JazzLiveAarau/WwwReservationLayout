@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-12-02
+// Date: 2024-12-03
 // Authors: Gunnar Lidén
 
 // Content
@@ -369,15 +369,18 @@ var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:b
 
         button_svg =  button_svg + rect_svg + '\n'; 
 
+         // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title
+         // Recommended ' href=' + button_image_three. Do not use link:href TODO
+
         var image_svg = LayoutSvg.tab(4) + 
                         '<image ' + ' x=' + image_button_upper_left_x_pixel + ' y=' + image_button_upper_left_y_pixel +
                         ' width= "' + button_image_width_pixel + '" height= "' + button_image_height_pixel + '" ' +
                         ' id= "' + button_image_id + '" ' + '\n' + LayoutSvg.tab(5) +
-                        '  onmousedown="' + button_image_event_function + '()" ' + '\n' + LayoutSvg.tab(5) +
-                        ' xlink:href= "' + button_image_three + '" >' + '\n' + LayoutSvg.tab(5) +
-                        //Recommended ' href=' + button_image_three +
-                        ' <title>' + button_title + '</title> ' + '\n' + LayoutSvg.tab(5) +
-                        ' style="cursor: pointer; " ></image>';
+                        ' style="cursor: pointer; "' + '\n' + LayoutSvg.tab(5) +
+                        ' onmousedown="' + button_image_event_function + '()" ' + '\n' + LayoutSvg.tab(5) +
+                        ' xlink:href= "' + button_image_three + '" >' + '\n' + LayoutSvg.tab(6) +
+                        ' <title>' + button_title + '</title> ' + '\n' + LayoutSvg.tab(4) +
+                        ' </image>';
 
         button_svg =  button_svg + image_svg + '\n'; 
 
@@ -1271,8 +1274,10 @@ class TableSvg
         var cir_event_str = this.circleEventFunction(i_table_number, i_seat_character);
             
         var cir_svg = LayoutSvg.tab(4) + '<circle ' + ' cx=' + i_circle_coordinate_x_pixel + ' cy=' + i_circle_coordinate_y_pixel + ' r=' + i_circle_radius_pixel 
-                    + ' id="' + circle_id_str + '" '  + cir_event_str + LayoutSvg.styleCursorPointer()
-                    + '  stroke=' + this.m_color_seat_circle +' stroke-width="4"  fill="' + this.m_fill_color_circle + '"/>';
+                    + ' id="' + circle_id_str + '" '  
+                    // + cir_event_str 
+                    + LayoutSvg.styleCursorPointer()
+                    + '  stroke= "' + this.m_color_seat_circle +'" stroke-width= "4"  fill="' + this.m_fill_color_circle + '" />';
 
         one_cir_svg = one_cir_svg + cir_svg + '\n';
         
@@ -1302,7 +1307,7 @@ class TableSvg
         var circle_text_id_str =  "cir_text_" + i_table_number + "_" + i_seat_character;
         
         var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' id="' + circle_text_id_str + '" ' + 
-                        ' fill=' + TableSvg.tableText + '>' + i_seat_character + '</text>';
+                        ' fill="' + this.m_text_color + '" >' + i_seat_character + '</text>';
 
         one_cir_svg = one_cir_svg + text_svg + '\n';
             

@@ -202,8 +202,8 @@
   <Door>  
     <DoorType>right</DoorType>
     <DoorPosition>5300</DoorPosition>
-	<DoorHeight>1200</DoorHeight>
-	<DoorText>Personal</DoorText>
+	  <DoorHeight>1200</DoorHeight>
+	  <DoorText>Personal</DoorText>
     <DoorImage>ImagesLayout/icon_door_staff.png</DoorImage>
     <DoorImageWidth>73px</DoorImageWidth>
     <DoorImageHeight>163px</DoorImageHeight>
@@ -211,8 +211,8 @@
   <Door>  
     <DoorType>right</DoorType>
     <DoorPosition>9500</DoorPosition>
-	<DoorHeight>1600</DoorHeight>
-	<DoorText>Eingangstür</DoorText>
+	  <DoorHeight>1600</DoorHeight>
+	  <DoorText>Eingangstür</DoorText>
     <DoorImage>ImagesLayout/icon_door_main.png</DoorImage>
     <DoorImageWidth>73px</DoorImageWidth>
     <DoorImageHeight>235px</DoorImageHeight>
@@ -220,8 +220,8 @@
   <Door>  
     <DoorType>lower</DoorType>
     <DoorPosition>500</DoorPosition>
-	<DoorHeight>1000</DoorHeight>
-	<DoorText>Hintertür</DoorText>
+	  <DoorHeight>1000</DoorHeight>
+	  <DoorText>Hintertür</DoorText>
     <DoorImage>ImagesLayout/icon_door_back.png</DoorImage>
     <DoorImageWidth>163px</DoorImageWidth>
     <DoorImageHeight>73px</DoorImageHeight>

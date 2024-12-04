@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-03
+// Date: 2024-12-04
 // Authors: Gunnar Lidén
 
 // Content
@@ -586,6 +586,10 @@ class LayoutScript
        // Layout file creation case
        this.m_layout_file_case = i_layout_file_case;
 
+       // Flag telling if a test <body> onload function shall be added the 
+       // output HTML files
+       this.m_add_temporary_onload_function = true;
+
        // All HTML code from this class
        this.m_html_script_code = ''; 
 
@@ -668,7 +672,7 @@ class LayoutScript
 
             this.m_html_script_code = this.m_html_script_code + LayoutHtml.tab(2) + LayoutScript.startString(path_file);
 
-            this.m_html_script_code = this.m_html_script_code + LayoutHtml.tab(2) + LayoutScript.endString() + LayoutHtml.endRow();
+            this.m_html_script_code = this.m_html_script_code + LayoutScript.endString() + LayoutHtml.endRow();
         }
 
         this.m_html_script_code = this.m_html_script_code + LayoutHtml.endRow();
@@ -934,6 +938,11 @@ class LayoutScript
     tempMainFunction()
     {
         var main_str = '';
+
+        if (!this.m_add_temporary_onload_function)
+        {
+            return main_str;
+        }
 		
         if (this.m_layout_file_case == 'MakeReservation' )
         {
