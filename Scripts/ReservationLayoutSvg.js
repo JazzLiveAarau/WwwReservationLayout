@@ -1193,8 +1193,8 @@ class TableSvg
 
         } // index_row
 
-        var character_left  = this.getSeatCharacterLeft(row_number + 1, circles_exist_left_array.length);
-        var character_right  = this.getSeatCharacterRight(row_number + 1, circles_exist_right_array.length);
+        var character_left  = SeatData.getSeatCharacterLeft(row_number + 1, circles_exist_left_array.length);
+        var character_right  = SeatData.getSeatCharacterRight(row_number + 1, circles_exist_right_array.length);
 
         var index_y = parseInt(row_number);
 
@@ -1224,8 +1224,8 @@ class TableSvg
             return ret_two_cir_svg;
         }
     
-        var character_left  = this.getSeatCharacterLeft(i_row_number, i_circles_exist_left_array.length);
-        var character_right  = this.getSeatCharacterRight(i_row_number, i_circles_exist_right_array.length);
+        var character_left  = SeatData.getSeatCharacterLeft(i_row_number, i_circles_exist_left_array.length);
+        var character_right  = SeatData.getSeatCharacterRight(i_row_number, i_circles_exist_right_array.length);
         
         var index_y = parseInt(i_row_number) - 1;
         
@@ -1243,22 +1243,6 @@ class TableSvg
         
     } // twoSeats
 
-    // Returns the circle (seat) event function
-    circleEventFunction(i_table_number, i_seat_character)
-    {
-        var mouse_down_str = 'onmousedown=';
-
-        var function_name = 'EventMouseDown';
-
-        var table_number_str = i_table_number.toString();
-
-        var ret_str = ' ' + mouse_down_str + '"' + function_name + '(' +
-                     table_number_str + ', ' + i_seat_character + ')' + '"' + ' ';
-
-        return ret_str;
-
-    } // circleEventFunction
-
     // Returns SVG code for one seat (circle) if it shall be created
     oneSeat(i_b_create_seat, i_circle_coordinate_x_pixel, i_circle_coordinate_y_pixel, i_circle_radius_pixel, i_seat_character, i_table_side, i_table_number)
     {
@@ -1269,13 +1253,10 @@ class TableSvg
             return one_cir_svg;
         }
         
-        var circle_id_str =  i_table_number + "_" + i_seat_character;
-
-        var cir_event_str = this.circleEventFunction(i_table_number, i_seat_character);
+        var circle_id_str =  SeatData.getTableSeatCircleId(i_table_number, i_seat_character);
             
         var cir_svg = LayoutSvg.tab(4) + '<circle ' + ' cx=' + i_circle_coordinate_x_pixel + ' cy=' + i_circle_coordinate_y_pixel + ' r=' + i_circle_radius_pixel 
                     + ' id="' + circle_id_str + '" '  
-                    // + cir_event_str 
                     + LayoutSvg.styleCursorPointer()
                     + '  stroke= "' + this.m_color_seat_circle +'" stroke-width= "4"  fill="' + this.m_fill_color_circle + '" />';
 
@@ -1304,7 +1285,7 @@ class TableSvg
             text_y_pixel = text_y_pixel - 2*i_circle_radius_pixel;
         }	   	   
         
-        var circle_text_id_str =  "cir_text_" + i_table_number + "_" + i_seat_character;
+        var circle_text_id_str =  SeatData.getTableSeatTextId(i_table_number, i_seat_character);
         
         var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' id="' + circle_text_id_str + '" ' + 
                         ' fill="' + this.m_text_color + '" >' + i_seat_character + '</text>';
@@ -1397,332 +1378,6 @@ class TableSvg
     return circle_coordinates_y_pixel;
     
     } // getCirclePixelCoordinatesY
-
-	// Get seat character for a left seat or for the upper seat
-	getSeatCharacterLeft(i_row_number, i_number_rows)
-	{
-		var character_left = "Undefined";
-		if (1 == parseInt(i_row_number))
-		{
-			character_left = "A";
-		}
-		else if (2 == parseInt(i_row_number))
-		{
-			character_left = "C";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "C";
-			}
-		}
-		else if (3 == parseInt(i_row_number))
-		{
-			character_left = "E";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "E";
-			}
-		}
-		else if (4 == parseInt(i_row_number))
-		{
-			character_left = "G";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "G";
-			}
-		}
-		else if (5 == parseInt(i_row_number))
-		{
-			character_left = "I";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "I";
-			}
-		}
-		else if (6 == parseInt(i_row_number))
-		{
-			character_left = "K";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "K";
-			}
-		}	
-		else if (7 == parseInt(i_row_number))
-		{
-			character_left = "M";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "M";
-			}
-		}		
-		else if (8 == parseInt(i_row_number))
-		{
-			character_left = "O";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "O";
-			}
-		}
-		else if (9 == parseInt(i_row_number))
-		{
-			character_left = "Q";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "Q";
-			}
-		}	
-		else if (10 == parseInt(i_row_number))
-		{
-			character_left = "S";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "S";
-			}
-		}	
-		else if (11 == parseInt(i_row_number))
-		{
-			character_left = "U";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "U";
-			}
-		}	
-		else if (12 == parseInt(i_row_number))
-		{
-			character_left = "X";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "X";
-			}
-		}
-		else if (13 == parseInt(i_row_number))
-		{
-			character_left = "Z";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "Z";
-			}
-		}	
-		else if (14 == parseInt(i_row_number))
-		{
-			character_left = "a";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "a";
-			}
-		}	
-		else if (15 == parseInt(i_row_number))
-		{
-			character_left = "c";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "c";
-			}
-		}
-		else if (16 == parseInt(i_row_number))
-		{
-			character_left = "e";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "e";
-			}
-		}
-		else if (17 == parseInt(i_row_number))
-		{
-			character_left = "g";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "g";
-			}
-		}
-		else if (18 == parseInt(i_row_number))
-		{
-			character_left = "i";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "i";
-			}
-		}	
-		else if (19 == parseInt(i_row_number))
-		{
-			character_left = "k";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_left = "k";
-			}
-		}	
-		else if (parseInt(i_row_number) == parseInt(i_number_rows))
-		{
-			character_left = "m";
-
-		}
-			
-		return character_left;
-		
-	} // getSeatCharacterLeft
-
-	// Get seat character for a right seat or for the lower seat
-	getSeatCharacterRight(i_row_number, i_number_rows)
-	{
-		var character_right = "Undefined";
-		if (1 == parseInt(i_row_number))
-		{
-			character_right = "B";
-		}
-		else if (2 == parseInt(i_row_number))
-		{
-			character_right = "D";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "D";
-			}
-		}
-		else if (3 == parseInt(i_row_number))
-		{
-			character_right = "F";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "F";
-			}
-		}
-		else if (4 == parseInt(i_row_number))
-		{
-			character_right = "H";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "H";
-			}
-		}
-		else if (5 == parseInt(i_row_number))
-		{
-			character_right = "J";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "J";
-			}
-		}
-		else if (6 == parseInt(i_row_number))
-		{
-			character_right = "L";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "L";
-			}
-		}	
-		else if (7 == parseInt(i_row_number))
-		{
-			character_right = "N";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "N";
-			}
-		}		
-		else if (8 == parseInt(i_row_number))
-		{
-			character_right = "P";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "P";
-			}
-		}
-		else if (9 == parseInt(i_row_number))
-		{
-			character_right = "R";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "R";
-			}
-		}	
-		else if (10 == parseInt(i_row_number))
-		{
-			character_right = "T";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "T";
-			}
-		}	
-		else if (11 == parseInt(i_row_number))
-		{
-			character_right = "V";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "V";
-			}
-		}	
-		else if (12 == parseInt(i_row_number))
-		{
-			character_right = "Y";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "Y";
-			}
-		}
-		else if (13 == parseInt(i_row_number))
-		{
-			character_right = "Ä";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "Ä";
-			}
-		}	
-		else if (14 == parseInt(i_row_number))
-		{
-			character_right = "b";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "b";
-			}
-		}	
-		else if (15 == parseInt(i_row_number))
-		{
-			character_right = "d";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "d";
-			}
-		}
-		else if (16 == parseInt(i_row_number))
-		{
-			character_right = "f";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "f";
-			}
-		}
-		else if (17 == parseInt(i_row_number))
-		{
-			character_right = "h";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "h";
-			}
-		}
-		else if (18 == parseInt(i_row_number))
-		{
-			character_right = "j";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "j";
-			}
-		}	
-		else if (19 == parseInt(i_row_number))
-		{
-			character_right = "l";
-			if (parseInt(i_row_number) == parseInt(i_number_rows))
-			{
-				character_right = "l";
-			}
-		}	
-		else if (parseInt(i_row_number) == parseInt(i_number_rows))
-		{
-			character_right = "n";
-
-		}
-			
-		return character_right;
-		
-	} // getSeatCharacterRight
-
-
 
     // Get all SVG code for the body of the output HTML files
     get()

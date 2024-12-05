@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-12-03
+// Date: 2024-12-05
 // Authors: Gunnar Lidén
 
 // Content
@@ -1658,6 +1658,516 @@ function getTableDataArrayFromXml(i_layout_xml)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Table Data ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Seat Data ///////////////////////////////////////(///
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Classwith seat data and seat identity functions
+// var seat_data = new SeatData(seat_type, table_or_row_number, seat_number_or_char, b_create_seat)
+class SeatData
+{
+    // Creates the instance of the class
+    // i_case: get_data_from_xml, get_default_data, set_xml_object, check_data
+    // i_layout_xml: Object for a reservation layout XML file. May be null for case get_default_data
+    constructor(i_seat_type, i_table_or_row_number, i_seat_number_or_char, i_b_create_seat) 
+    {
+        // Member variables
+        // ================
+	   
+	   // Seat type rect_table, round_table or row
+	   this.m_seat_type = i_seat_type;
+
+	   // Table or row number
+	   this.m_table_or_row_number = i_table_or_row_number;
+	   
+	   // Seat character or number
+	   this.m_seat_number_or_char = i_seat_number_or_char;
+	   
+	   // Boolean telling if the seat shall be created (available)
+	   this.m_b_create_seat = i_b_create_seat;
+	   
+	   // Identity of the seat graphical element (circle)
+	   this.m_circle_identity = "";
+
+	   // Identity of the text element
+	   this.m_text_identity = "";
+
+       this.setIdentities();
+
+    } // constructor
+
+    setIdentities()
+    {
+        if (this.m_seat_type =='rect_table')
+        {
+            this.m_circle_identity = SeatData.getTableSeatCircleId(this.m_table_or_row_number, this.m_seat_number_or_char);
+
+            this.m_text_identity = SeatData.getTableSeatTextId(this.m_table_or_row_number, this.m_seat_number_or_char);
+        }
+        else if (this.m_seat_type =='round_table')
+        {
+            this.m_circle_identity = "";
+
+            this.m_text_identity = "";
+
+            alert("SeatData.setIdentities A not yet implemented type m_seat_type= " + this.m_seat_type);
+        }
+        else if (this.m_seat_type =='row')
+        {
+            this.m_circle_identity = "";
+
+            this.m_text_identity = "";    
+            
+            alert("SeatData.setIdentities A not yet implemented type m_seat_type= " + this.m_seat_type);
+        }
+        else
+        {
+            this.m_circle_identity = "";
+
+            this.m_text_identity = "";
+
+            alert("SeatData.setIdentities Unvalid type m_seat_type= " + this.m_seat_type);
+        }
+        
+    } // setIdentities
+
+    static getTableSeatCircleId(i_table_number, i_seat_character)
+    {
+        return  i_table_number + "_" + i_seat_character;
+
+    } // getTableSeatCircleId
+
+    static getTableSeatTextId(i_table_number, i_seat_character)
+    {
+        return  "cir_text_" + i_table_number + "_" + i_seat_character;;
+        
+    } // getTableSeatTextId
+ 
+	// Get seat character for a left seat or for the upper seat
+	static getSeatCharacterLeft(i_row_number, i_number_rows)
+	{
+		var character_left = "Undefined";
+
+		if (1 == parseInt(i_row_number))
+		{
+			character_left = "A";
+		}
+		else if (2 == parseInt(i_row_number))
+		{
+			character_left = "C";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "C";
+			}
+		}
+		else if (3 == parseInt(i_row_number))
+		{
+			character_left = "E";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "E";
+			}
+		}
+		else if (4 == parseInt(i_row_number))
+		{
+			character_left = "G";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "G";
+			}
+		}
+		else if (5 == parseInt(i_row_number))
+		{
+			character_left = "I";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "I";
+			}
+		}
+		else if (6 == parseInt(i_row_number))
+		{
+			character_left = "K";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "K";
+			}
+		}	
+		else if (7 == parseInt(i_row_number))
+		{
+			character_left = "M";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "M";
+			}
+		}		
+		else if (8 == parseInt(i_row_number))
+		{
+			character_left = "O";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "O";
+			}
+		}
+		else if (9 == parseInt(i_row_number))
+		{
+			character_left = "Q";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "Q";
+			}
+		}	
+		else if (10 == parseInt(i_row_number))
+		{
+			character_left = "S";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "S";
+			}
+		}	
+		else if (11 == parseInt(i_row_number))
+		{
+			character_left = "U";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "U";
+			}
+		}	
+		else if (12 == parseInt(i_row_number))
+		{
+			character_left = "X";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "X";
+			}
+		}
+		else if (13 == parseInt(i_row_number))
+		{
+			character_left = "Z";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "Z";
+			}
+		}	
+		else if (14 == parseInt(i_row_number))
+		{
+			character_left = "a";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "a";
+			}
+		}	
+		else if (15 == parseInt(i_row_number))
+		{
+			character_left = "c";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "c";
+			}
+		}
+		else if (16 == parseInt(i_row_number))
+		{
+			character_left = "e";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "e";
+			}
+		}
+		else if (17 == parseInt(i_row_number))
+		{
+			character_left = "g";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "g";
+			}
+		}
+		else if (18 == parseInt(i_row_number))
+		{
+			character_left = "i";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "i";
+			}
+		}	
+		else if (19 == parseInt(i_row_number))
+		{
+			character_left = "k";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_left = "k";
+			}
+		}	
+		else if (parseInt(i_row_number) == parseInt(i_number_rows))
+		{
+			character_left = "m";
+
+		}
+			
+		return character_left;
+		
+	} // getSeatCharacterLeft
+
+	// Get seat character for a right seat or for the lower seat
+	static getSeatCharacterRight(i_row_number, i_number_rows)
+	{
+		var character_right = "Undefined";
+
+		if (1 == parseInt(i_row_number))
+		{
+			character_right = "B";
+		}
+		else if (2 == parseInt(i_row_number))
+		{
+			character_right = "D";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "D";
+			}
+		}
+		else if (3 == parseInt(i_row_number))
+		{
+			character_right = "F";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "F";
+			}
+		}
+		else if (4 == parseInt(i_row_number))
+		{
+			character_right = "H";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "H";
+			}
+		}
+		else if (5 == parseInt(i_row_number))
+		{
+			character_right = "J";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "J";
+			}
+		}
+		else if (6 == parseInt(i_row_number))
+		{
+			character_right = "L";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "L";
+			}
+		}	
+		else if (7 == parseInt(i_row_number))
+		{
+			character_right = "N";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "N";
+			}
+		}		
+		else if (8 == parseInt(i_row_number))
+		{
+			character_right = "P";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "P";
+			}
+		}
+		else if (9 == parseInt(i_row_number))
+		{
+			character_right = "R";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "R";
+			}
+		}	
+		else if (10 == parseInt(i_row_number))
+		{
+			character_right = "T";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "T";
+			}
+		}	
+		else if (11 == parseInt(i_row_number))
+		{
+			character_right = "V";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "V";
+			}
+		}	
+		else if (12 == parseInt(i_row_number))
+		{
+			character_right = "Y";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "Y";
+			}
+		}
+		else if (13 == parseInt(i_row_number))
+		{
+			character_right = "Ä";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "Ä";
+			}
+		}	
+		else if (14 == parseInt(i_row_number))
+		{
+			character_right = "b";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "b";
+			}
+		}	
+		else if (15 == parseInt(i_row_number))
+		{
+			character_right = "d";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "d";
+			}
+		}
+		else if (16 == parseInt(i_row_number))
+		{
+			character_right = "f";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "f";
+			}
+		}
+		else if (17 == parseInt(i_row_number))
+		{
+			character_right = "h";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "h";
+			}
+		}
+		else if (18 == parseInt(i_row_number))
+		{
+			character_right = "j";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "j";
+			}
+		}	
+		else if (19 == parseInt(i_row_number))
+		{
+			character_right = "l";
+			if (parseInt(i_row_number) == parseInt(i_number_rows))
+			{
+				character_right = "l";
+			}
+		}	
+		else if (parseInt(i_row_number) == parseInt(i_number_rows))
+		{
+			character_right = "n";
+
+		}
+			
+		return character_right;
+		
+	} // getSeatCharacterRight
+
+    // Checks the data
+    checkData()
+    {
+        var ret_b_check = true;
+
+
+        return ret_b_check;
+
+    } // checkData
+
+} // SeatData
+
+// Get an array of SeatData objects for all tables
+function getAllTablesSeatDataArray(i_layout_xml)
+{
+    var ret_seat_data_array = [];
+
+    var index_seat_data_array = 0;
+
+    var seat_type = 'rect_table';
+
+    var seat_data = null;
+
+    var table_data_array = getTableDataArrayFromXml(i_layout_xml);
+
+    var n_tables = table_data_array.length;
+
+    for (var table_index = 0; table_index < n_tables; table_index++)
+    {
+        var table_data = table_data_array[table_index];
+
+        var table_number = table_data.getNumber();
+
+        var b_seat_left_array = table_data.getSeatLeftArray();
+
+        var b_seat_right_array = table_data.getSeatRightArray();
+
+        var b_seat_upper = table_data.getSeatUpper();
+
+        var b_seat_lower = table_data.getSeatLower();
+
+        var n_rows = b_seat_left_array.length - 1;
+
+        var row_number= -12345;
+
+        for (var index_row=0; index_row < n_rows; index_row++)
+        {
+            row_number= index_row + 1;
+
+            var seat_char_left = SeatData.getSeatCharacterLeft(row_number, b_seat_left_array.length);
+
+            var seat_char_right = SeatData.getSeatCharacterRight(row_number, b_seat_right_array.length);
+
+            var b_seat_left = b_seat_left_array[index_row];
+
+            var b_seat_right = b_seat_right_array[index_row];
+
+            seat_data = new SeatData(seat_type, table_number, seat_char_left, b_seat_left);
+
+            ret_seat_data_array[index_seat_data_array] = seat_data;
+
+            index_seat_data_array = index_seat_data_array + 1;
+
+            seat_data = new SeatData(seat_type, table_number, seat_char_right, b_seat_right);
+
+            ret_seat_data_array[index_seat_data_array] = seat_data;
+
+            index_seat_data_array = index_seat_data_array + 1;
+
+        } // index_row
+
+        var character_upper  = SeatData.getSeatCharacterLeft(row_number + 1, b_seat_left_array.length);
+
+        var character_lower  = SeatData.getSeatCharacterRight(row_number + 1, b_seat_right_array.length);
+
+        seat_data = new SeatData(seat_type, table_number, character_upper, b_seat_upper);
+
+        ret_seat_data_array[index_seat_data_array] = seat_data;
+
+        index_seat_data_array = index_seat_data_array + 1;
+
+        seat_data = new SeatData(seat_type, table_number, character_lower, b_seat_lower);
+
+        ret_seat_data_array[index_seat_data_array] = seat_data;
+
+        index_seat_data_array = index_seat_data_array + 1;
+
+    } // table_index
+
+    return ret_seat_data_array
+
+} // getAllTablesSeatDataArray
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Seat Data /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-04
+// Date: 2024-12-05
 // Authors: Gunnar Lidén
 
 // Content
@@ -835,6 +835,8 @@ class LayoutScript
     setEventFunctions()
     {
         var set_event_str = '';
+
+        var seat_data_array =  getAllTablesSeatDataArray(this.m_layout_xml);
 		
         if (this.m_layout_file_case == 'MakeReservation' )
         {
