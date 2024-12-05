@@ -1698,6 +1698,31 @@ class SeatData
 
     } // constructor
 
+    getCreateSeat()
+    {
+        return this.m_b_create_seat;
+    }
+
+    getRowOrTableNumber()
+    {
+        return this.m_table_or_row_number;
+    }
+
+    getSeatNumberOrChar()
+    {
+        return this.m_seat_number_or_char;
+    }
+
+    getCircleId()
+    {
+        return this.m_circle_identity;
+    }
+
+    getTextId()
+    {
+        return this.m_text_identity;
+    }
+
     setIdentities()
     {
         if (this.m_seat_type =='rect_table')
@@ -1903,6 +1928,11 @@ class SeatData
 			character_left = "m";
 
 		}
+
+        if (character_left == "Undefined")
+        {
+            alert("SeatData.getSeatCharacterLeft No character returned for i_row_number= " + i_row_number.toString() + " i_number_rows= " + i_number_rows.toString());
+        }
 			
 		return character_left;
 		
@@ -2066,6 +2096,11 @@ class SeatData
 			character_right = "n";
 
 		}
+
+        if (character_right == "Undefined")
+        {
+            alert("SeatData.getSeatCharacterRight No character returned for i_row_number= " + i_row_number.toString() + " i_number_rows= " + i_number_rows.toString());
+        }
 			
 		return character_right;
 		
@@ -2116,7 +2151,7 @@ function getAllTablesSeatDataArray(i_layout_xml)
 
         var row_number= -12345;
 
-        for (var index_row=0; index_row < n_rows; index_row++)
+        for (var index_row=0; index_row <= n_rows; index_row++)
         {
             row_number= index_row + 1;
 
@@ -2130,11 +2165,15 @@ function getAllTablesSeatDataArray(i_layout_xml)
 
             seat_data = new SeatData(seat_type, table_number, seat_char_left, b_seat_left);
 
+            checkIfCharIsSet(seat_data, row_number, b_seat_left_array.length);
+
             ret_seat_data_array[index_seat_data_array] = seat_data;
 
             index_seat_data_array = index_seat_data_array + 1;
 
             seat_data = new SeatData(seat_type, table_number, seat_char_right, b_seat_right);
+
+            checkIfCharIsSet(seat_data, row_number, b_seat_right_array.length);
 
             ret_seat_data_array[index_seat_data_array] = seat_data;
 
@@ -2142,17 +2181,27 @@ function getAllTablesSeatDataArray(i_layout_xml)
 
         } // index_row
 
+        var i_dum = 1;
+        if (1 == b_seat_left_array.length)
+        {
+            i_dum =2;
+        }
+
         var character_upper  = SeatData.getSeatCharacterLeft(row_number + 1, b_seat_left_array.length);
 
         var character_lower  = SeatData.getSeatCharacterRight(row_number + 1, b_seat_right_array.length);
 
         seat_data = new SeatData(seat_type, table_number, character_upper, b_seat_upper);
 
+        checkIfCharIsSet(seat_data, row_number + 1, b_seat_left_array.length);
+
         ret_seat_data_array[index_seat_data_array] = seat_data;
 
         index_seat_data_array = index_seat_data_array + 1;
 
         seat_data = new SeatData(seat_type, table_number, character_lower, b_seat_lower);
+
+        checkIfCharIsSet(seat_data, row_number + 1, b_seat_right_array.length);
 
         ret_seat_data_array[index_seat_data_array] = seat_data;
 
@@ -2163,6 +2212,19 @@ function getAllTablesSeatDataArray(i_layout_xml)
     return ret_seat_data_array
 
 } // getAllTablesSeatDataArray
+
+function checkIfCharIsSet(i_data_seat, i_row_number, i_array_length)
+{
+    var current_char = i_data_seat.getSeatNumberOrChar();
+
+    if (current_char == 'Undefined')
+    {
+        alert("SeatData.checkIfCharIsSet No character returned for i_row_number= " + i_row_number.toString() + " i_array_length= " + i_array_length.toString());
+    }
+
+} // checkIfCharIsSet
+ 
+
 
 
 

@@ -836,7 +836,7 @@ class LayoutScript
     {
         var set_event_str = '';
 
-        var seat_data_array =  getAllTablesSeatDataArray(this.m_layout_xml);
+        var only_mouse_down = true;
 		
         if (this.m_layout_file_case == 'MakeReservation' )
         {
@@ -852,9 +852,11 @@ class LayoutScript
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
@@ -874,11 +876,13 @@ class LayoutScript
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
             set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.endRow();  
         }
@@ -896,9 +900,11 @@ class LayoutScript
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
@@ -918,9 +924,11 @@ class LayoutScript
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(4) + '// Do nothing' + LayoutHtml.endRow();  
+            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
@@ -936,6 +944,101 @@ class LayoutScript
         // setEventFunctions(); // ReservationSalmenEvents.js
 
     } // setEventFunctions
+
+    // Returns the statements that add event functions to the seats (circles)
+    // With SVG it is not possible to add onmousedown in the <circle> statement.
+    // It must be added 
+    setMouseDownMouseOver(i_only_mouse_down)
+    {
+        var seat_data_array =  getAllTablesSeatDataArray(this.m_layout_xml);
+
+        var n_seats = seat_data_array.length;
+
+        var add_event_str = '';
+
+        for (var index_cir = 0;  index_cir < n_seats; index_cir++)
+        {
+            var seat_data = seat_data_array[index_cir];
+
+            var id_cir_str = seat_data.getCircleId();
+
+            var b_create = seat_data.getCreateSeat();
+
+            if (b_create)
+            {
+                var mouse_down_fctn_str = "document.getElementById('" + id_cir_str + "').onmousedown = function() {mouseDown" + id_cir_str + "()};";
+                
+                add_event_str = add_event_str + LayoutHtml.tab(4) + mouse_down_fctn_str  + LayoutHtml.endRow();  
+
+
+                if (!i_only_mouse_down)
+                {
+                    var mouse_over_fctn_str = "document.getElementById('" + id_cir_str + "').onmouseover = function() {mouseOver" + id_cir_str + "()};";
+                    
+                    add_event_str = add_event_str + LayoutHtml.tab(4) + mouse_over_fctn_str  + LayoutHtml.endRow();  
+                }
+            }
+
+        } // index_cir
+
+        return add_event_str;
+
+    } // setMouseDownMouseOver
+
+    getSeatEventFunctions(i_only_mouse_down)
+    {
+        var seat_data_array =  getAllTablesSeatDataArray(this.m_layout_xml);
+
+        var n_seats = seat_data_array.length;
+
+        var functions_str = "";
+
+        for (var index_cir = 0;  index_cir < n_seats; index_cir++)
+        {
+            var seat_data = seat_data_array[index_cir];
+
+            var table_number = seat_data.getRowOrTableNumber();
+
+            var seat_char = seat_data.getSeatNumberOrChar();
+
+            var id_cir_str = seat_data.getCircleId();
+
+            var fctn_mouse_down_row_1 = "function mouseDown"+ id_cir_str + "()";
+            var fctn_mouse_down_row_2 = "{";
+            var fctn_mouse_down_row_3 = "var table_number = " + table_number + ";";
+            var fctn_mouse_down_row_4 = "var seat_char = \"" + seat_char + "\";";
+            var fctn_mouse_down_row_5 = "EventMouseDown(table_number, seat_char);";
+            var fctn_mouse_down_row_6 = "}";
+            
+            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_1 + LayoutHtml.endRow();  
+            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_2 + LayoutHtml.endRow();  
+            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_3 + LayoutHtml.endRow();  
+            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_4 + LayoutHtml.endRow();  
+            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_5 + LayoutHtml.endRow();  
+            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_6 + LayoutHtml.endRow();
+
+            if (!i_only_mouse_down)
+            {
+                var fctn_mouse_over_row_1 = "function mouseOver"+ id_cir_str + "()";
+                var fctn_mouse_over_row_2 = "{";
+                var fctn_mouse_over_row_3 = "var table_number = " + table_number + ";";
+                var fctn_mouse_over_row_4 = "var seat_char = \"" + seat_char + "\";";
+                var fctn_mouse_over_row_5 = "EventMouseOver(table_number, seat_char);";
+                var fctn_mouse_over_row_6 = "}";
+                
+                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_1 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_2 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_3 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_4 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_5 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_6 + LayoutHtml.endRow();  
+            }
+        
+        } // index_cir
+
+        return functions_str;
+
+    } // setMouseDownMouseOver
 
     tempMainFunction()
     {
@@ -962,6 +1065,8 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(4) + 'alert("MainMakeReservation Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
 
+            main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
@@ -983,6 +1088,8 @@ class LayoutScript
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(4) + 'alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
+
+             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
@@ -1006,6 +1113,8 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(4) + 'alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
 
+             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
@@ -1027,6 +1136,8 @@ class LayoutScript
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(4) + 'alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+
+             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
