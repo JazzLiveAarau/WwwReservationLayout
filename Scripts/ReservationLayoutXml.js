@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2024-12-02
+// Date: 2024-12-06
 // Author: Gunnar Lidén
 
 // File content
@@ -35,7 +35,7 @@ class ReservationLayoutXml
         // Flag that a node value not have been set
         this.m_not_yet_set_node_value = "NotYetSetNodeValue";
 
-        // Loads the XML object for aapplication file and calls the function m_callback_function_name
+        // Loads the XML object for layout file and calls the function m_callback_function_name
         this.loadOneXmlFile(this, this.getXmlLayoutFileName(), this.m_callback_function_name);
 
 
@@ -1898,14 +1898,14 @@ class ReservationLayoutXml
 
         if (layout_nodes.length == 0)
         {
-            alert("ReservationLayputXml.setLayoutNodeValue There is no element with tag name " + i_tag);
+            alert("ReservationLayoutXml.setLayoutNodeValue There is no element with tag name " + i_tag);
 
             return;
         }
 
         if (layout_nodes.length > 1)
         {
-            alert("ReservationLayputXml.setLayoutNodeValue There are multiple elements with tag name " + i_tag);
+            alert("ReservationLayoutXml.setLayoutNodeValue There are multiple elements with tag name " + i_tag);
 
             return;
         }
@@ -2312,7 +2312,7 @@ class ReservationLayoutXml
 
         if (n_layout_files < 0)
         {
-            alert("ReservationLayputXml.checkLayoutFileNumber Returned nummber of ayout cases is negative ");
+            alert("ReservationLayoutXml.checkLayoutFileNumber Returned nummber of ayout cases is negative ");
 
             return false;
         }
@@ -2363,7 +2363,7 @@ class ReservationLayoutXml
 
         if (n_id_buttons < 0)
         {
-            alert("ReservationLayputXml.checkLayoutFileIdButtonNumber Returned nummber of layout file id buttons is negative ");
+            alert("ReservationLayoutXml.checkLayoutFileIdButtonNumber Returned nummber of layout file id buttons is negative ");
 
             return false;
         }
@@ -2404,7 +2404,7 @@ class ReservationLayoutXml
 
         if (n_doors < 0)
         {
-            alert("ReservationLayputXml.checkDoorNumber Returned nummber of doors is negative ");
+            alert("ReservationLayoutXml.checkDoorNumber Returned nummber of doors is negative ");
 
             return false;
         }
@@ -2445,7 +2445,7 @@ class ReservationLayoutXml
 
         if (n_buttons < 0)
         {
-            alert("ReservationLayputXml.checkButtonNumber Returned nummber of buttons is negative ");
+            alert("ReservationLayoutXml.checkButtonNumber Returned nummber of buttons is negative ");
 
             return false;
         }
@@ -2486,7 +2486,7 @@ class ReservationLayoutXml
 
         if (n_tables < 0)
         {
-            alert("ReservationLayputXml.checkTableNumber Returned nummber of tables is negative ");
+            alert("ReservationLayoutXml.checkTableNumber Returned nummber of tables is negative ");
 
             return false;
         }
@@ -2604,7 +2604,7 @@ class ReservationLayoutXml
 
         if (n_groups < 0)
         {
-            alert("ReservationLayputXml.checkGroupNumber Returned nummber of groups is negative ");
+            alert("ReservationLayoutXml.checkGroupNumber Returned nummber of groups is negative ");
 
             return false;
         }

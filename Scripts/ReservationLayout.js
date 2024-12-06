@@ -20,6 +20,8 @@ var g_remove_tabs_comments = false;
 // In order to be able to test the created HTML files some functions are added
 var g_add_temporary_test_functions = true;
 
+var g_event_xml_array = [];
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -68,10 +70,39 @@ function callbackAfterLoadOfXmlLayout()
     //g_layout_xml.setDoorText(2, "New door text");
     */
 
-    var dum_int = 1;
+    g_event_object_index = -1;
 
+    loadOfXmlEvent();
 
 } // callbackAfterLoadOfXmlLayout
+
+var g_event_object_index = -12345;
+
+function loadOfXmlEvent()
+{
+    g_event_object_index = g_event_object_index + 1;
+
+    var subdir_xml = 'Spagi_76_Chairs_V_1/SaisonXml';
+
+    var name_add_str = 'Salmen';
+
+    var event_number = 4;
+
+    var callback_function_name = callbackAfterloadOfAllXmlEvent;
+
+    g_event_xml_array[g_event_object_index] = new ReservationEventXml(subdir_xml, name_add_str, event_number, callback_function_name);
+
+} // loadOfXmlEvent
+
+function callbackAfterloadOfAllXmlEvent()
+{
+    debugReservationLayout('callbackAfterloadOfAllXmlEvent Enter');
+
+    var event_name = g_event_xml_array[0].getEventName();
+
+    alert("callbackAfterloadOfAllXmlEvent  Event name is " + event_name);
+
+} // callbackAfterloadOfAllXmlEvent
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
