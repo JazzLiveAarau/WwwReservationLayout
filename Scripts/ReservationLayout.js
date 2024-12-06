@@ -168,7 +168,14 @@ function recursiveFileCreation()
 // After saving all the HTML files
 function afterSaveAllHtml()
 {
-    debugReservationLayout('afterSaveAllHtml Enter');
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+
+    var uploaded_msg = 'HTML Dateien sind kreiert und zum Server Ordner ' + 
+                        result_server_directory_name + ' hochgeladen';
+
+    debugReservationLayout('afterSaveAllHtml ' + uploaded_msg);
+
+    alert(uploaded_msg);
 
 } // afterSaveAllHtml
 

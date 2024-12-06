@@ -886,6 +886,8 @@ class LayoutScript
 
         var add_event_str = '';
 
+        var n_used_seats = 0;
+
         for (var index_cir = 0;  index_cir < n_seats; index_cir++)
         {
             var seat_data = seat_data_array[index_cir];
@@ -907,9 +909,13 @@ class LayoutScript
                     
                     add_event_str = add_event_str + LayoutHtml.tab(4) + mouse_over_fctn_str  + LayoutHtml.endRow();  
                 }
+
+                n_used_seats = n_used_seats + 1;
             }
 
         } // index_cir
+
+        debugReservationLayout('LayoutScript.setMouseDownMouseOver  Number of seats is ' + n_used_seats.toString());
 
         return add_event_str;
 
@@ -933,36 +939,41 @@ class LayoutScript
 
             var id_cir_str = seat_data.getCircleId();
 
-            var fctn_mouse_down_row_1 = "function mouseDown"+ id_cir_str + "()";
-            var fctn_mouse_down_row_2 = "{";
-            var fctn_mouse_down_row_3 = "var table_number = " + table_number + ";";
-            var fctn_mouse_down_row_4 = "var seat_char = \"" + seat_char + "\";";
-            var fctn_mouse_down_row_5 = "EventMouseDown(table_number, seat_char);";
-            var fctn_mouse_down_row_6 = "}";
+            var b_create = seat_data.getCreateSeat();
 
-            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_1;  
-            functions_str = functions_str + fctn_mouse_down_row_2;  
-            functions_str = functions_str + fctn_mouse_down_row_3;  
-            functions_str = functions_str + fctn_mouse_down_row_4;  
-            functions_str = functions_str + fctn_mouse_down_row_5;  
-            functions_str = functions_str + fctn_mouse_down_row_6 + LayoutHtml.endRow();
-
-
-            if (!i_only_mouse_down)
+            if (b_create)
             {
-                var fctn_mouse_over_row_1 = "function mouseOver"+ id_cir_str + "()";
-                var fctn_mouse_over_row_2 = "{";
-                var fctn_mouse_over_row_3 = "var table_number = " + table_number + ";";
-                var fctn_mouse_over_row_4 = "var seat_char = \"" + seat_char + "\";";
-                var fctn_mouse_over_row_5 = "EventMouseOver(table_number, seat_char);";
-                var fctn_mouse_over_row_6 = "}";
-                
-                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_1;  
-                functions_str = functions_str + fctn_mouse_over_row_2;  
-                functions_str = functions_str + fctn_mouse_over_row_3;  
-                functions_str = functions_str + fctn_mouse_over_row_4;  
-                functions_str = functions_str + fctn_mouse_over_row_5;  
-                functions_str = functions_str + fctn_mouse_over_row_6 + LayoutHtml.endRow();  
+                var fctn_mouse_down_row_1 = "function mouseDown"+ id_cir_str + "()";
+                var fctn_mouse_down_row_2 = "{";
+                var fctn_mouse_down_row_3 = "var table_number = " + table_number + ";";
+                var fctn_mouse_down_row_4 = "var seat_char = \"" + seat_char + "\";";
+                var fctn_mouse_down_row_5 = "EventMouseDown(table_number, seat_char);";
+                var fctn_mouse_down_row_6 = "}";
+    
+                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_1;  
+                functions_str = functions_str + fctn_mouse_down_row_2;  
+                functions_str = functions_str + fctn_mouse_down_row_3;  
+                functions_str = functions_str + fctn_mouse_down_row_4;  
+                functions_str = functions_str + fctn_mouse_down_row_5;  
+                functions_str = functions_str + fctn_mouse_down_row_6 + LayoutHtml.endRow();
+    
+    
+                if (!i_only_mouse_down)
+                {
+                    var fctn_mouse_over_row_1 = "function mouseOver"+ id_cir_str + "()";
+                    var fctn_mouse_over_row_2 = "{";
+                    var fctn_mouse_over_row_3 = "var table_number = " + table_number + ";";
+                    var fctn_mouse_over_row_4 = "var seat_char = \"" + seat_char + "\";";
+                    var fctn_mouse_over_row_5 = "EventMouseOver(table_number, seat_char);";
+                    var fctn_mouse_over_row_6 = "}";
+                    
+                    functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_1;  
+                    functions_str = functions_str + fctn_mouse_over_row_2;  
+                    functions_str = functions_str + fctn_mouse_over_row_3;  
+                    functions_str = functions_str + fctn_mouse_over_row_4;  
+                    functions_str = functions_str + fctn_mouse_over_row_5;  
+                    functions_str = functions_str + fctn_mouse_over_row_6 + LayoutHtml.endRow();  
+                }
             }
         
         } // index_cir
