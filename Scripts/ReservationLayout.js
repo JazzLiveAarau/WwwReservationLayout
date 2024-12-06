@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-03
+// Date: 2024-12-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -14,6 +14,11 @@
 // XML object layout
 var g_layout_xml = null;
 
+// All the tabulators, end of lines and code comments can be removed with this variable
+var g_remove_tabs_comments = false;
+
+// In order to be able to test the created HTML files some functions are added
+var g_add_temporary_test_functions = true;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////

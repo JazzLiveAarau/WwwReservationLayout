@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-05
+// Date: 2024-12-06
 // Authors: Gunnar Lidén
 
 // Content
@@ -7,7 +7,6 @@
 //
 // Reservation layout HTML classes and functions
 //
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Class Layout Html /////////////////////////////////////////
@@ -110,6 +109,11 @@ class LayoutHtml
     static tab(i_n_tab)
     {
         var ret_tab_str = '';
+
+        if (g_remove_tabs_comments)
+        {
+            return ret_tab_str;
+        }
 
         var n_tab = parseInt(i_n_tab);
 
@@ -350,11 +354,14 @@ class LayoutBody
 
         xml_str = xml_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow();
 
-        xml_str = xml_str + LayoutHtml.tab(3) + '// XML file defining the layout of the concert premises' + LayoutHtml.endRow();
+        if (!g_remove_tabs_comments)
+        {
+            xml_str = xml_str + LayoutHtml.tab(3) + '// XML file defining the layout of the concert premises' + LayoutHtml.endRow();
 
-        xml_str = xml_str + LayoutHtml.tab(3) + '// This global variable was previously defined in the file ReservationSalmen.js' + LayoutHtml.endRow();
-
-        xml_str = xml_str + LayoutHtml.tab(3) + '// This file ReservationSalmen.js is no longer included in the <head> section' + LayoutHtml.endRow();
+            xml_str = xml_str + LayoutHtml.tab(3) + '// This global variable was previously defined in the file ReservationSalmen.js' + LayoutHtml.endRow();
+    
+            xml_str = xml_str + LayoutHtml.tab(3) + '// This file ReservationSalmen.js is no longer included in the <head> section' + LayoutHtml.endRow();
+        }
 
         xml_str = xml_str + LayoutHtml.tab(3) + 'g_url_file_layout_xml = "XML/' + this.m_output_dir + '.xml;"' + LayoutHtml.endRow();
 
@@ -586,10 +593,6 @@ class LayoutScript
        // Layout file creation case
        this.m_layout_file_case = i_layout_file_case;
 
-       // Flag telling if a test <body> onload function shall be added the 
-       // output HTML files
-       this.m_add_temporary_onload_function = true;
-
        // All HTML code from this class
        this.m_html_script_code = ''; 
 
@@ -601,6 +604,34 @@ class LayoutScript
     // Create (construct) the HTML code for the bpdy section <head>
     execute()
     {
+        this.m_html_script_code = '';
+
+        this.m_html_script_code = this.m_html_script_code + this.addIncludeJavaScripts();
+
+        this.m_html_script_code = this.m_html_script_code + LayoutHtml.endRow();
+
+        this.m_html_script_code = this.m_html_script_code + this.noScript();
+
+        this.m_html_script_code = this.m_html_script_code + this.setEventFunctions();
+
+        this.m_html_script_code = this.m_html_script_code + this.tempEventMouse();
+
+        this.m_html_script_code = this.m_html_script_code + this.tempMainFunction();
+
+    } // execute
+
+    addIncludeJavaScripts()
+    {
+        var ret_include_str = '';
+
+        if (g_add_temporary_test_functions)
+        {
+            ret_include_str = ret_include_str + LayoutHtml.tab(2) + '<!-- Included external Javascripts   -->' + LayoutHtml.endRow();
+            ret_include_str = ret_include_str + LayoutHtml.tab(2) + '<!-- No files included because temporary test functions are defined  -->' + LayoutHtml.endRow();
+
+            return ret_include_str;
+        }
+
         var path_file_array = [];
 
         if (this.m_layout_file_case == 'MakeReservation' )
@@ -662,7 +693,7 @@ class LayoutScript
             return;            
         }
 
-        this.m_html_script_code = ''; 
+        ret_include_str = ret_include_str + LayoutHtml.tab(2) + '<!-- Included external Javascripts   -->' + LayoutHtml.endRow();
 
         var n_scripts = path_file_array.length;
 
@@ -670,30 +701,31 @@ class LayoutScript
         {
             var path_file = path_file_array[index_file];
 
-            this.m_html_script_code = this.m_html_script_code + LayoutHtml.tab(2) + LayoutScript.startString(path_file);
+            ret_include_str = ret_include_str + LayoutHtml.tab(2) + LayoutScript.startString(path_file);
 
-            this.m_html_script_code = this.m_html_script_code + LayoutScript.endString() + LayoutHtml.endRow();
+            ret_include_str = ret_include_str + LayoutScript.endString() + LayoutHtml.endRow();
         }
 
-        this.m_html_script_code = this.m_html_script_code + LayoutHtml.endRow();
+        return ret_include_str;
+        
+    } // addIncludeJavaScripts
 
-        this.m_html_script_code = this.m_html_script_code + this.noScript();
-
-        this.m_html_script_code = this.m_html_script_code + this.setEventFunctions();
-
-        this.m_html_script_code = this.m_html_script_code + this.eventMouse();
-
-        this.m_html_script_code = this.m_html_script_code + this.tempMainFunction();
-
-    } // execute
-
-    eventMouse()
+    tempEventMouse()
     {
         var event_str = '';
 
-        if (this.m_layout_file_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' || this.m_layout_file_case == 'AddReservation' || this.m_layout_file_case == 'SearchReservation')
         {
+            if (!g_add_temporary_test_functions)
+            {
+                return event_str;
+            }
+
             event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+
+            event_str = event_str + LayoutHtml.tab(3) + '// This function is temporarely defined here for testing. QQQQQQQQQQQQQQQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+            event_str = event_str + LayoutHtml.tab(3) + '// The function EventMouseDown is defined in ReservationEvents.js' + LayoutHtml.endRow();  
             
             event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
 
@@ -701,21 +733,23 @@ class LayoutScript
 
             event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
+            event_str = event_str + LayoutHtml.tab(4) + 'alert("Table= " + i_table_number.toString() + " i_seat_char= " + i_seat_char);' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
 
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
+            // event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
+
+            // event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
 
             event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
 
@@ -757,70 +791,6 @@ class LayoutScript
             event_str = event_str + LayoutHtml.endRow();  
             QQQ*/
         }
-        else if (this.m_layout_file_case == 'AddReservation' )
-        {
-            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.endRow();  
-        }
-        else if (this.m_layout_file_case == 'SearchReservation' )
-        {
-            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.endRow();  
-        }
         else
         {
             alert("LayoutScript A not yet implemented file case.  m_layout_file_case= " + this.m_layout_file_case);
@@ -838,15 +808,24 @@ class LayoutScript
 
         var only_mouse_down = true;
 		
-        if (this.m_layout_file_case == 'MakeReservation' )
+        if (this.m_layout_file_case == 'MakeReservation' || this.m_layout_file_case == 'AddReservation' || this.m_layout_file_case == 'SearchReservation')
         {
             set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
+            if (!g_remove_tabs_comments)
+            {
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// Geometry is with SVG defined. The circles with the element <circle>' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// An event function cannot be added like in HTML with onmousedown = "myEvent". ' + LayoutHtml.endRow();  
+    
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// An event function to the <circle> element can only be added with JavaScript, i.e. ' + LayoutHtml.endRow();  
+    
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// when the <circle> exists as an object. This function adds the event functions. ' + LayoutHtml.endRow();  
+    
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// There is one event function for each <circle>. These functions are also defined in this section. ' + LayoutHtml.endRow(); 
+    
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// These functions were previously defined in the file  ReservationSalmenEvents.js' + LayoutHtml.endRow();  
+            }
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
 
@@ -865,72 +844,23 @@ class LayoutScript
         else if (this.m_layout_file_case == 'ShowLayout' )
         {
             set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
-
-            set_event_str = set_event_str + LayoutHtml.endRow();  
-        }
-        else if (this.m_layout_file_case == 'AddReservation' )
-        {
-            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
+            if (!g_remove_tabs_comments)
+            {
+                set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function setEventFunctions must probably not be defined for vase ShowLayout. TODO' + LayoutHtml.endRow(); 
+            }  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
+            // No events set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
 
             set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
-
             set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
-            set_event_str = set_event_str + LayoutHtml.endRow();  
-        }
-        else if (this.m_layout_file_case == 'SearchReservation' )
-        {
-            set_event_str = set_event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// In previous versions the circle onmmouse events were set by this function' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The event functions are now set when the HTML file is created' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '// The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + 'function setEventFunctions()' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + this.setMouseDownMouseOver(only_mouse_down);  
-
-            set_event_str = set_event_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
-
-            set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
-
-            set_event_str = set_event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+            // No events set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.endRow();  
         }
@@ -1009,13 +939,14 @@ class LayoutScript
             var fctn_mouse_down_row_4 = "var seat_char = \"" + seat_char + "\";";
             var fctn_mouse_down_row_5 = "EventMouseDown(table_number, seat_char);";
             var fctn_mouse_down_row_6 = "}";
-            
-            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_1 + LayoutHtml.endRow();  
-            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_2 + LayoutHtml.endRow();  
-            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_3 + LayoutHtml.endRow();  
-            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_4 + LayoutHtml.endRow();  
-            functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_down_row_5 + LayoutHtml.endRow();  
-            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_6 + LayoutHtml.endRow();
+
+            functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_down_row_1;  
+            functions_str = functions_str + fctn_mouse_down_row_2;  
+            functions_str = functions_str + fctn_mouse_down_row_3;  
+            functions_str = functions_str + fctn_mouse_down_row_4;  
+            functions_str = functions_str + fctn_mouse_down_row_5;  
+            functions_str = functions_str + fctn_mouse_down_row_6 + LayoutHtml.endRow();
+
 
             if (!i_only_mouse_down)
             {
@@ -1026,12 +957,12 @@ class LayoutScript
                 var fctn_mouse_over_row_5 = "EventMouseOver(table_number, seat_char);";
                 var fctn_mouse_over_row_6 = "}";
                 
-                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_1 + LayoutHtml.endRow();  
-                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_2 + LayoutHtml.endRow();  
-                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_3 + LayoutHtml.endRow();  
-                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_4 + LayoutHtml.endRow();  
-                functions_str = functions_str + LayoutHtml.tab(4) + fctn_mouse_over_row_5 + LayoutHtml.endRow();  
-                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_6 + LayoutHtml.endRow();  
+                functions_str = functions_str + LayoutHtml.tab(3) + fctn_mouse_over_row_1;  
+                functions_str = functions_str + fctn_mouse_over_row_2;  
+                functions_str = functions_str + fctn_mouse_over_row_3;  
+                functions_str = functions_str + fctn_mouse_over_row_4;  
+                functions_str = functions_str + fctn_mouse_over_row_5;  
+                functions_str = functions_str + fctn_mouse_over_row_6 + LayoutHtml.endRow();  
             }
         
         } // index_cir
@@ -1040,11 +971,24 @@ class LayoutScript
 
     } // setMouseDownMouseOver
 
+    tempMainComments()
+    {
+        var ret_comments = '';
+
+        ret_comments = ret_comments + LayoutHtml.tab(3) + '// Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
+
+        ret_comments = ret_comments + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
+
+        ret_comments = ret_comments + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+
+        return ret_comments;
+    }
+
     tempMainFunction()
     {
         var main_str = '';
 
-        if (!this.m_add_temporary_onload_function)
+        if (!g_add_temporary_test_functions)
         {
             return main_str;
         }
@@ -1053,11 +997,7 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
-
-            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
-
-            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+            main_str = main_str + this.tempMainComments();
 
             main_str = main_str + LayoutHtml.tab(3) + 'function MainMakeReservation()' + LayoutHtml.endRow();  
 
@@ -1077,19 +1017,15 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for ShowLayout. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
-
-            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
-
-            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+            main_str = main_str + this.tempMainComments();
 
             main_str = main_str + LayoutHtml.tab(3) + 'function mainShowLayout()' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
+            main_str = main_str + LayoutHtml.tab(4) + '// alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
 
-             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+             main_str = main_str + LayoutHtml.tab(4) + '// No events setEventFunctions();'
 
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
@@ -1101,17 +1037,13 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for Addreservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
-
-            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
-
-            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+            main_str = main_str + this.tempMainComments();
 
             main_str = main_str + LayoutHtml.tab(3) + 'function MainAddReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+            main_str = main_str + LayoutHtml.tab(4) + '// alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
 
              main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
@@ -1125,17 +1057,13 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + LayoutHtml.tab(3) + '// Main (onload) function for SearchReservation. Temporary for test here. QQQQQQQQQQQQQ' + LayoutHtml.endRow();  
-
-            main_str = main_str + LayoutHtml.tab(3) + '// The function is defined in file Reservation.js included in <head>' + LayoutHtml.endRow(); 
-
-            main_str = main_str + LayoutHtml.tab(3) + '// So the function is defined two times and must be deleted before use' + LayoutHtml.endRow(); 
+            main_str = main_str + this.tempMainComments();
 
             main_str = main_str + LayoutHtml.tab(3) + 'function mainSearchReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+            main_str = main_str + LayoutHtml.tab(4) + '// alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
 
              main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 

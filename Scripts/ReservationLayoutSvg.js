@@ -114,7 +114,7 @@ class LayoutSvg
         var svg_svg = '<svg id= "id_block_svg" height=' + premises_height_pixel + ' width=' + premises_width_pixel 
                                 + this.m_style_block_svg + ' >'
        
-        ret_svg = ret_svg + svg_svg + '\n';
+        ret_svg = ret_svg + svg_svg + LayoutSvg.endRow();
        
         return ret_svg;
 
@@ -163,6 +163,11 @@ class LayoutSvg
     {
         var ret_tab_str = '';
 
+        if (g_remove_tabs_comments)
+        {
+            return ret_tab_str;
+        }
+
         var n_tab = parseInt(i_n_tab);
 
         var tab_str = '    ';
@@ -176,6 +181,12 @@ class LayoutSvg
         return ret_tab_str;
 
     } // tab
+
+    static endRow()
+    {
+        return '\n';
+
+    } // endRow
 
 /*
 // Fonts, font sizes and colors (styles)
@@ -363,11 +374,11 @@ var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:b
 
         var rect_svg = LayoutSvg.tab(4) + 
                         '<rect ' + ' x=' + button_upper_left_x_pixel + ' y=' + button_upper_left_y_pixel +
-                        ' width= "' + button_width_pixel + '" height= "' + button_height_pixel + '" ' + '\n' + LayoutSvg.tab(5) +
+                        ' width= "' + button_width_pixel + '" height= "' + button_height_pixel + '" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
                         ' id= "' + button_id + '" ' + 
                         this.m_style_rect + '></rect>';
 
-        button_svg =  button_svg + rect_svg + '\n'; 
+        button_svg =  button_svg + rect_svg + LayoutSvg.endRow(); 
 
          // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title
          // Recommended ' href=' + button_image_three. Do not use link:href TODO
@@ -375,16 +386,16 @@ var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:b
         var image_svg = LayoutSvg.tab(4) + 
                         '<image ' + ' x=' + image_button_upper_left_x_pixel + ' y=' + image_button_upper_left_y_pixel +
                         ' width= "' + button_image_width_pixel + '" height= "' + button_image_height_pixel + '" ' +
-                        ' id= "' + button_image_id + '" ' + '\n' + LayoutSvg.tab(5) +
-                        ' style="cursor: pointer; "' + '\n' + LayoutSvg.tab(5) +
-                        ' onmousedown="' + button_image_event_function + '()" ' + '\n' + LayoutSvg.tab(5) +
-                        ' xlink:href= "' + button_image_three + '" >' + '\n' + LayoutSvg.tab(6) +
-                        ' <title>' + button_title + '</title> ' + '\n' + LayoutSvg.tab(4) +
+                        ' id= "' + button_image_id + '" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+                        ' style="cursor: pointer; "' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+                        ' onmousedown="' + button_image_event_function + '()" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+                        ' xlink:href= "' + button_image_three + '" >' + LayoutSvg.endRow() + LayoutSvg.tab(6) +
+                        ' <title>' + button_title + '</title> ' + LayoutSvg.endRow() + LayoutSvg.tab(4) +
                         ' </image>';
 
-        button_svg =  button_svg + image_svg + '\n'; 
+        button_svg =  button_svg + image_svg + LayoutSvg.endRow(); 
 
-        button_svg = button_svg + '\n'; 
+        button_svg = button_svg + LayoutSvg.endRow(); 
 
         return button_svg;
 
@@ -461,7 +472,7 @@ class PremisesSvg
         
         // Rectangle defining the premises
         var rectangle_svg = LayoutSvg.tab(4) + '<rect width=' + premises_width_pixel + ' height=' + premises_height_pixel +  ' />';
-        premises_svg = premises_svg + rectangle_svg + '\n';
+        premises_svg = premises_svg + rectangle_svg + LayoutSvg.endRow();
      
         // Position and dimension of the left wall	
         var wall_left_x_pixel = 0;
@@ -473,7 +484,7 @@ class PremisesSvg
         rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_left_x_pixel + ' y=' + wall_left_y_pixel
           + ' width=' + wall_left_width_pixel + ' height=' + wall_left_height_pixel     
           + this.m_style_wall +  ' />';
-        premises_svg = premises_svg + rectangle_svg + '\n';
+        premises_svg = premises_svg + rectangle_svg + LayoutSvg.endRow();
         
         // Position and dimension of the right wall		
         var wall_right_x_pixel = premises_width_pixel - wall_thickness_pixel;
@@ -485,7 +496,7 @@ class PremisesSvg
         rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_right_x_pixel + ' y=' + wall_right_y_pixel
           + ' width=' + wall_right_width_pixel + ' height=' + wall_right_height_pixel     
           + this.m_style_wall +  ' />';
-        premises_svg = premises_svg + rectangle_svg + '\n';   
+        premises_svg = premises_svg + rectangle_svg + LayoutSvg.endRow();   
     
         // Position and dimension of the upper wall	(height = 3 X wall thickness)	  
         var wall_upper_x_pixel = 0;
@@ -497,7 +508,7 @@ class PremisesSvg
         rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_upper_x_pixel + ' y=' + wall_upper_y_pixel
           + ' width=' + wall_upper_width_pixel + ' height=' + wall_upper_height_pixel     
           + this.m_style_wall_black +  ' />';
-        premises_svg = premises_svg + rectangle_svg + '\n'; 	  
+        premises_svg = premises_svg + rectangle_svg + LayoutSvg.endRow(); 	  
     
         // Position and dimension of the lower wall	
         var wall_lower_x_pixel = 0;
@@ -509,7 +520,7 @@ class PremisesSvg
         rectangle_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + wall_lower_x_pixel + ' y=' + wall_lower_y_pixel
           + ' width=' + wall_lower_width_pixel + ' height=' + wall_lower_height_pixel     
           + this.m_style_wall +  ' />';
-        premises_svg = premises_svg + rectangle_svg + '\n';
+        premises_svg = premises_svg + rectangle_svg + LayoutSvg.endRow();
         
         // 	JAZZ live AARAU text logo position
         var jazz_text_x_pixel = wall_upper_x_pixel + parseInt(wall_upper_width_pixel*0.28);
@@ -519,7 +530,7 @@ class PremisesSvg
         var text_svg = LayoutSvg.tab(4) + '<text x=' + jazz_text_x_pixel + ' y=' + jazz_text_y_pixel + 
                   LayoutSvg.fontBig() + LayoutSvg.colorJazzLiveAarau() + '>' + 
                   organizer_name + '</text>';
-        // premises_svg = premises_svg + text_svg + '\n';   
+        // premises_svg = premises_svg + text_svg + LayoutSvg.endRow();   
         
         var image_width = '400px';
         var image_height = '40px';
@@ -530,7 +541,7 @@ class PremisesSvg
                         ' xlink:href=' +image_file + '>' +
                         ' <title>'+ organizer_name +' Text Logo</title> ' + 
                         ' </image>';	
-        premises_svg = premises_svg + image_svg + '\n'; 
+        premises_svg = premises_svg + image_svg + LayoutSvg.endRow(); 
 
         this.m_svg_code = premises_svg;
  
@@ -619,7 +630,7 @@ class StageSvg
         var rect_svg = LayoutSvg.tab(4) + '<rect ' + ' x=' + stage_upper_left_x_pixel + ' y=' + stage_upper_left_y_pixel
         + ' width=' + stage_width_pixel + ' height=' + stage_height_pixel     
         + ' style="fill:' + stage_color + ';stroke-width:' + stage_stroke_width + ';stroke:' + stage_stroke_color + '"' +  ' />';
-        // state_svg = state_svg + rect_svg + '\n';
+        // state_svg = state_svg + rect_svg + LayoutSvg.endRow();
 
         // The X position for the stage text defined by a relative value
         var text_x = stage_width;
@@ -641,7 +652,7 @@ class StageSvg
         var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel 
                     + LayoutSvg.fontBig() + stage_text_color + 
                     '>' + stage_text + '</text>';
-        // state_svg = state_svg + text_svg + '\n';
+        // state_svg = state_svg + text_svg + LayoutSvg.endRow();
         
         // Stage image object	
         var image_x_pixel = stage_upper_left_x_pixel + 8;
@@ -653,7 +664,7 @@ class StageSvg
                         ' <title>Bühne</title> ' + 
                         ' </image>';
                         
-        state_svg = state_svg + stage_image_svg + '\n'; 
+        state_svg = state_svg + stage_image_svg + LayoutSvg.endRow(); 
 
         this.m_svg_code = state_svg;
  
@@ -731,7 +742,7 @@ class CashierSvg
                         ' <title>Kasse</title> ' + 
                         ' </image>';
                         
-        cashier_svg = cashier_svg + cashier_image_svg + '\n'; 
+        cashier_svg = cashier_svg + cashier_image_svg + LayoutSvg.endRow(); 
 
         this.m_svg_code = cashier_svg;
  
@@ -854,7 +865,7 @@ class DoorSvg
             //                    ' width=' + right_width_pixel + ' height=' + right_height_pixel + 
             //                    ' style="fill:white;stroke-width:1;stroke:white"' +  ' />';
                             
-            // door_svg  = door_svg + door_right_svg + '\n';
+            // door_svg  = door_svg + door_right_svg + LayoutSvg.endRow();
     
             //var right_text_x_pixel	= right_coordinate_x_pixel +  4;
             //var right_text_y_pixel	= right_coordinate_y_pixel +  4;
@@ -863,7 +874,7 @@ class DoorSvg
             //                     ' transform="rotate(90, ' + right_text_x_pixel + ',' + + right_text_y_pixel + ')"' +
             //                     ' font-family="arial" font-size="25px" fill=' + TableSvg.tableText + '>' + door_text + '</text>';
                         
-            // door_svg  = door_svg + text_right_svg + '\n';
+            // door_svg  = door_svg + text_right_svg + LayoutSvg.endRow();
             
             // Right door image object	
             var right_image_x_pixel = premises_width_pixel - 2 * wall_thickness_pixel;
@@ -875,7 +886,7 @@ class DoorSvg
                         ' <title>Tür</title> ' + 
                         ' </image>';
                         
-            door_svg = door_svg + right_image_svg + '\n'; 		
+            door_svg = door_svg + right_image_svg + LayoutSvg.endRow(); 		
                
         } // upper
 
@@ -890,7 +901,7 @@ class DoorSvg
             //   + ' width=' + lower_width_pixel + ' height=' + lower_height_pixel     
             //   + ' style="fill:white;stroke-width:1;stroke:white"' +  ' />'
             
-            // door_svg  = door_svg + door_lower_svg + '\n';		
+            // door_svg  = door_svg + door_lower_svg + LayoutSvg.endRow();		
     
             //var lower_text_x_pixel	= lower_coordinate_x_pixel +  4;
             //var lower_text_y_pixel	= lower_coordinate_y_pixel + wall_thickness_pixel - 4;
@@ -899,7 +910,7 @@ class DoorSvg
             //+ ' transform="rotate(0, ' + lower_text_x_pixel + ',' + lower_text_y_pixel + ')"' + 
             //' font-family="arial" font-size="25px" fill=' + TableSvg.tableText + '>' + door_text + '</text>'
             
-            // door_svg  = door_svg + text_lower_svg + '\n';	
+            // door_svg  = door_svg + text_lower_svg + LayoutSvg.endRow();	
     
             // Lower door image object	
             var lower_image_x_pixel = lower_coordinate_x_pixel;
@@ -911,7 +922,7 @@ class DoorSvg
                         ' <title>Tür</title> ' + 
                         ' </image>';
                         
-            door_svg = door_svg + lower_image_svg + '\n'; 		
+            door_svg = door_svg + lower_image_svg + LayoutSvg.endRow(); 		
             
         } // lower
 
@@ -1096,7 +1107,7 @@ class TableSvg
 
         ret_table_rect_svg = ret_table_rect_svg + rect_svg;
 
-        ret_table_rect_svg = ret_table_rect_svg + '\n';
+        ret_table_rect_svg = ret_table_rect_svg + LayoutSvg.endRow();
         
         return ret_table_rect_svg;
         
@@ -1126,7 +1137,7 @@ class TableSvg
 
         table_text_svg = table_text_svg + text_svg;
 
-        table_text_svg = table_text_svg + '\n';
+        table_text_svg = table_text_svg + LayoutSvg.endRow();
         
         return table_text_svg;
         
@@ -1201,14 +1212,14 @@ class TableSvg
         var one_cir_svg = this.oneSeat(circles_exist_left_array[index_y], circle_coordinates_x_pixel_array[2], circle_coordinates_y_pixel_array[index_y], 
                             circle_radius_pixel, character_left, "upper", table_number);
 
-        all_cirles_svg = all_cirles_svg + one_cir_svg + '\n';
+        all_cirles_svg = all_cirles_svg + one_cir_svg + LayoutSvg.endRow();
 
         index_y = index_y;
 
         one_cir_svg = this.oneSeat(circles_exist_right_array[index_y], circle_coordinates_x_pixel_array[3], circle_coordinates_y_pixel_array[index_y + 1], 
                                     circle_radius_pixel, character_right, "lower", table_number);
 
-        all_cirles_svg = all_cirles_svg + one_cir_svg + '\n';
+        all_cirles_svg = all_cirles_svg + one_cir_svg + LayoutSvg.endRow();
 
         return all_cirles_svg;
 
@@ -1232,12 +1243,12 @@ class TableSvg
         var one_cir_svg = this.oneSeat(i_circles_exist_left_array[index_y], i_circle_coordinates_x_pixel[0], i_circle_coordinates_y_pixel[index_y], 
                         i_circle_radius_pixel, character_left, "left", i_table_number);
 
-        ret_two_cir_svg = ret_two_cir_svg + one_cir_svg + '\n';
+        ret_two_cir_svg = ret_two_cir_svg + one_cir_svg + LayoutSvg.endRow();
         
         one_cir_svg = this.oneSeat(i_circles_exist_right_array[index_y], i_circle_coordinates_x_pixel[1], i_circle_coordinates_y_pixel[index_y], 
                     i_circle_radius_pixel, character_right, "right", i_table_number);
 
-        ret_two_cir_svg = ret_two_cir_svg + one_cir_svg + '\n';
+        ret_two_cir_svg = ret_two_cir_svg + one_cir_svg + LayoutSvg.endRow();
         
         return ret_two_cir_svg;
         
@@ -1260,7 +1271,7 @@ class TableSvg
                     + LayoutSvg.styleCursorPointer()
                     + '  stroke= "' + this.m_color_seat_circle +'" stroke-width= "4"  fill="' + this.m_fill_color_circle + '" />';
 
-        one_cir_svg = one_cir_svg + cir_svg + '\n';
+        one_cir_svg = one_cir_svg + cir_svg + LayoutSvg.endRow();
         
         var text_x_pixel = i_circle_coordinate_x_pixel;
         var text_y_pixel = i_circle_coordinate_y_pixel;
@@ -1290,7 +1301,7 @@ class TableSvg
         var text_svg = LayoutSvg.tab(4) + '<text x=' + text_x_pixel + ' y=' + text_y_pixel + ' id="' + circle_text_id_str + '" ' + 
                         ' fill="' + this.m_text_color + '" >' + i_seat_character + '</text>';
 
-        one_cir_svg = one_cir_svg + text_svg + '\n';
+        one_cir_svg = one_cir_svg + text_svg + LayoutSvg.endRow();
             
         return one_cir_svg;
 	

@@ -14,14 +14,8 @@
 
         <title>JAZZ live AARAU Reservation SPAGI by Marcello </title>
 
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/Reservation.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js" ></script>
-        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js" ></script>
+        <!-- Included external Javascripts   -->
+        <!-- No files included because temporary test functions are defined  -->
 
         <noscript>
             Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
@@ -30,23 +24,20 @@
         </noscript>
 
         <script>
-            // In previous versions the circle onmmouse events were set by this function
-            // The event functions are now set when the HTML file is created
-            // The function was defined in file  ReservationSalmenEvents.js (no longer included in <head>)
+            // The function setEventFunctions must probably not be defined for vase ShowLayout. TODO
             function setEventFunctions()
             {
-                // Do nothing
             }
         </script>
 
         <script>
-            // Main (onload) function for ShowLayout. Temporary for test here. QQQQQQQQQQQQQ
+            // Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ
             // The function is defined in file Reservation.js included in <head>
             // So the function is defined two times and must be deleted before use
             function mainShowLayout()
             {
-                alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);
-            }
+                // alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);
+                // No events setEventFunctions();            }
         </script>
 
 
