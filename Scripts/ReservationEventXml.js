@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-06
+// Date: 2024-12-07
 // Author: Gunnar Lidén
 
 // File content
@@ -113,12 +113,84 @@ class ReservationEventXml
     /////// End Set Event Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get Reservation Functions ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the password for a given reservation number
+    getPassword(i_reservation_number)
+    {
+        return this.getReservationNodeValue(this.m_tags.getPassword(), i_reservation_number);
+        
+    } // getPassword
+
+    // Returns the name for a given reservation number
+    getName(i_reservation_number)
+    {
+        return this.getReservationNodeValue(this.m_tags.getName(), i_reservation_number);
+        
+    } // getName
+
+    // Returns the remark for a given reservation number
+    getRemark(i_reservation_number)
+    {
+        return this.getReservationNodeValue(this.m_tags.getRemark(), i_reservation_number);
+        
+    } // getRemark
+
+    // Returns the email for a given reservation number
+    getEmail(i_reservation_number)
+    {
+        return this.getReservationNodeValue(this.m_tags.getEmail(), i_reservation_number);
+        
+    } // getEmail
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Get Reservation Functions /////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Set Reservation Functions ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    
+    // Sets the password for a given reservation number
+    setPassword(i_password, i_reservation_number)
+    {
+        this.setReservationNodeValue(this.m_tags.getPassword(), i_password, i_reservation_number);
+        
+    } // setPassword
+
+    // Sets the name for a given reservation number
+    setName(i_name, i_reservation_number)
+    {
+        this.setReservationNodeValue(this.m_tags.getName(), i_name, i_reservation_number);
+        
+    } // setName
+
+    // Sets the remark for a given reservation number
+    setRemark(i_remark, i_reservation_number)
+    {
+        this.setReservationNodeValue(this.m_tags.getRemark(), i_remark, i_reservation_number);
+        
+    } // setRemark
+
+    // Sets the email for a given reservation number
+    setEmail(i_email, i_reservation_number)
+    {
+        this.setReservationNodeValue(this.m_tags.getEmail(), i_email, i_reservation_number);
+        
+    } // setEmail
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Set Reservation Functions /////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 /*
     getReservation(){return this.m_tag_reservation;}
-    getPassword(){return this.m_tag_password;}
-    getName(){return this.m_tag_reservation_name;}
-    getRemark(){return this.m_tag_reservation_remark;}
-    getEmail(){return this.m_tag_reservation_email;}
+    (){return this.m_tag_password;}
+    (){return this.m_tag_reservation_name;}
+    (){return this.m_tag_reservation_remark;}
+    (){return this.m_tag_reservation_email;}
     getSeat(){return this.m_tag_seat;}
     getTableNumber(){return this.m_tag_seat_table_number;}
     getSeatChar(){return this.m_tag_seat_character;}
@@ -177,8 +249,172 @@ class ReservationEventXml
 
     } // setEventNodeValue
 
+    // Returns the reservation node value for a given tag name and a given reservation number
+    getReservationNodeValue(i_tag_reservation_child_element, i_reservation_number)
+    {
+        var ret_node_value = '';
+
+        var reservation_node_element_array = this.getReservationChildObjectArray(i_tag_reservation_child_element, i_reservation_number);
+
+        if (reservation_node_element_array.length == 0) 
+        {
+            return ret_node_value;
+        }
+
+        if (!this.checkChildTagForReservationNodeValue(i_tag_reservation_child_element, reservation_node_element_array))
+        {
+            return ret_node_value;
+        }
+
+        var reservation_element_node_value = reservation_node_element_array[0].childNodes[0].nodeValue;
+        
+        ret_node_value = this.removeFlagNodeValueNotSet(reservation_element_node_value);
+        
+        return ret_node_value;
+        
+    } // getReservationNodeValue
+
+
+    // Sets the reservation node value for a given tag name and a given reservation number
+    setReservationNodeValue(i_tag_reservation_child_element,i_reservation_element_value, i_reservation_number)
+    {
+        var reservation_element_value = this.setFlagNodeValueIsNotSetForEmptyString(i_reservation_element_value);
+
+        var reservation_node_element_array = this.getReservationChildObjectArray(i_tag_reservation_child_element, i_reservation_number);
+
+        if (reservation_node_element_array.length == 0) 
+        {
+            return ret_node_value;
+        }
+
+        if (!this.checkChildTagForReservationNodeValue(i_tag_reservation_child_element, reservation_node_element_array))
+        {
+            return;
+        }
+
+        reservation_node_element_array[0].childNodes[0].nodeValue = reservation_element_value;
+        
+    } // setReservationNodeValue
+
+    // Check that the tag can be used for getReservationNodeValue and setReservationNodeValue
+    // and that the number of elements in the array is one (1)
+    checkChildTagForReservationNodeValue(i_tag_reservation_child_element, i_reservation_node_element_array)
+    {
+        if (i_tag_reservation_child_element == this.m_tags.getPassword() || 
+            i_tag_reservation_child_element == this.m_tags.getName() ||
+            i_tag_reservation_child_element == this.m_tags.getRemark() ||
+            i_tag_reservation_child_element == this.m_tags.getEmail()    )
+        {
+            if (i_reservation_node_element_array.length == 1)
+            {
+                return true;
+            }
+            else
+            {
+                alert("ReservationEventXml.checkChildTagForReservationNodeValue Only one (1) element with tag <" 
+                    + i_tag_reservation_child_element + "> is allowed in the element wit tag <" + 
+                    this.m_tags.getReservation() + ">");
+
+                return false;
+            }
+            
+        }
+        else
+        {
+            alert("ReservationEventXml.checkChildTagForReservationNodeValue " + 
+                " Functions getReservationNodeValue and setReservationNodeValue can only be called for tags " +
+                "<" + this.m_tags.getPassword() + ">, " +  
+                "<" + this.m_tags.getName() + ">, " +  
+                "<" + this.m_tags.getRemark() + "> and " +  
+                "<" + this.m_tags.getEmail() + ">");
+
+            return false;
+        }
+
+
+/*
+    (){return this.m_tag_password;}
+    getName(){return this.m_tag_reservation_name;}
+    getRemark(){return this.m_tag_reservation_remark;}
+    getEmail(){return this.m_tag_reservation_email;}
+    getSeat(){return this.m_tag_seat;}
+*/
+
+    } // checkChildTagForReserevationNodeValue
+
+
+    // Returns an array of reservation <R> child objects for a given reservation number
+    // i_tag_reservation_child_element: Tag for element in reservation element, i.e.
+    //                                  Name <N>, Email <E>, Password <P> and Seat <S>
+    //                                  The returned array may only have multiple objects
+    //                                  for the Seat <S> tag 
+    getReservationChildObjectArray(i_tag_reservation_child_element, i_reservation_number)
+    {
+        var reservation_child_node_elements = [];
+
+        if(!this.checkReservationNumber(i_reservation_number)) { return reservation_child_node_elements; }
+
+        var index_reservation = i_reservation_number - 1;
+        
+        var reservation_node = this.getXmlObject().getElementsByTagName(this.m_tags.getReservation())[index_reservation];
+
+        reservation_child_node_elements = reservation_node.getElementsByTagName(i_tag_reservation_child_element);
+
+        return reservation_child_node_elements;
+
+    } // getReservationChildObjectArray
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Node Value Functions ////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// Start Number Records  ///////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+
+    // Returns the number of reservation records
+    getNumberOfReservations()
+    {
+        var ret_n_records = -1;
+
+        if (!this.checkEventXml()){ return ret_n_records; }
+
+        var reservation_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getReservation());
+
+        ret_n_records = reservation_rec_nodes.length;
+
+        return ret_n_records;
+
+    } // getNumberOfReservations
+
+    // Return true if the input reservation record number exists
+    checkReservationNumber(i_reservation_number)
+    {
+        var n_reservations = this.getNumberOfReservations();
+
+        if (n_reservations < 0)
+        {
+            alert("ReservationEventXml.checkReservationNumber Returned nummber of resrvation cases is negative ");
+
+            return false;
+        }
+
+        if (i_reservation_number >= 1 && i_reservation_number <= n_reservations)
+        {
+            return true;
+        }
+        else
+        {
+            alert("ReservationEventXml.checkReservationNumber Input layout file number " +  i_reservation_number.toString() + 
+                                " is not between 1 and " + n_reservations.toString());
+
+            return false;
+        }
+
+    } // checkReservationNumber	    
+	
+	///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// End Number Records  /////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -374,31 +610,33 @@ class ReservationEventTags
     constructor() 
     {
         this.m_tag_reservations = "H";
-        this.m_tag_password = "P";
         this.m_tag_day = "D";
         this.m_tag_month = "M";
         this.m_tag_year = "Y";
         this.m_tag_event_name = "B";
         this.m_tag_reservation = "R";
+        this.m_tag_password = "P";
         this.m_tag_reservation_name = "N";
         this.m_tag_reservation_remark = "A";
         this.m_tag_reservation_email = "E";
         this.m_tag_seat = "S";
         this.m_tag_seat_table_number = "T";
         this.m_tag_seat_character = "C";
+        this.m_tag_seat_name = "SN";
     }
 
-    getPassword(){return this.m_tag_password;}
     getDay(){return this.m_tag_day;}
     getMonth(){return this.m_tag_month;}
     getYear(){return this.m_tag_year;}
     getEventName(){return this.m_tag_event_name;}
     getReservation(){return this.m_tag_reservation;}
+    getPassword(){return this.m_tag_password;}
     getName(){return this.m_tag_reservation_name;}
     getRemark(){return this.m_tag_reservation_remark;}
     getEmail(){return this.m_tag_reservation_email;}
     getSeat(){return this.m_tag_seat;}
     getTableNumber(){return this.m_tag_seat_table_number;}
     getSeatChar(){return this.m_tag_seat_character;}
+    getSeatName(){return this.m_tag_seat_name;}
 
 } // ReservationEventTags

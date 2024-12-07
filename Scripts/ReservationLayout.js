@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-06
+// Date: 2024-12-07
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -100,7 +100,15 @@ function callbackAfterloadOfAllXmlEvent()
 
     var event_name = g_event_xml_array[0].getEventName();
 
-    alert("callbackAfterloadOfAllXmlEvent  Event name is " + event_name);
+    var n_reservations = g_event_xml_array[0].getNumberOfReservations();
+
+    var reservation_number =4;
+
+    var reservation_email = g_event_xml_array[0].getEmail(reservation_number);
+
+    alert("callbackAfterloadOfAllXmlEvent  Event name is " + event_name + 
+        " n_reservations= " + n_reservations.toString() +
+        " reservation_email= " + reservation_email);
 
 } // callbackAfterloadOfAllXmlEvent
 
