@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-07
+// Date: 2024-12-08
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -106,9 +106,32 @@ function callbackAfterloadOfAllXmlEvent()
 
     var reservation_email = g_event_xml_array[0].getEmail(reservation_number);
 
-    alert("callbackAfterloadOfAllXmlEvent  Event name is " + event_name + 
+    var seat_number = 2;
+
+    var table_number = g_event_xml_array[0].getTableNumber(reservation_number, seat_number);
+
+    alert("Event name is " + event_name + 
         " n_reservations= " + n_reservations.toString() +
+        " table_number= " + table_number.toString() +
         " reservation_email= " + reservation_email);
+
+        var new_table_number = 88;
+
+        g_event_xml_array[0].setTableNumber(new_table_number, reservation_number, seat_number);
+
+        table_number = g_event_xml_array[0].getTableNumber(reservation_number, seat_number);
+
+        alert("New table number was set.  new_table_number= " + new_table_number.toString() + 
+            " Returned table_number= " + table_number.toString() );
+
+        var new_reservation_email = "gunnar.liden@viewsoncad.ch";
+
+        g_event_xml_array[0].setEmail(new_reservation_email, reservation_number);
+
+        reservation_email = g_event_xml_array[0].getEmail(reservation_number);
+
+        alert("New email  new_reservation_email= " + new_reservation_email + 
+            " Returned new_reservation_email= " + new_reservation_email );
 
 } // callbackAfterloadOfAllXmlEvent
 
