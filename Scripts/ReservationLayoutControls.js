@@ -1,5 +1,5 @@
 // File: ReservationLayoutControls.js
-// Date: 2024-11-12
+// Date: 2024-12-08
 // Authors: Gunnar Lidén
 
 // Content
@@ -21,6 +21,9 @@ var g_layout_save_button = null;
 
 // The reservation layout cancel button
 var g_layout_cancel_button = null;
+
+// The XML create newevents button
+var g_xml_create_new_button = null;
 
 // The reservation layout premises size button
 var g_layout_premises_size_button = null;
@@ -59,6 +62,8 @@ function createReservationLayoutControls()
     createLayoutSaveButton();
 
     createLayoutCancelButton();
+
+    createXmlCreateNewButton();
 
     createLayoutPremisesSizeButton();
 
@@ -122,6 +127,23 @@ function createLayoutCancelButton()
     g_layout_cancel_button.setTitle('Abbrechen');
 
 } // createLayoutCancelButton
+
+// Creates the XML create new button
+function createXmlCreateNewButton()
+{
+    g_xml_create_new_button = new JazzButton('id_layout_button_xml_new', 'id_div_layout_button_xml_new');
+
+    g_xml_create_new_button.setOnclickFunctionName("onClickOfXmlCreateNewButton");
+
+    g_xml_create_new_button.setCaption('Neue XML Dateien');
+
+    g_xml_create_new_button.setLabelText("");
+
+    g_xml_create_new_button.setWidth("140px");
+
+    g_xml_create_new_button.setTitle('XML Event Dateien generieren und speichern');
+
+} // createXmlCreateNewButton
 
 // Creates the reservation layout premises size button
 function createLayoutPremisesSizeButton()

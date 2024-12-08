@@ -362,8 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# JAZZ live AARAU season data files files
-/SaisonXml/
+# JAZZ live AARAU layout directory
+/Spagi_76_Chairs_V_1/
 
 
 # FTP configuration files
