@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2024-12-09
+// Date: 2024-12-10
 // Author: Gunnar Lidén
 
 
@@ -53,7 +53,7 @@ class EventProgramXml
    } // getDay
 
    // Returns the Event month
-   getMonth(i_Event_number) 
+   getMonth(i_event_number) 
    {
        return this.getEventNodeValue(this.m_tags.getMonth(), i_event_number);
        

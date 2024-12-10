@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-08
+// Date: 2024-12-10
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -14,7 +14,11 @@ class ReservationEventXml
 {
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
-    constructor(i_subdir_xml, i_name_add_str, i_event_number, i_callback_function_name) 
+    // i_subdir_xm: The subdirctory for the event XML file
+    // i_name_add_str: String to add to name of the XML event file. Empty string is allowed
+    // i_event_number: Event number that will used for the name of the event XML file
+    // i_b_new_file: Flag telling if the event XML file shall be created
+    constructor(i_subdir_xml, i_name_add_str, i_event_number, i_b_new_file, i_callback_function_name) 
     {
         // Member variables
         // ================
@@ -29,6 +33,9 @@ class ReservationEventXml
         // Event (e.g concert) number
         this.m_event_number = i_event_number;
 
+        // Flag telling if the event XML file shall be created
+        this.m_b_new_file = i_b_new_file;
+
         // Call back function name
         this.m_callback_function_name = i_callback_function_name;
 
@@ -41,10 +48,48 @@ class ReservationEventXml
         // Flag that a node value not have been set
         this.m_not_yet_set_node_value = "NYSV";
 
-        // Loads the XML event file, creates the XML object and calls the function m_callback_function_name
-        this.loadOneXmlFile(this, this.getXmlEventFileName(), this.m_callback_function_name);
+        this.execute();
 
     } // constructor
+
+    // 1. Case Load an existing file (this.m_b_new_file)
+    execute()
+    {
+        if (!this.m_b_new_file)
+        {
+            this.loadOneXmlFile(this, this.getXmlEventFileName(), this.m_callback_function_name);
+        }
+        else
+        {
+            this.createNewObjectSaveFile();
+        }
+
+    } // execute
+
+    // Create a new empty object and save the file on the server
+    createNewObjectSaveFile()
+    {
+        debugReservationLayout('ReservationEventXml.createNewObjectSaveFile Event number ' + this.m_event_number.toString());
+
+        var root_tag = this.m_tags.getRoot();
+
+        var content_string = '';
+
+        content_string = content_string + '<' + root_tag + '>';
+
+        content_string = content_string + '</' + root_tag + '>';
+
+        var file_name = this.getXmlEventFileName();
+
+        var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
+        var file_name_full_path = reservation_layout_full_path + file_name;
+
+        debugReservationLayout('file_name_full_path= ' + file_name_full_path);
+
+        UtilServer.saveFileCallback(file_name_full_path, content_string, this.m_callback_function_name);
+
+    } // createNewObjectSaveFile
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -780,7 +825,7 @@ class ReservationEventTags
     // Creates the instance of the class
     constructor() 
     {
-        this.m_tag_reservations = "H";
+        this.m_tag_root = "H";
         this.m_tag_day = "D";
         this.m_tag_month = "M";
         this.m_tag_year = "Y";
@@ -796,6 +841,7 @@ class ReservationEventTags
         this.m_tag_seat_name = "SN";
     }
 
+    getRoot(){return this.m_tag_root;}
     getDay(){return this.m_tag_day;}
     getMonth(){return this.m_tag_month;}
     getYear(){return this.m_tag_year;}

@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-09
+// Date: 2024-12-10
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -19,15 +19,6 @@ var g_remove_tabs_comments = false;
 
 // In order to be able to test the created HTML files some functions are added
 var g_add_temporary_test_functions = true;
-
-// XML object defining events like for instance concerts
-var g_event_program_xml = null;
-
-// Class that creates an XML object corresponding to an XML file that holds 
-// all reservations for one even, e.g. a concert
-// Array of XML event objects (one for each concert, e.g. a concert). The objects
-// hold the reservation data, i.e. name, email, table/row, seat charcter/number and seat name
-var g_event_xml_array = [];
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
@@ -188,113 +179,6 @@ function afterSaveAllHtml()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create HTML files Functions /////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Create XML files Functions ///////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// Create and upload event files to the result server directory
-// 1. Create the event program object (load the XML file that define an event program)
-//    Create object EventProgramXml and call function callbackAfterLoadingEventProgram
-//    when the XML object has been created
-function createNewXmlEventFiles()
-{
-    debugReservationLayout('createNewXmlEventFiles Enter');
-
-    g_event_program_xml = null;
-
-    var subdir_xml = "XmlTestData";
-
-    var event_program_file_name = "EventProgramSample.xml";
-
-    g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, callbackAfterLoadingEventProgram);
-
-    // Test var subdir_xml = 'Spagi_76_Chairs_V_1/SaisonXML_Compare';
-    // Test var name_add_str = 'Salmen';
-    // Test loadOfXmlEvent(subdir_xml, name_add_str, callbackAfterloadOfAllXmlEvent)
-
-} // createNewXmlEventFiles
-
-function callbackAfterLoadingEventProgram()
-{
-    debugReservationLayout('callbackAfterLoadingEventProgram Enter');
-
-    var event_name = g_event_program_xml.getEventName(3);
-
-    alert("event_name= " + event_name);
-
-} // callbackAfterLoadingEventProgram
-
-var g_previous_xml_array = [];
-
-var g_event_object_index = -12345;
-
-function loadOfXmlEvent(i_subdir_xml, i_name_add_str, i_callback_funtion)
-{
-    g_event_object_index = g_event_object_index + 1;
-
-    var subdir_xml = 'Spagi_76_Chairs_V_1/SaisonXML_Compare';
-
-    var name_add_str = 'Salmen';
-
-    var event_number = 4;
-
-    var callback_function_name = callbackAfterloadOfAllXmlEvent;
-
-    g_event_xml_array[g_event_object_index] = new ReservationEventXml(subdir_xml, name_add_str, event_number, callback_function_name);
-
-} // loadOfXmlEvent
-
-
-function callbackAfterloadOfAllXmlEvent()
-{
-    debugReservationLayout('callbackAfterloadOfAllXmlEvent Enter');
-
-
-
-
-/*
-    var event_name = g_event_xml_array[0].getEventName();
-
-    var n_reservations = g_event_xml_array[0].getNumberOfReservations();
-
-    var reservation_number =4;
-
-    var reservation_email = g_event_xml_array[0].getEmail(reservation_number);
-
-    var seat_number = 2;
-
-    var table_number = g_event_xml_array[0].getTableNumber(reservation_number, seat_number);
-
-    alert("Event name is " + event_name + 
-        " n_reservations= " + n_reservations.toString() +
-        " table_number= " + table_number.toString() +
-        " reservation_email= " + reservation_email);
-
-        var new_table_number = 88;
-
-        g_event_xml_array[0].setTableNumber(new_table_number, reservation_number, seat_number);
-
-        table_number = g_event_xml_array[0].getTableNumber(reservation_number, seat_number);
-
-        alert("New table number was set.  new_table_number= " + new_table_number.toString() + 
-            " Returned table_number= " + table_number.toString() );
-
-        var new_reservation_email = "gunnar.liden@viewsoncad.ch";
-
-        g_event_xml_array[0].setEmail(new_reservation_email, reservation_number);
-
-        reservation_email = g_event_xml_array[0].getEmail(reservation_number);
-
-        alert("New email  new_reservation_email= " + new_reservation_email + 
-            " Returned new_reservation_email= " + new_reservation_email );
-*/
-
-} // callbackAfterloadOfAllXmlEvent
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Create XML files Functions /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
