@@ -96,8 +96,8 @@ function createEventXmlObjectRecursively()
 
     var event_number = g_event_object_index + 1;
 
-    debugReservationLayout('createEventXmlObjectRecursively g_event_object_index= ' + g_event_object_index.toString() + 
-            " event_number= " + event_number.toString() + " n_events= " + n_events.toString() );
+    // debugReservationLayout('createEventXmlObjectRecursively g_event_object_index= ' + g_event_object_index.toString() + 
+    //        " event_number= " + event_number.toString() + " n_events= " + n_events.toString() );
 
     var b_new_file = true;
 
@@ -115,6 +115,30 @@ function createEventXmlObjectRecursively()
 // This function is called when all the event XML object have been created
 function allEventXmlObjectsCreated()
 {
-    debugReservationLayout('allEventXmlObjectsCreated Enter');
+
+    var n_event_xml_files = g_event_xml_array.length;
+
+    debugReservationLayout('allEventXmlObjectsCreated Number of event XML files is ' + n_event_xml_files.toString());
+
+    for (var index_file=0; index_file < n_event_xml_files; index_file++)
+    {
+        var event_xml = g_event_xml_array[index_file];
+
+        var event_number = index_file + 1;
+
+        var event_day   = g_event_program_xml.getDay(event_number);
+
+        var event_month = g_event_program_xml.getMonth(event_number);
+
+        var event_year  = g_event_program_xml.getYear(event_number);
+
+        var event_name  = g_event_program_xml.getEventName(event_number);
+
+        debugReservationLayout('allEventXmlObjectsCreated event_name= ' + event_name + ' event_name= ' + event_name);
+
+
+    }
+
+
 
 } // allEventXmlObjectsCreated

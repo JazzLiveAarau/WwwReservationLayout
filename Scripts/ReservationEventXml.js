@@ -67,9 +67,15 @@ class ReservationEventXml
     } // execute
 
     // Create a new empty object and save the file on the server
+    // 1. Create the content of the XML file
+    // 2. Create the XML object from the content string.
+    //    Create DOMParser object and call DOMParser.parseFromString
+    // 3. Set the YML object. Call of ReservationEventXml.setXmlObject
+    // 4. Save the file. Call of UtilServer.saveFileCallback
+    //    Callback function is m_callback_function_name
     createNewObjectSaveFile()
     {
-        debugReservationLayout('ReservationEventXml.createNewObjectSaveFile Event number ' + this.m_event_number.toString());
+        // debugReservationLayout('ReservationEventXml.createNewObjectSaveFile Event number ' + this.m_event_number.toString());
 
         var root_tag = this.m_tags.getRoot();
 
@@ -79,13 +85,21 @@ class ReservationEventXml
 
         content_string = content_string + '</' + root_tag + '>';
 
+        // https://www.w3schools.com/xml/xml_parser.asp
+
+        var dom_parser = new DOMParser();
+
+        var xml_object = dom_parser.parseFromString(content_string,"text/xml");
+
+        this.setXmlObject(xml_object);
+
         var file_name = this.getXmlEventFileName();
 
         var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
 
         var file_name_full_path = reservation_layout_full_path + file_name;
 
-        debugReservationLayout('file_name_full_path= ' + file_name_full_path);
+        // debugReservationLayout('file_name_full_path= ' + file_name_full_path);
 
         UtilServer.saveFileCallback(file_name_full_path, content_string, this.m_callback_function_name);
 
