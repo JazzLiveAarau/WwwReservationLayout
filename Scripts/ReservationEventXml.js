@@ -358,8 +358,6 @@ class ReservationEventXml
     {
         var new_event = this.getXmlObject().createElement(this.m_tags.getEventData());
 
-        //QQQ var root_element = this.getXmlObject().documentElement;
-
         var year_node = this.getXmlObject().createElement(this.m_tags.getYear());
         var year_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         year_node.appendChild(year_text);

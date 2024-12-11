@@ -84,6 +84,13 @@ label
     clear: both;
 }
 
+.cl_div_layout_create_set_xml_row
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;   
+}
+
 .cl_div_layout_bottom_row
 {
     margin-top: 10px;
@@ -131,7 +138,13 @@ label
 .cl_div_layout_button_xml_new
 {
     margin-right: 3%;
-    float: right;
+    float: left;
+}
+
+.cl_div_layout_button_xml_import
+{
+    margin-right: 3%;
+    float: left;
 }
 
 .cl_div_layout_button_cancel

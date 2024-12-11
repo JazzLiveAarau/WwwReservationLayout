@@ -1,5 +1,5 @@
 // File: CreateXmlEventFiles.js
-// Date: 2024-12-10
+// Date: 2024-12-11
 // Authors: Gunnar Lidén
 
 // Content
@@ -29,13 +29,14 @@ var g_event_xml_array = [];
 // Event index for g_event_xml_array (that is created recursively) 
 var g_event_object_index = -12345;
 
+var g_all_event_XML_files_msg = "Alle XML Dateien sind generiert und zum Server hochgeladen. Ordner= ";
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Create XML files Functions ///////////////////////////////
+///////////////////////// Start Create XML files Functions ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Create and upload event files to the result server directory
@@ -116,7 +117,6 @@ function createEventXmlObjectRecursively()
 // This function is called when all the event XML object have been created
 function allEventXmlObjectsCreated()
 {
-
     var n_event_xml_files = g_event_xml_array.length;
 
     debugReservationLayout('allEventXmlObjectsCreated Number of event XML files is ' + n_event_xml_files.toString());
@@ -147,14 +147,10 @@ function allEventXmlObjectsCreated()
 
         event_xml.setEventName(event_name);
 
-        event_xml.appendReservationNode(2, 3); // Only test QQQQQQQ
-
-        event_xml.setRemark("Test remark", 1); // Only test QQQQQQQ
-
-        event_xml.setTableNumber("88", 1, 2); // Only test QQQQQQQ
-
-        event_xml.setSeatName("Anders Andersson", 1, 1, 2); // Only test QQQQQQQ
-
+        // Only test event_xml.appendReservationNode(2, 3);
+        // Only test event_xml.setRemark("Test remark", 1); 
+        // Only test event_xml.setTableNumber("88", 1, 2); 
+        // Only test event_xml.setSeatName("Anders Andersson", 1, 1, 2); 
 
     } // index_file
 
@@ -184,12 +180,31 @@ function saveEventXmlFilesRecursively()
 
 } // saveEventXmlFilesRecursively
 
+// All event XML files have been uploaded to the server
 function allEventXmlFilesSaved()
 {
+    debugReservationLayout('allEventXmlFilesSaved All XML event files have been uploaded.');
+
+    alert(g_all_event_XML_files_msg + g_subdir_event_xml_files);
 
 } // allEventXmlFilesSaved
 
-/*
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Create XML files Functions //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Import XML Evants Functions ///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
-*/
+function importXmlEvents()
+{
+    debugReservationLayout('importXmlEvents Enter');
+	
+
+} // importXmlEvents
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Import XML Evants Functions /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

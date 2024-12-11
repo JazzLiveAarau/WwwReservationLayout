@@ -1,5 +1,5 @@
 // File: ReservationLayoutControls.js
-// Date: 2024-12-08
+// Date: 2024-12-11
 // Authors: Gunnar Lidén
 
 // Content
@@ -22,8 +22,11 @@ var g_layout_save_button = null;
 // The reservation layout cancel button
 var g_layout_cancel_button = null;
 
-// The XML create newevents button
+// The XML create new events button
 var g_xml_create_new_button = null;
+
+// The XML import events button
+var g_xml_event_import_button = null;
 
 // The reservation layout premises size button
 var g_layout_premises_size_button = null;
@@ -64,6 +67,8 @@ function createReservationLayoutControls()
     createLayoutCancelButton();
 
     createXmlCreateNewButton();
+
+    createXmlImportButton();
 
     createLayoutPremisesSizeButton();
 
@@ -144,6 +149,23 @@ function createXmlCreateNewButton()
     g_xml_create_new_button.setTitle('XML Event Dateien generieren und speichern');
 
 } // createXmlCreateNewButton
+
+// Creates the XML import_events button
+function createXmlImportButton()
+{
+    g_xml_event_import_button = new JazzButton('id_layout_button_xml_import', 'id_div_layout_button_xml_import');
+
+    g_xml_event_import_button.setOnclickFunctionName("onClickOfXmlImportButton");
+
+    g_xml_event_import_button.setCaption('Import XML Dateien');
+
+    g_xml_event_import_button.setLabelText("");
+
+    g_xml_event_import_button.setWidth("150px");
+
+    g_xml_event_import_button.setTitle('XML Event Dateien importieren');
+
+} // createXmlImportButton
 
 // Creates the reservation layout premises size button
 function createLayoutPremisesSizeButton()

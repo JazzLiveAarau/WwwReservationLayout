@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-10
+// Date: 2024-12-12
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -207,6 +207,13 @@ function onClickOfXmlCreateNewButton()
 	createNewXmlEventFiles();
 
 }// onClickOfXmlCreateNewButton
+
+// User clicked the import event XML files button
+function onClickOfXmlImportButton()
+{
+	importXmlEvents();
+
+}// onClickOfXmlImportButton
 
 // User clicked the layout premises size button
 function onClickOfLayoutPremisesSizeButton()
