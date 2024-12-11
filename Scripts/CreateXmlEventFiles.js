@@ -33,6 +33,7 @@ var g_event_object_index = -12345;
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create XML files Functions ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -136,9 +137,55 @@ function allEventXmlObjectsCreated()
 
         debugReservationLayout('allEventXmlObjectsCreated event_name= ' + event_name + ' event_name= ' + event_name);
 
+        event_xml.appendEventNodes();
 
-    }
+        event_xml.setDay(event_day);
+
+        event_xml.setMonth(event_month);
+
+        event_xml.setYear(event_year);
+
+        event_xml.setEventName(event_name);
+
+        event_xml.appendReservationNode(2); // Only test QQQQQQQ
+
+        event_xml.setRemark("Test remark", 1); // Only test QQQQQQQ
 
 
+    } // index_file
+
+    g_event_object_index = -1;
+
+    saveEventXmlFilesRecursively();
 
 } // allEventXmlObjectsCreated
+
+// Save all event XML files recursively
+function saveEventXmlFilesRecursively()
+{
+    g_event_object_index = g_event_object_index + 1;
+
+    var event_xml = g_event_xml_array[g_event_object_index];
+
+    var n_event_files = g_event_xml_array.length;
+
+    var callback_function_name = saveEventXmlFilesRecursively;
+
+    if (n_event_files == g_event_object_index + 1)
+    {
+        callback_function_name = allEventXmlFilesSaved;
+    }    
+
+    event_xml.saveFile(callback_function_name);
+
+} // saveEventXmlFilesRecursively
+
+function allEventXmlFilesSaved()
+{
+
+} // allEventXmlFilesSaved
+
+/*
+
+
+*/

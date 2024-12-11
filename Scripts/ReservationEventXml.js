@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-10
+// Date: 2024-12-11
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -104,6 +104,40 @@ class ReservationEventXml
         UtilServer.saveFileCallback(file_name_full_path, content_string, this.m_callback_function_name);
 
     } // createNewObjectSaveFile
+
+    // Save object as XML file
+    saveFile(i_callback_after_save_function_name)
+    {
+        var file_name = this.getXmlEventFileName();
+
+        var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
+        var file_name_full_path = reservation_layout_full_path + file_name;
+
+        var pretty_print = new PrettyPrintXml(this.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        UtilServer.saveFileCallback(file_name_full_path, xml_content_str, i_callback_after_save_function_name);
+
+    } // saveFile
+
+/*
+        UtilServer.saveFileCallback(GuestbookServer.absoluteUrlJazzGuestsUploaded(), 
+                                    GuestbookServer.getPrettyPrintContent(g_guests_uploaded_xml), 
+                                    DeleteLastUploadedRecord.deleteRecordSaveJazzGuestsdXml);
+
+    static getPrettyPrintContent(i_xml_object)
+    {
+        var pretty_print = new PrettyPrintXml(i_xml_object.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        return xml_content_str;
+
+    } // getPrettyPrintContent
+*/
+
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -275,6 +309,109 @@ class ReservationEventXml
 	
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set Seat Functions ////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Append Nodes  /////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	// https://www.webdeveloper.com/forum/d/231973-append-xml-node-in-javascript/3
+
+    // Appends the event nodes: Year <Y>, Month <M>, Day <D> and Event name <B>
+    // Value is set to "NYSV" (m_not_yet_set_node_value)
+    appendEventNodes()
+    {
+        var new_event = this.getXmlObject().createElement(this.m_tags.getEventData());
+
+        //QQQ var root_element = this.getXmlObject().documentElement;
+
+        var year_node = this.getXmlObject().createElement(this.m_tags.getYear());
+        var year_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        year_node.appendChild(year_text);
+        new_event.appendChild(year_node);
+
+        var month_node = this.getXmlObject().createElement(this.m_tags.getMonth());
+        var month_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        month_node.appendChild(month_text);
+        new_event.appendChild(month_node);
+
+        var day_node = this.getXmlObject().createElement(this.m_tags.getDay());
+        var day_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        day_node.appendChild(day_text);
+        new_event.appendChild(day_node);
+
+        var band_node = this.getXmlObject().createElement(this.m_tags.getEventName());
+        var band_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        band_node.appendChild(band_text);
+        new_event.appendChild(band_node);
+
+        this.getXmlObject().documentElement.appendChild(new_event);	
+
+    } // appendEventNodes
+
+    // Append a reservation node: Password <P>, Name <N>, Remark <A>, Email <E>
+    // i_n_seats: Number of seats
+    appendReservationNode(i_n_seats)
+    {
+        var new_reservation = this.getXmlObject().createElement(this.m_tags.getReservation());
+
+        var password_node = this.getXmlObject().createElement(this.m_tags.getPassword());
+        var password_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        password_node.appendChild(password_text);
+        new_reservation.appendChild(password_node);
+
+        var name_node = this.getXmlObject().createElement(this.m_tags.getName());
+        var name_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        name_node.appendChild(name_text);
+        new_reservation.appendChild(name_node);
+
+        var email_node = this.getXmlObject().createElement(this.m_tags.getEmail());
+        var email_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        email_node.appendChild(email_text);
+        new_reservation.appendChild(email_node);
+
+        var remark_node = this.getXmlObject().createElement(this.m_tags.getRemark());
+        var remark_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        remark_node.appendChild(remark_text);
+        new_reservation.appendChild(remark_node);
+
+        for (var seat_number = 1; seat_number <= i_n_seats; seat_number++)
+        {
+            this.appendOneSeatNode(new_reservation);
+        }
+
+        this.getXmlObject().documentElement.appendChild(new_reservation);	
+
+    } // appendReservationNode  
+
+    // Append one seat node: Paasword <P>, Name <N>, Remark <A>, Email <E>
+    // i_reservation_node: Reservation node <R>
+    appendOneSeatNode(i_reservation_node)
+    {
+        var new_seat = this.getXmlObject().createElement(this.m_tags.getSeat());
+
+        var table_number_node = this.getXmlObject().createElement(this.m_tags.getTableNumber());
+        var table_number_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        table_number_node.appendChild(table_number_text);
+        new_seat.appendChild(table_number_node);
+
+        var seat_char_node = this.getXmlObject().createElement(this.m_tags.getSeatChar());
+        var seat_char_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        seat_char_node.appendChild(seat_char_text);
+        new_seat.appendChild(seat_char_node);
+
+        var seat_name_node = this.getXmlObject().createElement(this.m_tags.getSeatName());
+        var seat_name_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        seat_name_node.appendChild(seat_name_text);
+        new_seat.appendChild(seat_name_node);
+
+        i_reservation_node.appendChild(new_seat);	
+
+    } // appendOneSeatNode  
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Append Nodes  ///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -840,6 +977,7 @@ class ReservationEventTags
     constructor() 
     {
         this.m_tag_root = "H";
+        this.m_tag_event_data = "ED";
         this.m_tag_day = "D";
         this.m_tag_month = "M";
         this.m_tag_year = "Y";
@@ -856,6 +994,7 @@ class ReservationEventTags
     }
 
     getRoot(){return this.m_tag_root;}
+    getEventData(){return this.m_tag_event_data;}
     getDay(){return this.m_tag_day;}
     getMonth(){return this.m_tag_month;}
     getYear(){return this.m_tag_year;}
