@@ -147,9 +147,13 @@ function allEventXmlObjectsCreated()
 
         event_xml.setEventName(event_name);
 
-        event_xml.appendReservationNode(2); // Only test QQQQQQQ
+        event_xml.appendReservationNode(2, 3); // Only test QQQQQQQ
 
         event_xml.setRemark("Test remark", 1); // Only test QQQQQQQ
+
+        event_xml.setTableNumber("88", 1, 2); // Only test QQQQQQQ
+
+        event_xml.setSeatName("Anders Andersson", 1, 1, 2); // Only test QQQQQQQ
 
 
     } // index_file
