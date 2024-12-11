@@ -40,14 +40,23 @@ var g_all_event_XML_files_msg = "Alle XML Dateien sind generiert und zum Server 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Create and upload event files to the result server directory
+// 1. Call createObjectEventProgramXml with callback function callbackAfterLoadingEventProgram
+function createNewXmlEventFiles()
+{
+    debugReservationLayout('createNewXmlEventFiles Enter');
+
+    createObjectEventProgramXml(callbackAfterLoadingEventProgram);
+
+} // createNewXmlEventFiles
+
 // 1. Set the directory name g_subdir_event_xml_files where the event XML files shall be 
 //    stored on the server
 // 2. Create the event program object (load the XML file that define an event program)
 //    Create object EventProgramXml and call function callbackAfterLoadingEventProgram
 //    when the XML object has been created
-function createNewXmlEventFiles()
+function createObjectEventProgramXml(i_callbackAfterLoadingEventProgram)
 {
-    debugReservationLayout('createNewXmlEventFiles Enter');
+    debugReservationLayout('createObjectEventProgramXml Enter ');
 
     var result_server_directory_name = g_layout_server_dir_text_box.getValue();
 
@@ -60,16 +69,15 @@ function createNewXmlEventFiles()
     debugReservationLayout('createNewXmlEventFiles g_subdir_event_xml_files= ' + g_subdir_event_xml_files);
 
 
-
     g_event_program_xml = null;
 
     var subdir_xml = "XmlTestData";
 
     var event_program_file_name = "EventProgramSample.xml";
 
-    g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, callbackAfterLoadingEventProgram);
+    g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, i_callbackAfterLoadingEventProgram);
 
-} // createNewXmlEventFiles
+} // createObjectEventProgramXml
 
 // This function is called when the season program XML object (EventProgramXml) has been created
 // 1. Set start index g_event_object_index= -1;
@@ -79,6 +87,8 @@ function callbackAfterLoadingEventProgram()
     debugReservationLayout('callbackAfterLoadingEventProgram Enter');
 
     g_event_object_index = -1;
+
+    g_event_xml_array = [];
 
     createEventXmlObjectRecursively();
 
@@ -200,9 +210,56 @@ function allEventXmlFilesSaved()
 function importXmlEvents()
 {
     debugReservationLayout('importXmlEvents Enter');
+
+   createObjectEventProgramXml(callbackImportEventProgramCreated);
 	
 
 } // importXmlEvents
+
+// This function is called when the season program XML object (EventProgramXml) has been created
+// 1. Set start index g_event_object_index= -1;
+// 2. Call loadEventXmlObjectRecursively that will create the event XML objects recursively
+function callbackImportEventProgramCreated()
+{
+    debugReservationLayout('callbackImportEventProgramCreated Enter');
+
+    g_event_object_index = -1;
+
+    loadEventXmlObjectRecursively();
+
+} // callbackImportEventProgramCreated
+
+function loadEventXmlObjectRecursively()
+{
+    g_event_object_index =  g_event_object_index + 1;
+
+    var n_events = g_event_program_xml.getNumberOfEvents();
+
+    var event_number = g_event_object_index + 1;
+
+    // debugReservationLayout('createEventXmlObjectRecursively g_event_object_index= ' + g_event_object_index.toString() + 
+    //        " event_number= " + event_number.toString() + " n_events= " + n_events.toString() );
+
+    var b_new_file = false;
+
+    var callback_function_name = loadEventXmlObjectRecursively;
+
+    if (n_events == event_number)
+    {
+        callback_function_name = importAllEventXmlObjectsLoaded;
+    }
+
+    g_event_xml_array[g_event_object_index] = new ReservationEventXml(g_subdir_event_xml_files, g_file_name_add_str, event_number, b_new_file, callback_function_name);
+
+} // loadEventXmlObjectRecursively
+
+// This function is called when all the event XML object have been created
+function importAllEventXmlObjectsLoaded()
+{
+    debugReservationLayout('importAllEventXmlObjectsLoaded Enter');
+
+} // importAllEventXmlObjectsLoaded
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Import XML Evants Functions /////////////////////////////////
