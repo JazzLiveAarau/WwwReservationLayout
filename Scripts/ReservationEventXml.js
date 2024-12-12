@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-11
+// Date: 2024-12-12
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -899,6 +899,25 @@ class ReservationEventXml
 
     } // checkSeatNumber	    
 	
+   // Returns the number of seat name records for a giver reservation number and seat number
+   getNumberOfSeatNames(i_reservation_number, i_seat_number)
+   {
+       var ret_n_records = -1;
+
+       if (!this.checkEventXml()){ return ret_n_records; }
+
+       if (!this.checkReservationNumber(i_reservation_number)) {return ret_n_records; }
+
+       var tag_seat_child_element = this.m_tags.getSeatName();
+
+       var seat_node_element_array = this.getSeatChildObjectArray(tag_seat_child_element, i_reservation_number, i_seat_number);
+
+       ret_n_records = seat_node_element_array.length;
+
+       return ret_n_records;
+
+    } // getNumberOfSeatNames
+
 	///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Number Records  /////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
