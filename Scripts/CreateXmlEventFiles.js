@@ -37,6 +37,9 @@ var g_import_event_xml_array = [];
 // Event index for g_event_xml_array (that is created recursively) 
 var g_event_object_index = -12345;
 
+// Array of Reservation data objects ReservationData
+var g_import_reservation_data_array = [];
+
 var g_all_event_XML_files_msg = "Alle XML Dateien sind generiert und zum Server hochgeladen. Ordner= ";
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -356,6 +359,10 @@ function importAllEventXmlObjectsLoaded()
 
             var n_seats = import_event_xml.getNumberOfSeats(reservation_number);
 
+            // SeatData
+
+            var seat_data_array = [];
+
             for (var seat_number = 1; seat_number <= n_seats; seat_number++)
             {
                 var table_number = import_event_xml.getTableNumber(reservation_number, seat_number);
@@ -365,8 +372,36 @@ function importAllEventXmlObjectsLoaded()
                  var seat_names = []; //  TODO fo new types of files
                  // seat_names = getImportSeatNames(import_event_xml, reservation_number, seat_number);
 
+                 var seat_data = new ReservationSeatData();
+
+                 seat_data.setRowTableNumber(table_number);
+
+                 seat_data.setSeatCharacterNumber(seat_char);
+     
+                 seat_data.setSeatNameArray(seat_names);
+
+                 var index_seat_data = seat_number - 1;
+
+                 seat_data_array[index_seat_data] = seat_data;
+
             } // seat_number
+
+            var reservation_data = new ReservationData(seat_data_array);
+            
+            reservation_data.setPassword("");
+
+            reservation_data.setName(reservation_name);
+
+            reservation_data.setEmail(reservation_email);
+
+            reservation_data.setRemark(reservation_remark);
+
+            g_import_reservation_data_array[reservation_number - 1] = reservation_data;
+
         }// reservation_number
+
+        var n_reservation_data = g_import_reservation_data_array.length;
+
     } // index_event
 
 } // importAllEventXmlObjectsLoaded

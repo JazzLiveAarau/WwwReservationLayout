@@ -347,6 +347,81 @@ class ReservationEventXml
     ///////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Get Set Append Reservation Data  //////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Append one reservation
+    // i_reservation_number: Reservation number
+    // i_reservation_data: An ReservationData object that holda all reservation data
+    // 1. Get number of seats (ReservationData.getNumberOfSeats)
+    // 2. Get array of SeatData objects (ReservationData.getSeatDataArray)
+    // 3. Loop for all seat data objects
+    // 3.1 Append reservation node. Call of appendReservationNode
+    // 4. Set password (ReservationData.getPassword)
+    //    Set name (ReservationData.getName)
+    //    Set email (ReservationData.getEmail)
+    //    Set remark (ReservationData.getRemark)
+    // 5. Loop setting seat data
+    // 5.1 
+    appendReservationData(i_reservation_number, i_reservation_data)
+    {
+        var n_seats = i_reservation_data.getNumberOfSeats();
+
+        var seat_data_array = i_reservation_data.getSeatDataArray();
+
+        for (var index_seat = 0; index_seat < n_seats; index_seat++)
+        {
+            var seat_data = seat_data_array[index_seat];
+
+            var n_seat_names = seat_data.getNumberOfSeatNames();
+
+            this.appendReservationNode(n_seats, n_seat_names);  
+ 
+        } // index_seat
+
+        this.setPassword(i_reservation_data.getPassword(), i_reservation_number);
+
+        this.setName(i_reservation_data.getName(), i_reservation_number);
+
+        this.setEmail(i_reservation_data.getEmail(), i_reservation_number);
+
+        this.setRemark(i_reservation_data.getRemark(), i_reservation_number);
+
+        for (var seat_number = 0; seat_number <= n_seats; seat_number++)
+        {
+            var index_set_seat = seat_number - 1;
+
+            var set_seat_data = seat_data_array[index_set_seat];
+
+            this.setTableNumber(set_seat_data.getRowTableNumber(), i_reservation_number, seat_number);  
+            
+            this.setSeatChar(set_seat_data.getSeatCharacterNumber(), i_reservation_number, seat_number); 
+
+            var n_set_seat_names = set_seat_data.getNumberOfSeatNames();
+
+            var set_seat_name_array = set_seat_data.getSeatNameArray();
+
+            for (var index_seat_name = 0; index_seat_name < n_set_seat_names; index_seat_name++)
+            {
+                var set_seat_name = set_seat_name_array[index_seat_name];
+
+                var set_seat_name_number = set_seat_name + 1;
+
+                this.setSeatName(set_seat_name, i_reservation_number, seat_number, set_seat_name_number); 
+
+            } // index_seat_name
+
+        } // seat_number
+
+
+    } // appendReservationData
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Ebd Get Set Append Reservation Data  ////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+	///////////////////////////////////////////////////////////////////////////
 	///////////////////////// Start Append Nodes  /////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -1126,9 +1201,8 @@ class ReservationEventTags
         this.m_tag_reservation_remark = "A";
         this.m_tag_reservation_email = "E";
         this.m_tag_seat = "S";
-        this.m_tag_seat_table_number = "T";
+        this.m_tag_row_or_table_number = "T";
         this.m_tag_seat_character = "C";
-        this.m_tag_seat_names = "SNS";
         this.m_tag_seat_name = "SN";
     }
 
@@ -1144,9 +1218,177 @@ class ReservationEventTags
     getRemark(){return this.m_tag_reservation_remark;}
     getEmail(){return this.m_tag_reservation_email;}
     getSeat(){return this.m_tag_seat;}
-    getTableNumber(){return this.m_tag_seat_table_number;}
+    getTableNumber(){return this.m_tag_row_or_table_number;}
     getSeatChar(){return this.m_tag_seat_character;}
-    getSeatNames(){return this.m_tag_seat_names;}
     getSeatName(){return this.m_tag_seat_name;}
 
 } // ReservationEventTags
+
+// Class that hold all the data for one reservation
+// i_seat_data_array: Array of SeatData objects
+class ReservationData
+{
+    constructor(i_seat_data_array)
+    {
+        // Array of SeatData objects
+        this.m_seat_data_array = i_seat_data_array;
+
+        // Edit reservation password
+        this.m_password = "";
+
+        // Reservation name
+        this.m_name = "";
+
+        // Reservation email
+        this.m_email = "";
+
+        // Reservation remark
+        this.m_remark = "";
+
+    } // constructor
+
+    // Returns the number of seats
+    getNumberOfSeats()
+    {
+        return this.m_seat_data_array.length;
+
+    } // getNumberOfSeats
+
+    // Returns the seat data array
+    getSeatDataArray()
+    {
+        return  this.m_seat_data_array;
+
+    } // getSeatDataArray
+
+     // Sets the seat data array
+    setSeatDataArray(i_seat_data_array)
+    {
+        this.m_seat_data_array = i_seat_data_array;
+
+    } // setSeatDataArray
+
+    // Returns the edit reservation password
+    getPassword()
+    {
+        return this.m_password;
+
+    } // getPassword
+
+    // Sets the edit reservation password
+    setPassword(i_password)
+    {
+        this.m_password = i_password;
+
+    } // getPassword
+
+    // Returns the name
+    getName()
+    {
+        return this.m_name;
+
+    } // getName
+
+    // Sets the name
+    setName(i_name)
+    {
+        this.m_name = i_name;
+
+    } // setName
+
+    // Returns the email
+    getEmail()
+    {
+        return this.m_email;
+
+    } // getEmail
+
+    // Sets the email
+    setEmail(i_email)
+    {
+        this.m_email = i_email;
+
+    } // setEmail
+
+    // Returns the remark
+    getRemark()
+    {
+        return this.m_remark;
+
+    } // getRemark
+
+    // Sets the remark
+    setRemark(i_remark)
+    {
+        this.m_remark = i_remark;
+
+    } // setRemark
+
+} // ReservationData
+
+// Holds the data for one seat
+class ReservationSeatData
+{
+    constructor()
+    {
+        // Reservation table number or row number
+        this.m_row_or_table_number = "";
+
+        // Seat character or number
+        this.m_seat_character_or_number = "";
+
+        // Array of seat names
+        this.m_seat_name_array = [];
+
+    } // constructor
+
+    // Returns the number of seats
+    getNumberOfSeatNames()
+    {
+        return this.m_seat_name_array.length;
+
+    } // getNumberOfSeatNames
+
+    // Returns the row or table number
+    getRowTableNumber()
+    {
+        return this.m_row_or_table_number;
+
+    } // getRowTableNumber
+
+    // Sets the row or table number
+    setRowTableNumber(i_row_or_table_number)
+    {
+        this.m_row_or_table_number = i_row_or_table_number;
+
+    } // setRowTableNumber
+
+    // Returns the seat character or number
+    getSeatCharacterNumber()
+    {
+        return this.m_seat_character_or_number;
+
+    } // getSeatCharacterNumber
+
+    // Sets the seat character or number
+    setSeatCharacterNumber(i_seat_character_or_number)
+    {
+        this.m_seat_character_or_number = i_seat_character_or_number;
+
+    } // setSeatCharacterNumber
+
+    // Returns the seat name array
+    getSeatNameArray()
+    {
+        return this.m_seat_name_array;
+
+    } // getSeatNameArray
+
+    // Sets the seat name array
+    setSeatNameArray(i_seat_name_array)
+    {
+        this.m_seat_name_array = i_seat_name_array;
+
+    } // setSeatNameArray
+
+} // ReservationSeatData
