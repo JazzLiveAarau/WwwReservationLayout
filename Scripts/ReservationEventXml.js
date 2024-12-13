@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-12
+// Date: 2024-12-13
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -122,27 +122,17 @@ class ReservationEventXml
 
     } // saveFile
 
-/*
-        UtilServer.saveFileCallback(GuestbookServer.absoluteUrlJazzGuestsUploaded(), 
-                                    GuestbookServer.getPrettyPrintContent(g_guests_uploaded_xml), 
-                                    DeleteLastUploadedRecord.deleteRecordSaveJazzGuestsdXml);
-
-    static getPrettyPrintContent(i_xml_object)
-    {
-        var pretty_print = new PrettyPrintXml(i_xml_object.getXmlObject());
-
-        var xml_content_str = pretty_print.xmlToWinFormattedString();
-
-        return xml_content_str;
-
-    } // getPrettyPrintContent
-*/
-
-
-
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get Event Functions /////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+     // Returns the event number. This number is a reference to events defined
+     // in an event program XML file (EventProgramXml)
+     getEventNumber()
+     {
+         return this.getEventNodeValue(this.m_tags.getEventNumber());
+         
+     } // getEventNumber
 
      // Returns the day of the event
      getDay()
@@ -175,6 +165,14 @@ class ReservationEventXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Set Event Functions /////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the event number. This number is a reference to events defined
+    // in an event program XML file (EventProgramXml)
+    setEventNumber(i_event_number)
+    {
+        this.setEventNodeValue(this.m_tags.getEventNumber(), i_event_number);
+        
+    } // setEventNumber
     
    // Sets the day of the event
    setDay(i_day)
@@ -432,6 +430,11 @@ class ReservationEventXml
     appendEventNodes()
     {
         var new_event = this.getXmlObject().createElement(this.m_tags.getEventData());
+
+        var event_number_node = this.getXmlObject().createElement(this.m_tags.getEventNumber());
+        var event_number_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        event_number_node.appendChild(event_number_text);
+        new_event.appendChild(event_number_node);     
 
         var year_node = this.getXmlObject().createElement(this.m_tags.getYear());
         var year_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
@@ -1191,6 +1194,7 @@ class ReservationEventTags
     {
         this.m_tag_root = "H";
         this.m_tag_event_data = "ED";
+        this.m_tag_event_number = "ER";
         this.m_tag_day = "D";
         this.m_tag_month = "M";
         this.m_tag_year = "Y";
@@ -1207,7 +1211,9 @@ class ReservationEventTags
     }
 
     getRoot(){return this.m_tag_root;}
+    // Element <ED> not really used but was necessary for PrettyPrint
     getEventData(){return this.m_tag_event_data;}
+    getEventNumber(){return this.m_tag_event_number;}
     getDay(){return this.m_tag_day;}
     getMonth(){return this.m_tag_month;}
     getYear(){return this.m_tag_year;}
@@ -1232,6 +1238,11 @@ class ReservationData
     {
         // Array of SeatData objects
         this.m_seat_data_array = i_seat_data_array;
+
+        // Event number.
+        // This number is a reference to events defined
+        // in the event program XML file (EventProgramXml)
+        this.m_event_number = "";
 
         // Edit reservation password
         this.m_password = "";
@@ -1267,6 +1278,24 @@ class ReservationData
         this.m_seat_data_array = i_seat_data_array;
 
     } // setSeatDataArray
+
+    // Returns the event number.
+    // This number is a reference to events defined
+    // in the event program XML file (EventProgramXml)
+    getEventNumber()
+    {
+        return this.m_event_number;
+
+    } // getEventNumber
+
+    // Sets the event number.
+    // This number is a reference to events defined
+    // in the event program XML file (EventProgramXml)
+    setEventNumber(i_event_number)
+    {
+        this.m_event_number = i_event_number;
+
+    } // setEventNumber
 
     // Returns the edit reservation password
     getPassword()

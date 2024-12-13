@@ -1,5 +1,5 @@
 // File: CreateXmlEventFiles.js
-// Date: 2024-12-12
+// Date: 2024-12-13
 // Authors: Gunnar Lidén
 
 // Content
@@ -117,7 +117,7 @@ function callbackAfterLoadingEventProgram()
 // 2. Set the callback function name to
 //    to createEventXmlObjectRecursively if not the last object
 //    to allEventXmlObjectsCreated if it is the last object
-// 3. 
+// 3. Instantiate ReservationEventXml
 function createEventXmlObjectRecursively()
 {
     g_event_object_index =  g_event_object_index + 1;
@@ -142,18 +142,45 @@ function createEventXmlObjectRecursively()
 
 } // createEventXmlObjectArrayRecursively
 
-// This function is called when all the event XML object have been created
+function debugPrettyPrint(i_object_xml, i_functionname_str)
+{
+    var pretty_print = new PrettyPrintXml(i_object_xml.getXmlObject());
+
+    var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+    debugReservationLayout('debugPrettyPrint ' + i_functionname_str);
+
+    debugReservationLayout(xml_content_str);
+
+} // debugPrettyPrint
+
+// This function is called when all the event XML objects have been created
+// The event XML objects are empty, i.e. only the root <H> is defined
+// Corresponding start files with the root tag <H> have been saved on the server
+// 1. Append event nodes to the event XML object. 
+//    Call of ReservationEventXml.appendEventNodes
+// 2. Loop for all event CML objects
+// 2.1 Get event data (name, year, month, day, name) from the event program XMl object
+//     Call of EventProgramXml.getYear, getMonth,  getEventName
+// 2.2 Set the event node values with the data from the season program and the event number
+//     Call of ReservationEventXml.setYear, setMonth, setDay, setEventName and SetEventNumber
 function allEventXmlObjectsCreated()
 {
     var n_event_xml_files = g_event_xml_array.length;
 
-    debugReservationLayout('allEventXmlObjectsCreated Number of event XML files is ' + n_event_xml_files.toString());
+    // debugReservationLayout('allEventXmlObjectsCreated Number of event XML files is ' + n_event_xml_files.toString());
 
     for (var index_file=0; index_file < n_event_xml_files; index_file++)
     {
         var event_xml = g_event_xml_array[index_file];
 
+        event_xml.appendEventNodes();
+
+        // debugReservationLayout("allEventXmlObjectsCreated Event data nodes created with value NYSV (not yet set value) ");
+
         var event_number = index_file + 1;
+
+        // debugReservationLayout("allEventXmlObjectsCreated Data event program for event_number= " + event_number.toString() + ':');
 
         var event_day   = g_event_program_xml.getDay(event_number);
 
@@ -163,9 +190,9 @@ function allEventXmlObjectsCreated()
 
         var event_name  = g_event_program_xml.getEventName(event_number);
 
-        debugReservationLayout('allEventXmlObjectsCreated event_name= ' + event_name + ' event_name= ' + event_name);
+        // debugReservationLayout('Event name ' + event_name + ' Year ' + event_year + ' Month ' + event_month + ' Day ' + event_day);
 
-        event_xml.appendEventNodes();
+        event_xml.setEventNumber(event_number.toString());
 
         event_xml.setDay(event_day);
 
@@ -174,6 +201,8 @@ function allEventXmlObjectsCreated()
         event_xml.setYear(event_year);
 
         event_xml.setEventName(event_name);
+
+        debugPrettyPrint(event_xml, "allEventXmlObjectsCreated");
 
         // Only test event_xml.appendReservationNode(2, 3);
         // Only test event_xml.setRemark("Test remark", 1); 
@@ -343,6 +372,8 @@ function importAllEventXmlObjectsLoaded()
 
     var n_events = g_import_event_xml_array.length;
 
+    g_import_reservation_data_array = [];
+
     for (var index_event = 0; index_event < n_events; index_event++)
     {
         var import_event_xml = g_import_event_xml_array[index_event];
@@ -387,6 +418,13 @@ function importAllEventXmlObjectsLoaded()
             } // seat_number
 
             var reservation_data = new ReservationData(seat_data_array);
+
+            // Temporarely for old layouts. The event number (reference)
+            // is defined in the  reservaion event XML files
+            // ReservationEventXml.getReferenceNumber
+            var event_number_str = (index_event + 1).toString();
+
+            reservation_data.setEventNumber(event_number_str);
             
             reservation_data.setPassword("");
 
@@ -400,9 +438,9 @@ function importAllEventXmlObjectsLoaded()
 
         }// reservation_number
 
-        var n_reservation_data = g_import_reservation_data_array.length;
-
     } // index_event
+
+    var n_reservation_data = g_import_reservation_data_array.length;
 
 } // importAllEventXmlObjectsLoaded
 
