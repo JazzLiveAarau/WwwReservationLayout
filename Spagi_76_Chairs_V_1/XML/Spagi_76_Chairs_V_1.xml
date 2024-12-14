@@ -231,7 +231,7 @@
     <TableGroupPrice>25 Franken</TableGroupPrice>
     <TableGroupPriceReduced>15 Franken</TableGroupPriceReduced>
     <Table>
-      <Number>10</Number>
+      <Number>11</Number>
       <UpperLeftX>1000</UpperLeftX>
       <UpperLeftY>2500</UpperLeftY>
       <Width>900</Width>

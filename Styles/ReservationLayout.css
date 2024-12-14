@@ -1,5 +1,5 @@
 /* 
-File: ReservationLayout.css Date: 2024-12-08
+File: ReservationLayout.css Date: 2024-12-14
 
 Author: Gunnar Liden
 
@@ -39,6 +39,20 @@ Defines all style classes for the application reservation layout
     overflow: hidden;   
     width: 100%;
 }
+
+.cl_div_layout_result
+{
+    border: solid 2px red;
+    font-family: 'Arial';
+    font-size: 12px;
+    font-weight: bold;
+    width: 750px;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding: 10px;
+
+    min-height: 420px;
+}    
 
 /* For all <label> elements */
 label

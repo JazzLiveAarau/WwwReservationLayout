@@ -43,6 +43,12 @@ var g_import_reservation_data_array = [];
 // Array of TableSeatData objects defining the available seats
 var g_available_table_seat_array = null;
 
+// The seats that automatically will be reserved by the application
+var g_available_objects = [];
+
+// The seats that must be manually reserved by the administrator
+var g_not_available_objects = [];
+
 var g_all_event_XML_files_msg = "Alle XML Dateien sind generiert und zum Server hochgeladen. Ordner= ";
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -475,11 +481,6 @@ function importAllEventXmlObjectsLoaded()
 
 } // importAllEventXmlObjectsLoaded
 
-var g_available_objects = [];
-
-var g_not_available_objects = [];
-
-
 // Append imported imported values
 // 1. Get the array of avalable seats g_available_table_seat_array
 function appendImportedValuesToEventXmlObjects()
@@ -518,6 +519,8 @@ function appendImportedValuesToEventXmlObjects()
 
     var n_available = g_available_objects.length;
 
+    displayNonAvailableSeats();
+
 } // appendImportedValuesToEventXmlObjects
 
 // Returns true if all seats exist for the new layout
@@ -545,6 +548,124 @@ function allReservationSeatsExist(i_reservation_data)
     return true;
 
 } // allReservationSeatsExist
+
+// Display the seats that must be manually reserved by the administrator
+function displayNonAvailableSeats()
+{
+    var display_text_str = '';
+
+    var display_html_str_array = [];
+
+    var n_display = g_not_available_objects.length;
+
+    for (var i_display=0; i_display < n_display; i_display++)
+    {
+        var reservation_data = g_not_available_objects[i_display];
+
+        var event_number = reservation_data.getEventNumber();
+
+        var reservation_name = reservation_data.getName();
+
+        var reservation_email = reservation_data.getEmail();
+
+        var reservation_remark = reservation_data.getRemark();
+
+        var n_seats = reservation_data. getNumberOfSeats();
+
+        var seat_array = reservation_data.getSeatDataArray();
+
+        var table_number_array = [];
+
+        var seat_char_array = [];
+
+        for (var index_seat = 0; index_seat < n_seats; index_seat++)
+        {
+            var seat_data = seat_array[index_seat];
+
+            var table_row_number = seat_data.getRowTableNumber();
+
+            var seat_character_number = seat_data.getSeatCharacterNumber();
+
+            table_number_array[index_seat] = table_row_number;
+
+            seat_char_array[index_seat] = seat_character_number;
+
+        } // index_seat
+
+        var b_html = true;
+
+        var display_html_str = appendToDisplayString(b_html, event_number, 
+            reservation_name, reservation_email, reservation_remark, 
+            table_number_array, seat_char_array);
+
+            display_html_str_array[i_display] = display_html_str;
+
+    } // i_display
+
+    var str_length = display_html_str_array.length;
+
+    var html_all_str = '';
+
+    for (var index_str=0; index_str<display_html_str_array.length; index_str++)
+    {
+        html_all_str += display_html_str_array[index_str];
+    }
+
+    var div_resultat_el = getElementDivResult();
+
+    div_resultat_el.innerHTML = html_all_str;
+
+} // displayNonAvailableSeats
+
+// Append to the display string
+function appendToDisplayString(i_b_html, i_event_number, i_name, i_email, i_remark, i_table_array, i_char_array)
+{
+    var output_str = '';
+
+    output_str += 'Konzert ' + i_event_number.toString();
+
+    output_str += ' Name ' + i_name;
+
+    output_str += ' E-Mail ' + i_email;
+
+    output_str += ' Bemerkung ' + i_remark;
+
+    if (i_b_html)
+    {
+        output_str += '<br>';
+    }
+    else
+    {
+        output_str += '\n';
+    }
+
+    output_str += ' Plätze: ';
+
+    for (var index_seat = 0; index_seat < i_table_array.length; index_seat++)
+    {
+        output_str += ' Tisch ' + i_table_array[index_seat];
+
+        output_str += ' Platz ' + i_char_array[index_seat];
+
+        if (index_seat < i_table_array.length -1)
+        {
+            output_str += ', ';
+        }
+
+    } // index_seat
+
+    if (i_b_html)
+    {
+        output_str += '<br><br>';
+    }
+    else
+    {
+        output_str += '\n\n';
+    }
+
+    return output_str;
+
+} // appendToDisplayString
 
 // Reurns true if the seat is available
 function isSeatAvailable(i_row_table_number, i_seat_character_number)
