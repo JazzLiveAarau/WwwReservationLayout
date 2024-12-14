@@ -1,5 +1,5 @@
 // File: CreateXmlEventFiles.js
-// Date: 2024-12-13
+// Date: 2024-12-14
 // Authors: Gunnar Lidén
 
 // Content
@@ -39,6 +39,9 @@ var g_event_object_index = -12345;
 
 // Array of Reservation data objects ReservationData
 var g_import_reservation_data_array = [];
+
+// Array of TableSeatData objects defining the available seats
+var g_available_table_seat_array = null;
 
 var g_all_event_XML_files_msg = "Alle XML Dateien sind generiert und zum Server hochgeladen. Ordner= ";
 
@@ -365,7 +368,31 @@ function loadImportEventXmlObjectRecursively()
 
 } // loadImportEventXmlObjectRecursively
 
+// Returns an array of seat names
+function getImportSeatNames(i_import_event_xml, i_reservation_number, i_seat_number)
+{
+    var ret_seat_names = [];
+
+    var n_seat_names = i_import_event_xml.getNumberOfSeatNames(i_reservation_number, i_seat_number);
+
+    for (var seat_name_number = 1; seat_name_number <= ret_seat_names ; seat_name_number++)
+    {
+        var seat_name = i_import_event_xml.getSeatName(i_reservation_number, i_seat_number, seat_name_number);
+
+        var index_seat_name = seat_name_number - 1;
+
+        ret_seat_names[index_seat_name] = seat_name;
+
+    }
+
+    return ret_seat_names;
+
+} // getImportSeatNames
+
 // This function is called when all the imported event XML object have been created
+// 1. Loop create an array of ReservationSeatData
+// 1.1 ...
+// 2. Call the function appendImportedValuesToEventXmlObjects
 function importAllEventXmlObjectsLoaded()
 {
     debugReservationLayout('importAllEventXmlObjectsLoaded Enter');
@@ -373,6 +400,8 @@ function importAllEventXmlObjectsLoaded()
     var n_events = g_import_event_xml_array.length;
 
     g_import_reservation_data_array = [];
+
+    var index_reservation_out = 0;
 
     for (var index_event = 0; index_event < n_events; index_event++)
     {
@@ -434,36 +463,117 @@ function importAllEventXmlObjectsLoaded()
 
             reservation_data.setRemark(reservation_remark);
 
-            g_import_reservation_data_array[reservation_number - 1] = reservation_data;
+            g_import_reservation_data_array[index_reservation_out] = reservation_data;
+
+            index_reservation_out = index_reservation_out + 1;
 
         }// reservation_number
 
     } // index_event
 
-    var n_reservation_data = g_import_reservation_data_array.length;
+    appendImportedValuesToEventXmlObjects();
 
 } // importAllEventXmlObjectsLoaded
 
-// Returns an array of seat names
-function getImportSeatNames(i_import_event_xml, i_reservation_number, i_seat_number)
+var g_available_objects = [];
+
+var g_not_available_objects = [];
+
+
+// Append imported imported values
+// 1. Get the array of avalable seats g_available_table_seat_array
+function appendImportedValuesToEventXmlObjects()
 {
-    var ret_seat_names = [];
+    debugReservationLayout('importAllEventXmlObjectsLoaded Enter');
 
-    var n_seat_names = i_import_event_xml.getNumberOfSeatNames(i_reservation_number, i_seat_number);
+    g_available_table_seat_array = getAvailableTableSeatArray(g_layout_xml);
 
-    for (var seat_name_number = 1; seat_name_number <= ret_seat_names ; seat_name_number++)
+    var n_reservation_data = g_import_reservation_data_array.length;
+
+    var index_available = 0;
+
+    var index_not_available = 0;
+
+    for (var index_reservation = 0; index_reservation < n_reservation_data; index_reservation++)
     {
-        var seat_name = i_import_event_xml.getSeatName(i_reservation_number, i_seat_number, seat_name_number);
+        var reservation_data = g_import_reservation_data_array[index_reservation];
 
-        var index_seat_name = seat_name_number - 1;
+        if (allReservationSeatsExist(reservation_data))
+        {
+            g_available_objects[index_available] = reservation_data;
 
-        ret_seat_names[index_seat_name] = seat_name;
+            index_available = index_available + 1;
+
+        }
+        else
+        {
+            g_not_available_objects[index_not_available] = reservation_data;
+
+            index_not_available = index_not_available + 1;
+        }
+
+    } // index_reservation
+
+    var n_not_available = g_not_available_objects.length;
+
+    var n_available = g_available_objects.length;
+
+} // appendImportedValuesToEventXmlObjects
+
+// Returns true if all seats exist for the new layout
+function allReservationSeatsExist(i_reservation_data)
+{
+    var n_seats = i_reservation_data.getNumberOfSeats();
+
+    var seat_data_array = i_reservation_data.getSeatDataArray();
+
+    for (var index_seat = 0; index_seat < n_seats;  index_seat++)
+    {
+        var seat_data = seat_data_array[index_seat];
+
+        var row_table_number = seat_data.getRowTableNumber();
+
+        var seat_character_number = seat_data.getSeatCharacterNumber();
+
+        if (!isSeatAvailable(row_table_number, seat_character_number))
+        {
+            return false;
+        }
 
     }
 
-    return ret_seat_names;
+    return true;
 
-} // getImportSeatNames
+} // allReservationSeatsExist
+
+// Reurns true if the seat is available
+function isSeatAvailable(i_row_table_number, i_seat_character_number)
+{
+    var ret_b_available = false;
+
+    var n_available_seats = g_available_table_seat_array.length; // TableSeatData
+
+    for (var index_available = 0; index_available < n_available_seats; index_available++)
+    {
+        var table_seat_data = g_available_table_seat_array[index_available];
+
+        var available_row_table = table_seat_data.getTableRowNumber();
+
+        var available_seat_character = table_seat_data.getSeatCharacterNumber();
+
+        if (i_row_table_number == available_row_table && i_seat_character_number == available_seat_character)
+        {
+            ret_b_available = true;
+
+            break;
+        }
+ 
+    }
+
+    return ret_b_available;
+
+} // isSeatAvailable
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Import XML Evants Functions /////////////////////////////////

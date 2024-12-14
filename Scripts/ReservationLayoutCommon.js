@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-12-05
+// Date: 2024-12-14
 // Authors: Gunnar Lidén
 
 // Content
@@ -1656,6 +1656,7 @@ function getTableDataArrayFromXml(i_layout_xml)
  
 } // getTableDataArrayFromXml
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Table Data ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -2224,8 +2225,78 @@ function checkIfCharIsSet(i_data_seat, i_row_number, i_array_length)
 
 } // checkIfCharIsSet
  
+// Returns an array of TableSeatData that are available in the event premises
+function getAvailableTableSeatArray(i_layout_xml)
+{
+    var ret_array = [];
+
+    var table_seat_array = getAllTablesSeatDataArray(i_layout_xml);
+
+    var index_out = 0;
+
+    for (var index_data = 0;  index_data < table_seat_array.length; index_data++)
+    {
+        var table_seat_data = table_seat_array[index_data];
+
+        var table_row_number = table_seat_data.getRowOrTableNumber();
+
+        var seat_char_number = table_seat_data.getSeatNumberOrChar();
+
+        var seat_available = table_seat_data.getCreateSeat();
+
+        if (seat_available)
+        {
+            table_seat_data = new TableSeatData(table_row_number, seat_char_number);
+
+            ret_array[index_out] = table_seat_data;
+
+            index_out = index_out + 1;
+        }
+    }
+
+    return ret_array;
+
+} // getAvailableTableSeatArray
+
+class TableSeatData
+{
+    constructor(i_table_or_row_number, i_seat_character_or_number)
+    {
+        this.m_table_or_row_number = i_table_or_row_number;
+
+        this.m_seat_character_or_number = i_seat_character_or_number;
+    }
+
+    getTableRowNumber()
+    {
+        return this.m_table_or_row_number;
+    }
+
+    getSeatCharacterNumber()
+    {
+        return this.m_seat_character_or_number;
+    }
 
 
+} // TableSeatData
+
+/*
+    getCreateSeat()
+    {
+        return this.m_b_create_seat;
+    }
+
+    getRowOrTableNumber()
+    {
+        return this.m_table_or_row_number;
+    }
+
+    getSeatNumberOrChar()
+    {
+        return this.m_seat_number_or_char;
+    }
+
+*/
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
