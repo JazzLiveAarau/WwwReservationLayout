@@ -23,9 +23,7 @@
         <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js" ></script>
         <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
         <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js" ></script>
         <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js" ></script>
-        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js" ></script>
 
         <noscript>
             Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
@@ -34,167 +32,10 @@
         </noscript>
 
         <script>
-            // Geometry is with SVG defined. The circles with the element <circle>
-            // An event function cannot be added like in HTML with onmousedown = "myEvent". 
-            // An event function to the <circle> element can only be added with JavaScript, i.e. 
-            // when the <circle> exists as an object. This function adds the event functions. 
-            // There is one event function for each <circle>. These functions are also defined in this section. 
-            // These functions were previously defined in the file  ReservationSalmenEvents.js
+            // The function setEventFunctions must probably not be defined for vase ShowLayout. TODO
             function setEventFunctions()
             {
-                document.getElementById('11_A').onmousedown = function() {mouseDown11_A()};
-                document.getElementById('11_B').onmousedown = function() {mouseDown11_B()};
-                document.getElementById('11_C').onmousedown = function() {mouseDown11_C()};
-                document.getElementById('11_D').onmousedown = function() {mouseDown11_D()};
-                document.getElementById('11_E').onmousedown = function() {mouseDown11_E()};
-                document.getElementById('11_F').onmousedown = function() {mouseDown11_F()};
-                document.getElementById('11_G').onmousedown = function() {mouseDown11_G()};
-                document.getElementById('11_H').onmousedown = function() {mouseDown11_H()};
-                document.getElementById('11_I').onmousedown = function() {mouseDown11_I()};
-                document.getElementById('11_J').onmousedown = function() {mouseDown11_J()};
-                document.getElementById('12_A').onmousedown = function() {mouseDown12_A()};
-                document.getElementById('12_B').onmousedown = function() {mouseDown12_B()};
-                document.getElementById('12_C').onmousedown = function() {mouseDown12_C()};
-                document.getElementById('12_D').onmousedown = function() {mouseDown12_D()};
-                document.getElementById('12_E').onmousedown = function() {mouseDown12_E()};
-                document.getElementById('12_F').onmousedown = function() {mouseDown12_F()};
-                document.getElementById('12_G').onmousedown = function() {mouseDown12_G()};
-                document.getElementById('12_H').onmousedown = function() {mouseDown12_H()};
-                document.getElementById('12_I').onmousedown = function() {mouseDown12_I()};
-                document.getElementById('12_J').onmousedown = function() {mouseDown12_J()};
-                document.getElementById('13_A').onmousedown = function() {mouseDown13_A()};
-                document.getElementById('13_B').onmousedown = function() {mouseDown13_B()};
-                document.getElementById('13_C').onmousedown = function() {mouseDown13_C()};
-                document.getElementById('13_D').onmousedown = function() {mouseDown13_D()};
-                document.getElementById('13_E').onmousedown = function() {mouseDown13_E()};
-                document.getElementById('13_F').onmousedown = function() {mouseDown13_F()};
-                document.getElementById('13_G').onmousedown = function() {mouseDown13_G()};
-                document.getElementById('13_H').onmousedown = function() {mouseDown13_H()};
-                document.getElementById('13_I').onmousedown = function() {mouseDown13_I()};
-                document.getElementById('13_J').onmousedown = function() {mouseDown13_J()};
-                document.getElementById('13_K').onmousedown = function() {mouseDown13_K()};
-                document.getElementById('13_L').onmousedown = function() {mouseDown13_L()};
-                document.getElementById('21_A').onmousedown = function() {mouseDown21_A()};
-                document.getElementById('21_B').onmousedown = function() {mouseDown21_B()};
-                document.getElementById('21_C').onmousedown = function() {mouseDown21_C()};
-                document.getElementById('21_D').onmousedown = function() {mouseDown21_D()};
-                document.getElementById('21_E').onmousedown = function() {mouseDown21_E()};
-                document.getElementById('21_F').onmousedown = function() {mouseDown21_F()};
-                document.getElementById('22_A').onmousedown = function() {mouseDown22_A()};
-                document.getElementById('22_B').onmousedown = function() {mouseDown22_B()};
-                document.getElementById('22_C').onmousedown = function() {mouseDown22_C()};
-                document.getElementById('22_D').onmousedown = function() {mouseDown22_D()};
-                document.getElementById('22_E').onmousedown = function() {mouseDown22_E()};
-                document.getElementById('22_F').onmousedown = function() {mouseDown22_F()};
-                document.getElementById('23_A').onmousedown = function() {mouseDown23_A()};
-                document.getElementById('23_B').onmousedown = function() {mouseDown23_B()};
-                document.getElementById('23_C').onmousedown = function() {mouseDown23_C()};
-                document.getElementById('23_D').onmousedown = function() {mouseDown23_D()};
-                document.getElementById('23_E').onmousedown = function() {mouseDown23_E()};
-                document.getElementById('23_F').onmousedown = function() {mouseDown23_F()};
-                document.getElementById('23_G').onmousedown = function() {mouseDown23_G()};
-                document.getElementById('23_H').onmousedown = function() {mouseDown23_H()};
-                document.getElementById('31_A').onmousedown = function() {mouseDown31_A()};
-                document.getElementById('31_B').onmousedown = function() {mouseDown31_B()};
-                document.getElementById('31_C').onmousedown = function() {mouseDown31_C()};
-                document.getElementById('31_D').onmousedown = function() {mouseDown31_D()};
-                document.getElementById('31_E').onmousedown = function() {mouseDown31_E()};
-                document.getElementById('31_F').onmousedown = function() {mouseDown31_F()};
-                document.getElementById('31_G').onmousedown = function() {mouseDown31_G()};
-                document.getElementById('31_H').onmousedown = function() {mouseDown31_H()};
-                document.getElementById('32_A').onmousedown = function() {mouseDown32_A()};
-                document.getElementById('32_B').onmousedown = function() {mouseDown32_B()};
-                document.getElementById('32_C').onmousedown = function() {mouseDown32_C()};
-                document.getElementById('32_D').onmousedown = function() {mouseDown32_D()};
-                document.getElementById('32_E').onmousedown = function() {mouseDown32_E()};
-                document.getElementById('32_F').onmousedown = function() {mouseDown32_F()};
-                document.getElementById('32_G').onmousedown = function() {mouseDown32_G()};
-                document.getElementById('32_H').onmousedown = function() {mouseDown32_H()};
-                document.getElementById('41_A').onmousedown = function() {mouseDown41_A()};
-                document.getElementById('41_B').onmousedown = function() {mouseDown41_B()};
-                document.getElementById('51_A').onmousedown = function() {mouseDown51_A()};
-                document.getElementById('51_B').onmousedown = function() {mouseDown51_B()};
-                document.getElementById('42_A').onmousedown = function() {mouseDown42_A()};
-                document.getElementById('42_B').onmousedown = function() {mouseDown42_B()};
-                document.getElementById('52_A').onmousedown = function() {mouseDown52_A()};
-                document.getElementById('52_B').onmousedown = function() {mouseDown52_B()};
             }
-            function mouseDown11_A(){var table_number = 11;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_B(){var table_number = 11;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_C(){var table_number = 11;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_D(){var table_number = 11;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_E(){var table_number = 11;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_F(){var table_number = 11;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_G(){var table_number = 11;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_H(){var table_number = 11;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_I(){var table_number = 11;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown11_J(){var table_number = 11;var seat_char = "J";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_A(){var table_number = 12;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_B(){var table_number = 12;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_C(){var table_number = 12;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_D(){var table_number = 12;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_E(){var table_number = 12;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_F(){var table_number = 12;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_G(){var table_number = 12;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_H(){var table_number = 12;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_I(){var table_number = 12;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_J(){var table_number = 12;var seat_char = "J";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_A(){var table_number = 13;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_B(){var table_number = 13;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_C(){var table_number = 13;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_D(){var table_number = 13;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_E(){var table_number = 13;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_F(){var table_number = 13;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_G(){var table_number = 13;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_H(){var table_number = 13;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_I(){var table_number = 13;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_J(){var table_number = 13;var seat_char = "J";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_K(){var table_number = 13;var seat_char = "K";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_L(){var table_number = 13;var seat_char = "L";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_A(){var table_number = 21;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_B(){var table_number = 21;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_C(){var table_number = 21;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_D(){var table_number = 21;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_E(){var table_number = 21;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_F(){var table_number = 21;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_A(){var table_number = 22;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_B(){var table_number = 22;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_C(){var table_number = 22;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_D(){var table_number = 22;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_E(){var table_number = 22;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_F(){var table_number = 22;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_A(){var table_number = 23;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_B(){var table_number = 23;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_C(){var table_number = 23;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_D(){var table_number = 23;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_E(){var table_number = 23;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_F(){var table_number = 23;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_G(){var table_number = 23;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_H(){var table_number = 23;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_A(){var table_number = 31;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_B(){var table_number = 31;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_C(){var table_number = 31;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_D(){var table_number = 31;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_E(){var table_number = 31;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_F(){var table_number = 31;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_G(){var table_number = 31;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_H(){var table_number = 31;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_A(){var table_number = 32;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_B(){var table_number = 32;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_C(){var table_number = 32;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_D(){var table_number = 32;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_E(){var table_number = 32;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_F(){var table_number = 32;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_G(){var table_number = 32;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_H(){var table_number = 32;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown41_A(){var table_number = 41;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown41_B(){var table_number = 41;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown51_A(){var table_number = 51;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown51_B(){var table_number = 51;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown42_A(){var table_number = 42;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown42_B(){var table_number = 42;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown52_A(){var table_number = 52;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown52_B(){var table_number = 52;var seat_char = "B";EventMouseDown(table_number, seat_char);}
         </script>
 
 
@@ -202,7 +43,7 @@
 
 
 
-    <body style= "background-color:#dfe0e1" onload="mainSearchReservation('Salmen')" scrolling="auto">
+    <body style= "background-color:#dfe0e1" onload="mainShowLayout()"  scrolling="auto">
         <script>
             // XML file defining the layout of the concert premises
             // This global variable was previously defined in the file ReservationSalmen.js
@@ -216,9 +57,6 @@
             </td></tr>
             <tr><td>
                 <div id="id_reservation_select_concert">Section (division) select concert </div>
-            </td></tr>
-            <tr><td>
-                <p id="id_reservation_show_concert_date_band"  align="center" style="font-family: Arial; font:bold; font-size:22pt; height:40px; width:900px;  color:red; background-color: black; margin-bottom:0px;  border: 0px none black; padding:0px;">Paragraph display event</p>
             </td></tr>
             <tr><td>
             <svg id= "id_block_svg" height=1575 width=900 style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);margin-top:0px; padding:0px"  >
@@ -509,58 +347,14 @@
 
 
 
-                <rect  x=390 y=59 width= "120" height= "29" 
-                     id= "delete_reservation_mode"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=400 y=60 width= "104px" height= "26px"  id= "id_text_image_delete_reservation" 
-                     style="cursor: pointer; "
-                     onmousedown="mouseDownDeleteReservationModeText()" 
-                     xlink:href= "ImagesApp/text_delete_off.png" >
-                         <title>Reservierte Plätze löschen</title> 
-                 </image>
-
-                <rect  x=670 y=59 width= "220" height= "29" 
-                     id= "button_list_reservations"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=680 y=60 width= "188px" height= "26px"  id= "id_text_image_reservation_list" 
-                     style="cursor: pointer; "
-                     onmousedown="mouseDownListReservationsText()" 
-                     xlink:href= "ImagesApp/text_reservation_list.png" >
-                         <title>Liste mit allen Reservationen zeigen</title> 
-                 </image>
-
                 <rect  x=670 y=5 width= "220" height= "29" 
-                     id= "button_print_reservations"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=680 y=6 width= "206px" height= "26px"  id= "id_text_image_reservation_print" 
+                     id= "button_send_email"  style="fill:white;stroke-width:1;stroke:black"></rect>
+                <image  x=680 y=6 width= "168px" height= "26px"  id= "text_image_send_email" 
                      style="cursor: pointer; "
-                     onmousedown="mouseDownPrintReservationsText()" 
-                     xlink:href= "ImagesApp/text_reservation_print.png" >
-                         <title>Reservationskarten für alle Sitzplätze generieren</title> 
-                 </image>
-
-                <rect  x=10 y=5 width= "227" height= "25" 
-                     id= "button_init_reservation"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=20 y=6 width= "222px" height= "26px"  id= "id_text_add_reservation_text" 
-                     style="cursor: pointer; "
-                     onmousedown="mouseDownInitReservationText()" 
-                     xlink:href= "ImagesApp/text_add_reservation.png" >
-                         <title>Eine Reservation zufügen</title> 
-                 </image>
-
-                <rect  x=10 y=60 width= "228" height= "29" 
-                     id= "button_save_reservation"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=20 y=61 width= "222px" height= "26px"  id= "id_image_save_reservation_text" 
-                     style="cursor: pointer; "
-                     onmousedown="mouseDownSaveReservationText()" 
-                     xlink:href= "ImagesApp/text_save_reservation_white.png" >
-                         <title>Reservierte Plätze speichern</title> 
-                 </image>
-
-                <rect  x=10 y=93 width= "228" height= "29" 
-                     id= "buttonEventList"  style="fill:white;stroke-width:1;stroke:black"></rect>
-                <image  x=20 y=94 width= "222px" height= "26px"  id= "id_image_no_longer_used" 
-                     style="cursor: pointer; "
-                     onmousedown="mouseImageEventNoLongerUsed()" 
-                     xlink:href= "ImagesApp/text_save_reservation_white.png" >
-                         <title>No longer used button</title> 
+                     onmousedown="mouseDownSendEmailOrMakeReservationText()" 
+                     xlink:href= "ImagesApp/text_reserve_select_undef.png" >
+                         <title>Sitzplätze reservieren: 
+        Die Reservation wird registriert und eine Bestätigungs-E-Mail wird gesendet.</title> 
                  </image>
 
             </svg>

@@ -15,7 +15,17 @@
         <title>JAZZ live AARAU Reservation SPAGI by Marcello </title>
 
         <!-- Included external Javascripts   -->
-        <!-- No files included because temporary test functions are defined  -->
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/Reservation.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js" ></script>
+        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js" ></script>
 
         <noscript>
             Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
@@ -30,16 +40,6 @@
             }
         </script>
 
-        <script>
-            // Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ
-            // The function is defined in file Reservation.js included in <head>
-            // So the function is defined two times and must be deleted before use
-            function mainShowLayout()
-            {
-                // alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);
-                // No events setEventFunctions();            }
-        </script>
-
 
     </header>
 
@@ -50,7 +50,7 @@
             // XML file defining the layout of the concert premises
             // This global variable was previously defined in the file ReservationSalmen.js
             // This file ReservationSalmen.js is no longer included in the <head> section
-            g_url_file_layout_xml = "XML/Spagi_76_Chairs_V_1.xml;"
+            g_url_file_layout_xml = "XML/Spagi_76_Chairs_V_1.xml";
         </script>
 
         <table><tbody>
@@ -59,6 +59,9 @@
             </td></tr>
             <tr><td>
                 <div id="id_reservation_select_concert">Section (division) select concert </div>
+            </td></tr>
+            <tr><td>
+                <p id="id_reservation_show_concert_date_band"  align="center" style="font-family: Arial; font:bold; font-size:22pt; height:40px; width:900px;  color:red; background-color: black; margin-bottom:0px;  border: 0px none black; padding:0px;">Paragraph display event</p>
             </td></tr>
             <tr><td>
             <svg id= "id_block_svg" height=1575 width=900 style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);margin-top:0px; padding:0px"  >
@@ -74,36 +77,36 @@
                 <image x= 834 y= 1068 width=73px height=235px xlink:href=ImagesLayout/icon_door_main.png> <title>Tür</title>  </image>
                 <image x= 56 y= 1509 width=163px height=73px xlink:href=ImagesLayout/icon_door_back.png> <title>Tür</title>  </image>
                 <rect  x=112 y=281 width=101 height=247 style="fill:rgb(179, 202, 239);stroke-width:4;stroke:rgb(106, 156, 237)" />
-                <text x=153 y=405 fill=red>10</text>
-                <circle  cx=90 cy=305 r=16 id="10_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=309 id="cir_text_10_A"  fill="red" >A</text>
+                <text x=153 y=405 fill=red>11</text>
+                <circle  cx=90 cy=305 r=16 id="11_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=309 id="cir_text_11_A"  fill="red" >A</text>
 
-                <circle  cx=235 cy=305 r=16 id="10_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=309 id="cir_text_10_B"  fill="red" >B</text>
+                <circle  cx=235 cy=305 r=16 id="11_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=309 id="cir_text_11_B"  fill="red" >B</text>
 
-                <circle  cx=90 cy=353 r=16 id="10_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=357 id="cir_text_10_C"  fill="red" >C</text>
+                <circle  cx=90 cy=353 r=16 id="11_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=357 id="cir_text_11_C"  fill="red" >C</text>
 
-                <circle  cx=235 cy=353 r=16 id="10_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=357 id="cir_text_10_D"  fill="red" >D</text>
+                <circle  cx=235 cy=353 r=16 id="11_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=357 id="cir_text_11_D"  fill="red" >D</text>
 
-                <circle  cx=90 cy=401 r=16 id="10_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=405 id="cir_text_10_E"  fill="red" >E</text>
+                <circle  cx=90 cy=401 r=16 id="11_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=405 id="cir_text_11_E"  fill="red" >E</text>
 
-                <circle  cx=235 cy=401 r=16 id="10_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=405 id="cir_text_10_F"  fill="red" >F</text>
+                <circle  cx=235 cy=401 r=16 id="11_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=405 id="cir_text_11_F"  fill="red" >F</text>
 
-                <circle  cx=90 cy=449 r=16 id="10_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=453 id="cir_text_10_G"  fill="red" >G</text>
+                <circle  cx=90 cy=449 r=16 id="11_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=453 id="cir_text_11_G"  fill="red" >G</text>
 
-                <circle  cx=235 cy=449 r=16 id="10_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=453 id="cir_text_10_H"  fill="red" >H</text>
+                <circle  cx=235 cy=449 r=16 id="11_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=453 id="cir_text_11_H"  fill="red" >H</text>
 
-                <circle  cx=90 cy=497 r=16 id="10_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=501 id="cir_text_10_I"  fill="red" >I</text>
+                <circle  cx=90 cy=497 r=16 id="11_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=501 id="cir_text_11_I"  fill="red" >I</text>
 
-                <circle  cx=235 cy=497 r=16 id="10_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=501 id="cir_text_10_J"  fill="red" >J</text>
+                <circle  cx=235 cy=497 r=16 id="11_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=501 id="cir_text_11_J"  fill="red" >J</text>
 
 
 

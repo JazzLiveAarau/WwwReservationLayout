@@ -15,7 +15,17 @@
         <title>JAZZ live AARAU Reservation SPAGI by Marcello </title>
 
         <!-- Included external Javascripts   -->
-        <!-- No files included because temporary test functions are defined  -->
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/Reservation.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js" ></script>
+        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js" ></script>
+        <script type="text/javascript" src=" https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js" ></script>
 
         <noscript>
             Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
@@ -32,16 +42,16 @@
             // These functions were previously defined in the file  ReservationSalmenEvents.js
             function setEventFunctions()
             {
-                document.getElementById('10_A').onmousedown = function() {mouseDown10_A()};
-                document.getElementById('10_B').onmousedown = function() {mouseDown10_B()};
-                document.getElementById('10_C').onmousedown = function() {mouseDown10_C()};
-                document.getElementById('10_D').onmousedown = function() {mouseDown10_D()};
-                document.getElementById('10_E').onmousedown = function() {mouseDown10_E()};
-                document.getElementById('10_F').onmousedown = function() {mouseDown10_F()};
-                document.getElementById('10_G').onmousedown = function() {mouseDown10_G()};
-                document.getElementById('10_H').onmousedown = function() {mouseDown10_H()};
-                document.getElementById('10_I').onmousedown = function() {mouseDown10_I()};
-                document.getElementById('10_J').onmousedown = function() {mouseDown10_J()};
+                document.getElementById('11_A').onmousedown = function() {mouseDown11_A()};
+                document.getElementById('11_B').onmousedown = function() {mouseDown11_B()};
+                document.getElementById('11_C').onmousedown = function() {mouseDown11_C()};
+                document.getElementById('11_D').onmousedown = function() {mouseDown11_D()};
+                document.getElementById('11_E').onmousedown = function() {mouseDown11_E()};
+                document.getElementById('11_F').onmousedown = function() {mouseDown11_F()};
+                document.getElementById('11_G').onmousedown = function() {mouseDown11_G()};
+                document.getElementById('11_H').onmousedown = function() {mouseDown11_H()};
+                document.getElementById('11_I').onmousedown = function() {mouseDown11_I()};
+                document.getElementById('11_J').onmousedown = function() {mouseDown11_J()};
                 document.getElementById('12_A').onmousedown = function() {mouseDown12_A()};
                 document.getElementById('12_B').onmousedown = function() {mouseDown12_B()};
                 document.getElementById('12_C').onmousedown = function() {mouseDown12_C()};
@@ -109,18 +119,16 @@
                 document.getElementById('52_A').onmousedown = function() {mouseDown52_A()};
                 document.getElementById('52_B').onmousedown = function() {mouseDown52_B()};
             }
-            function mouseDown10_A(){var table_number = 10;var seat_char = "A";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_B(){var table_number = 10;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_C(){var table_number = 10;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_D(){var table_number = 10;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_E(){var table_number = 10;var seat_char = "E";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_F(){var table_number = 10;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_G(){var table_number = 10;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_H(){var table_number = 10;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_I(){var table_number = 10;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_J(){var table_number = 10;var seat_char = "J";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_K(){var table_number = 10;var seat_char = "K";EventMouseDown(table_number, seat_char);}
-            function mouseDown10_L(){var table_number = 10;var seat_char = "L";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_A(){var table_number = 11;var seat_char = "A";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_B(){var table_number = 11;var seat_char = "B";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_C(){var table_number = 11;var seat_char = "C";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_D(){var table_number = 11;var seat_char = "D";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_E(){var table_number = 11;var seat_char = "E";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_F(){var table_number = 11;var seat_char = "F";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_G(){var table_number = 11;var seat_char = "G";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_H(){var table_number = 11;var seat_char = "H";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_I(){var table_number = 11;var seat_char = "I";EventMouseDown(table_number, seat_char);}
+            function mouseDown11_J(){var table_number = 11;var seat_char = "J";EventMouseDown(table_number, seat_char);}
             function mouseDown12_A(){var table_number = 12;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown12_B(){var table_number = 12;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown12_C(){var table_number = 12;var seat_char = "C";EventMouseDown(table_number, seat_char);}
@@ -131,8 +139,6 @@
             function mouseDown12_H(){var table_number = 12;var seat_char = "H";EventMouseDown(table_number, seat_char);}
             function mouseDown12_I(){var table_number = 12;var seat_char = "I";EventMouseDown(table_number, seat_char);}
             function mouseDown12_J(){var table_number = 12;var seat_char = "J";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_K(){var table_number = 12;var seat_char = "K";EventMouseDown(table_number, seat_char);}
-            function mouseDown12_L(){var table_number = 12;var seat_char = "L";EventMouseDown(table_number, seat_char);}
             function mouseDown13_A(){var table_number = 13;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown13_B(){var table_number = 13;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown13_C(){var table_number = 13;var seat_char = "C";EventMouseDown(table_number, seat_char);}
@@ -145,24 +151,18 @@
             function mouseDown13_J(){var table_number = 13;var seat_char = "J";EventMouseDown(table_number, seat_char);}
             function mouseDown13_K(){var table_number = 13;var seat_char = "K";EventMouseDown(table_number, seat_char);}
             function mouseDown13_L(){var table_number = 13;var seat_char = "L";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_M(){var table_number = 13;var seat_char = "M";EventMouseDown(table_number, seat_char);}
-            function mouseDown13_N(){var table_number = 13;var seat_char = "N";EventMouseDown(table_number, seat_char);}
             function mouseDown21_A(){var table_number = 21;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown21_B(){var table_number = 21;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown21_C(){var table_number = 21;var seat_char = "C";EventMouseDown(table_number, seat_char);}
             function mouseDown21_D(){var table_number = 21;var seat_char = "D";EventMouseDown(table_number, seat_char);}
             function mouseDown21_E(){var table_number = 21;var seat_char = "E";EventMouseDown(table_number, seat_char);}
             function mouseDown21_F(){var table_number = 21;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_G(){var table_number = 21;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown21_H(){var table_number = 21;var seat_char = "H";EventMouseDown(table_number, seat_char);}
             function mouseDown22_A(){var table_number = 22;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown22_B(){var table_number = 22;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown22_C(){var table_number = 22;var seat_char = "C";EventMouseDown(table_number, seat_char);}
             function mouseDown22_D(){var table_number = 22;var seat_char = "D";EventMouseDown(table_number, seat_char);}
             function mouseDown22_E(){var table_number = 22;var seat_char = "E";EventMouseDown(table_number, seat_char);}
             function mouseDown22_F(){var table_number = 22;var seat_char = "F";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_G(){var table_number = 22;var seat_char = "G";EventMouseDown(table_number, seat_char);}
-            function mouseDown22_H(){var table_number = 22;var seat_char = "H";EventMouseDown(table_number, seat_char);}
             function mouseDown23_A(){var table_number = 23;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown23_B(){var table_number = 23;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown23_C(){var table_number = 23;var seat_char = "C";EventMouseDown(table_number, seat_char);}
@@ -171,8 +171,6 @@
             function mouseDown23_F(){var table_number = 23;var seat_char = "F";EventMouseDown(table_number, seat_char);}
             function mouseDown23_G(){var table_number = 23;var seat_char = "G";EventMouseDown(table_number, seat_char);}
             function mouseDown23_H(){var table_number = 23;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_I(){var table_number = 23;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown23_J(){var table_number = 23;var seat_char = "J";EventMouseDown(table_number, seat_char);}
             function mouseDown31_A(){var table_number = 31;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown31_B(){var table_number = 31;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown31_C(){var table_number = 31;var seat_char = "C";EventMouseDown(table_number, seat_char);}
@@ -181,8 +179,6 @@
             function mouseDown31_F(){var table_number = 31;var seat_char = "F";EventMouseDown(table_number, seat_char);}
             function mouseDown31_G(){var table_number = 31;var seat_char = "G";EventMouseDown(table_number, seat_char);}
             function mouseDown31_H(){var table_number = 31;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_I(){var table_number = 31;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown31_J(){var table_number = 31;var seat_char = "J";EventMouseDown(table_number, seat_char);}
             function mouseDown32_A(){var table_number = 32;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown32_B(){var table_number = 32;var seat_char = "B";EventMouseDown(table_number, seat_char);}
             function mouseDown32_C(){var table_number = 32;var seat_char = "C";EventMouseDown(table_number, seat_char);}
@@ -191,44 +187,14 @@
             function mouseDown32_F(){var table_number = 32;var seat_char = "F";EventMouseDown(table_number, seat_char);}
             function mouseDown32_G(){var table_number = 32;var seat_char = "G";EventMouseDown(table_number, seat_char);}
             function mouseDown32_H(){var table_number = 32;var seat_char = "H";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_I(){var table_number = 32;var seat_char = "I";EventMouseDown(table_number, seat_char);}
-            function mouseDown32_J(){var table_number = 32;var seat_char = "J";EventMouseDown(table_number, seat_char);}
             function mouseDown41_A(){var table_number = 41;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown41_B(){var table_number = 41;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown41_C(){var table_number = 41;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown41_D(){var table_number = 41;var seat_char = "D";EventMouseDown(table_number, seat_char);}
             function mouseDown51_A(){var table_number = 51;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown51_B(){var table_number = 51;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown51_C(){var table_number = 51;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown51_D(){var table_number = 51;var seat_char = "D";EventMouseDown(table_number, seat_char);}
             function mouseDown42_A(){var table_number = 42;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown42_B(){var table_number = 42;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown42_C(){var table_number = 42;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown42_D(){var table_number = 42;var seat_char = "D";EventMouseDown(table_number, seat_char);}
             function mouseDown52_A(){var table_number = 52;var seat_char = "A";EventMouseDown(table_number, seat_char);}
             function mouseDown52_B(){var table_number = 52;var seat_char = "B";EventMouseDown(table_number, seat_char);}
-            function mouseDown52_C(){var table_number = 52;var seat_char = "C";EventMouseDown(table_number, seat_char);}
-            function mouseDown52_D(){var table_number = 52;var seat_char = "D";EventMouseDown(table_number, seat_char);}
-        </script>
-
-        <script>
-            // This function is temporarely defined here for testing. QQQQQQQQQQQQQQQQQQQQQQQQQQ
-            // The function EventMouseDown is defined in ReservationEvents.js
-            // Event: User clicked the circle
-            function EventMouseDown(i_table_number, i_seat_char)
-            {
-                alert("Table= " + i_table_number.toString() + " i_seat_char= " + i_seat_char);
-            } // EventMouseDown
-        </script>
-
-        <script>
-            // Main (onload) function for MakeReservation. Temporary for test here. QQQQQQQQQQQQQ
-            // The function is defined in file Reservation.js included in <head>
-            // So the function is defined two times and must be deleted before use
-            function MainAddReservation(i_add_to_xml_file_name)
-            {
-                // alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);
-                setEventFunctions();            }
         </script>
 
 
@@ -241,7 +207,7 @@
             // XML file defining the layout of the concert premises
             // This global variable was previously defined in the file ReservationSalmen.js
             // This file ReservationSalmen.js is no longer included in the <head> section
-            g_url_file_layout_xml = "XML/Spagi_76_Chairs_V_1.xml;"
+            g_url_file_layout_xml = "XML/Spagi_76_Chairs_V_1.xml";
         </script>
 
         <table><tbody>
@@ -250,6 +216,9 @@
             </td></tr>
             <tr><td>
                 <div id="id_reservation_select_concert">Section (division) select concert </div>
+            </td></tr>
+            <tr><td>
+                <p id="id_reservation_show_concert_date_band"  align="center" style="font-family: Arial; font:bold; font-size:22pt; height:40px; width:900px;  color:red; background-color: black; margin-bottom:0px;  border: 0px none black; padding:0px;">Paragraph display event</p>
             </td></tr>
             <tr><td>
             <svg id= "id_block_svg" height=1575 width=900 style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);margin-top:0px; padding:0px"  >
@@ -265,36 +234,36 @@
                 <image x= 834 y= 1068 width=73px height=235px xlink:href=ImagesLayout/icon_door_main.png> <title>Tür</title>  </image>
                 <image x= 56 y= 1509 width=163px height=73px xlink:href=ImagesLayout/icon_door_back.png> <title>Tür</title>  </image>
                 <rect  x=112 y=281 width=101 height=247 style="fill:rgb(179, 202, 239);stroke-width:4;stroke:rgb(106, 156, 237)" />
-                <text x=153 y=405 fill=red>10</text>
-                <circle  cx=90 cy=305 r=16 id="10_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=309 id="cir_text_10_A"  fill="red" >A</text>
+                <text x=153 y=405 fill=red>11</text>
+                <circle  cx=90 cy=305 r=16 id="11_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=309 id="cir_text_11_A"  fill="red" >A</text>
 
-                <circle  cx=235 cy=305 r=16 id="10_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=309 id="cir_text_10_B"  fill="red" >B</text>
+                <circle  cx=235 cy=305 r=16 id="11_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=309 id="cir_text_11_B"  fill="red" >B</text>
 
-                <circle  cx=90 cy=353 r=16 id="10_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=357 id="cir_text_10_C"  fill="red" >C</text>
+                <circle  cx=90 cy=353 r=16 id="11_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=357 id="cir_text_11_C"  fill="red" >C</text>
 
-                <circle  cx=235 cy=353 r=16 id="10_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=357 id="cir_text_10_D"  fill="red" >D</text>
+                <circle  cx=235 cy=353 r=16 id="11_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=357 id="cir_text_11_D"  fill="red" >D</text>
 
-                <circle  cx=90 cy=401 r=16 id="10_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=405 id="cir_text_10_E"  fill="red" >E</text>
+                <circle  cx=90 cy=401 r=16 id="11_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=405 id="cir_text_11_E"  fill="red" >E</text>
 
-                <circle  cx=235 cy=401 r=16 id="10_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=405 id="cir_text_10_F"  fill="red" >F</text>
+                <circle  cx=235 cy=401 r=16 id="11_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=405 id="cir_text_11_F"  fill="red" >F</text>
 
-                <circle  cx=90 cy=449 r=16 id="10_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=453 id="cir_text_10_G"  fill="red" >G</text>
+                <circle  cx=90 cy=449 r=16 id="11_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=453 id="cir_text_11_G"  fill="red" >G</text>
 
-                <circle  cx=235 cy=449 r=16 id="10_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=453 id="cir_text_10_H"  fill="red" >H</text>
+                <circle  cx=235 cy=449 r=16 id="11_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=453 id="cir_text_11_H"  fill="red" >H</text>
 
-                <circle  cx=90 cy=497 r=16 id="10_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=122 y=501 id="cir_text_10_I"  fill="red" >I</text>
+                <circle  cx=90 cy=497 r=16 id="11_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=501 id="cir_text_11_I"  fill="red" >I</text>
 
-                <circle  cx=235 cy=497 r=16 id="10_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
-                <text x=195 y=501 id="cir_text_10_J"  fill="red" >J</text>
+                <circle  cx=235 cy=497 r=16 id="11_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=501 id="cir_text_11_J"  fill="red" >J</text>
 
 
 
@@ -583,6 +552,15 @@
                      onmousedown="mouseDownSaveReservationText()" 
                      xlink:href= "ImagesApp/text_save_reservation_white.png" >
                          <title>Reservierte Plätze speichern</title> 
+                 </image>
+
+                <rect  x=10 y=93 width= "228" height= "29" 
+                     id= "buttonEventList"  style="fill:white;stroke-width:1;stroke:black"></rect>
+                <image  x=20 y=94 width= "222px" height= "26px"  id= "id_image_no_longer_used" 
+                     style="cursor: pointer; "
+                     onmousedown="mouseImageEventNoLongerUsed()" 
+                     xlink:href= "ImagesApp/text_save_reservation_white.png" >
+                         <title>No longer used button</title> 
                  </image>
 
             </svg>

@@ -70,6 +70,7 @@
     <LayoutFileButtonId>button_print_reservations</LayoutFileButtonId>
     <LayoutFileButtonId>button_init_reservation</LayoutFileButtonId>
     <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
+    <LayoutFileButtonId>buttonEventList</LayoutFileButtonId>
   </LayoutFile> 
     <LayoutFile> 
     <LayoutFileCase>SearchReservation</LayoutFileCase>
@@ -80,6 +81,7 @@
     <LayoutFileButtonId>button_print_reservations</LayoutFileButtonId>
     <LayoutFileButtonId>button_init_reservation</LayoutFileButtonId>
     <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
+    <LayoutFileButtonId>buttonEventList</LayoutFileButtonId>
   </LayoutFile> 
   <!--  Layout files End -->
   <!--  Layout Buttons Start -->
@@ -135,7 +137,7 @@
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
   </LayoutButton> 
-    <LayoutButton> 
+  <LayoutButton> 
     <ButtonId>button_print_reservations</ButtonId>
     <ButtonTitle>Reservationskarten für alle Sitzplätze generieren</ButtonTitle>
     <ButtonEventFunction>mouseDownPrintReservations</ButtonEventFunction>
@@ -152,7 +154,7 @@
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
   </LayoutButton> 
-    <LayoutButton> 
+  <LayoutButton> 
     <ButtonId>button_list_reservations</ButtonId>
     <ButtonTitle>Liste mit allen Reservationen zeigen</ButtonTitle>
     <ButtonEventFunction>mouseDownListReservations</ButtonEventFunction>
@@ -169,7 +171,7 @@
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
   </LayoutButton> 
-    <LayoutButton> 
+  <LayoutButton> 
     <ButtonId>delete_reservation_mode</ButtonId>
     <ButtonTitle>Reservierte Plätze löschen</ButtonTitle>
     <ButtonEventFunction>mouseDownDeleteReservationMode</ButtonEventFunction>
@@ -186,6 +188,23 @@
     <ButtonImageHeight>26px</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
   </LayoutButton>
+  <LayoutButton> 
+    <ButtonId>buttonEventList</ButtonId>
+    <ButtonTitle>No longer used button</ButtonTitle>
+    <ButtonEventFunction>mouseDownNoLongerUsed</ButtonEventFunction>
+    <ButtonUpperLeftX>90</ButtonUpperLeftX>
+    <ButtonUpperLeftY>834</ButtonUpperLeftY>
+    <ButtonWidth>2032</ButtonWidth>
+    <ButtonHeight>258</ButtonHeight>
+    <ButtonImageId>id_image_no_longer_used</ButtonImageId>
+    <ButtonImageEventFunction>mouseImageEventNoLongerUsed</ButtonImageEventFunction>
+    <ButtonImageOne>ImagesApp/text_save_reservation_white.png</ButtonImageOne>
+    <ButtonImageTwo>ImagesApp/text_save_reservation_white.png</ButtonImageTwo>
+    <ButtonImageThree>ImagesApp/text_save_reservation_white.png</ButtonImageThree>
+    <ButtonImageWidth>222px</ButtonImageWidth>
+    <ButtonImageHeight>26px</ButtonImageHeight>
+    <ButtonType>NotYetSetNodeValue</ButtonType>
+  </LayoutButton> 
   <!--  Layout Buttons End -->
   <!--  Text images Start -->
   <TextImageSelectSeats>ImagesApp/text_select_seats.png</TextImageSelectSeats>
