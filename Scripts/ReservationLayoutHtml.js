@@ -326,11 +326,28 @@ class LayoutBody
 
         this.m_html_body_code = this.m_html_body_code + this.startTableTbody();
 
-        this.m_html_body_code = this.m_html_body_code + this.divSearchTrTd();
+        if (this.m_layout_file_case == "AddReservation")
+        {
+            this.m_html_body_code = this.m_html_body_code + this.divSearchTrTd();
 
-        this.m_html_body_code = this.m_html_body_code + this.divSelectConcertTrTd();
+            this.m_html_body_code = this.m_html_body_code + this.divSelectConcertTrTd();
 
-        this.m_html_body_code = this.m_html_body_code + this.paragraphDisplayEventTrTd();
+            this.m_html_body_code = this.m_html_body_code + this.paragraphDisplayEventTrTd();
+        }
+        else if (this.m_layout_file_case == "SearchReservation")
+        {
+            this.m_html_body_code = this.m_html_body_code + this.divSearchTrTd();
+            
+            this.m_html_body_code = this.m_html_body_code + this.paragraphDisplayEventTrTd();
+        }
+        else if (this.m_layout_file_case == "MakeReservation")
+        {
+            this.m_html_body_code = this.m_html_body_code + this.paragraphDisplayEventTrTd();
+        }
+        else if (this.m_layout_file_case == "ShowLayout")
+        {
+            this.m_html_body_code = this.m_html_body_code + this.paragraphDisplayEventTrTd();
+        }
 
         this.m_html_body_code = this.m_html_body_code + this.layoutSvgTrTd();
 
