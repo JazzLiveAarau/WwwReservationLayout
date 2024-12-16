@@ -196,13 +196,13 @@
     <ButtonUpperLeftY>834</ButtonUpperLeftY>
     <ButtonWidth>2032</ButtonWidth>
     <ButtonHeight>258</ButtonHeight>
-    <ButtonImageId>id_image_no_longer_used</ButtonImageId>
-    <ButtonImageEventFunction>mouseImageEventNoLongerUsed</ButtonImageEventFunction>
-    <ButtonImageOne>ImagesApp/text_save_reservation_white.png</ButtonImageOne>
-    <ButtonImageTwo>ImagesApp/text_save_reservation_white.png</ButtonImageTwo>
-    <ButtonImageThree>ImagesApp/text_save_reservation_white.png</ButtonImageThree>
-    <ButtonImageWidth>222px</ButtonImageWidth>
-    <ButtonImageHeight>26px</ButtonImageHeight>
+    <ButtonImageId>NotYetSetNodeValue</ButtonImageId>
+    <ButtonImageEventFunction>NotYetSetNodeValue</ButtonImageEventFunction>
+    <ButtonImageOne>NotYetSetNodeValue</ButtonImageOne>
+    <ButtonImageTwo>NotYetSetNodeValue</ButtonImageTwo>
+    <ButtonImageThree>NotYetSetNodeValue</ButtonImageThree>
+    <ButtonImageWidth>NotYetSetNodeValue</ButtonImageWidth>
+    <ButtonImageHeight>NotYetSetNodeValue</ButtonImageHeight>
     <ButtonType>NotYetSetNodeValue</ButtonType>
   </LayoutButton> 
   <!--  Layout Buttons End -->

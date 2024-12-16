@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-12-03
+// Date: 2024-12-16
 // Authors: Gunnar Lidén
 
 // Content
@@ -339,6 +339,8 @@ var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:b
     } // getButtonDataArray
 
     // Returns SVG code for one button
+    // For a not-defined URL for image three (button_image_three) a button
+    // without an image is defined
     oneButton(i_button_data)
     {
         // Get button data from the layout XML file 
@@ -383,16 +385,21 @@ var g_style_button = ' style="cursor: pointer;fill:white;stroke-width:1;stroke:b
          // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title
          // Recommended ' href=' + button_image_three. Do not use link:href TODO
 
-        var image_svg = LayoutSvg.tab(4) + 
-                        '<image ' + ' x=' + image_button_upper_left_x_pixel + ' y=' + image_button_upper_left_y_pixel +
-                        ' width= "' + button_image_width_pixel + '" height= "' + button_image_height_pixel + '" ' +
-                        ' id= "' + button_image_id + '" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
-                        ' style="cursor: pointer; "' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
-                        ' onmousedown="' + button_image_event_function + '()" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
-                        ' xlink:href= "' + button_image_three + '" >' + LayoutSvg.endRow() + LayoutSvg.tab(6) +
-                        ' <title>' + button_title + '</title> ' + LayoutSvg.endRow() + LayoutSvg.tab(4) +
-                        ' </image>';
+        var image_svg = '';
 
+        if (button_image_three.length > 4)
+        {
+            image_svg = LayoutSvg.tab(4) + 
+            '<image ' + ' x=' + image_button_upper_left_x_pixel + ' y=' + image_button_upper_left_y_pixel +
+            ' width= "' + button_image_width_pixel + '" height= "' + button_image_height_pixel + '" ' +
+            ' id= "' + button_image_id + '" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+            ' style="cursor: pointer; "' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+            ' onmousedown="' + button_image_event_function + '()" ' + LayoutSvg.endRow() + LayoutSvg.tab(5) +
+            ' xlink:href= "' + button_image_three + '" >' + LayoutSvg.endRow() + LayoutSvg.tab(6) +
+            ' <title>' + button_title + '</title> ' + LayoutSvg.endRow() + LayoutSvg.tab(4) +
+            ' </image>';
+        }
+        
         button_svg =  button_svg + image_svg + LayoutSvg.endRow(); 
 
         button_svg = button_svg + LayoutSvg.endRow(); 

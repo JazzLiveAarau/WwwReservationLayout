@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-15
+// Date: 2024-12-16
 // Authors: Gunnar Lidén
 
 // Content
@@ -668,6 +668,12 @@ class LayoutScript
 
         var path_file_array = [];
 
+/*
+
+<script type="text/javascript" src="scripts/ControlModalPopup.js"></script>
+<script type="text/javascript" src="scripts/DisplayNames.js"></script>
+*/
+
         if (this.m_layout_file_case == 'MakeReservation' )
         {
             path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
@@ -681,12 +687,14 @@ class LayoutScript
             path_file_array[ 8] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js';
             path_file_array[ 9] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js';
             path_file_array[10] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js';
-            //path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmen.js';
-            //path_file_array[12] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSvg.js';          
-            //path_file_array[13] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStage.js';
-            //path_file_array[14] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationDoors.js';
-            //path_file_array[15] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationTables.js';
-            //path_file_array[16] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmenEvents.js';
+            path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/DisplayNames.js';
+            //path_file_array[12] = 'https://jazzliveaarau.ch/Reservation/scripts/ControlModalPopup.js';
+            //path_file_array[13] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmen.js';
+            //path_file_array[14] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSvg.js';          
+            //path_file_array[15] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationStage.js';
+            //path_file_array[16] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationDoors.js';
+            //path_file_array[17] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationTables.js';
+            //path_file_array[18] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSalmenEvents.js';
         }
         else if (this.m_layout_file_case == 'ShowLayout' )
         {
@@ -715,6 +723,7 @@ class LayoutScript
             path_file_array[ 8] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js';
             path_file_array[ 9] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js';
             path_file_array[10] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js';
+            path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/DisplayNames.js';
         }
         else if (this.m_layout_file_case == 'SearchReservation' )
         {
@@ -729,6 +738,8 @@ class LayoutScript
             path_file_array[ 8] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js';
             path_file_array[ 9] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js';
             path_file_array[10] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js';
+            path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/DisplayNames.js';
+            path_file_array[12] = 'https://jazzliveaarau.ch/Reservation/scripts/ControlModalPopup.js';
         }
         else
         {
