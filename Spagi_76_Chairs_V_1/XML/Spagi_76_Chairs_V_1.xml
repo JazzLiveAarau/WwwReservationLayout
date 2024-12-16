@@ -72,7 +72,7 @@
     <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
     <LayoutFileButtonId>buttonEventList</LayoutFileButtonId>
   </LayoutFile> 
-    <LayoutFile> 
+  <LayoutFile> 
     <LayoutFileCase>SearchReservation</LayoutFileCase>
     <LayoutFileHtmlName>SearchReservation.htm</LayoutFileHtmlName>
     <LayoutFileDescription>The HTML file for the search of reserved seats</LayoutFileDescription>
@@ -83,6 +83,16 @@
     <LayoutFileButtonId>button_save_reservation</LayoutFileButtonId>
     <LayoutFileButtonId>buttonEventList</LayoutFileButtonId>
   </LayoutFile> 
+  <LayoutFile> 
+    <LayoutFileCase>ReservationPrint</LayoutFileCase>
+    <LayoutFileHtmlName>ReservationPrint.htm</LayoutFileHtmlName>
+    <LayoutFileDescription>The HTML file that displays the cards</LayoutFileDescription>
+  </LayoutFile> 
+  <LayoutFile> 
+    <LayoutFileCase>ReservationList</LayoutFileCase>
+    <LayoutFileHtmlName>ReservationList.htm</LayoutFileHtmlName>
+    <LayoutFileDescription>The HTML file that displays the list of reservations</LayoutFileDescription>
+  </LayoutFile>
   <!--  Layout files End -->
   <!--  Layout Buttons Start -->
   <LayoutButton> 

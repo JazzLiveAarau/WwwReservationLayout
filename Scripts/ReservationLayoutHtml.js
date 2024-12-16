@@ -19,7 +19,8 @@ class LayoutHtml
     // i_layout_xml: Object for a reservation layout XML file. 
     // i_output_dir: Name of the output server directory and the layout XML file
     // i_layout_file_case: Layout file creation case
-    //                     MakeReservation, ShowLayout, AddReservation, SearchReservation
+    //                     MakeReservation, ShowLayout, AddReservation, SearchReservation,
+    //                     ReservationPrint, ReservationList
     constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_layout_file_description, i_button_id_array) 
     {
         // Member variables
@@ -148,6 +149,14 @@ class LayoutHtml
         {
             return true;
         }
+        else if (this.m_layout_file_case == 'ReservationPrint')
+        {
+            return true;
+        }
+        else if (this.m_layout_file_case == 'ReservationList')
+        {
+            return true;
+        }
         else
         {
             alert("LayoutHtml.validLayoutCase Not an implemented layout file case m_layout_file_case= " + this.m_layout_file_case);
@@ -203,6 +212,10 @@ class LayoutHeader
         this.m_html_header_code = this.m_html_header_code + this.meta() + LayoutHtml.endRow();
 
         this.m_html_header_code = this.m_html_header_code + this.title() + LayoutHtml.endRow();
+
+        var header_style_code = new LayoutStyle(this.m_layout_xml, this.m_layout_file_case);
+
+        this.m_html_header_code = this.m_html_header_code + header_style_code.get() + LayoutHtml.endRow();
 
         var header_script_code = new LayoutScript(this.m_layout_xml, this.m_layout_file_case);
 
@@ -319,6 +332,27 @@ class LayoutBody
     execute()
     {
         this.m_html_body_code = ''; 
+
+        if (this.m_layout_file_case == 'ReservationPrint')
+        {
+            this.m_html_body_code = this.m_html_body_code + this.startString();
+
+            this.m_html_body_code = this.m_html_body_code + this.bodyReservationPrint();
+
+            this.m_html_body_code = this.m_html_body_code + this.endString();  
+
+            return;
+        }
+        else if (this.m_layout_file_case == 'ReservationList')
+        {
+            this.m_html_body_code = this.m_html_body_code + this.startString();
+
+            this.m_html_body_code = this.m_html_body_code + this.bodyReservationList();
+
+            this.m_html_body_code = this.m_html_body_code + this.endString();  
+
+            return;
+        }
 
         this.m_html_body_code = this.m_html_body_code + this.startString();
 
@@ -546,6 +580,25 @@ class LayoutBody
         return '<div id="id_reservation_close_window_text"> </div>' + LayoutHtml.endRow();
     }
 
+    bodyReservationPrint()
+    {
+        return LayoutHtml.tab(4) + '<script language="JavaScript">document.write(mainReservationCards())</script>' + LayoutHtml.endRow();
+
+    } // bodyReservationPrint
+
+    bodyReservationList()
+    {
+        var ret_list = '';
+
+        ret_list = ret_list + LayoutHtml.tab(4) + '<font face="Arial">' + LayoutHtml.endRow();
+
+        ret_list = ret_list + LayoutHtml.tab(4) + '<script language="JavaScript">document.write(getAllReservationsHtml())</script>' + LayoutHtml.endRow();
+
+        ret_list = ret_list + LayoutHtml.tab(4) + '</font>'+ LayoutHtml.endRow();
+
+        return ret_list;
+
+    } // bodyReservationList
 
     startString()
     {
@@ -574,6 +627,14 @@ class LayoutBody
         else if (this.m_layout_file_case == "SearchReservation" )
         {
             return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_search_reservation_str + ' scrolling="auto">' + LayoutHtml.endRow();
+        }
+        else if (this.m_layout_file_case == "ReservationPrint" )
+        {
+            return LayoutHtml.tab(1) + '<body>' + LayoutHtml.endRow();
+        }
+        else if (this.m_layout_file_case == "ReservationList" )
+        {
+            return LayoutHtml.tab(1) + '<body>' + LayoutHtml.endRow();
         }
         else
         {
@@ -685,12 +746,6 @@ class LayoutScript
 
         var path_file_array = [];
 
-/*
-
-<script type="text/javascript" src="scripts/ControlModalPopup.js"></script>
-<script type="text/javascript" src="scripts/DisplayNames.js"></script>
-*/
-
         if (this.m_layout_file_case == 'MakeReservation' )
         {
             path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
@@ -757,6 +812,16 @@ class LayoutScript
             path_file_array[10] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js';
             path_file_array[11] = 'https://jazzliveaarau.ch/Reservation/scripts/DisplayNames.js';
             path_file_array[12] = 'https://jazzliveaarau.ch/Reservation/scripts/ControlModalPopup.js';
+        }
+        else if (this.m_layout_file_case == 'ReservationPrint' )
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
+        }
+        else if (this.m_layout_file_case == 'ReservationList' )
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
         }
         else
         {
@@ -831,37 +896,11 @@ class LayoutScript
         }
         else if (this.m_layout_file_case == 'ShowLayout' )
         {
-            /*QQQQQ
-            event_str = event_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
-            
-            event_str = event_str + LayoutHtml.tab(3) + '// Event: User clicked the circle' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + 'function EventMouseDown(i_table_number, i_seat_char)' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'if (g_user_is_concert_visitor == "true")' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownConcertVisitor(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + 'else' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '{' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(5) + 'EventMouseDownAdministrator(i_table_number, i_seat_char);' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(4) + '}' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(3) + '} // EventMouseDown' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
-
-            event_str = event_str + LayoutHtml.endRow();  
-            QQQ*/
+            // No event functions
+        }
+        else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
+        {
+            // No event functions
         }
         else
         {
@@ -935,6 +974,10 @@ class LayoutScript
             // No events set_event_str = set_event_str + this.getSeatEventFunctions(only_mouse_down);
 
             set_event_str = set_event_str + LayoutHtml.endRow();  
+        }
+        else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
+        {
+            set_event_str = ''; 
         }
         else
         {
@@ -1156,6 +1199,11 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.endRow();  
         }
+        else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
+        {
+            // No main functions
+            main_str = '';
+        }
         else
         {
             alert("LayoutScript.tempMainFunction A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
@@ -1208,4 +1256,193 @@ class LayoutScript
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Layout Script /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Layout Style ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class that creates the HTML code for the style section <style>
+class LayoutStyle
+{
+    // Creates the instance of the class
+    // i_layout_xml: Object for a reservation layout XML file. 
+    constructor(i_layout_xml, i_layout_file_case) 
+    {
+        // Member variables
+        // ================
+
+       // Layout XML object
+       this.m_layout_xml = i_layout_xml;
+
+       // Layout file creation case
+       this.m_layout_file_case = i_layout_file_case;
+
+       // All HTML code from this class
+       this.m_html_style_code = ''; 
+
+       // Create (construct) the HTML code
+       this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the style section <style>
+    execute()
+    {
+
+        this.m_html_style_code = ''; 
+
+        if (this.m_layout_file_case != 'ReservationPrint')
+        {
+            return this.m_html_style_code;
+        }
+
+        this.m_html_style_code = this.m_html_style_code + LayoutHtml.tab(1) + LayoutStyle.startString() + LayoutHtml.endRow();
+
+        this.m_html_style_code = this.m_html_style_code + this.print() + LayoutHtml.endRow();
+
+        this.m_html_style_code = this.m_html_style_code + LayoutHtml.tab(1) + LayoutStyle.endString() + LayoutHtml.endRow();
+
+
+    } // execute
+
+    // Get all HTML code for the style section <style>
+    get()
+    {
+        return this.m_html_style_code +  LayoutHtml.endRow();
+
+    } // get
+
+
+    // Returns style (css) statements for the print of cards
+    print()
+    {
+        var print_str = '';
+ 
+        print_str = print_str + LayoutHtml.tab(2) + '@media print' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + '.page-break { display: block; page-break-before: always; }' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '@page' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'margin-top: 0cm;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'margin-bottom: 0cm;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'margin-left: 0cm;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'margin-right: 0cm;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '.jazz_live_aarau' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-family: Arial, Helvetica, sans-serif;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-size: 18px;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-weight: bold;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'text-align: center;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'color: #ff0028;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '.r_name ' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + 'font-family: Arial, Helvetica, sans-serif;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-size: 24px;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-weight: bold;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'text-align: center;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'color: black;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '.table_seat ' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + 'font-family: Arial, Helvetica, sans-serif;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-size: 12px;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-weight: bold;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'text-align: center;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'color: black;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + 'table ' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+
+		print_str = print_str + LayoutHtml.tab(3) + ' width: 1000px;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '.r_name_seat' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-family: Arial, Helvetica, sans-serif;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-size: 21px;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'font-weight: bold;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'text-align: center;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'color: black;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'border: none;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '.t_table' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '{' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(3) + 'border: none;' + LayoutHtml.endRow();
+		
+		print_str = print_str + LayoutHtml.tab(2) + '}' + LayoutHtml.endRow();
+		
+        print_str = print_str +  LayoutHtml.endRow();
+
+        return print_str;
+
+    } // print
+
+    static startString()
+    {
+        return '<style>';
+
+    } // startString
+
+    static endString()
+    {
+        return '</style>' +  LayoutHtml.endRow();
+        
+    } // endString
+    
+} // LayoutStyle
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Layout Style //////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
