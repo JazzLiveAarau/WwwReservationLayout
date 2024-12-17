@@ -93,6 +93,11 @@
     <LayoutFileHtmlName>ReservationList.htm</LayoutFileHtmlName>
     <LayoutFileDescription>The HTML file that displays the list of reservations</LayoutFileDescription>
   </LayoutFile>
+  <LayoutFile> 
+    <LayoutFileCase>EventReservation</LayoutFileCase>
+    <LayoutFileHtmlName>EventReservation.htm</LayoutFileHtmlName>
+    <LayoutFileDescription>The HTML file for the reservation of seats for any event of the events program</LayoutFileDescription>
+  </LayoutFile>
   <!--  Layout files End -->
   <!--  Layout Buttons Start -->
   <LayoutButton> 

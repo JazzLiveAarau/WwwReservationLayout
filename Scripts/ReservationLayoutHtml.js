@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-16
+// Date: 2024-12-17
 // Authors: Gunnar Lidén
 
 // Content
@@ -20,7 +20,7 @@ class LayoutHtml
     // i_output_dir: Name of the output server directory and the layout XML file
     // i_layout_file_case: Layout file creation case
     //                     MakeReservation, ShowLayout, AddReservation, SearchReservation,
-    //                     ReservationPrint, ReservationList
+    //                     ReservationPrint, ReservationList, EventReservation
     constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_layout_file_description, i_button_id_array) 
     {
         // Member variables
@@ -154,6 +154,10 @@ class LayoutHtml
             return true;
         }
         else if (this.m_layout_file_case == 'ReservationList')
+        {
+            return true;
+        }
+        else if (this.m_layout_file_case == 'EventReservation')
         {
             return true;
         }
@@ -348,6 +352,16 @@ class LayoutBody
             this.m_html_body_code = this.m_html_body_code + this.startString();
 
             this.m_html_body_code = this.m_html_body_code + this.bodyReservationList();
+
+            this.m_html_body_code = this.m_html_body_code + this.endString();  
+
+            return;
+        }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            this.m_html_body_code = this.m_html_body_code + this.startString();
+
+            this.m_html_body_code = this.m_html_body_code + this.bodyEventReservation();
 
             this.m_html_body_code = this.m_html_body_code + this.endString();  
 
@@ -586,6 +600,12 @@ class LayoutBody
 
     } // bodyReservationPrint
 
+    bodyEventReservation()
+    {
+        return LayoutHtml.tab(3) + '<div id= "id_div_container_input_event_reservation"></div>' + LayoutHtml.endRow() + LayoutHtml.endRow();
+
+    } // bodyEventReservation
+
     bodyReservationList()
     {
         var ret_list = '';
@@ -610,6 +630,7 @@ class LayoutBody
         var onload_show_layout_str =        'onload="main' + this.m_layout_file_case + '()" ';
         var onload_add_reservation_str =    'onload="Main' + this.m_layout_file_case + salmen_str + '"';
         var onload_search_reservation_str = 'onload="main' + this.m_layout_file_case + salmen_str + '"';
+        var onload_event_reservation_str =  'onload="main' + this.m_layout_file_case + '()" ';
 
 
         if (this.m_layout_file_case == "MakeReservation" )
@@ -635,6 +656,10 @@ class LayoutBody
         else if (this.m_layout_file_case == "ReservationList" )
         {
             return LayoutHtml.tab(1) + '<body>' + LayoutHtml.endRow();
+        }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            return LayoutHtml.tab(1) + '<body style= "background-color:#dfe0e1" ' + onload_event_reservation_str + ' scrolling="auto">' + LayoutHtml.endRow() + LayoutHtml.endRow();
         }
         else
         {
@@ -715,6 +740,8 @@ class LayoutScript
         this.m_html_script_code = this.m_html_script_code + this.noScript();
 
         this.m_html_script_code = this.m_html_script_code + this.setEventFunctions();
+
+        this.m_html_script_code = this.m_html_script_code + this.mainFunction();
 
         this.m_html_script_code = this.m_html_script_code + this.tempEventMouse();
 
@@ -823,6 +850,12 @@ class LayoutScript
             path_file_array[ 0] = 'https://jazzliveaarau.ch/Reservation/scripts/Reservation.js';
             path_file_array[ 1] = 'https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js';
         }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            path_file_array[ 0] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservation.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramDropdown.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramXml.js';
+        }
         else
         {
             alert("LayoutScript.execute Not an implemented case= " + this.m_layout_file_case);
@@ -899,6 +932,10 @@ class LayoutScript
             // No event functions
         }
         else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
+        {
+            // No event functions
+        }
+        else if (this.m_layout_file_case == 'EventReservation' )
         {
             // No event functions
         }
@@ -979,14 +1016,16 @@ class LayoutScript
         {
             set_event_str = ''; 
         }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            set_event_str = ''; 
+        }
         else
         {
             alert("LayoutScript.setEventFunctions A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
         }
 
         return set_event_str;
-
-        // setEventFunctions(); // ReservationSalmenEvents.js
 
     } // setEventFunctions
 
@@ -1112,106 +1151,185 @@ class LayoutScript
 
     tempMainFunction()
     {
-        var main_str = '';
+        var main_temp_str = '';
 
         if (!g_add_temporary_test_functions)
         {
-            return main_str;
+            return main_temp_str;
         }
 		
         if (this.m_layout_file_case == 'MakeReservation' )
         {
-            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + this.tempMainComments();
+            main_temp_str = main_temp_str + this.tempMainComments();
 
-            main_str = main_str + LayoutHtml.tab(3) + 'function MainMakeReservation()' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + 'function MainMakeReservation()' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'alert("MainMakeReservation Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(4) + 'alert("MainMakeReservation Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+            main_temp_str = main_temp_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
-            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.endRow();  
         }
         else if (this.m_layout_file_case == 'ShowLayout' )
         {
-            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + this.tempMainComments();
+            main_temp_str = main_temp_str + this.tempMainComments();
 
-            main_str = main_str + LayoutHtml.tab(3) + 'function mainShowLayout()' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + 'function mainShowLayout()' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + '// alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(4) + '// alert("mainShowLayout Enter g_url_file_layout_xml= " + g_url_file_layout_xml);' + LayoutHtml.endRow();  
 
-             main_str = main_str + LayoutHtml.tab(4) + '// No events setEventFunctions();'
+             main_temp_str = main_temp_str + LayoutHtml.tab(4) + '// No events setEventFunctions();'
 
-            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.endRow();  
         }
         else if (this.m_layout_file_case == 'AddReservation' )
         {
-            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + this.tempMainComments();
+            main_temp_str = main_temp_str + this.tempMainComments();
 
-            main_str = main_str + LayoutHtml.tab(3) + 'function MainAddReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + 'function MainAddReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + '// alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(4) + '// alert("MainAddReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
 
-             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+             main_temp_str = main_temp_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
-            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.endRow();  
         }
         else if (this.m_layout_file_case == 'SearchReservation' )
         {
-            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
             
-            main_str = main_str + this.tempMainComments();
+            main_temp_str = main_temp_str + this.tempMainComments();
 
-            main_str = main_str + LayoutHtml.tab(3) + 'function mainSearchReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + 'function mainSearchReservation(i_add_to_xml_file_name)' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(4) + '// alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(4) + '// alert("mainSearchReservation Enter i_add_to_xml_file_name= " + i_add_to_xml_file_name);' + LayoutHtml.endRow();  
 
-             main_str = main_str + LayoutHtml.tab(4) + 'setEventFunctions();'
+             main_temp_str = main_temp_str + LayoutHtml.tab(4) + 'setEventFunctions();'
 
-            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
 
-            main_str = main_str + LayoutHtml.endRow();  
+            main_temp_str = main_temp_str + LayoutHtml.endRow();  
         }
         else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
         {
-            // No main functions
-            main_str = '';
+            // No temporary main functions
+            main_temp_str = '';
+        }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            // Notemporary main functions
+            main_temp_str = '';
         }
         else
         {
             alert("LayoutScript.tempMainFunction A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
         }
 
-        return main_str;
+        return main_temp_str;
 
     } // tempMainFunction
+
+    mainFunction()
+    {
+        var main_str = '';
+		
+        if (this.m_layout_file_case == 'MakeReservation' )
+        {
+            main_str = '';
+        }
+        else if (this.m_layout_file_case == 'ShowLayout' )
+        {
+           main_str = '';
+        }
+        else if (this.m_layout_file_case == 'AddReservation' )
+        {
+           main_str = '';
+        }
+        else if (this.m_layout_file_case == 'SearchReservation' )
+        {
+           main_str = ''; 
+        }
+        else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
+        {
+            // No main function
+            main_str = '';
+        }
+        else if (this.m_layout_file_case == 'EventReservation')
+        {
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(4) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + 'function mainEventReservation()' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'g_event_program_xml = null;' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'var subdir_xml = "../XmlTestData";' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'var event_program_file_name = "EventProgramSample.xml";' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, callbackAfterLoadingEventProgram);' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();
+            
+            main_str = main_str + LayoutHtml.tab(4) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + 'function callbackAfterLoadingEventProgram()' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'var input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml);' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + 'input_event_reservation.create();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + ' }' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow();  
+        }
+        else
+        {
+            alert("LayoutScript.mainFunction A not yet implemented file case m_layout_file_case= " + this.m_layout_file_case);
+        }
+
+        return main_str;
+
+    } // mainFunction
+
+  
 
     // Get all HTML code for the scripts of the header section <script>
     get()
@@ -1242,7 +1360,7 @@ class LayoutScript
 
     static startString(i_path_file)
     {
-        return '<script type="text/javascript" src=" ' + i_path_file + '" >';
+        return '<script type="text/javascript" src= "' + i_path_file + '" >';
 
     } // startString
 
