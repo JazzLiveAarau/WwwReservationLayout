@@ -1286,7 +1286,11 @@ class LayoutScript
         {
             main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
 
-            main_str = main_str + LayoutHtml.tab(4) + '' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_event_program_xml = null;' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(3) + 'function mainEventReservation()' + LayoutHtml.endRow();
 

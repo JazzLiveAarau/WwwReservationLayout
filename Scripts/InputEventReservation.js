@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-17
+// Date: 2024-12-18
 // Author: Gunnar Lidén
 
 // File content
@@ -37,6 +37,12 @@ class InputEventReservation
         // The div element where the input form shall be created
         this.m_element_div_container = null;
 
+        // Object defining all text strings for the application
+        this.m_texts = new InputEventReservationText();
+
+        // Object defining all style strings for the application
+        this.m_styles = new InputEventReservationStyle();
+
         // Start string for all identities
         this.m_id_unique_str = "id_input_event_reserv_";
 
@@ -44,18 +50,16 @@ class InputEventReservation
         this.m_input_form_width = '310px';
 
         // The style for the input form div
-        this.m_input_form_style_str = 'clear: both; min-height: 500px; margin-left: 0px; margin-bottom: 10px;'
-            + ' font-family: Arial, Helvetica, sans-serif; font-size: 14px;' 
-            + 'background-color: rgb(223, 224, 225); border: 3px solid black;';
+        this.m_input_form_style_str = this.m_styles.getForm();
 
         // Style for a row div
-        this.m_div_row_style_str = 'clear: both; width: 94%; min-height: 15px; margin-left: 3%; margin-top:5px; overflow: hidden; border: 1px solid blue;';
+        this.m_div_row_style_str = this.m_styles.getRow();
 
         // Style for a row left element
-        this.m_element_left_style_str = 'float: left; width: 80%; min-height: 15px; margin-left: 3%; margin-top:5px; margin-bottom:5px; border: 1px solid red;';
+        this.m_element_left_style_str = this.m_styles.getLeftElement();
 
         // Style for a row right element
-        this.m_element_right_style_str = 'float: right; width: 10%; min-height: 15px; margin-right: 3%; margin-top:5px; margin-bottom:5px;  border: 1px solid green;';
+        this.m_element_right_style_str = this.m_styles.getRightElement();
 
         // Boolean flag telling if tabs and comments shall be removed
         this.m_remove_tabs_comments = false;
@@ -76,15 +80,26 @@ class InputEventReservation
     // Create the form
     create()
     {
-        var html_str = this.getHtml();
+        var html_str = this.getDivsHtml();
 
         var container_el = this.getElementDivContainer();
 
         container_el.innerHTML = html_str;
 
-        this.m_form_created = true;
+        // setTimeout(this.afterCreation, 500);
+
+        // 
 
     } // create
+
+    // Called after creation of the form
+    afterCreation()
+    {
+        // this.contentHeader();
+
+        this.m_form_created = true;
+
+    } // afterCreation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Create Form ///////////////////////////////////////////////////
@@ -192,11 +207,31 @@ class InputEventReservation
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// Start Construct Html Code /////////////////////////////////////////
+    /////// Start Div Content Html Code ///////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns the HTML code for the input form
-    getHtml()
+    // Sets the content of the header div
+    contentHeader()
+    {
+        var header_content_str = this.m_texts.getHeaderText();
+
+        var header_el = this.getElementDivHeader();
+
+        header_el.innerHTML = header_content_str;
+
+    } // contentHeader
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Div Content Html Code /////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Construct Html Divisions Code ///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the HTML code for the divs of the input form
+    getDivsHtml()
     {
         var ret_html_code = '';
 
@@ -230,7 +265,7 @@ class InputEventReservation
 
         return ret_html_code;
 
-    } // getHtml 
+    } // getDivsHtml 
 
     // Returns start form div tag
     startFormTag()
@@ -364,7 +399,7 @@ class InputEventReservation
     } // tab
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Construct Html Code ///////////////////////////////////////////
+    /////// End Construct Html Divisions Code /////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -796,6 +831,223 @@ class InputEventReservation
     ///////////////////////////////////////////////////////////////////////////
 
 } // InputEventReservation
+
+// Class with strings for the application
+class InputEventReservationText
+{
+    constructor()
+    {
+        this.m_header_text = '';
+
+        this.default();
+
+    } // constructor
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Default Texts ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    default()
+    {
+        this.m_header_text = this.defaultHeaderText();
+
+    } // default
+
+    defaultHeaderText()
+    {
+        return 'Reservation';
+
+    } // defaultHeaderText
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Default Texts /////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get And Set Texts ///////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    getHeaderText()
+    {
+        return this.m_header_text;
+
+    } // defaultHeaderText
+
+    setHeaderText(i_header_text)
+    {
+        this.m_header_text = i_header_text;
+
+    } // defaultHeaderText
+    
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get And Set Texts ///////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+} // InputEventReservationText
+
+// Class with style strings for the application
+class InputEventReservationStyle
+{
+    constructor()
+    {
+        // The style for the input form div
+        this.m_form_style = '';
+
+        // The style for a row of the form
+        this.m_row_style = '';
+
+        // The style for the left element in a row element
+        this.m_element_left_style = '';
+
+        // The style for the right element in a row element
+        this.m_element_right_style = '';
+
+        // The style for the header div
+        this.m_header_style = '';
+
+        this.default();
+
+    } // constructor
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Default Styles //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    default()
+    {
+        this.m_form_style = this.defaultForm();
+
+        this.m_row_style = this.defaultRow();
+
+        this.m_element_left_style = this.defaultLeftElement();
+
+        this.m_element_right_style = this.defaultRightElement();
+
+        this.m_header_style = this.defaultHeaderStyle();
+
+    } // default
+
+    // Sets the default style for the input form div
+    defaultForm()
+    {
+        return 'clear: both; min-height: 500px; margin-left: 0px; margin-bottom: 10px;'
+                + ' font-family: Arial, Helvetica, sans-serif; font-size: 14px;' 
+                + 'background-color: rgb(223, 224, 225); border: 3px solid black; ';
+
+    } // defaultForm
+
+    // Sets the default style for a row of the form
+    defaultRow()
+    {
+        return 'clear: both; width: 94%; min-height: 15px; margin-left: 3%; margin-top:5px; overflow: hidden; border: 1px solid blue; ';
+
+    } // defaultRow
+
+    // Sets the default style for the left element in a row element
+    defaultLeftElement()
+    {
+        return 'float: left; width: 80%; min-height: 15px; margin-left: 3%; margin-top:5px; margin-bottom:5px; border: 1px solid red;';
+
+    } // defaultLeftElement
+
+    // Sets the default style for the right element in a row element
+    defaultRightElement()
+    {
+        return 'float: right; width: 10%; min-height: 15px; margin-right: 3%; margin-top:5px; margin-bottom:5px;  border: 1px solid green;';
+
+    } // defaultRightElement
+
+    // The default style for the header div
+    defaultHeaderStyle()
+    {
+        return 'font-size: 14px; background-color: black; color: white';
+
+    } // defaultHeaderText
+
+/*
+
+
+*/
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Default Styles ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get And Set Styles //////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the style for the input form div
+    getForm()
+    {
+        return this.m_form_style;
+    }
+
+    // Sets the style for the input form div
+    setForm(i_form_style)
+    {
+        this.m_form_style = i_form_style;
+    }
+
+    // Returns the style for a row of the form
+    getRow()
+    {
+        return this.m_row_style;
+
+    } // getRow
+
+    // Returns the style for the left element in a row element
+    getLeftElement()
+    {
+        return this.m_element_left_style;
+
+    } // getLeftElement
+
+    // Sets the style for the left element in a row element
+    setLeftElement(i_element_left_style)
+    {
+        this.m_element_left_style = i_element_left_style;
+        
+    } // setLeftElement
+
+    // Returns the style for the right element in a row element
+    getRightElement()
+    {
+        return this.m_element_right_style;
+
+    } // getRightElement
+
+    // Sets the style for the right element in a row element
+    setRightElement(i_element_right_style)
+    {
+        this.m_element_right_style = i_element_right_style;
+        
+    } // setRightElement
+
+    // Sets the style for a row of the form
+    setRow(i_row_style)
+    {
+        this.m_row_style = i_row_style;
+
+    } // setRow
+
+    getHeader()
+    {
+        return this.m_header_style;
+
+    } // getHeader
+
+    setHeader(i_header_style)
+    {
+        this.m_header_style = i_header_style;
+
+    } // setHeader
+    
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get And Set Styles //////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+} // InputEventReservationStyle
 
 // https://sdkcon78221.crestron.com/sdk/Crestron_HTML5UI/Content/Topics/Reference/Development/Change-CSS.htm
 // setAttribute(key, value) can also be used to set a style on an element. For example, the color of an element can to red by calling element.setAttribute('style', 'color: red');
