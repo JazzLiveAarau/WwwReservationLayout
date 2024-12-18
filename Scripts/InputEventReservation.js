@@ -86,20 +86,11 @@ class InputEventReservation
 
         container_el.innerHTML = html_str;
 
-        // setTimeout(this.afterCreation, 500);
-
-        // 
-
-    } // create
-
-    // Called after creation of the form
-    afterCreation()
-    {
-        // this.contentHeader();
-
         this.m_form_created = true;
 
-    } // afterCreation
+        this.contentHeader();
+
+    } // create
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Create Form ///////////////////////////////////////////////////
@@ -216,6 +207,8 @@ class InputEventReservation
         var header_content_str = this.m_texts.getHeaderText();
 
         var header_el = this.getElementDivHeader();
+
+        header_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getHeader());
 
         header_el.innerHTML = header_content_str;
 
@@ -442,7 +435,7 @@ class InputEventReservation
             return null;
         }
 
-        return document.getElementById(getIdDivHeader());
+        return document.getElementById(this.getIdDivHeader());
 
     } // getElementDivHeader
 
@@ -960,14 +953,9 @@ class InputEventReservationStyle
     // The default style for the header div
     defaultHeaderStyle()
     {
-        return 'font-size: 14px; background-color: black; color: white';
+        return 'font-size: 14px; background-color: black; color: white; text-align: center;';
 
     } // defaultHeaderText
-
-/*
-
-
-*/
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Default Styles ////////////////////////////////////////////////

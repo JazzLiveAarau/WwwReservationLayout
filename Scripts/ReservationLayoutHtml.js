@@ -1292,11 +1292,13 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
 
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_input_event_reservation = null;' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
             main_str = main_str + LayoutHtml.tab(3) + 'function mainEventReservation()' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + 'g_event_program_xml = null;' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(4) + 'var subdir_xml = "../XmlTestData";' + LayoutHtml.endRow();
 
@@ -1312,9 +1314,9 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
 
-            main_str = main_str + LayoutHtml.tab(4) + 'var input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml);' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml);' + LayoutHtml.endRow();
 
-            main_str = main_str + LayoutHtml.tab(4) + 'input_event_reservation.create();' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation.create();' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(3) + ' }' + LayoutHtml.endRow();
 
