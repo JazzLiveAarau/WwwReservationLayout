@@ -93,10 +93,76 @@ class InputEventReservation
 
         this.contentHeader();
 
+        this.contentLabelName();
+
+        this.contentLabelEmail();
+
+        this.contentLabelRemark();
+
     } // create
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Create Form ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+   ///////////////////////////////////////////////////////////////////////////
+    /////// Start Div Content Html Code ///////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the content of the header div
+    contentHeader()
+    {
+        var header_content_str = this.m_texts.getHeaderText();
+
+        var header_el = this.m_id_el.getElementDivHeader();
+
+        header_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getHeader());
+
+        header_el.innerHTML = header_content_str;
+
+    } // contentHeader
+
+    // Sets the content of the label name div
+    contentLabelName()
+    {
+        var label_name_content_str = this.m_texts.getLabelName();
+
+        var label_name_el = this.m_id_el.getElementDivLabelName();
+
+        label_name_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getLabelName());
+
+        label_name_el.innerHTML = label_name_content_str;
+
+    } // contentLabelName
+
+    // Sets the content of the label email div
+    contentLabelEmail()
+    {
+        var label_email_content_str = this.m_texts.getLabelEmail();
+
+        var label_email_el = this.m_id_el.getElementDivLabelEmail();
+
+        label_email_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getLabelEmail());
+
+        label_email_el.innerHTML = label_email_content_str;
+
+    } // contentLabelEmail
+
+    // Sets the content of the label remark div
+    contentLabelRemark()
+    {
+        var label_remark_content_str = this.m_texts.getLabelRemark();
+
+        var label_remark_el = this.m_id_el.getElementDivLabelRemark();
+
+        label_remark_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getLabelRemark());
+
+        label_remark_el.innerHTML = label_remark_content_str;
+
+    } // contentLabelRemark
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Div Content Html Code /////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -209,27 +275,6 @@ class InputEventReservation
     /////// End Display And Hide //////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Div Content Html Code ///////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Sets the content of the header div
-    contentHeader()
-    {
-        var header_content_str = this.m_texts.getHeaderText();
-
-        var header_el = this.m_id_el.getElementDivHeader();
-
-        header_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getHeader());
-
-        header_el.innerHTML = header_content_str;
-
-    } // contentHeader
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// End Div Content Html Code /////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Construct Html Divisions Code ///////////////////////////////

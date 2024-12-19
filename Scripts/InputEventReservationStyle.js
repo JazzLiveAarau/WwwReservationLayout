@@ -22,6 +22,15 @@ class InputEventReservationStyle
         // The style for the header div
         this.m_header_style = '';
 
+        // The style for the label name div
+        this.m_label_name_style = '';
+
+        // The style for the label email div
+        this.m_label_email_style = '';
+
+        // The style for the label remark div
+        this.m_label_remark_style = '';
+
         this.default();
 
     } // constructor
@@ -41,6 +50,12 @@ class InputEventReservationStyle
         this.m_element_right_style = this.defaultRightElement();
 
         this.m_header_style = this.defaultHeaderStyle();
+
+        this.m_label_name_style = this.defaultLabelNameStyle();
+
+        this.m_label_email_style = this.defaultLabelEmailStyle();
+
+        this.m_label_remark_style = this.defaultLabelRemarkStyle();
 
     } // default
 
@@ -78,6 +93,34 @@ class InputEventReservationStyle
     defaultHeaderStyle()
     {
         return 'font-size: 14px; background-color: black; color: white; text-align: center;';
+
+    } // defaultHeaderText
+
+    // The default style for the label divs
+    defaultLabelDivStyle()
+    {
+        return 'font-size: 14px; text-align: left;';
+
+    } // defaultLabelDivStyle
+
+    // The default style for the label name div
+    defaultLabelNameStyle()
+    {
+        return this.defaultLabelDivStyle();
+
+    } // defaultHeaderText
+
+    // The default style for the label email div
+    defaultLabelEmailStyle()
+    {
+        return this.defaultLabelDivStyle();
+
+    } // defaultHeaderText
+
+    // The default style for the label remark div
+    defaultLabelRemarkStyle()
+    {
+        return this.defaultLabelDivStyle();
 
     } // defaultHeaderText
 
@@ -154,12 +197,51 @@ class InputEventReservationStyle
         this.m_header_style = i_header_style;
 
     } // setHeader
+
+    // Returns the style for the label name div
+    getLabelName()
+    {
+        return this.m_label_name_style;
+
+    } // getLabelName
+
+    // Sets the style for the label name div
+    setLabelName(i_label_name_style)
+    {
+        this.m_label_name_style = i_label_name_style;
+
+    } // setLabelName
+    
+	// Returns the style for the label email div
+    getLabelEmail()
+    {
+        return this.m_label_email_style;
+
+    } // getLabelEmail
+
+	// Sets the style for the label email div
+    setLabelEmail(i_label_email_style)
+    {
+        this.m_label_email_style = i_label_email_style;
+
+    } // setLabelEmail
+
+	// Returns the style for the label remark div
+    getLabelRemark()
+    {
+        return this.m_label_remark_style;
+
+    } // getLabelRemark
+
+	// Sets the style for the label remark div
+    setLabelRemark(i_label_remark_style)
+    {
+        this.m_label_remark_style = i_label_remark_style;
+
+    } // setLabelRemark
     
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get And Set Styles //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 } // InputEventReservationStyle
-
-// https://sdkcon78221.crestron.com/sdk/Crestron_HTML5UI/Content/Topics/Reference/Development/Change-CSS.htm
-// setAttribute(key, value) can also be used to set a style on an element. For example, the color of an element can to red by calling element.setAttribute('style', 'color: red');
