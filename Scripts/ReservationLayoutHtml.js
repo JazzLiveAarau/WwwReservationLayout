@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-17
+// Date: 2024-12-19
 // Authors: Gunnar Lidén
 
 // Content
@@ -853,8 +853,11 @@ class LayoutScript
         else if (this.m_layout_file_case == 'EventReservation')
         {
             path_file_array[ 0] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservation.js';
-            path_file_array[ 1] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramDropdown.js';
-            path_file_array[ 2] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramXml.js';
+            path_file_array[ 1] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationIdElement.js';
+            path_file_array[ 2] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationStyle.js';
+            path_file_array[ 3] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationText.js';
+            path_file_array[ 4] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramDropdown.js';
+            path_file_array[ 5] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramXml.js';
         }
         else
         {

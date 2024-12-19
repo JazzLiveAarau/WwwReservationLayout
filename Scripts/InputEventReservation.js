@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-18
+// Date: 2024-12-19
 // Author: Gunnar Lidén
 
 // File content
@@ -36,6 +36,9 @@ class InputEventReservation
 
         // The div element where the input form shall be created
         this.m_element_div_container = null;
+
+        // Identitity and object functions for class InputEventReservation
+        this.m_id_el = new InputEventReservationIdElement();
 
         // Object defining all text strings for the application
         this.m_texts = new InputEventReservationText();
@@ -86,7 +89,7 @@ class InputEventReservation
 
         container_el.innerHTML = html_str;
 
-        this.m_form_created = true;
+        this.setFormCreatedToTrue();
 
         this.contentHeader();
 
@@ -140,6 +143,15 @@ class InputEventReservation
         return this.m_form_created;
 
     } // isFormCreated
+
+    // Sets the boolean flag form is created to true
+    setFormCreatedToTrue()
+    {
+        this.m_form_created = true;
+
+        this.m_id_el.setFormCreatedToTrue();
+
+    } // setFormCreatedToTrue
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ///////////////////////////////////////////
@@ -206,7 +218,7 @@ class InputEventReservation
     {
         var header_content_str = this.m_texts.getHeaderText();
 
-        var header_el = this.getElementDivHeader();
+        var header_el = this.m_id_el.getElementDivHeader();
 
         header_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getHeader());
 
@@ -230,29 +242,29 @@ class InputEventReservation
 
         ret_html_code = ret_html_code + this.startFormTag();
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivHeader(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivHeader(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivDropdown(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivDropdown(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivEventName(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivEventName(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivLabelName(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivLabelName(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivNameInfo(), this.getIdDivName(), this.getIdDivInfoName()); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivNameInfo(), this.m_id_el.getIdDivName(), this.m_id_el.getIdDivInfoName()); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivLabelEmail(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivLabelEmail(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivEmailInfo(), this.getIdDivEmail(), this.getIdDivInfoEmail()); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivEmailInfo(), this.m_id_el.getIdDivEmail(), this.m_id_el.getIdDivInfoEmail()); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivLabelRemark(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivLabelRemark(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivRemarkInfo(), this.getIdDivRemark(), this.getIdDivInfoRemark()); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivRemarkInfo(), this.m_id_el.getIdDivRemark(), this.m_id_el.getIdDivInfoRemark()); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivButtonInfo(), this.getIdDivButton(), this. getIdDivInfoButton()); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivButtonInfo(), this.m_id_el.getIdDivButton(), this.m_id_el.getIdDivInfoButton()); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivPrices(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivPrices(), '', ''); 
 
-        ret_html_code = ret_html_code + this.rowDivTag(this.getIdDivInstructions(), '', ''); 
+        ret_html_code = ret_html_code + this.rowDivTag(this.m_id_el.getIdDivInstructions(), '', ''); 
 
         ret_html_code = ret_html_code + this.endFormTag();
 
@@ -269,7 +281,7 @@ class InputEventReservation
 
         var ret_start_tag = ret_start_tag + this.tab(n_tab);
 
-        var ret_start_tag = ret_start_tag + '<div id= "' + this.getIdInputForm() + '" ';
+        var ret_start_tag = ret_start_tag + '<div id= "' + this.m_id_el.getIdInputForm() + '" ';
 
         var style_with_width = this.m_input_form_style_str + 'width: ' + this.m_input_form_width;
 
@@ -395,647 +407,5 @@ class InputEventReservation
     /////// End Construct Html Divisions Code /////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Identities And Objects //////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Returns the identity of the div for the input form
-    getIdInputForm()
-    {
-        return this.m_id_unique_str + 'input_form';
-    }
-
-    //Returns the element div for the input form
-    getElementInputForm()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementInputForm Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdInputForm());
-
-    } // getElementInputForm
-
-    // Returns the identity of the div for the header
-    getIdDivHeader()
-    {
-        return this.m_id_unique_str + 'div_header';
-    }
-
-    //Returns the element div for the input form
-    getElementDivHeader()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivHeader Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(this.getIdDivHeader());
-
-    } // getElementDivHeader
-
-    // Returns the identity of the div for the dropdown
-    getIdDivDropdown()
-    {
-        return this.m_id_unique_str + 'div_dropdown';
-    }
-
-    //Returns the element div for the dropdown
-    getElementDivDropdown()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivDropdown Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivDropdown());
-
-    } // getElementDivDropdown
-
-    // Returns the identity of the div for the event name
-    getIdDivEventName()
-    {
-        return this.m_id_unique_str + 'div_event_name';
-    }
-
-    //Returns the element div for the event name
-    getElementDivEventName()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivEventName Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivEventName());
-
-    } // getElementDivEventName
-
-    // Returns the identity of the div for the label name
-    getIdDivLabelName()
-    {
-        return this.m_id_unique_str + 'div_label_name';
-    }
-
-    //Returns the element div for the label name
-    getElementDivLabelName()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivLabelName Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivLabelName());
-
-    } // getElementDivLabelName
-
-    // Returns the identity of the div for name and information
-    getIdDivNameInfo()
-    {
-        return this.m_id_unique_str + 'div_name_info';
-    }
-
-    //Returns the element div for name and information
-    getElementDivNameInfo()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivNameInfo Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivNameInfo());
-
-    } // getElementDivNameInfo
-
-    // Returns the identity of the div for the email label
-    getIdDivLabelEmail()
-    {
-        return this.m_id_unique_str + 'div_label_email';
-    }
-
-    //Returns the element div for the email label
-    getElementDivLabelEmail()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivLabelEmail Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivLabelEmail());
-
-    } // getElementDivLabelEmail
-
-    // Returns the identity of the div for email and information
-    getIdDivEmailInfo()
-    {
-        return this.m_id_unique_str + 'div_email_info';
-    }
-
-    //Returns the element div for email and information
-    getElementDivEmailInfo()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivEmailInfo Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivEmailInfo());
-
-    } // getElementDivEmailInfo
-
-    // Returns the identity of the div for the remark label
-    getIdDivLabelRemark()
-    {
-        return this.m_id_unique_str + 'div_label_remark';
-    }
-
-    //Returns the element div for the remark label
-    getElementDivLabelRemark()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivLabelRemark Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivLabelRemark());
-
-    } // getElementDivLabelRemark
-
-    // Returns the identity of the div for remark and information
-    getIdDivRemarkInfo()
-    {
-        return this.m_id_unique_str + 'div_remark_info';
-    }
-
-    //Returns the element div for remark and information
-    getElementDivRemarkInfo()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivRemarkInfo Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivRemarkInfo());
-
-    } // getElementDivRemarkInfo
-
-    // Returns the identity of the div for button and information
-    getIdDivButtonInfo()
-    {
-        return this.m_id_unique_str + 'div_button_info';
-    }
-
-    //Returns the element div for button and information
-    getElementDivButtonInfo()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivButtonInfo Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivButtonInfo());
-
-    } // getElementDivButtonInfo
-
-    // Returns the identity of the div for the prices
-    getIdDivPrices()
-    {
-        return this.m_id_unique_str + 'div_prices';
-    }
-
-    //Returns the element div for the prices
-    getElementDivPrices()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivPrices Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivPrices());
-
-    } // getElementDivPrices
-
-    // Returns the identity of the div for the instructions
-    getIdDivInstructions()
-    {
-        return this.m_id_unique_str + 'div_instructions';
-    }
-
-    //Returns the element div for the instructions
-    getElementDivInstructions()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivInstructions Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivInstructions());
-
-    } // getElementDivInstructions
-
-    // Returns the identity of the div for the name
-    getIdDivName()
-    {
-        return this.m_id_unique_str + 'div_name';
-    }
-
-    //Returns the element div for the name
-    getElementDivName()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivName Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivName());
-
-    } // getElementDivName
-
-    // Returns the identity of the div for the name information
-    getIdDivInfoName()
-    {
-        return this.m_id_unique_str + 'div_info_name';
-    }
-
-    //Returns the element div for the name information
-    getElementDivInfoName()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivNameInfo Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivNameInfo());
-
-    } // getElementDivInfoName
-
-    // Returns the identity of the div for the remark
-    getIdDivRemark()
-    {
-        return this.m_id_unique_str + 'div_remark';
-    }
-
-    //Returns the element div for the remark
-    getElementDivRemark()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivRemark Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivRemark());
-
-    } // getElementDivRemark
-
-    // Returns the identity of the div for the remark information
-    getIdDivInfoRemark()
-    {
-        return this.m_id_unique_str + 'div_info_remark';
-    }
-
-    //Returns the element div for the remark information
-    getElementDivInfoRemark()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivInfoRemark Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivInfoRemark());
-
-    } // getElementDivInfoRemark
-
-    // Returns the identity of the div for the email
-    getIdDivEmail()
-    {
-        return this.m_id_unique_str + 'div_email';
-    }
-
-    //Returns the element div for the email
-    getElementDivEmail()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivEmail Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivEmail());
-
-    } // getElementDivEmail
-
-    // Returns the identity of the div for the email information
-    getIdDivInfoEmail()
-    {
-        return this.m_id_unique_str + 'div_info_email';
-    }
-
-    //Returns the element div for the email information
-    getElementDivInfoEmail()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivInfoEmail Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivInfoEmail());
-
-    } // getElementDivInfoEmail
-
-    // Returns the identity of the div for the button
-    getIdDivButton()
-    {
-        return this.m_id_unique_str + 'div_button';
-    }
-
-    //Returns the element div for the button
-    getElementDivButton()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivButton Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivButton());
-
-    } // getElementDivButton
-
-    // Returns the identity of the div for the button information
-    getIdDivInfoButton()
-    {
-        return this.m_id_unique_str + 'div_info_button';
-    }
-
-    //Returns the element div for the button information
-    getElementDivInfoButton()
-    {
-        if (!this.isFormCreated())
-        {
-            alert("InputEventReservation.getElementDivInfoButton Object is not yet created");
-
-            return null;
-        }
-
-        return document.getElementById(getIdDivInfoButton());
-
-    } // getElementDivInfoButton
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// End Identities And Objects ////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
 
 } // InputEventReservation
-
-// Class with strings for the application
-class InputEventReservationText
-{
-    constructor()
-    {
-        this.m_header_text = '';
-
-        this.default();
-
-    } // constructor
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Default Texts ///////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    default()
-    {
-        this.m_header_text = this.defaultHeaderText();
-
-    } // default
-
-    defaultHeaderText()
-    {
-        return 'Reservation';
-
-    } // defaultHeaderText
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// End Default Texts /////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Get And Set Texts ///////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    getHeaderText()
-    {
-        return this.m_header_text;
-
-    } // defaultHeaderText
-
-    setHeaderText(i_header_text)
-    {
-        this.m_header_text = i_header_text;
-
-    } // defaultHeaderText
-    
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Get And Set Texts ///////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-} // InputEventReservationText
-
-// Class with style strings for the application
-class InputEventReservationStyle
-{
-    constructor()
-    {
-        // The style for the input form div
-        this.m_form_style = '';
-
-        // The style for a row of the form
-        this.m_row_style = '';
-
-        // The style for the left element in a row element
-        this.m_element_left_style = '';
-
-        // The style for the right element in a row element
-        this.m_element_right_style = '';
-
-        // The style for the header div
-        this.m_header_style = '';
-
-        this.default();
-
-    } // constructor
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Default Styles //////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    default()
-    {
-        this.m_form_style = this.defaultForm();
-
-        this.m_row_style = this.defaultRow();
-
-        this.m_element_left_style = this.defaultLeftElement();
-
-        this.m_element_right_style = this.defaultRightElement();
-
-        this.m_header_style = this.defaultHeaderStyle();
-
-    } // default
-
-    // Sets the default style for the input form div
-    defaultForm()
-    {
-        return 'clear: both; min-height: 500px; margin-left: 0px; margin-bottom: 10px;'
-                + ' font-family: Arial, Helvetica, sans-serif; font-size: 14px;' 
-                + 'background-color: rgb(223, 224, 225); border: 3px solid black; ';
-
-    } // defaultForm
-
-    // Sets the default style for a row of the form
-    defaultRow()
-    {
-        return 'clear: both; width: 94%; min-height: 15px; margin-left: 3%; margin-top:5px; overflow: hidden; border: 1px solid blue; ';
-
-    } // defaultRow
-
-    // Sets the default style for the left element in a row element
-    defaultLeftElement()
-    {
-        return 'float: left; width: 80%; min-height: 15px; margin-left: 3%; margin-top:5px; margin-bottom:5px; border: 1px solid red;';
-
-    } // defaultLeftElement
-
-    // Sets the default style for the right element in a row element
-    defaultRightElement()
-    {
-        return 'float: right; width: 10%; min-height: 15px; margin-right: 3%; margin-top:5px; margin-bottom:5px;  border: 1px solid green;';
-
-    } // defaultRightElement
-
-    // The default style for the header div
-    defaultHeaderStyle()
-    {
-        return 'font-size: 14px; background-color: black; color: white; text-align: center;';
-
-    } // defaultHeaderText
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// End Default Styles ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Get And Set Styles //////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Returns the style for the input form div
-    getForm()
-    {
-        return this.m_form_style;
-    }
-
-    // Sets the style for the input form div
-    setForm(i_form_style)
-    {
-        this.m_form_style = i_form_style;
-    }
-
-    // Returns the style for a row of the form
-    getRow()
-    {
-        return this.m_row_style;
-
-    } // getRow
-
-    // Returns the style for the left element in a row element
-    getLeftElement()
-    {
-        return this.m_element_left_style;
-
-    } // getLeftElement
-
-    // Sets the style for the left element in a row element
-    setLeftElement(i_element_left_style)
-    {
-        this.m_element_left_style = i_element_left_style;
-        
-    } // setLeftElement
-
-    // Returns the style for the right element in a row element
-    getRightElement()
-    {
-        return this.m_element_right_style;
-
-    } // getRightElement
-
-    // Sets the style for the right element in a row element
-    setRightElement(i_element_right_style)
-    {
-        this.m_element_right_style = i_element_right_style;
-        
-    } // setRightElement
-
-    // Sets the style for a row of the form
-    setRow(i_row_style)
-    {
-        this.m_row_style = i_row_style;
-
-    } // setRow
-
-    getHeader()
-    {
-        return this.m_header_style;
-
-    } // getHeader
-
-    setHeader(i_header_style)
-    {
-        this.m_header_style = i_header_style;
-
-    } // setHeader
-    
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Get And Set Styles //////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-} // InputEventReservationStyle
-
-// https://sdkcon78221.crestron.com/sdk/Crestron_HTML5UI/Content/Topics/Reference/Development/Change-CSS.htm
-// setAttribute(key, value) can also be used to set a style on an element. For example, the color of an element can to red by calling element.setAttribute('style', 'color: red');
