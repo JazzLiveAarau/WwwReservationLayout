@@ -37,6 +37,9 @@ class InputEventReservation
         // The div element where the input form shall be created
         this.m_element_div_container = null;
 
+        // The event dropdown object
+        this.m_event_dropdown_el = null;
+
         // Identitity and object functions for class InputEventReservation
         this.m_id_el = new InputEventReservationIdElement();
 
@@ -99,6 +102,8 @@ class InputEventReservation
 
         this.contentLabelRemark();
 
+        this.contentDropdown();
+
     } // create
 
     ///////////////////////////////////////////////////////////////////////////
@@ -160,6 +165,18 @@ class InputEventReservation
         label_remark_el.innerHTML = label_remark_content_str;
 
     } // contentLabelRemark
+
+    // Sets the content of the label remark div
+    contentDropdown()
+    {
+        var dropdown_el = this.m_id_el.getElementDivDropdown();
+
+        dropdown_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getLabelRemark());
+
+        this.m_event_dropdown_el = new EventProgramDropdown(this.m_id_el.getIdDropdown(), 
+                                this.m_id_el.getIdDivDropdown(), this.m_event_program_xml);
+        
+    } // contentDropdown
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Content Html Code /////////////////////////////////////////

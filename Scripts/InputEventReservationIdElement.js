@@ -73,6 +73,12 @@ class InputEventReservationIdElement
 
     } // getElementDivHeader
 
+    // Returns the identity of the event program dropdown
+    getIdDropdown()
+    {
+        return this.m_id_unique_str + 'event_dropdown';
+    }
+
     // Returns the identity of the div for the dropdown
     getIdDivDropdown()
     {

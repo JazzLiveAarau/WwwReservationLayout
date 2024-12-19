@@ -31,6 +31,9 @@ class InputEventReservationStyle
         // The style for the label remark div
         this.m_label_remark_style = '';
 
+        // The style for the event dropdown div
+        this.m_event_dropdown_style = '';
+
         this.default();
 
     } // constructor
@@ -56,6 +59,8 @@ class InputEventReservationStyle
         this.m_label_email_style = this.defaultLabelEmailStyle();
 
         this.m_label_remark_style = this.defaultLabelRemarkStyle();
+
+        this.m_event_dropdown_style = this.defaultEventDropdownStyle();
 
     } // default
 
@@ -121,6 +126,13 @@ class InputEventReservationStyle
     defaultLabelRemarkStyle()
     {
         return this.defaultLabelDivStyle();
+
+    } // defaultHeaderText
+
+    // The default style for the event dropdown div
+    defaultEventDropdownStyle()
+    {
+        return 'font-size: 14px; text-align: center;';
 
     } // defaultHeaderText
 
@@ -239,6 +251,20 @@ class InputEventReservationStyle
         this.m_label_remark_style = i_label_remark_style;
 
     } // setLabelRemark
+
+	// Returns the style for the event dropdown div
+    getEventDropdown()
+    {
+        return this.m_event_dropdown_style;
+
+    } // getEventDropdown
+
+	// Sets the style for the event dropdown div
+    setEventDropdown(i_event_dropdown_style)
+    {
+        this.m_event_dropdown_style = i_event_dropdown_style;
+
+    } // setEventDropdown
     
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get And Set Styles //////////////////////////////////////////
