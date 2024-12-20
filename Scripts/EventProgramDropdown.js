@@ -1,5 +1,5 @@
 // File: EventProgramDropdown.js
-// Date: 2024-12-17
+// Date: 2024-12-20
 // Author: Gunnar Lidén
 
 // File content
@@ -33,7 +33,7 @@ class EventProgramDropdown
         // The class for the dropdown control
         //QQQQQ this.m_class = '';        
 
-        // The input dropdown name array
+        // The dropdown array with event names
         this.m_drop_down_name_array = [];
 
         // The corresponding number array
@@ -69,9 +69,20 @@ class EventProgramDropdown
     // Create the form
     create()
     {
+        this.setDivContainerElement();
+
+        var b_only_coming = true;
+
+        var name_array = this.m_event_program_xml.getEventNameArray(b_only_coming);
+
+        var date_format = 'iso'; // or iso_reverse or swiss
+
+        var date_array = this.m_event_program_xml.getEventDateArray(b_only_coming, date_format);
+
         this.m_dropdown_created = true;
 
     } // create
+
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Create Dropdown ////////(//////////////////////////////////////
@@ -132,6 +143,18 @@ class EventProgramDropdown
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ////////(//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the div element container 
+    setDivContainerElement()
+    {
+        this.m_el_div_container = document.getElementById(this.m_id_div_container);
+
+        if (null == this.m_el_div_container)
+        {
+            alert(".setDivContainerElement There is no div with identity ") + this.m_id_div_container;
+        }
+
+    } // setDivContainerElement
 
 
     ///////////////////////////////////////////////////////////////////////////

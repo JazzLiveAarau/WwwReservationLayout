@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2024-12-10
+// Date: 2024-12-20
 // Author: Gunnar Lidén
 
 
@@ -302,6 +302,97 @@ class EventProgramXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Returns an array of event names
+    // i_b_only_coming: Only coming events if true
+    getEventNameArray(i_b_only_coming)
+    {
+        var ret_name_array = [];
+
+        var n_events = this.getNumberOfEvents();
+
+        var index_name = 0;
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+            var event_name = this.getEventName(event_number);
+
+            var event_year = this.getYear(event_number);
+
+            var event_month = this.getMonth(event_number);
+
+            var event_day = this.getDay(event_number);
+
+            var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+
+            if (i_b_only_coming && !b_date_passed)
+            {
+                ret_name_array[index_name] = event_name;
+
+                index_name = index_name + 1;
+            }
+
+        } // event_number
+
+        return ret_name_array;
+
+    } // getEventNameArray
+
+     // Returns an array of event dates
+    // i_b_only_coming: Only coming events if true
+    // i_date_format: iso, iso_reverse, swiss
+    getEventDateArray(i_b_only_coming, i_date_format)
+    {
+        var ret_date_array = [];
+
+        var n_events = this.getNumberOfEvents();
+
+        var index_date = 0;
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+
+            var event_year = this.getYear(event_number);
+
+            var event_month = this.getMonth(event_number);
+
+            var event_day = this.getDay(event_number);
+
+            var event_date = '';
+
+            if ('iso' == i_date_format)
+            {
+                event_date = UtilDate.getIsoDateString(event_year, event_month, event_day);
+            }
+            else if ('iso_reverse' == i_date_format)
+            {
+                event_date = UtilDate.getIsoReverseDateString(event_year, event_month, event_day);
+            }
+            else if ('swiss' == i_date_format)
+            {
+                event_date = UtilDate.getSwissDateString(event_year, event_month, event_day);
+            }
+            else
+            {
+                alert("UtilDate.getEventDateArray Unvalid date format '" + i_date_format + "'");
+
+                return ret_date_array;
+            }
+
+            var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+
+            if (i_b_only_coming && !b_date_passed)
+            {
+                ret_date_array[index_date] = event_date;
+
+                index_date = index_date + 1;
+            }
+            
+        } // event_number
+
+        return ret_date_array;
+
+    } // getEventDateArray
 
     // Returns the reservation event XML file name
     getXmlEventProgramFileName()
