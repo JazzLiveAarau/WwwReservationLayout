@@ -176,6 +176,8 @@ class InputEventReservation
         this.m_event_dropdown_el = new EventProgramDropdown(this.m_id_el.getIdDropdown(), 
                                 this.m_id_el.getIdDivDropdown(), this.m_event_program_xml);
 
+        this.m_event_dropdown_el.setDateFormatToIsoReverse();
+
         this.m_event_dropdown_el.create();
         
     } // contentDropdown

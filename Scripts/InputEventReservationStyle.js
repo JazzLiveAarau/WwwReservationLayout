@@ -163,6 +163,13 @@ class InputEventReservationStyle
 
     } // getRow
 
+    // Sets the style for a row of the form
+    setRow(i_row_style)
+    {
+        this.m_row_style = i_row_style;
+
+    } // setRow
+
     // Returns the style for the left element in a row element
     getLeftElement()
     {
@@ -191,19 +198,14 @@ class InputEventReservationStyle
         
     } // setRightElement
 
-    // Sets the style for a row of the form
-    setRow(i_row_style)
-    {
-        this.m_row_style = i_row_style;
-
-    } // setRow
-
+    // Returns the style for the header div
     getHeader()
     {
         return this.m_header_style;
 
     } // getHeader
 
+    // Sets the style for the header div
     setHeader(i_header_style)
     {
         this.m_header_style = i_header_style;

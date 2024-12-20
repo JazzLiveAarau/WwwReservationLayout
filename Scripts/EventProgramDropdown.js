@@ -50,6 +50,13 @@ class EventProgramDropdown
         // moves over the element.
         this.m_title = '';
 
+        // Format for date in name array m_drop_down_name_array
+        // Case: iso 2024-12-20, iso_reverse 10.12.2024 or swiss 20. Dezember 2024
+        this.m_date_format = 'iso';
+
+        // Flag determines if dropdown displays date and name (true) or only name (false)
+        this.m_b_date_name_dropdown = true;
+
         // Defines the event_number for the reservation. 
         // If not set (negative) the next event will be set
         this.m_active_event_number = -1;
@@ -75,7 +82,7 @@ class EventProgramDropdown
 
         var name_array = this.m_event_program_xml.getEventNameArray(b_only_coming);
 
-        var date_format = 'iso'; // or iso_reverse or swiss
+        var date_format = this.getDateFormat(); 
 
         var date_array = this.m_event_program_xml.getEventDateArray(b_only_coming, date_format);
 
@@ -135,6 +142,42 @@ class EventProgramDropdown
         this.m_title = i_title; 
 
     } // setTitle
+
+    // Returns the date format for the dropdown
+    getDateFormat()
+    {
+        return this.m_date_format;
+    }
+
+    // Set date format for the dropdown to ISO. Example: 2024-12-20   
+    setDateFormatToIso()
+    {
+        this.m_date_format = 'iso';
+    }
+
+    // Set date format for the dropdown to reverse. Example: 10.12.2024   
+    setDateFormatToIsoReverse()
+    {
+        this.m_date_format = 'iso_reverse';
+    }
+
+    // Set date format for the dropdown to swiss. Example: 20. Dezember 2024   
+    setDateFormatToSwiss()
+    {
+        this.m_date_format = 'swiss';
+    }
+
+    // Set flag that date and name shall be displayed in the dropdown
+    displayDateAndNameInDropdown()
+    {
+        this.m_b_date_name_dropdown = true;
+    }
+
+    // Set flag that only name shall be displayed in the dropdown
+    displayOnlyNameInDropdown()
+    {
+        this.m_b_date_name_dropdown = false;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ////////(//////////////////////////////////

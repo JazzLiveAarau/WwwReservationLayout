@@ -12,6 +12,8 @@
 class EventProgramXml
 {
     // Creates the instance of the class
+    // i_subdir_xml: The subdirectory for the event XML file, e.g. SaisonXml
+    // m_event_program_file_name: Name of the event program XML file
     // i_callback_function_name: Function that shall be called after creation (loading) of the XML object
     constructor(i_subdir_xml, i_event_program_file_name, i_callback_function_name) 
     {

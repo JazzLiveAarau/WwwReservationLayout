@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-19
+// Date: 2024-12-20
 // Authors: Gunnar Lidén
 
 // Content
@@ -21,6 +21,8 @@ class LayoutHtml
     // i_layout_file_case: Layout file creation case
     //                     MakeReservation, ShowLayout, AddReservation, SearchReservation,
     //                     ReservationPrint, ReservationList, EventReservation
+    // i_button_id_array: Button identities for the input layout file case 
+    // m_layout_file_description: Description of the layout file case
     constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_layout_file_description, i_button_id_array) 
     {
         // Member variables
@@ -38,7 +40,7 @@ class LayoutHtml
        // Array of identities for the buttons that shall be created for m_layout_file_case
        this.m_button_id_array = i_button_id_array;
 
-       // Description of the layout file cases
+       // Description of the layout file case
        this.m_layout_file_description = i_layout_file_description;
 
        // All HTML code from this class
@@ -461,7 +463,7 @@ class LayoutBody
 
     divSelectConcert()
     {
-        return LayoutHtml.tab(4) + '<div id="id_reservation_select_concert">Section (division) select concert </div>'  + LayoutHtml.endRow();
+        return LayoutHtml.tab(4) + '<div id="id_reservation_select_concert">Section (division) select event </div>'  + LayoutHtml.endRow();
     }
 
     divSelectConcertTrTd()
