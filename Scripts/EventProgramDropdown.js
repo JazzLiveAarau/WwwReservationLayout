@@ -67,6 +67,9 @@ class EventProgramDropdown
         // Boolean telling if the event dropdown control shall be displayed
         this.m_b_display_dropdown = true;
 
+        // Flagg telling if debug shall be written to the console
+        this.m_b_write_debug = true;
+
     } // constructor
 
     ///////////////////////////////////////////////////////////////////////////
@@ -76,19 +79,88 @@ class EventProgramDropdown
     // Create the form
     create()
     {
+        this.debug('EventProgramDropdown.create Enter');
+
         this.setDivContainerElement();
 
-        var b_only_coming = true;
+        this.setNameArray();
+
+        this.m_dropdown_created = true;
+
+        this.debug('EventProgramDropdown.create Exit');
+
+    } // create
+
+    // Sets the name array for the dropdown control 
+    setNameArray() 
+    {
+        this.debug('EventProgramDropdown.setNameArray Enter');
+
+        var b_only_coming = true; // TODO Add as parameter
 
         var name_array = this.m_event_program_xml.getEventNameArray(b_only_coming);
 
         var date_format = this.getDateFormat(); 
 
         var date_array = this.m_event_program_xml.getEventDateArray(b_only_coming, date_format);
+  
+        if (this.m_b_date_name_dropdown)
+        {
+            this.dropdownWithDateAndName(date_array, name_array);
+        }
+        else
+        {
+            this.m_drop_down_name_array = name_array;
+        }
 
-        this.m_dropdown_created = true;
+        this.setNumberArray();
 
-    } // create
+        this.debug('EventProgramDropdown.setNameArray Exit');
+
+    } // setNameArray
+
+    // Make one array of the two input arrays
+    dropdownWithDateAndName(i_date_array, i_name_array)
+    {
+        this.debug('EventProgramDropdown.dropdownWithDateAndName Enter');
+
+        this.m_drop_down_name_array = [];
+
+        var n_events = i_date_array.length;
+
+        for (var index_event = 0; index_event < n_events; index_event++)
+        {
+            var event_date = i_date_array[index_event];
+
+            var event_name = i_name_array[index_event];
+
+            this.m_drop_down_name_array[index_event] = event_date + ' ' + event_name;
+        }
+
+        this.debug('EventProgramDropdown.dropdownWithDateAndName Exit');
+
+    } // dropdownWithDateAndName
+
+    // Sets the number array 
+    setNumberArray()
+    {
+        this.debug('EventProgramDropdown.setNumberArray Enter');
+
+        this.m_drop_down_number_array = [];
+
+        var array_number = 0;
+        
+        for (var index_name=0; index_name < this.m_drop_down_name_array.length; index_name++)
+        {
+            array_number = array_number + 1;
+
+            this.m_drop_down_number_array[index_name] = array_number;
+        }
+
+        this.debug('EventProgramDropdown.setNumberArray Exit');
+
+    } // setNumberArray
+
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -218,6 +290,20 @@ class EventProgramDropdown
         }
 
     } // setDivContainerElement
+
+    // Writes debug to the console
+    debug(i_msg_str)
+    {
+        if (!this.m_b_write_debug)
+        {
+            return;
+        }
+
+        console.log(i_msg_str);
+
+        UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
+
+    } // debugReservationLayout
 
 
     ///////////////////////////////////////////////////////////////////////////

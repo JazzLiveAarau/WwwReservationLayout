@@ -1312,18 +1312,6 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(4) + 'g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, callbackAfterLoadingEventProgram);' + LayoutHtml.endRow();
             
-            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToSwiss();' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToIso();' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToIsoReverse();' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownDisplayDateAndNameInDropdown();' + LayoutHtml.endRow();
-
-            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownDisplayOnlyNameInDropdown();' + LayoutHtml.endRow();
-            
             main_str = main_str + LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();
             
             main_str = main_str + LayoutHtml.tab(4) + '' + LayoutHtml.endRow();
@@ -1335,6 +1323,18 @@ class LayoutScript
             main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml);' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation.create();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToSwiss();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToIso();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownSetDateFormatToIsoReverse();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownDisplayDateAndNameInDropdown();' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(4) + '// g_input_event_reservation.dropdownDisplayOnlyNameInDropdown();' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(3) + ' }' + LayoutHtml.endRow();
 

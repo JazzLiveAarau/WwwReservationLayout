@@ -75,6 +75,9 @@ class InputEventReservation
 
         this.m_current_accumulated_text_length = 0;
 
+        // Flagg telling if debug shall be written to the console
+        this.m_b_write_debug = true;
+
         this.setElementDivContainer();
 
     } // constructor
@@ -86,6 +89,8 @@ class InputEventReservation
     // Create the form
     create()
     {
+        this.debug('InputEventReservation.create Enter');
+
         var html_str = this.getDivsHtml();
 
         var container_el = this.getElementDivContainer();
@@ -103,6 +108,8 @@ class InputEventReservation
         this.contentLabelRemark();
 
         this.contentDropdown();
+
+        this.debug('InputEventReservation.create Exit');
 
     } // create
 
@@ -166,9 +173,11 @@ class InputEventReservation
 
     } // contentLabelRemark
 
-    // Sets the content of the label remark div
+    // Sets the content of the dropdown div
     contentDropdown()
     {
+        this.debug('InputEventReservation.contentDropdown Enter');
+
         var dropdown_el = this.m_id_el.getElementDivDropdown();
 
         dropdown_el.setAttribute('style', this.m_styles.getRow() +  this.m_styles.getLabelRemark());
@@ -179,6 +188,8 @@ class InputEventReservation
         this.m_event_dropdown_el.setDateFormatToIsoReverse();
 
         this.m_event_dropdown_el.create();
+
+        this.debug('InputEventReservation.contentDropdown Exit');
         
     } // contentDropdown
 
@@ -332,6 +343,19 @@ class InputEventReservation
 
     } // setElementDivContainer
 
+    // Writes debug to the console
+    debug(i_msg_str)
+    {
+        if (!this.m_b_write_debug)
+        {
+            return;
+        }
+
+        console.log(i_msg_str);
+
+        UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
+
+    } // debugReservationLayout
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Utility Functions /////////////////////////////////////////////
