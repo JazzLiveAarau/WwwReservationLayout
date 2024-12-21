@@ -1,5 +1,5 @@
 // File: EventProgramDropdown.js
-// Date: 2024-12-20
+// Date: 2024-12-21
 // Author: Gunnar Lidén
 
 // File content
@@ -100,7 +100,7 @@ class EventProgramDropdown
     ///////////////////////////////////////////////////////////////////////////
 
     // Returns the event number
-    getEventNumber(i_event_number)
+    getEventNumber()
     {
         return this.m_active_event_number;
 
@@ -110,6 +110,8 @@ class EventProgramDropdown
     setEventNumber(i_event_number)
     {
         this.m_active_event_number = i_event_number;
+
+        if (this.isDropdownCreated()){this.create();}
 
     } // setEventNumber
 
@@ -141,43 +143,61 @@ class EventProgramDropdown
     {
         this.m_title = i_title; 
 
+        if (this.isDropdownCreated()){this.create();}
+
     } // setTitle
 
     // Returns the date format for the dropdown
     getDateFormat()
     {
         return this.m_date_format;
-    }
+        
+    } // getDateFormat
 
     // Set date format for the dropdown to ISO. Example: 2024-12-20   
     setDateFormatToIso()
     {
         this.m_date_format = 'iso';
-    }
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // setDateFormatToIso
 
     // Set date format for the dropdown to reverse. Example: 10.12.2024   
     setDateFormatToIsoReverse()
     {
         this.m_date_format = 'iso_reverse';
-    }
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // setDateFormatToIsoReverse
 
     // Set date format for the dropdown to swiss. Example: 20. Dezember 2024   
     setDateFormatToSwiss()
     {
         this.m_date_format = 'swiss';
-    }
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // setDateFormatToSwiss
 
     // Set flag that date and name shall be displayed in the dropdown
     displayDateAndNameInDropdown()
     {
         this.m_b_date_name_dropdown = true;
-    }
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // displayDateAndNameInDropdown
 
     // Set flag that only name shall be displayed in the dropdown
     displayOnlyNameInDropdown()
     {
         this.m_b_date_name_dropdown = false;
-    }
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // displayOnlyNameInDropdown
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ////////(//////////////////////////////////

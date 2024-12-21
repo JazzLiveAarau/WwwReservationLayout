@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-19
+// Date: 2024-12-21
 // Author: Gunnar Lidén
 
 // File content
@@ -37,7 +37,7 @@ class InputEventReservation
         // The div element where the input form shall be created
         this.m_element_div_container = null;
 
-        // The event dropdown object
+        // The event dropdown object EventProgramDropdown
         this.m_event_dropdown_el = null;
 
         // Identitity and object functions for class InputEventReservation
@@ -110,7 +110,7 @@ class InputEventReservation
     /////// End Create Form ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-   ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     /////// Start Div Content Html Code ///////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -242,6 +242,79 @@ class InputEventReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ///////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Dropdown Set And Get Functions //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the dropdown event number
+    dropdownGetEventNumber()
+    {
+        return this.m_event_dropdown_el.getEventNumber();
+
+    } // dropdownGetEventNumber
+
+    // Sets the dropdown event number
+    dropdownSetEventNumber(i_event_number)
+    {
+        this.m_event_dropdown_el.setEventNumber(i_event_number);
+
+    } // dropdownSetEventNumber
+
+    // Sets the title of this HTML element. The title can be a tool tip
+    // In a desktop computer the title is displayed when the mouse is
+    // over the HTML element
+    dropdownSetTitle(i_title) 
+    {
+        this.m_event_dropdown_el.setTitle(i_title);
+
+    } // dropdownSetTitle
+
+    // Returns the date format for the dropdown
+    dropdownGetDateFormat()
+    {
+        this.m_event_dropdown_el.getDateFormat();
+        
+    } // dropdownGetDateFormat
+
+    // Set date format for the dropdown to ISO. Example: 2024-12-20   
+    dropdownSetDateFormatToIso()
+    {
+        this.m_event_dropdown_el.setDateFormatToIso();
+
+    } // dropdownSetDateFormatToIso
+
+    // Set date format for the dropdown to reverse. Example: 10.12.2024   
+    dropdownSetDateFormatToIsoReverse()
+    {
+        this.m_event_dropdown_el.setDateFormatToIsoReverse();
+
+    } // dropdownSetDateFormatToIsoReverse
+
+    // Set date format for the dropdown to swiss. Example: 20. Dezember 2024   
+    dropdownSetDateFormatToSwiss()
+    {
+        this.m_event_dropdown_el.setDateFormatToSwiss();
+
+    } // dropdownSetDateFormatToSwiss
+
+    // Set flag that date and name shall be displayed in the dropdown
+    dropdownDisplayDateAndNameInDropdown()
+    {
+        this.m_event_dropdown_el.displayDateAndNameInDropdown();
+
+    } // dropdownDisplayDateAndNameInDropdown
+
+    // Set flag that only name shall be displayed in the dropdown
+    dropdownDisplayOnlyNameInDropdown()
+    {
+        this.m_event_dropdown_el.displayOnlyNameInDropdown();
+
+    } // dropdownDisplayOnlyNameInDropdown
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Dropdown Set And Get Functions ////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
