@@ -8,6 +8,14 @@
 // Class that creates a form for the input of reservation data
 // The class has member function that checks the input data
 
+// User selected a new item of the event program dropdown
+// Must be a global function. Member functions are not allowed
+function globalOnChangeEventProgramDropdown()
+{
+    g_input_event_reservation.onChangeEventProgramDropdown();
+
+} // globalOnChangeEventProgramDropdown
+
 class InputEventReservation
 {
     // Creates the instance of the class
@@ -118,6 +126,26 @@ class InputEventReservation
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
+    /////// Start Event Functions /////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // User selected a new item of the event program dropdown
+    // Must be a global function. Member functions are not allowed
+    onChangeEventProgramDropdown()
+    {
+        var debug_msg = 'InputEventReservation.onChangeEventProgramDropdown Enter';
+
+        this.debug(debug_msg);
+        
+        alert(debug_msg);
+
+    } // onChangeEventProgramDropdown
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Event Functions ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
     /////// Start Div Content Html Code ///////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -185,9 +213,13 @@ class InputEventReservation
         this.m_event_dropdown_el = new EventProgramDropdown(this.m_id_el.getIdDropdown(), 
                                 this.m_id_el.getIdDivDropdown(), this.m_event_program_xml);
 
-        this.m_event_dropdown_el.setDateFormatToIsoReverse();
+        this.dropdownSetDateFormatToIsoReverse();
 
-        this.m_event_dropdown_el.create();
+        this.dropdownSetAppendString('Add event');
+
+        this.dropdownSetOnchangeFunctionName("globalOnChangeEventProgramDropdown");
+
+        this.dropdownCreate();
 
         this.debug('InputEventReservation.contentDropdown Exit');
         
@@ -323,6 +355,27 @@ class InputEventReservation
         this.m_event_dropdown_el.displayOnlyNameInDropdown();
 
     } // dropdownDisplayOnlyNameInDropdown
+
+    // Sets the dropdown append string that is added to the dropdown name array
+    dropdownSetAppendString(i_append_str)
+    {
+        this.m_event_dropdown_el.setAppendString(i_append_str);
+
+    } // dropdownSetAppendString
+
+    // Create the dropdown
+    dropdownCreate()
+    {
+        this.m_event_dropdown_el.create();
+
+    } // dropdownCreate
+
+    // Sets the onchange function name. Only the name is input
+    dropdownSetOnchangeFunctionName(i_onchange_function) 
+    {
+        this.m_event_dropdown_el.setOnchangeFunctionName(i_onchange_function);
+
+    } // dropdownSetOnchangeFunctionName 
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Dropdown Set And Get Functions ////////////////////////////////

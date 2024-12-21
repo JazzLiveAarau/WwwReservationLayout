@@ -30,11 +30,11 @@ class EventProgramDropdown
         // The container element for the dropdown control
         this.m_el_div_container = null;
 
-        // The class for the dropdown control
-        //QQQQQ this.m_class = '';        
-
         // The dropdown array with event names
         this.m_drop_down_name_array = [];
+
+        // Maximum name length
+        this.m_dropdown_name_length_max = 42;
 
         // The corresponding number array
         this.m_drop_down_number_array = [];
@@ -85,6 +85,10 @@ class EventProgramDropdown
 
         this.setNameArray();
 
+        var dropdown_html = this. getHtmlString();
+
+        this.m_el_div_container.innerHTML = dropdown_html;
+
         this.m_dropdown_created = true;
 
         this.debug('EventProgramDropdown.create Exit');
@@ -111,6 +115,8 @@ class EventProgramDropdown
         else
         {
             this.m_drop_down_name_array = name_array;
+
+            this.modifyDropdownNameArray();
         }
 
         this.setNumberArray();
@@ -137,9 +143,38 @@ class EventProgramDropdown
             this.m_drop_down_name_array[index_event] = event_date + ' ' + event_name;
         }
 
+        this.modifyDropdownNameArray();
+
         this.debug('EventProgramDropdown.dropdownWithDateAndName Exit');
 
     } // dropdownWithDateAndName
+
+    // Modify
+    // Maximum name length m_dropdown_name_length_max
+    // remove "difficult" characters TODO
+    modifyDropdownNameArray()
+    {
+        var mod_array = [];
+ 
+        var n_names = this.m_drop_down_name_array.length;
+
+        for (var index_name = 0; index_name < n_names; index_name++)
+        {
+            var dropdown_name =  this.m_drop_down_name_array[index_name];
+
+            if (dropdown_name.length > this.m_dropdown_name_length_max)
+            {
+                dropdown_name = dropdown_name.substring(0, this.m_dropdown_name_length_max - 4);
+
+                dropdown_name = dropdown_name + ' ...';
+            }
+
+            mod_array[index_name] = dropdown_name;
+        }
+
+        this.m_drop_down_name_array = mod_array;
+
+    } // modifyDropdownNameArray
 
     // Sets the number array 
     setNumberArray()
@@ -271,8 +306,99 @@ class EventProgramDropdown
 
     } // displayOnlyNameInDropdown
 
+    // Sets the append string that is added to the dropdown name array
+    setAppendString(i_append_str)
+    {
+        this.m_append_str = i_append_str;
+
+        if (this.isDropdownCreated()){this.create();}
+
+    } // setAppendString
+
+    // Sets the onchange function name. Only the name is input
+    setOnchangeFunctionName(i_onchange_function) 
+    {
+      this.m_onchange_function = i_onchange_function;
+
+      if (this.isDropdownCreated()){this.create();}
+
+    } // setOnchangeFunctionName 
+
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ////////(//////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get Html Code ////////(//////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the string that defines the HTML dropdown string
+    // <select id="id_drop_down" class="cl_drop_down" onchange= "eventNewTask" title="Tip ...">  
+    // <option value="1" >A0001</option>
+    // <option value="2" >A0002</option>    
+    // </select>
+    getHtmlString()
+    {
+        this.debug('EventProgramDropdown.getHtmlString Enter');
+
+        var ret_html_str = '';
+
+        ret_html_str = ret_html_str +  '<select  id="' + this.m_id_drop_down + '" ';
+
+        if (this.m_onchange_function.length > 0)
+        {
+            ret_html_str = ret_html_str + ' onchange="' + this.m_onchange_function + '()" ';
+        }
+
+        if (this.m_title.length > 0)
+        {
+            ret_html_str = ret_html_str + ' title="' + this.m_title + '" ';
+        }
+
+        ret_html_str = ret_html_str + '><br>'; 
+
+        var n_options = this.m_drop_down_name_array.length;
+
+        if (this.m_append_str.length > 0)
+        {
+            n_options = n_options + 1;
+        }
+
+        for (var index_name=0; index_name < n_options; index_name++)
+        {
+            var current_name = '';
+
+            var current_number_str = '';
+
+            if (index_name < this.m_drop_down_name_array.length)
+            {
+                current_name = this.m_drop_down_name_array[index_name];
+
+                current_number_str = this.m_drop_down_number_array[index_name].toString();
+            }
+            else
+            {
+                current_name = this.m_append_str;
+
+                current_number_str = n_options.toString();
+            }
+
+            var option_str = '<option value="' + current_number_str + '">' +
+                                    current_name + '</option><br>';
+
+            ret_html_str = ret_html_str + option_str;  
+        }        
+
+        ret_html_str = ret_html_str + '</select>';
+
+        this.debug('EventProgramDropdown.getHtmlString Exit');
+        
+        return ret_html_str;
+
+    } // getHtmlString
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Get Html Code ////////(////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
