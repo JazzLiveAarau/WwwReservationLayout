@@ -34,6 +34,9 @@ class InputEventReservationStyle
         // The style for the event dropdown div
         this.m_event_dropdown_style = '';
 
+        // The style for the open reservation button
+        this.m_button_open_reservation_style = '';
+
         this.default();
 
     } // constructor
@@ -62,7 +65,7 @@ class InputEventReservationStyle
 
         this.m_event_dropdown_style = this.defaultEventDropdownStyle();
 
-        this.m_button_open_reservation_style = this.defaultButtonOpenReservationStyleStyle();
+        this.m_button_open_reservation_style = this.defaultButtonOpenReservationStyle();
 
     } // default
 
@@ -139,7 +142,7 @@ class InputEventReservationStyle
     } // defaultHeaderText
 
     // The default style for the open reservation button
-    defaultButtonOpenReservationStyleStyle()
+    defaultButtonOpenReservationStyle()
     {
 		var ret_style = '';
 		
@@ -171,7 +174,7 @@ class InputEventReservationStyle
 		
         return ret_style;
 
-    } // defaultButtonOpenReservationStyleStyle
+    } // defaultButtonOpenReservationStyle
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Default Styles ////////////////////////////////////////////////

@@ -306,7 +306,29 @@ class InputEventReservationIdElement
     getIdDivName()
     {
         return this.m_id_unique_str + 'div_name';
-    }
+
+    } // getIdDivName
+
+   // Returns the identity of the name input element
+   getIdInputName()
+   {
+       return this.m_id_unique_str + 'input_name';
+       
+   } // getIdButton
+
+   //Returns the input name element
+   getElementInputName()
+   {
+       if (!this.isFormCreated())
+       {
+           alert("InputEventReservation.getElementInputName Object is not yet created");
+
+           return null;
+       }
+
+       return document.getElementById(this.getIdInputName());
+
+   } // getElementInputName
 
     //Returns the element div for the name
     getElementDivName()
@@ -362,6 +384,27 @@ class InputEventReservationIdElement
 
     } // getElementDivRemark
 
+   // Returns the identity of the remark input element
+   getIdInputRemark()
+   {
+       return this.m_id_unique_str + 'input_remark';
+       
+   } // getIdButton
+
+   //Returns the input remark element
+   getElementInputRemark()
+   {
+       if (!this.isFormCreated())
+       {
+           alert("InputEventReservation.getElementInputRemark Object is not yet created");
+
+           return null;
+       }
+
+       return document.getElementById(this.getIdInputRemark());
+
+   } // getElementInputRemark
+
     // Returns the identity of the div for the remark information
     getIdDivInfoRemark()
     {
@@ -401,6 +444,27 @@ class InputEventReservationIdElement
         return document.getElementById(this.getIdDivEmail());
 
     } // getElementDivEmail
+
+   // Returns the identity of the email input element
+   getIdInputEmail()
+   {
+       return this.m_id_unique_str + 'input_email';
+       
+   } // getIdButton
+
+   //Returns the input email element
+   getElementInputEmail()
+   {
+       if (!this.isFormCreated())
+       {
+           alert("InputEventReservation.getElementInputEmail Object is not yet created");
+
+           return null;
+       }
+
+       return document.getElementById(this.getIdInputEmail());
+
+   } // getElementInputEmail
 
     // Returns the identity of the div for the email information
     getIdDivInfoEmail()
@@ -446,7 +510,8 @@ class InputEventReservationIdElement
     getIdButton()
     {
         return this.m_id_unique_str + 'button_open_reservation';
-    }
+
+    } // getIdButton
 
     //Returns the button element
     getElementButton()

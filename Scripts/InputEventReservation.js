@@ -16,6 +16,14 @@ function globalOnChangeEventProgramDropdown()
 
 } // globalOnChangeEventProgramDropdown
 
+// Open the web page MakeReservation with some input data in a query string.
+// 1. Call of InputEventReservation.openMainReservationFunctionName
+function globalOpenMainReservationFunctionName()
+{
+    g_input_event_reservation.openMainReservationFunctionName();
+
+} // globalOpenMainReservationFunctionName
+
 class InputEventReservation
 {
     // Creates the instance of the class
@@ -74,11 +82,14 @@ class InputEventReservation
         // Style for a row right element
         this.m_element_right_style_str = this.m_styles.getRightElement();
 
-        // The main reservation function name
-        this.m_reservation_main_function_name = "TODO_MainReservationFunctionName()";
+        // The name of the function that will open the web page MakeReservation with
+        // some input data in a query string.
+        // It is not possible to directly call a member function of this class
+        // First is globalOpenMainReservationFunctionName that calls 
+        this.m_open_make_reservation_function_name = 'globalOpenMainReservationFunctionName()';
 
         // The main reservation function name for existing reservation application Salmen
-        this.m_reservation_main_function_name_salmen = "setNameEmailRemarkFromFormOpenMakeReservation(\'Salmen\')";
+        //QQ this.m_open_make_reservation_function_name_salmen = "setNameEmailRemarkFromFormOpenMakeReservation(\'Salmen\')";
 
         // Boolean flag telling if tabs and comments shall be removed
         this.m_remove_tabs_comments = false;
@@ -126,6 +137,12 @@ class InputEventReservation
 
         this.contentButtonOpenReservation();
 
+        this.contentInputName();
+
+        this.contentInputEmail();
+
+        this.contentInputRemark();
+
         this.debug('InputEventReservation.create Exit');
 
     } // create
@@ -155,6 +172,63 @@ class InputEventReservation
         this.debug(debug_msg);
 
     } // onChangeEventProgramDropdown
+
+    // Open the web page MakeReservation with some input data in a query string.
+    // 1. Get and check data from the input form
+    openMainReservationFunctionName()
+    {
+        // this.debug("InputEventReservation.openMainReservationFunctionName Enter");
+
+        var input_data_array = this.getAndCheckInputData();
+
+        if (input_data_array.length == 0)
+        {
+            this.debug("InputEventReservation.openMainReservationFunctionName Not valid input data");
+
+            return;
+        }
+
+        this.debug("InputEventReservation.openMainReservationFunctionName Input data:");
+
+        this.debug(input_data_array[0] + ', ' + input_data_array[1] + ', ' + input_data_array[2]);
+
+    } // openMainReservationFunctionName
+
+    // Returns an array with three elements:
+    // Name, email and remark
+    // If values not are valid an empty array will be returned
+    getAndCheckInputData()
+    {
+        var ret_input_array = [];
+
+        var name_el = this.m_id_el.getElementInputName();
+
+        var email_el = this.m_id_el.getElementInputEmail();
+
+        var remark_el = this.m_id_el.getElementInputRemark();
+
+        ret_input_array [0] = name_el.value;
+
+        ret_input_array [1] = email_el.value;
+
+        ret_input_array [2] = remark_el.value;
+
+        if (!this.checkInputData(ret_input_array))
+        {
+            ret_input_array = [];
+        }
+
+        return ret_input_array;
+
+    } // getAndCheckInputData
+
+    checkInputData(i_input_array)
+    {
+        // TODO
+
+        return true;
+
+    } // checkInputData
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Event Functions ///////////////////////////////////////////////
@@ -322,7 +396,7 @@ class InputEventReservation
 
         button_html = button_html + 'id= ' + this.m_id_el.getIdButton() + ' ';
 
-        button_html = button_html + 'onclick= ' + this.m_reservation_main_function_name_salmen + ' ';
+        button_html = button_html + 'onclick= ' + this.m_open_make_reservation_function_name + ' ';
 
         button_html = button_html + '>';
 
@@ -338,6 +412,75 @@ class InputEventReservation
         button_el.setAttribute('style', this.m_styles.getButtonOpenReservationStyle());
 
     } // contentButtonOpenReservation
+
+    contentInputName()
+    {
+        var name_div_el = this.m_id_el.getElementDivName();
+
+        var name_html = '';
+
+        name_html = name_html + '<input ';
+
+        name_html = name_html + 'id= ' + this.m_id_el.getIdInputName() + ' ';
+
+        name_html = name_html + 'type= "text"  size="30" maxlength="40" ';
+
+        name_html = name_html + '>';
+
+        name_div_el.innerHTML = name_html;
+
+        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+        var name_el = this.m_id_el.getElementInputName();
+
+        name_el.value = 'Gunnar Lidén';
+
+    } // contentInputName
+
+    contentInputEmail()
+    {
+        var name_div_el = this.m_id_el.getElementDivEmail();
+
+        var name_html = '';
+
+        name_html = name_html + '<input ';
+
+        name_html = name_html + 'id= ' + this.m_id_el.getIdInputEmail() + ' ';
+
+        name_html = name_html + 'type= "text"  size="30" maxlength="40" ';
+
+        name_html = name_html + '>';
+
+        name_div_el.innerHTML = name_html;
+
+        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+        var email_el = this.m_id_el.getElementInputEmail();
+
+        email_el.value = 'gunnar.liden@viewsoncad.ch';    
+
+    } // contentInputEmail
+
+    contentInputRemark()
+    {
+        var name_div_el = this.m_id_el.getElementDivRemark();
+
+        var name_html = '';
+
+        name_html = name_html + '<input ';
+
+        name_html = name_html + 'id= ' + this.m_id_el.getIdInputRemark() + ' ';
+
+        name_html = name_html + 'type= "text"  size="30" maxlength="150" ';
+
+        name_html = name_html + '>';
+
+        name_div_el.innerHTML = name_html;
+
+        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+        var remark_el = this.m_id_el.getElementInputRemark();
+
+        remark_el.value = 'Some remark ....';    
+
+    } // contentInputRemark
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Content Html Code /////////////////////////////////////////
