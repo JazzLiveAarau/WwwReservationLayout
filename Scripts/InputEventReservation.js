@@ -33,7 +33,6 @@ class InputEventReservation
         this.m_event_program_xml = i_event_program_xml;
 
         // Defines the event_number for the reservation. 
-        // If not set (negative) the next event will be set
         this.m_active_event_number = -1;
 
         // Boolean flag telling if the form has been created
@@ -130,10 +129,16 @@ class InputEventReservation
     ///////////////////////////////////////////////////////////////////////////
 
     // User selected a new item of the event program dropdown
-    // Must be a global function. Member functions are not allowed
+    // (Please not that this member function is called from a global function)
+    // 1. Set the event number. Call of InputEventReservation.setEventNumber
+    //    Please note that the selected item in the dropdown defines the value
     onChangeEventProgramDropdown()
     {
-        var debug_msg = 'InputEventReservation.onChangeEventProgramDropdown Enter';
+        this.setEventNumber();
+
+        var event_number = this.getEventNumber();
+
+        var debug_msg = 'InputEventReservation.onChangeEventProgramDropdown event_number= ' + event_number.toString();
 
         this.debug(debug_msg);
         
@@ -202,6 +207,23 @@ class InputEventReservation
     } // contentLabelRemark
 
     // Sets the content of the dropdown div
+    // 1. Set the style of the div container for the dropdown
+    //    Call of the HTML element function setAttibute
+    // 2. Create the the object EventProgramDropdown (m_event_dropdown_el)
+    // 3. Set the date format for the season program dropdown
+    //    Call of InputEventReservation.dropdownSetDateFormatToIsoReverse
+    // 4. Set the season program dropdown append to 'empty' 
+    //    The append string is used for the adding of an event and can for
+    //    instane have the value 'Konzert zufügen'. Not applicale here
+    //    Call of InputEventReservation.dropdownSetAppendString
+    // 5. Set the function name for the dropdown 'onchange'
+    //    This cannot be a member function of this class. It has to
+    //    be a 'global' function. Here globalOnChangeEventProgramDropdown
+    //    Call of InputEventReservation.dropdownSetOnchangeFunctionName
+    // 6. Construct the code for the dropdown and add to the container element
+    //    Call of InputEventReservation.dropdownCreate
+    // 7. Set the event number (that will be the first item of the dropdown)
+    //    Call of InputEventReservation.setEventNumber
     contentDropdown()
     {
         this.debug('InputEventReservation.contentDropdown Enter');
@@ -213,13 +235,16 @@ class InputEventReservation
         this.m_event_dropdown_el = new EventProgramDropdown(this.m_id_el.getIdDropdown(), 
                                 this.m_id_el.getIdDivDropdown(), this.m_event_program_xml);
 
+
         this.dropdownSetDateFormatToIsoReverse();
 
-        this.dropdownSetAppendString('Add event');
+        this.dropdownSetAppendString('');
 
         this.dropdownSetOnchangeFunctionName("globalOnChangeEventProgramDropdown");
 
         this.dropdownCreate();
+
+        this.setEventNumber();
 
         this.debug('InputEventReservation.contentDropdown Exit');
         
@@ -239,34 +264,6 @@ class InputEventReservation
         return this.m_element_div_container;
     }
 
-    // Returns the event number
-    getEventNumber(i_event_number)
-    {
-        return this.m_active_event_number;
-
-    } // setEventNumber
-
-    // Sets the event number
-    setEventNumber(i_event_number)
-    {
-        this.m_active_event_number = i_event_number;
-
-    } // setEventNumber
-
-    // Returns true if the event number has been set
-    eventNumberIsSet()
-    {
-        if ( this.m_active_event_number > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    } // eventNumberIsSet
-
     // Returns true if the form has been created
     isFormCreated()
     {
@@ -283,6 +280,25 @@ class InputEventReservation
 
     } // setFormCreatedToTrue
 
+    // Returns the event number
+    getEventNumber()
+    {
+        return this.m_active_event_number;
+
+    } // setEventNumber
+
+    // Sets the event number that is equal to the selected item of the dropdown
+    // TODO  Handle the case with 'Konzert zufügen' 
+    setEventNumber()
+    {
+        var dropdown_el = this.dropdownGetSelectionElement();
+
+        var dropdown_number = dropdown_el.value;
+
+        this.m_active_event_number = dropdown_number;
+
+    } // setEventNumber
+
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -290,20 +306,13 @@ class InputEventReservation
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Dropdown Set And Get Functions //////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-    // Returns the dropdown event number
-    dropdownGetEventNumber()
+    
+    // Returns the dropdown selection element
+    dropdownGetSelectionElement()
     {
-        return this.m_event_dropdown_el.getEventNumber();
+        return this.m_event_dropdown_el.getSelectionElement();
 
-    } // dropdownGetEventNumber
-
-    // Sets the dropdown event number
-    dropdownSetEventNumber(i_event_number)
-    {
-        this.m_event_dropdown_el.setEventNumber(i_event_number);
-
-    } // dropdownSetEventNumber
+    } // dropdownGetSelectionElement
 
     // Sets the title of this HTML element. The title can be a tool tip
     // In a desktop computer the title is displayed when the mouse is

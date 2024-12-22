@@ -1,5 +1,5 @@
 // File: EventProgramDropdown.js
-// Date: 2024-12-21
+// Date: 2024-12-22
 // Author: Gunnar Lidén
 
 // File content
@@ -59,7 +59,7 @@ class EventProgramDropdown
 
         // Defines the event_number for the reservation. 
         // If not set (negative) the next event will be set
-        this.m_active_event_number = -1;
+        //QQQ this.m_active_event_number = -1;
 
         // Boolean flag telling if the form has been created
         this.m_dropdown_created = false;
@@ -119,11 +119,34 @@ class EventProgramDropdown
             this.modifyDropdownNameArray();
         }
 
-        this.setNumberArray();
+        var event_start_number = this.m_event_program_xml.getDateNameEventArrayStartNumber(b_only_coming);
+
+        this.setNumberArray(event_start_number);
 
         this.debug('EventProgramDropdown.setNameArray Exit');
 
     } // setNameArray
+
+    // Sets the number array 
+    setNumberArray(i_event_start_number)
+    {
+        this.debug('EventProgramDropdown.setNumberArray i_event_start_number= ' 
+                + i_event_start_number.toString());
+
+        this.m_drop_down_number_array = [];
+
+        var array_number = i_event_start_number;
+        
+        for (var index_name=0; index_name < this.m_drop_down_name_array.length; index_name++)
+        {
+            array_number = array_number + 1;
+
+            this.m_drop_down_number_array[index_name] = array_number;
+        }
+
+        this.debug('EventProgramDropdown.setNumberArray Exit');
+
+    } // setNumberArray
 
     // Make one array of the two input arrays
     dropdownWithDateAndName(i_date_array, i_name_array)
@@ -176,28 +199,6 @@ class EventProgramDropdown
 
     } // modifyDropdownNameArray
 
-    // Sets the number array 
-    setNumberArray()
-    {
-        this.debug('EventProgramDropdown.setNumberArray Enter');
-
-        this.m_drop_down_number_array = [];
-
-        var array_number = 0;
-        
-        for (var index_name=0; index_name < this.m_drop_down_name_array.length; index_name++)
-        {
-            array_number = array_number + 1;
-
-            this.m_drop_down_number_array[index_name] = array_number;
-        }
-
-        this.debug('EventProgramDropdown.setNumberArray Exit');
-
-    } // setNumberArray
-
-
-
     ///////////////////////////////////////////////////////////////////////////
     /////// End Create Dropdown ////////(//////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -206,35 +207,12 @@ class EventProgramDropdown
     /////// Start Set And Get Members ////////(////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns the event number
-    getEventNumber()
+    // Returns the selection element
+    getSelectionElement()
     {
-        return this.m_active_event_number;
+        return document.getElementById(this.m_id_drop_down);
 
-    } // setEventNumber
-
-    // Sets the event number
-    setEventNumber(i_event_number)
-    {
-        this.m_active_event_number = i_event_number;
-
-        if (this.isDropdownCreated()){this.create();}
-
-    } // setEventNumber
-
-    // Returns true if the event number has been set
-    eventNumberIsSet()
-    {
-        if ( this.m_active_event_number > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    } // eventNumberIsSet
+    } // getSelectionElement
 
     // Returns true if the form has been created
     isDropdownCreated()

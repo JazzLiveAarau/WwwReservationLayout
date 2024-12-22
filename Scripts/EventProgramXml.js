@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2024-12-20
+// Date: 2024-12-22
 // Author: Gunnar Lidén
 
 
@@ -339,6 +339,46 @@ class EventProgramXml
         return ret_name_array;
 
     } // getEventNameArray
+
+    // Returns the start program event number for functions 
+    // getEventNameArray and getEventDateArray
+    getDateNameEventArrayStartNumber(i_b_only_coming)
+    {
+        var ret_start_number = 0;
+
+        if (!i_b_only_coming)
+        {
+            return ret_start_number;
+        }
+
+        var n_events = this.getNumberOfEvents();
+
+        var index_name = 0;
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+            var event_year = this.getYear(event_number);
+
+            var event_month = this.getMonth(event_number);
+
+            var event_day = this.getDay(event_number);
+
+            var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+
+            if (b_date_passed)
+            {
+                ret_start_number = ret_start_number + 1;
+            }
+            else
+            {
+                break;
+            }
+
+        } // event_number
+
+        return ret_start_number;
+
+    } // getDateNameEventArrayStartNumber
 
      // Returns an array of event dates
     // i_b_only_coming: Only coming events if true
