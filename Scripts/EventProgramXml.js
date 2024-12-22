@@ -163,12 +163,33 @@ class EventProgramXml
     } // getEventName
 
    // Returns the event short text
-   getShortText(i_event_number) // Previously getEventShortText
+   getShortText(i_event_number) 
    {
        return this.getEventNodeValue(this.m_tags.getShortText(), i_event_number);
        
    } // getShortText
 
+    // Returns the URL to the reservation subdirectory
+    getUrlReservationDir(i_event_number) // Previously getEventShortText
+    {
+        return this.getEventNodeValue(this.m_tags.getUrlReservationDir(), i_event_number);
+        
+    } // getUrlReservationDir
+
+   // Returns the event prices text
+   getPrices(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getPrices(), i_event_number);
+       
+   } // getPrices
+
+   // Returns the event instructions text
+   getInstructions(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getInstructions(), i_event_number);
+       
+   } // getInstructions
+   
     ///////////////////////////////////////////////////////////////////////////
     /////// End Get event Functions ////////(////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -571,6 +592,9 @@ class EventProgramTags
         this.m_tag_event_cancelled = "EventCancelled";
         this.m_tag_event_name = "EventName";
         this.m_tag_short_text = "ShortText";
+        this.m_tag_url_reservation_dir = "UrlReservationDir";
+        this.m_tag_prices = "Prices";
+        this.m_tag_instructions = "Instructions";
     }
 
     getEvent(){return this.m_tag_event;} 
@@ -585,5 +609,8 @@ class EventProgramTags
     getCancelled(){return this.m_tag_event_cancelled;}
     getEventName(){return this.m_tag_event_name;} 
     getShortText(){return this.m_tag_short_text;}
+    getUrlReservationDir(){return this.m_tag_url_reservation_dir;}
+    getPrices(){return this.m_tag_prices;}
+    getInstructions(){return this.m_tag_instructions;}
 
 } // EventProgramTags

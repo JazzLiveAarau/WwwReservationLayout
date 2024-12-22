@@ -116,6 +116,8 @@ class InputEventReservation
 
         this.contentDropdown();
 
+        this.contentsSelectedEvent();
+
         this.debug('InputEventReservation.create Exit');
 
     } // create
@@ -140,9 +142,9 @@ class InputEventReservation
 
         var debug_msg = 'InputEventReservation.onChangeEventProgramDropdown event_number= ' + event_number.toString();
 
+        this.contentsSelectedEvent();
+
         this.debug(debug_msg);
-        
-        alert(debug_msg);
 
     } // onChangeEventProgramDropdown
 
@@ -249,6 +251,54 @@ class InputEventReservation
         this.debug('InputEventReservation.contentDropdown Exit');
         
     } // contentDropdown
+
+    // Sets the content of the controls that get the data from the selected event
+    // 1. Set content of the name <div>. Call of contentName
+    contentsSelectedEvent()
+    {
+        this.contentName();
+
+        this.contentPrices();
+
+        this.contentInstructions();
+
+    } // contentsSelectedEvent
+
+    contentName()
+    {
+        var event_number = this.getEventNumber();
+
+        var event_name = this.m_event_program_xml.getEventName(event_number);
+
+        var event_name_el = this.m_id_el.getElementDivEventName();
+
+        event_name_el.innerHTML = event_name;
+
+    } // contentName
+
+    contentPrices()
+    {
+        var event_number = this.getEventNumber();
+
+        var event_prices = this.m_event_program_xml.getPrices(event_number);
+
+        var event_prices_el = this.m_id_el.getElementDivPrices();
+
+        event_prices_el.innerHTML = event_prices;
+
+    } // contentPrices
+
+    contentInstructions()
+    {
+        var event_number = this.getEventNumber();
+
+        var event_instructions = this.m_event_program_xml.getInstructions(event_number);
+
+        var event_instructions_el = this.m_id_el.getElementDivInstructions();
+
+        event_instructions_el.innerHTML = event_instructions;
+
+    } // contentInstructions
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Content Html Code /////////////////////////////////////////
