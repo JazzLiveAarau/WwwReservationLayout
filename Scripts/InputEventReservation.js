@@ -282,6 +282,8 @@ class InputEventReservation
 
         var event_prices = this.m_event_program_xml.getPrices(event_number);
 
+        event_prices = UtilString.rowEndsWindowsToHtml(event_prices);
+
         var event_prices_el = this.m_id_el.getElementDivPrices();
 
         event_prices_el.innerHTML = event_prices;
@@ -293,6 +295,8 @@ class InputEventReservation
         var event_number = this.getEventNumber();
 
         var event_instructions = this.m_event_program_xml.getInstructions(event_number);
+
+        event_instructions = UtilString.rowEndsWindowsToHtml(event_instructions);
 
         var event_instructions_el = this.m_id_el.getElementDivInstructions();
 
