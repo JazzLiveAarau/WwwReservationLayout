@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-19
+// Date: 2024-12-22
 // Author: Gunnar Lidén
 
 // Class with strings for the application
@@ -19,6 +19,9 @@ class InputEventReservationText
         // The label remark for the input form
        this.m_label_remark = '';
 
+       // The caption for the button open reservation
+       this.m_button_open_reservation_caption = '';
+
         this.default();
 
     } // constructor
@@ -37,6 +40,8 @@ class InputEventReservationText
         this.m_label_email = this.defaultLabelEmail();
 
         this.m_label_remark = this.defaultLabelRemark();
+
+        this.m_button_open_reservation_caption = this.defaultCaptionButtonOpenReservation();
 
     } // default
 
@@ -67,6 +72,13 @@ class InputEventReservationText
         return 'Bemerkung:';
 
     } // defaultLabelRemark
+
+    // Default caption for the button open reservation
+    defaultCaptionButtonOpenReservation()
+    {
+        return 'Plätze wählen';
+
+    } // defaultCaptionButtonOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Default Texts /////////////////////////////////////////////////
@@ -131,6 +143,20 @@ class InputEventReservationText
         this.m_label_remark = i_label_name;
 
     } // setLabelRemark
+
+    // Returns the button caption open reservation
+    getCaptionButtonOpenReservation()
+    {
+        return this.m_button_open_reservation_caption;
+
+    } // getCaptionButtonOpenReservation
+
+    // Sets the button caption open reservation
+    setCaptionButtonOpenReservation(i_button_open_reservation_caption)
+    {
+        return this.m_button_open_reservation_caption = i_button_open_reservation_caption;
+        
+    } // setCaptionButtonOpenReservation
     
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get And Set Texts ///////////////////////////////////////////

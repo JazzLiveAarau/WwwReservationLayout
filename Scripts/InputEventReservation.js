@@ -47,17 +47,17 @@ class InputEventReservation
         // The event dropdown object EventProgramDropdown
         this.m_event_dropdown_el = null;
 
+        // Start string for all identities
+        this.m_id_unique_str = "id_input_event_reserv_";
+
         // Identitity and object functions for class InputEventReservation
-        this.m_id_el = new InputEventReservationIdElement();
+        this.m_id_el = new InputEventReservationIdElement(this.m_id_unique_str);
 
         // Object defining all text strings for the application
         this.m_texts = new InputEventReservationText();
 
         // Object defining all style strings for the application
         this.m_styles = new InputEventReservationStyle();
-
-        // Start string for all identities
-        this.m_id_unique_str = "id_input_event_reserv_";
 
         // The width of the input form
         this.m_input_form_width = '310px';
@@ -73,6 +73,12 @@ class InputEventReservation
 
         // Style for a row right element
         this.m_element_right_style_str = this.m_styles.getRightElement();
+
+        // The main reservation function name
+        this.m_reservation_main_function_name = "TODO_MainReservationFunctionName()";
+
+        // The main reservation function name for existing reservation application Salmen
+        this.m_reservation_main_function_name_salmen = "setNameEmailRemarkFromFormOpenMakeReservation(\'Salmen\')";
 
         // Boolean flag telling if tabs and comments shall be removed
         this.m_remove_tabs_comments = false;
@@ -117,6 +123,8 @@ class InputEventReservation
         this.contentDropdown();
 
         this.contentsSelectedEvent();
+
+        this.contentButtonOpenReservation();
 
         this.debug('InputEventReservation.create Exit');
 
@@ -303,6 +311,33 @@ class InputEventReservation
         event_instructions_el.innerHTML = event_instructions;
 
     } // contentInstructions
+
+    contentButtonOpenReservation()
+    {
+        var button_div_el = this.m_id_el.getElementDivButton();
+
+        var button_html = '';
+
+        button_html = button_html + '<button ';
+
+        button_html = button_html + 'id= ' + this.m_id_el.getIdButton() + ' ';
+
+        button_html = button_html + 'onclick= ' + this.m_reservation_main_function_name_salmen + ' ';
+
+        button_html = button_html + '>';
+
+        button_html = button_html + this.m_texts.getCaptionButtonOpenReservation();
+
+        button_html = button_html + '</button>';
+
+
+        button_div_el.innerHTML = button_html;
+
+        var button_el = this.m_id_el.getElementButton();
+
+        button_el.setAttribute('style', this.m_styles.getButtonOpenReservationStyle());
+
+    } // contentButtonOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Content Html Code /////////////////////////////////////////

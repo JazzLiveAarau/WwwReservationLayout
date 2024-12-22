@@ -1,5 +1,5 @@
-// File: InputEventReservationIdElement.js
-// Date: 2024-12-19
+// File: InputEventReservationIdElement.js>
+// Date: 2024-12-22
 // Author: Gunnar Lidén
 
 // File content
@@ -9,8 +9,11 @@
 
 class InputEventReservationIdElement
 {
-    constructor()
+    constructor(i_id_unique_str)
     {
+        // Start string for all identities
+        this.m_id_unique_str = i_id_unique_str;
+
         // Boolean flag telling if the form has been created
         this.m_form_created = false;
     }
@@ -438,6 +441,37 @@ class InputEventReservationIdElement
         return document.getElementById(this.getIdDivButton());
 
     } // getElementDivButton
+
+    // Returns the identity of the button
+    getIdButton()
+    {
+        return this.m_id_unique_str + 'button_open_reservation';
+    }
+
+    //Returns the button element
+    getElementButton()
+    {
+        if (!this.isFormCreated())
+        {
+            alert("InputEventReservation.getElementButton Object is not yet created");
+
+            return null;
+        }
+
+        var id_button = this.getIdButton();
+
+        var button_el = document.getElementById(id_button);
+
+        if (null == button_el)
+        {
+            alert("InputEventReservationIdElement There is no element with id_button= " + id_button);
+
+            return null;
+        }
+
+        return button_el;
+
+    } // getElementButton
 
     // Returns the identity of the div for the button information
     getIdDivInfoButton()
