@@ -177,29 +177,68 @@ class InputEventReservation
     // 1. Get and check data from the input form
     openMainReservationFunctionName()
     {
-        // this.debug("InputEventReservation.openMainReservationFunctionName Enter");
+        var name_form = this.nameFromForm();
 
-        var input_data_array = this.getAndCheckInputData();
+        var email_form = this.emailFromForm();
 
-        if (input_data_array.length == 0)
+        var remark_form = this.remarkFromForm();
+
+        var event_number = this.getEventNumber();
+
+        if (!this.checkInputData(name_form, email_form, remark_form, event_number))
         {
-            this.debug("InputEventReservation.openMainReservationFunctionName Not valid input data");
 
             return;
         }
 
+
+
         this.debug("InputEventReservation.openMainReservationFunctionName Input data:");
 
-        this.debug(input_data_array[0] + ', ' + input_data_array[1] + ', ' + input_data_array[2]);
+        this.debug(name_form + ', ' + email_form + ', ' + remark_form);
 
     } // openMainReservationFunctionName
 
+    // Returns true if data is valid
+    checkInputData(i_name, i_email, i_remark, i_event_number)
+    {
+
+    } // checkInputData
+
+    // Returns the name from the form
+    nameFromForm()
+    {
+        var name_el = this.m_id_el.getElementInputName();
+
+        return name_el.value.trim();
+
+    } // nameFromForm
+
+    // Returns the email from the form
+    emailFromForm()
+    {
+        var email_el = this.m_id_el.getElementInputEmail();
+
+        return email_el.value.trim();
+        
+    } // emailFromForm
+
+    // Returns the remark from the form
+    remarkFromForm()
+    {
+        var remark_el = this.m_id_el.getElementInputRemark();
+
+        return remark_el.value.trim();
+        
+    } // remarkFromForm
+
+    // TODO Not used any more
     // Returns an array with three elements:
     // Name, email and remark
     // If values not are valid an empty array will be returned
     getAndCheckInputData()
     {
-        var ret_input_array = [];
+        var ret_reservation_data = [];
 
         var name_el = this.m_id_el.getElementInputName();
 
@@ -207,9 +246,10 @@ class InputEventReservation
 
         var remark_el = this.m_id_el.getElementInputRemark();
 
-        ret_input_array [0] = name_el.value;
+        var reservation_name = name_el.value;
 
-        ret_input_array [1] = email_el.value;
+
+        var reservation_email = email_el.value;
 
         ret_input_array [2] = remark_el.value;
 
@@ -218,7 +258,7 @@ class InputEventReservation
             ret_input_array = [];
         }
 
-        return ret_input_array;
+        return ret_reservation_data;
 
     } // getAndCheckInputData
 
