@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-21
+// Date: 2024-12-28
 // Authors: Gunnar Lidén
 
 // Content
@@ -860,7 +860,10 @@ class LayoutScript
             path_file_array[ 3] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationText.js';
             path_file_array[ 4] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramDropdown.js';
             path_file_array[ 5] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/EventProgramXml.js';
-            path_file_array[ 6] = 'https://jazzliveaarau.ch/JazzScripts/Utils_20241111.js';
+            path_file_array[ 6] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/ReservationData.js';
+            path_file_array[ 7] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/ReservationStorage.js';
+            path_file_array[ 8] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/ReservationOpen.js';
+            path_file_array[ 9] = 'https://jazzliveaarau.ch/JazzScripts/Utils_20241111.js';
         }
         else
         {
@@ -1269,7 +1272,15 @@ class LayoutScript
 		
         if (this.m_layout_file_case == 'MakeReservation' )
         {
-            main_str = '';
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_reservation_language = "german"; // or english or swedish' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow(); 
         }
         else if (this.m_layout_file_case == 'ShowLayout' )
         {
@@ -1277,11 +1288,27 @@ class LayoutScript
         }
         else if (this.m_layout_file_case == 'AddReservation' )
         {
-           main_str = '';
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_reservation_language = "german"; // or english or swedish' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow(); 
         }
         else if (this.m_layout_file_case == 'SearchReservation' )
         {
-           main_str = ''; 
+            main_str = main_str + LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow(); 
+
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_reservation_language = "german"; // or english or swedish' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+
+            main_str = main_str + LayoutHtml.endRow(); 
         }
         else if (this.m_layout_file_case == 'ReservationPrint' || this.m_layout_file_case == 'ReservationList')
         {
@@ -1299,6 +1326,10 @@ class LayoutScript
             main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(3) + 'var g_input_event_reservation = null;' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
+
+            main_str = main_str + LayoutHtml.tab(3) + 'var g_reservation_language = "german"; // or english or swedish' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(1) + '' + LayoutHtml.endRow();
 
