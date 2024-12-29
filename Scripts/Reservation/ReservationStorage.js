@@ -271,7 +271,8 @@ class ReservationStorage
     // Key reservation event number
     static keyEventNumber()
     {
-        return 'reservation_event_number_str';
+        // Must be this key for the old version of the reservation app
+        return 'reservation_requested_concert_number';
         
     } // keyEventNumber
 
@@ -286,8 +287,6 @@ class ReservationStorage
     // Returns a string (flag) telling that the variable not yet was set
     static undefinedStringValue()
     {
-        //QQQ return 'UndefinedStorageValue';
-
         return '';
 
     } // undefinedStringValue

@@ -212,7 +212,7 @@ class InputEventReservation
 
         ReservationStorage.setLocal(reservation_data);
 
-
+        var reservation_open = new ReservationOpen(reservation_data);
 
 
         this.debug("InputEventReservation.openMainReservationFunctionName Input data:");

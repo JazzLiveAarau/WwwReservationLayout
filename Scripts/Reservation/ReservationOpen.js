@@ -1,5 +1,5 @@
 // File: ReservationOpen.js
-// Date: 2024-12-28
+// Date: 2024-12-29
 // Author: Gunnar Lidén
 
 // Class handling the opening of another window and passing data to and retrieving 
@@ -10,27 +10,33 @@
 // TODO This class (file) shall be in project WwwReservation and not in WwwReservationLayout
 class ReservationOpen
 {
-    constructor()
+    constructor(i_reservation_data)
     {
         // Reservation data. An instance of the class ReservationData
-        this.m_reservation_data = null;
+        this.m_reservation_data = i_reservation_data;
+
+         // Initialization function
+        this.init();
 
     } // constructor
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// Start Set Functions ///////////////////////////////////////////////
+    /////// Start Init Functions //////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Sets the reservation data. 
-    // i_reservation_data: An instance of the class ReservationData
-    setReservationData(i_reservation_data)
+    // Initialization function
+    // 1. Set session storage data.
+    //    Call of ReservationStorage.setSession
+    init()
     {
-        this.m_reservation_data = i_reservation_data;
+        ReservationStorage.setSession(this.m_reservation_data)
 
-    } // setReservationData
+    } // init
+
+
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Set Functions /////////////////////////////////////////////////
+    /////// End Init Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 } // ReservationOpen
