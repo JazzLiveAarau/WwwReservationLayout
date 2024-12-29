@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-22
+// Date: 2024-12-29
 // Author: Gunnar Lidén
 
 // Class with strings for the application
@@ -48,35 +48,110 @@ class InputEventReservationText
     // Default header text for the input form
     defaultHeaderText()
     {
-        return 'Reservation';
+        if ("german" == g_reservation_language)
+        {
+            return 'Reservation'; 
+        }
+        else if ("english" == g_reservation_language)
+        {
+            return 'Reservation';
+        }
+        else if ("swedish" == g_reservation_language)
+        {
+            return 'Reservation';
+        }
+        else
+        {
+            alert("InputEventReservationText.defaultHeaderText Not an implemented language '" + g_reservation_language + "'");
+        }
 
     } // defaultHeaderText
 
     // Default label name for the input form
     defaultLabelName()
     {
-        return 'Vorname und Nachname: *';
+        if ("german" == g_reservation_language)
+        {
+            return 'Vorname und Nachname: *';
+        }
+        else if ("english" == g_reservation_language)
+        {
+            return 'First name and family name: *';
+        }
+        else if ("swedish" == g_reservation_language)
+        {
+            return 'Förnamn och efternamn: *';
+        }
+        else
+        {
+            alert("InputEventReservationText.defaultLabelName Not an implemented language '" + g_reservation_language + "'");
+        }
 
     } // defaultLabelName
 
     // Default label email for the input form
     defaultLabelEmail()
     {
-        return 'E-Mail: *';
+        if ("german" == g_reservation_language)
+        {
+            return 'E-Mail-Adresse: *';
+        }
+        else if ("english" == g_reservation_language)
+        {
+            return 'Email address: *';
+        }
+        else if ("swedish" == g_reservation_language)
+        {
+            return 'Email adress: *';
+        }
+        else
+        {
+            alert("InputEventReservationText.defaultLabelEmail Not an implemented language '" + g_reservation_language + "'");
+        }
 
     } // defaultLabelEmail
 
     // Default label remark for the input form
     defaultLabelRemark()
     {
-        return 'Bemerkung:';
+        if ("german" == g_reservation_language)
+        {
+            return 'Bemerkung:';
+        }
+        else if ("english" == g_reservation_language)
+        {
+            return 'Remark:';
+        }
+        else if ("swedish" == g_reservation_language)
+        {
+            return 'Anmärkning:';
+        }
+        else
+        {
+            alert("InputEventReservationText.defaultLabelRemark Not an implemented language '" + g_reservation_language + "'");
+        }
 
     } // defaultLabelRemark
 
     // Default caption for the button open reservation
     defaultCaptionButtonOpenReservation()
     {
-        return 'Plätze wählen';
+        if ("german" == g_reservation_language)
+        {
+            return 'Plätze wählen';
+        }
+        else if ("english" == g_reservation_language)
+        {
+            return 'Select seats';
+        }
+        else if ("swedish" == g_reservation_language)
+        {
+            return 'Välj platser';
+        }
+        else
+        {
+            alert("InputEventReservationText.defaultCaptionButtonOpenReservation Not an implemented language '" + g_reservation_language + "'");
+        }
 
     } // defaultCaptionButtonOpenReservation
 
