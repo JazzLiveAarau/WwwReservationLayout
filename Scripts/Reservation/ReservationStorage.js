@@ -74,6 +74,7 @@ class ReservationStorage
 
         var event_number_str = localStorage.getItem(ReservationStorage.keyEventNumber);
 
+        // add_str is not used in setAddToXmFileName
         ret_reservation_data.setAddToXmFileName(add_str);
 
         ret_reservation_data.setName(reservation_name);
@@ -84,7 +85,7 @@ class ReservationStorage
 
         var event_number_int = parseInt(event_number_str);
 
-        ret_reservation_data.setEventNumberString(event_number_int);
+        ret_reservation_data.setEventNumber(event_number_int);
 
         return ret_reservation_data;
 
@@ -106,6 +107,7 @@ class ReservationStorage
 
         var reservation_name_str = sessionStorage.getItem(ReservationStorage.keyEventNumber);
 
+        // add_str is not used in setAddToXmFileName
         ret_reservation_data.setAddToXmFileName(add_str);
 
         ret_reservation_data.setName(reservation_name);
@@ -116,7 +118,7 @@ class ReservationStorage
 
         var reservation_name_int = parseInt(reservation_name_str);
 
-        ret_reservation_data.setEventNumberString(reservation_name_int);
+        ret_reservation_data.setEventNumber(reservation_name_int);
 
         return ret_reservation_data;
 
@@ -143,35 +145,35 @@ class ReservationStorage
 
         var event_number_str = localStorage.getItem(ReservationStorage.keyEventNumber);
 
-        if (null == add_str || '' == add_str)
+        if (null == add_str)
         {
             add_str = ReservationStorage.undefinedStringValue();
 
             localStorage.setItem(ReservationStorage.keyAddToXmFileName, add_str);
         }
 
-        if (null == reservation_name || '' == reservation_name)
+        if (null == reservation_name)
         {
             reservation_name = ReservationStorage.undefinedStringValue();
 
             localStorage.setItem(ReservationStorage.keyName, reservation_name);
         }
 
-        if (null == reservation_email || '' == reservation_email)
+        if (null == reservation_email)
         {
             reservation_email = ReservationStorage.undefinedStringValue();
 
             localStorage.setItem(ReservationStorage.keyEmail, reservation_email);
         }
 
-        if (null == reservation_remark || '' == reservation_remark)
+        if (null == reservation_remark)
         {
             reservation_remark = ReservationStorage.undefinedStringValue();
 
             localStorage.setItem(ReservationStorage.keyRemark, reservation_remark);
         }
 
-        if (null == event_number_str || '' == event_number_str)
+        if (null == event_number_str)
         {
             event_number_str = ReservationStorage.undefinedIntValue();
 
@@ -193,35 +195,35 @@ class ReservationStorage
 
         var event_number_str = sessionStorage.getItem(ReservationStorage.keyEventNumber);
 
-        if (null == add_str || '' == add_str)
+        if (null == add_str)
         {
             add_str = ReservationStorage.undefinedStringValue();
 
             sessionStorage.setItem(ReservationStorage.keyAddToXmFileName, add_str);
         }
 
-        if (null == reservation_name || '' == reservation_name)
+        if (null == reservation_name)
         {
             reservation_name = ReservationStorage.undefinedStringValue();
 
             sessionStorage.setItem(ReservationStorage.keyName, reservation_name);
         }
 
-        if (null == reservation_email || '' == reservation_email)
+        if (null == reservation_email)
         {
             reservation_email = ReservationStorage.undefinedStringValue();
 
             sessionStorage.setItem(ReservationStorage.keyEmail, reservation_email);
         }
 
-        if (null == reservation_remark || '' == reservation_remark)
+        if (null == reservation_remark)
         {
             reservation_remark = ReservationStorage.undefinedStringValue();
 
             sessionStorage.setItem(ReservationStorage.keyRemark, reservation_remark);
         }
 
-        if (null == event_number_str || '' == event_number_str)
+        if (null == event_number_str)
         {
             event_number_str = ReservationStorage.undefinedIntValue();
 
@@ -284,7 +286,9 @@ class ReservationStorage
     // Returns a string (flag) telling that the variable not yet was set
     static undefinedStringValue()
     {
-        return 'UndefinedStorageValue';
+        //QQQ return 'UndefinedStorageValue';
+
+        return '';
 
     } // undefinedStringValue
 
@@ -292,7 +296,7 @@ class ReservationStorage
     // Returns a integer string (flag) telling that the variable not yet was set
     static undefinedIntValue()
     {
-        return '-12345';
+        return '0';
 
     } // undefinedIntValue
 

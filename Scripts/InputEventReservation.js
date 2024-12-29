@@ -139,11 +139,13 @@ class InputEventReservation
 
         this.contentButtonOpenReservation();
 
-        this.contentInputName();
+        var data_storage = ReservationStorage.getLocal();
 
-        this.contentInputEmail();
+        this.contentInputName(data_storage);
 
-        this.contentInputRemark();
+        this.contentInputEmail(data_storage);
+
+        this.contentInputRemark(data_storage);
 
         this.debug('InputEventReservation.create Exit');
 
@@ -228,11 +230,21 @@ class InputEventReservation
 
         var b_alert = true;
 
-        if (ReservationData.isNameAndEmailEmpty(i_name, i_email, b_alert))
+        if (ReservationData.nameAndEmailAreEmpty(i_name, i_email, b_alert))
         {
             b_valid = false;
 
             return b_valid;
+        }
+
+        if (ReservationData.nameIsEmpty(i_name, b_alert))
+        {
+            b_valid = false;
+        }
+
+        if (ReservationData.emailIsEmpty(i_email, b_alert))
+        {
+            b_valid = false;
         }
 
         if (!ReservationData.checkName(i_name, b_alert))
@@ -507,7 +519,7 @@ class InputEventReservation
 
     } // contentButtonOpenReservation
 
-    contentInputName()
+    contentInputName(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivName();
 
@@ -523,14 +535,15 @@ class InputEventReservation
 
         name_div_el.innerHTML = name_html;
 
-        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
         var name_el = this.m_id_el.getElementInputName();
 
-        name_el.value = 'Gunnar Lidén';
+        var name_storage = i_data_storage.getName();
+
+        name_el.value = name_storage;
 
     } // contentInputName
 
-    contentInputEmail()
+    contentInputEmail(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivEmail();
 
@@ -546,14 +559,15 @@ class InputEventReservation
 
         name_div_el.innerHTML = name_html;
 
-        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
         var email_el = this.m_id_el.getElementInputEmail();
 
-        email_el.value = 'gunnar.liden@viewsoncad.ch';    
+        var email_storage = i_data_storage.getEmail();
+
+        email_el.value = email_storage;    
 
     } // contentInputEmail
 
-    contentInputRemark()
+    contentInputRemark(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivRemark();
 
@@ -569,10 +583,11 @@ class InputEventReservation
 
         name_div_el.innerHTML = name_html;
 
-        // For test only QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
         var remark_el = this.m_id_el.getElementInputRemark();
 
-        remark_el.value = 'Some remark ....';    
+        var remark_storage = i_data_storage.getRemark();
+
+        remark_el.value = remark_storage;    
 
     } // contentInputRemark
 
