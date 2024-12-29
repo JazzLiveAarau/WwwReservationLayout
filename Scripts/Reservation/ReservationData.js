@@ -1,5 +1,5 @@
 // File: ReservationData.js
-// Date: 2024-12-28
+// Date: 2024-12-29
 // Author: Gunnar Lidén
 
 // Class holding the data for a reservation, that is the data that shall be passed
@@ -102,6 +102,14 @@ class ReservationData
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get Functions ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Get add to XML file name
+    // Obsolete. Only used for the old reservation application
+    getAddToXmFileName()
+    {
+        return this.m_add_to_xml_file_name;
+
+    } // getAddToXmFileName
 
     // Returns the name m_reservation_name
     getName()

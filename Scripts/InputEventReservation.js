@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-21
+// Date: 2024-12-29
 // Author: Gunnar Lidén
 
 // File content
@@ -104,6 +104,8 @@ class InputEventReservation
 
         this.setElementDivContainer();
 
+        this.initStorageVariables();
+
     } // constructor
 
     ///////////////////////////////////////////////////////////////////////////
@@ -174,7 +176,13 @@ class InputEventReservation
     } // onChangeEventProgramDropdown
 
     // Open the web page MakeReservation with some input data in a query string.
-    // 1. Get and check data from the input form
+    // 1. Get data from the input form. Call of InputEventReservation.nameFromForm 
+    //    emailFromForm, remarkFromForm and getEventNumber
+    // 2. Check data. Call of InputEventReservation.checkInputData
+    // 3. Create a ReservationData and set reservation data. Call of the objects
+    //    member functions setName, setEmail, setRemark and setEventNumber
+    // 4. Set reservation data in windows local storage. 
+    //    Call of ReservationStorage.setLocal
     openMainReservationFunctionName()
     {
         var name_form = this.nameFromForm();
@@ -187,9 +195,21 @@ class InputEventReservation
 
         if (!this.checkInputData(name_form, email_form, remark_form, event_number))
         {
-
             return;
         }
+
+        var reservation_data = new ReservationData();
+
+        reservation_data.setName(name_form.trim());
+
+        reservation_data.setEmail(email_form.trim());
+
+        reservation_data.setRemark(remark_form.trim());
+
+        reservation_data.setEventNumber(event_number);
+
+        ReservationStorage.setLocal(reservation_data);
+
 
 
 
@@ -199,9 +219,43 @@ class InputEventReservation
 
     } // openMainReservationFunctionName
 
-    // Returns true if data is valid
+    // Returns true if the data is valid
+    // Please note that this check will be done also when data is set 
+    // in ReservationData.
     checkInputData(i_name, i_email, i_remark, i_event_number)
     {
+        var b_valid = true;
+
+        var b_alert = true;
+
+        if (ReservationData.isNameAndEmailEmpty(i_name, i_email, b_alert))
+        {
+            b_valid = false;
+
+            return b_valid;
+        }
+
+        if (!ReservationData.checkName(i_name, b_alert))
+        {
+            b_valid = false;
+        }
+
+        if (!ReservationData.checkEmail(i_email, b_alert))
+        {
+            b_valid = false;
+        }
+
+        if (!ReservationData.checkRemark(i_remark, b_alert))
+        {
+            b_valid = false;
+        }
+
+        if (!ReservationData.checkEventNumber(i_event_number, b_alert))
+        {
+            b_valid = false;
+        }
+
+        return b_valid;
 
     } // checkInputData
 
@@ -676,6 +730,15 @@ class InputEventReservation
         }
 
     } // setElementDivContainer
+
+    // Initialisation of local and session windows variables
+    initStorageVariables()
+    {
+        ReservationStorage.initLocal();
+
+        ReservationStorage.initSession();
+
+    } // initStorageVariables
 
     // Writes debug to the console
     debug(i_msg_str)
