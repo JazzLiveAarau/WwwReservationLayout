@@ -280,7 +280,7 @@ class ReservationData
     } // validEmailRegex
 
     // Returns true if name and email are empty strings
-    nameAndEmailAreEmpty(i_name, i_email, i_b_alert)
+    static nameAndEmailAreEmpty(i_name, i_email, i_b_alert)
     {
         var name_trim = i_name.trim();
 
@@ -303,11 +303,9 @@ class ReservationData
     } // nameAndEmailAreEmpty
 
     // Returns true if name and email are empty strings
-    nameIsEmpty(i_name, i_b_alert)
+    static nameIsEmpty(i_name, i_b_alert)
     {
         var name_trim = i_name.trim();
-
-        var email_trim = i_email.trim();
 
         if (name_trim.length == 0 && email_trim.length == 0)
         {
@@ -326,7 +324,7 @@ class ReservationData
     } // nameIsEmpty
 
     // Returns true if email is an empty string
-    emailIsEmpty(i_email, i_b_alert)
+    static emailIsEmpty(i_email, i_b_alert)
     {
         var email_trim = i_email.trim();
 

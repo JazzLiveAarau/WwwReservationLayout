@@ -221,6 +221,138 @@ class InputEventReservation
 
     } // openMainReservationFunctionName
 
+    // User changed the value of the input element name
+    onChangeInputName()
+    {
+        var name_form = this.nameFromForm();
+
+        if (name_form.trim().length == 0)
+        {
+            return;
+        }
+
+        var b_alert = false;
+
+        if (ReservationData.checkName(name_form, b_alert))
+        {
+            this.nameSetColorValid();
+        }
+        else
+        {
+            this.nameSetColorError();
+        }
+
+    } // onChangeInputName
+
+    // User changed the value of the input element email
+    onChangeInputEmail()
+    {
+        var email_form = this.emailFromForm();
+
+        if (email_form.trim().length == 0)
+        {
+            return;
+        }
+
+        var b_alert = false;
+
+        if (ReservationData.checkEmail(email_form, b_alert))
+        {
+            this.emailSetColorValid();
+        }
+        else
+        {
+            this.emailSetColorError();
+        }
+
+    } // onChangeInputName
+
+    // User changed the value of the input element remark
+    onChangeInputRemark()
+    {
+        var remark_form = this.remarkFromForm();
+
+        if (remark_form.trim().length == 0)
+        {
+            return;
+        }
+
+        var b_alert = false;
+
+        if (ReservationData.checkRemark(remark_form, b_alert))
+        {
+            this.remarkSetColorValid();
+        }
+        else
+        {
+            this.remarkSetColorError();
+        }
+
+    } // onChangeInputRemark
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Event Functions ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get Check Form Data /////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the text valid color (black) for name
+    nameSetColorValid()
+    {
+        var name_el = this.m_id_el.getElementInputName();
+
+        name_el.style.color = 'black';
+
+    } // nameSetColorValid
+
+    // Sets the text error color (red) for name
+    nameSetColorError()
+    {
+        var name_el = this.m_id_el.getElementInputName();
+
+        name_el.style.color = 'red';
+
+    } // nameSetColorError
+
+    // Sets the text valid color (black) for email
+    emailSetColorValid()
+    {
+        var email_el = this.m_id_el.getElementInputEmail();
+
+        email_el.style.color = 'black';
+
+    } // emailSetColorValid
+
+    // Sets the text error color (red)for email
+    emailSetColorError()
+    {
+        var email_el = this.m_id_el.getElementInputEmail();
+
+        email_el.style.color = 'red';
+
+    } // emailSetColorError
+
+    // Sets the text valid color (black) for remark
+    remarkSetColorValid()
+    {
+        var remark_el = this.m_id_el.getElementInputRemark();
+
+        remark_el.style.color = 'black';
+
+    } // remarkSetColorValid
+
+    // Sets the text error color (red)for remark
+    remarkSetColorError()
+    {
+        var remark_el = this.m_id_el.getElementInputRemark();
+
+        remark_el.style.color = 'red';
+
+    } // remarkSetColorError
+
     // Returns true if the data is valid
     // Please note that this check will be done also when data is set 
     // in ReservationData.
@@ -328,16 +460,8 @@ class InputEventReservation
 
     } // getAndCheckInputData
 
-    checkInputData(i_input_array)
-    {
-        // TODO
-
-        return true;
-
-    } // checkInputData
-
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Event Functions ///////////////////////////////////////////////
+    /////// End Get Check Form Data ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -519,6 +643,18 @@ class InputEventReservation
 
     } // contentButtonOpenReservation
 
+    // Sets the content of the name div container
+    // 1. Get the div element. Call of m_id_el.getElementDivName()
+    // 2. Construct the HTML code for an <input> element
+    //    Call m_id_el.getIdInputName()
+    // 3. Create the input element by adding the HTML code for the <input> element
+    //    Set the HTML code with the container element function innerHTML
+    // 4. Add an onchange event function to the <inpit> element
+    //    Call of m_id_el.getElementInputName. 
+    //    Set function name to g_input_event_reservation.onChangeInputName()
+    //    (this.onChangeInputName() is not allowed)
+    // 5. Get the name from the local storage and set the value of the <input> element
+    //    Call of Reservation.getName set with member function value for <input> element
     contentInputName(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivName();
@@ -537,12 +673,16 @@ class InputEventReservation
 
         var name_el = this.m_id_el.getElementInputName();
 
+        name_el.oninput = function() { g_input_event_reservation.onChangeInputName(); };
+
         var name_storage = i_data_storage.getName();
 
         name_el.value = name_storage;
 
     } // contentInputName
 
+    // Sets the content of the email div container
+    // Please refer to the description of contentInputName
     contentInputEmail(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivEmail();
@@ -561,12 +701,16 @@ class InputEventReservation
 
         var email_el = this.m_id_el.getElementInputEmail();
 
+        email_el.oninput = function() { g_input_event_reservation.onChangeInputEmail(); };
+
         var email_storage = i_data_storage.getEmail();
 
         email_el.value = email_storage;    
 
     } // contentInputEmail
 
+    // Sets the content of the remark div container
+    // Please refer to the description of contentInputName
     contentInputRemark(i_data_storage)
     {
         var name_div_el = this.m_id_el.getElementDivRemark();
@@ -584,6 +728,8 @@ class InputEventReservation
         name_div_el.innerHTML = name_html;
 
         var remark_el = this.m_id_el.getElementInputRemark();
+
+        remark_el.oninput = function() { g_input_event_reservation.onChangeInputRemark(); };
 
         var remark_storage = i_data_storage.getRemark();
 
