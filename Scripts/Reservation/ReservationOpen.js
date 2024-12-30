@@ -60,12 +60,18 @@ class ReservationOpen
             return;
         }
 
-        if (!ReservationOpen.urlReservationDirAbsolute(this.m_absolute_url_reservation_dir))
+        if (!UtilUrl.isAbsolutePath(this.m_absolute_url_reservation_dir)  || 
+            !UtilUrl.isDirectoryPath(this.m_absolute_url_reservation_dir))
         {
             return;
         }
 
         ReservationStorage.setSession(this.m_reservation_data)
+
+        if (!UtilUrl.execApplicationOnServer())
+        {
+            // TODO
+        }
 
     } // initOpenReservationPage
 
@@ -74,6 +80,7 @@ class ReservationOpen
     /////// End Init Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    /*QQQQQ
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Url Functions ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -108,5 +115,6 @@ class ReservationOpen
     ///////////////////////////////////////////////////////////////////////////
     /////// End Url Functions /////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    QQQQ*/
 
 } // ReservationOpen

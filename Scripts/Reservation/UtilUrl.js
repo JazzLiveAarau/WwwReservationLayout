@@ -8,6 +8,218 @@
 class UtilUrl
 {
     ///////////////////////////////////////////////////////////////////////////
+    /////// Start Path Levels /////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Path Levels ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Part Paths //////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the file path
+    static getFilePath(i_path_file_name)
+    {
+        var ret_file_path = '';
+
+        var index_last_slash = i_path_file_name.lastIndexOf('/');
+
+        if (index_last_slash > 0)
+        {
+
+            ret_file_path = i_path_file_name.substring(0, index_last_slash + 1);
+
+            if (ret_file_path.length == 0)
+            {
+                alert("UtilUrl.getFilePath Returned path is empty");
+
+                return ret_file_path;
+            }
+
+            console.log("UtilUrl.getFilePath ret_file_path= " + ret_file_path);
+
+            return ret_file_path;
+        }
+        else
+        {
+            alert("UtilUrl.getFilePath No last slash (/)");
+
+            return ret_file_path;
+        }
+
+    } // getFilePath
+
+    // Returns the file name with extension
+    static getFileName(i_path_file_name)
+    {
+        var ret_file_name = '';
+
+        var index_last_slash = i_path_file_name.lastIndexOf('/');
+
+        if (index_last_slash > 0)
+        {
+
+            ret_file_name = i_path_file_name.substring(index_last_slash + 1);
+
+        }
+        else
+        {
+            // Input file name without a path
+
+            ret_file_name = i_path_file_name;
+        }
+
+        var index_last_point = ret_file_name.lastIndexOf('.');
+
+        if (index_last_point < 0)
+        {
+            alert("UtilUrl.getFileName No extension point in input name= " + i_path_file_name);
+
+            return "";
+        }
+
+        console.log("UtilUrl.getFileName ret_file_name= " + ret_file_name);
+
+        return ret_file_name;
+
+    } // getFileName
+
+    // Returns the file name withou extension
+    static getFileNameWithoutExtension(i_path_file_name)
+    {
+        var ret_file_name_no_ext = '';
+
+        var file_name = null;
+
+        var index_last_slash = i_path_file_name.lastIndexOf('/');
+
+        if (index_last_slash > 0)
+        {
+
+            file_name = i_path_file_name.substring(index_last_slash + 1);
+
+        }
+        else
+        {
+            // Input file name did not have a path.
+
+            file_name = i_path_file_name;
+
+        }
+
+        var index_last_point = file_name.lastIndexOf('.');
+
+        if (index_last_point < 0)
+        {
+            alert("UtilUrl.getFileNameWithoutExtension No extension point in input name= " + i_path_file_name);
+
+            return "";
+        }
+
+        ret_file_name_no_ext = file_name.substring(0, index_last_point);
+
+        console.log("UtilUrl.getFileNameWithoutExtension ret_file_name_no_ext= " + ret_file_name_no_ext);
+
+        return ret_file_name_no_ext;
+
+    } // getFileNameWithoutExtension
+
+    // Returns the file extension
+    static getFileExtension(i_file_name)
+    {
+        var index_last_point = i_file_name.lastIndexOf('.');
+
+        if (index_last_point < 0)
+        {
+            alert("UtilUrl.getFileExtension No extension i.e. point in file name " + i_file_name);
+
+            return '';
+        }
+
+        console.log("UtilUrl.getFileExtension Extension= " + i_file_name.substring(index_last_point));
+
+        return i_file_name.substring(index_last_point);
+
+    } // getFileExtension
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End  Part Paths ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Check Functions /////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns true if it is an absolute path, i.e. containing '://'
+    static isAbsolutePath(i_absolute_url)
+    {
+        var url_trim = i_absolute_url.trim();
+
+        if (0 == url_trim.length)
+        {
+            alert("UtilUrl.isAbsolutePath  i_absolute_url is empty"); 
+
+            return false;
+        }
+
+        var slashes_url = '://';
+    
+        var index_url = i_absolute_url.indexOf(slashes_url);
+
+        if (index_url > 0)
+        {
+            console.log("UtilUrl.isAbsolutePath It is an absolute path i_absolute_url= " + i_absolute_url);
+
+            return true;
+        }
+        else
+        {
+            console.log("UtilUrl.isAbsolutePath It is NOT an absolute path i_absolute_url= " + i_absolute_url);
+
+            return false;
+        }
+
+    } // isAbsolutePath
+
+    // Returns true if the input URL is to a directory, i.e. ending with a slash
+    static isDirectoryPath(i_url_dir)
+    {
+        var url_trim = i_url_dir.trim(); 
+
+        var url_length = url_trim.length;
+
+        if (0 == url_length)
+        {
+            alert("UtilUrl.isDirectoryPath  i_url_dir is empty"); 
+
+            return false;
+        }
+
+        var last_char = url_trim.substr(url_length - 1);
+
+        if (last_char == '/')
+        {
+            console.log("UtilUrl.isDirectoryPath It is a directory last_char= '" + last_char + "'");
+
+            return true;
+        }
+        else
+        {
+            console.log("UtilUrl.isDirectoryPath It is NOT a directory last_char= '" + last_char + "'");
+
+            return false;
+        }
+
+    } // isDirectoryPath
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Check Functions ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
     /////// Start Running On Server ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -20,22 +232,21 @@ class UtilUrl
     {
         var current_base = window.location.href;
 
-        console.log(" UtilUrl.execApplicationOnServer current_base= " + current_base);
+        var vs_live_server_url = '127.0.0.1:5500';
     
-        /*
-        var server_url = 'jazzliveaarau.ch';
+        var index_url = current_base.indexOf(vs_live_server_url);
     
-        var index_url = current_base.indexOf(server_url);
-    
-        if (index_url >= 0) 
+        if (index_url > 0) 
         {
-            return true;
+            console.log("UtilUrl.execApplicationOnServer Running with VS live server. current_base= " + current_base);
+
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
-        */
+    
     
     } // execApplicationOnServer
 
