@@ -43,15 +43,21 @@ class ReservationOpen
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// Start Init Functions //////////////////////////////////////////////
+    /////// Start Open Functions //////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Initialization function
-    // 1. Check that m_reservation_data and m_absolute_url_reservation_dir have
-    //    been set. Call of ReservationOpen.urlReservationDirAbsolute
-    // 2. Set session storage data.
+    // Open the reservation page MakeReserservation.htm
+    // 1. Check that m_reservation_data has been set
+    // 2. Get relative URL to the directory where MakeReservation.htm is
+    //    Call of UtilUrl.getRelativePathToDirectory
+    // 3. Set session storage data.
     //    Call of ReservationStorage.setSession
-    initOpenReservationPage()
+    //    This data will/can be used by web page MakeReservation.htm
+    // 4. Open the MakeReservation.htm web page.
+    //    Call of windows open
+    // 5. Pass the data to the opened web page MakeReservation.htm
+    //    Call of ReservationOpen.passDataToOpenedWindow
+    openReservationPage()
     {
         if (null == this.m_reservation_data)
         {
@@ -62,47 +68,44 @@ class ReservationOpen
 
         var relative_url_dir = UtilUrl.getRelativePathToDirectory(this.m_absolute_url_reservation_dir);
 
-
-        /* QQQ
-
-        if (!UtilUrl.isAbsolutePath(this.m_absolute_url_reservation_dir)  || 
-            !UtilUrl.isDirectoryPath(this.m_absolute_url_reservation_dir))
+        if (0 == relative_url_dir.length)
         {
             return;
         }
 
-        var only_subdirs = UtilUrl.getPathOnlySubdirectories(this.m_absolute_url_reservation_dir);
+        ReservationStorage.setSession(this.m_reservation_data);
 
-        var current_base = window.location.href;
+        var url_web_page = relative_url_dir + 'MakeReservation.htm';
 
-        var only_subdirs_base = UtilUrl.getPathOnlySubdirectories(current_base);
-
-        ReservationStorage.setSession(this.m_reservation_data)
-
-        var test_file = this.m_absolute_url_reservation_dir + 'XML/' + 'Spagi_76_Chairs_V_1.xml';
-
-        var only_subdirs_test_file =  UtilUrl.getPathOnlySubdirectories(test_file);
-
-        var test_file_name = UtilUrl.getFileName(test_file);
-
-        var test_file_path = UtilUrl.getFilePath(test_file);
-
-        var test_file_extension = UtilUrl.getFileExtension(test_file);
-
-        var test_file_name_without_extension = UtilUrl.getFileNameWithoutExtension(test_file);
-       QQ*/
-       
-
-        if (!UtilUrl.execApplicationOnServer())
+        // var url_web_page = this.m_absolute_url_reservation_dir + 'MakeReservation.htm';
+ 
+        if (UtilUrl.execApplicationOnServer())
         {
-            // TODO
+            var make_window = open(url_web_page);
+	
+            ReservationOpen.passDataToOpenedWindow(make_window, this.m_reservation_data);
+        }
+        else
+        {
+            alert("ReservationOpen.initOpenReservationPage  Data for page MakeReservation.htm cannot be passed with VS Live Server"); 
         }
 
-    } // initOpenReservationPage
+    } // openReservationPage
+
+    // Pass the data to the opened window
+    static passDataToOpenedWindow(i_make_window, i_reservation_data)
+    {
+        i_make_window.passed_data_add_to_xml_file_name = i_reservation_data.getAddToXmFileName();
+        i_make_window.passed_data_reservation_name = i_reservation_data.getName();
+        i_make_window.passed_data_reservation_email = i_reservation_data.getEmail();
+        i_make_window.passed_data_reservation_remark = i_reservation_data.getRemark();
+        i_make_window.passed_data_requested_concert_number = i_reservation_data.getEventNumber();
+
+    } // passDataToOpenedWindow
 
 
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Init Functions ////////////////////////////////////////////////
+    /////// End Open Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 

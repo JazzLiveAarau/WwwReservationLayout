@@ -865,6 +865,7 @@ class LayoutScript
             path_file_array[ 8] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/ReservationOpen.js';
             path_file_array[ 9] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/UtilUrl.js';
             path_file_array[10] = 'https://jazzliveaarau.ch/JazzScripts/Utils_20241111.js';
+            path_file_array[11] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
         }
         else
         {

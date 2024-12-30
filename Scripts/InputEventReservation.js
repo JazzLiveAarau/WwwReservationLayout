@@ -220,7 +220,7 @@ class InputEventReservation
 
         reservation_open.setUrlReservationDir(url_reservation_dir);
 
-        reservation_open.initOpenReservationPage();
+        reservation_open.openReservationPage();
 
 
         this.debug("InputEventReservation.openMainReservationFunctionName Input data:");
