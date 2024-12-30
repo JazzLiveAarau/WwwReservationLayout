@@ -60,13 +60,38 @@ class ReservationOpen
             return;
         }
 
+        var relative_url_dir = UtilUrl.getRelativePathToDirectory(this.m_absolute_url_reservation_dir);
+
+
+        /* QQQ
+
         if (!UtilUrl.isAbsolutePath(this.m_absolute_url_reservation_dir)  || 
             !UtilUrl.isDirectoryPath(this.m_absolute_url_reservation_dir))
         {
             return;
         }
 
+        var only_subdirs = UtilUrl.getPathOnlySubdirectories(this.m_absolute_url_reservation_dir);
+
+        var current_base = window.location.href;
+
+        var only_subdirs_base = UtilUrl.getPathOnlySubdirectories(current_base);
+
         ReservationStorage.setSession(this.m_reservation_data)
+
+        var test_file = this.m_absolute_url_reservation_dir + 'XML/' + 'Spagi_76_Chairs_V_1.xml';
+
+        var only_subdirs_test_file =  UtilUrl.getPathOnlySubdirectories(test_file);
+
+        var test_file_name = UtilUrl.getFileName(test_file);
+
+        var test_file_path = UtilUrl.getFilePath(test_file);
+
+        var test_file_extension = UtilUrl.getFileExtension(test_file);
+
+        var test_file_name_without_extension = UtilUrl.getFileNameWithoutExtension(test_file);
+       QQ*/
+       
 
         if (!UtilUrl.execApplicationOnServer())
         {
@@ -80,41 +105,5 @@ class ReservationOpen
     /////// End Init Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    /*QQQQQ
-    ///////////////////////////////////////////////////////////////////////////
-    /////// Start Url Functions ///////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Returns true if the URL path is absolute
-    static urlReservationDirAbsolute(i_absolute_url_reservation_dir)
-    {
-        var url_trim = i_absolute_url_reservation_dir.trim();
-
-        if (0 == url_trim.length)
-        {
-            alert("ReservationOpen.initOpenReservationPage  i_absolute_url_reservation_dir is empty"); 
-
-            return false;
-        }
-
-        var index_slashes = url_trim.indexOf('://')
-
-        if (index_slashes > 0)
-        {
-            return true;
-        }
-        else
-        {
-            alert("ReservationOpen.initOpenReservationPage  i_absolute_url_reservation_dir is not an absolute path"); 
-
-            return false;
-        }
-
-    } // urlReservationDirAbsolute
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////// End Url Functions /////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    QQQQ*/
 
 } // ReservationOpen

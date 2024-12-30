@@ -8,16 +8,131 @@
 class UtilUrl
 {
     ///////////////////////////////////////////////////////////////////////////
-    /////// Start Path Levels /////////////////////////////////////////////////
+    /////// Start Relative Paths //////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    // Get the relative path to the input path relative the current base dir
+    // 1. Check input URL. Call of UtilUrl.isAbsolutePath and UtilUrl.isDirectoryPath
+    // 2. Get only the subdirectories, i.e. remove the 'homepage' part
+    //    Example: Input https://jazzliveaarau.ch/ReservationLayout/Scripts/ 
+    //    results in /ReservationLayout/Scripts/
+    static getRelativePathToDirectory(i_url_dir_absolute)
+    {
+        if (!UtilUrl.isAbsolutePath(i_url_dir_absolute)  || 
+            !UtilUrl.isDirectoryPath(i_url_dir_absolute))
+        {
+            return '';
+        }
+
+        var path_only_subdirs = UtilUrl.getPathOnlySubdirectories(i_url_dir_absolute);
+
+        var current_base = window.location.href;
+
+        if (!UtilUrl.execApplicationOnServer())
+        {
+            // Not possible to execute this function with the VS Live Server
+            console.log("UtilUrl.getRelativePathToDirectory VS Live Server current_base= " + current_base);
+
+            current_base = 'https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/EventReservation.htm'
+
+            console.log("UtilUrl.getRelativePathToDirectory For test change to current_base= " + current_base);
+        }
+
+        var current_base_path= UtilUrl.getFilePath(current_base);
+
+        var current_base_dir =  UtilUrl.getPathOnlySubdirectories(current_base_path);
+
+        var n_slashes = 0;
+
+        for (var index_char = 0; index_char < current_base_dir.length; index_char++)
+        {
+            var current_char = current_base_dir.substring(index_char, index_char + 1);
+
+            if (current_char == '/')
+            {
+                n_slashes = n_slashes + 1;
+            }
+        }
+
+        var n_levels_up = n_slashes - 1;
+
+        var up_levels_str = '';
+
+        for (var add_level = 1; add_level <= n_levels_up; add_level++)
+        {
+            up_levels_str = up_levels_str + '../';
+
+        }
+
+        var path_only_subdirs_without_first_slash = path_only_subdirs.substr(1);
+
+        var relative_path_dir = up_levels_str + path_only_subdirs_without_first_slash;
+
+        console.log("UtilUrl.getRelativePathToDirectory path_only_subdirs_without_first_slash= " + path_only_subdirs_without_first_slash);
+
+        console.log("UtilUrl.getRelativePathToDirectory current_base_path= " + current_base_path);
+
+        console.log("UtilUrl.getRelativePathToDirectory current_base_dir= " + current_base_dir);
+
+        console.log("UtilUrl.getRelativePathToDirectory n_slashes= " + n_slashes.toString());
+
+        console.log("UtilUrl.getRelativePathToDirectory n_levels_up= " + n_levels_up.toString());
+
+        console.log("UtilUrl.getRelativePathToDirectory up_levels_str= " + up_levels_str);
+
+        console.log("UtilUrl.getRelativePathToDirectory relative_path_dir= " + relative_path_dir);
+
+        return relative_path_dir;
+
+    } // getRelativePathToDirectory
+
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Path Levels ///////////////////////////////////////////////////
+    /////// End Relative Paths ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Part Paths //////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the end path without homepage, i.e. https://www.jazzliveaarau.ch/ is removed
+    static getPathOnlySubdirectories(i_path_file_name)
+    {
+        var url_trim = i_path_file_name.trim();
+
+        var index_slashes = url_trim.indexOf('://');
+
+        if (index_slashes < 0)
+        {
+            alert("UtilUrl.getPathOnlySubdirectories Not an absolut path");
+
+            return '';
+        }
+
+        var removed_slashes_str = url_trim.substr(index_slashes + 4);
+
+        var index_slash = removed_slashes_str.indexOf('/');
+
+        if (index_slash < 0)
+        {
+            alert("UtilUrl.getPathOnlySubdirectories There is no subdirectory");
+
+            return '';
+        }
+        
+        var path_only_subdirs = removed_slashes_str.substr(index_slash);
+
+        if (path_only_subdirs.length == 0)
+        {
+            alert("UtilUrl.getPathOnlySubdirectories Empty string returned");
+
+            return '';
+        }
+
+        console.log("UtilUrl.getPathOnlySubdirectories path_only_subdirs= " + path_only_subdirs);
+
+        return path_only_subdirs;
+
+    } // getPathOnlySubdirectories
 
     // Returns the file path
     static getFilePath(i_path_file_name)
