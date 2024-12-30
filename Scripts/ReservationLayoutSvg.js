@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2024-12-16
+// Date: 2024-12-30
 // Authors: Gunnar Lidén
 
 // Content
@@ -111,7 +111,12 @@ class LayoutSvg
 
         var ret_svg = '';
 	
-        var svg_svg = '<svg id= "id_block_svg" height=' + premises_height_pixel + ' width=' + premises_width_pixel 
+        //var svg_svg = '<svg id= "id_block_svg" height=' + premises_height_pixel + ' width=' + premises_width_pixel 
+                                // + this.m_style_block_svg + ' >'
+
+        //  id_block_svg must be LayoutSalmen for the existing (old) reservation system. The svg element will be 
+        //  removed when the user has clicked the reservation button                  
+        var svg_svg = '<svg id= "LayoutSalmen" height=' + premises_height_pixel + ' width=' + premises_width_pixel 
                                 + this.m_style_block_svg + ' >'
        
         ret_svg = ret_svg + svg_svg + LayoutSvg.endRow();
