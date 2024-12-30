@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2024-12-22
+// Date: 2024-12-30
 // Author: Gunnar Lidén
 
 
@@ -170,7 +170,7 @@ class EventProgramXml
    } // getShortText
 
     // Returns the URL to the reservation subdirectory
-    getUrlReservationDir(i_event_number) // Previously getEventShortText
+    getUrlReservationDir(i_event_number)
     {
         return this.getEventNodeValue(this.m_tags.getUrlReservationDir(), i_event_number);
         

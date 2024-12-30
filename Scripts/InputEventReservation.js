@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-29
+// Date: 2024-12-30
 // Author: Gunnar Lidén
 
 // File content
@@ -212,7 +212,15 @@ class InputEventReservation
 
         ReservationStorage.setLocal(reservation_data);
 
-        var reservation_open = new ReservationOpen(reservation_data);
+        var reservation_open = new ReservationOpen();
+
+        reservation_open.setReservationData(reservation_data);
+
+        var url_reservation_dir = this.m_event_program_xml.getUrlReservationDir(event_number);
+
+        reservation_open.setUrlReservationDir(url_reservation_dir);
+
+        reservation_open.initOpenReservationPage();
 
 
         this.debug("InputEventReservation.openMainReservationFunctionName Input data:");
