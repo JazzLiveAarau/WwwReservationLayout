@@ -1,5 +1,5 @@
 // File: InputEventReservationStyle.js
-// Date: 2024-12-31
+// Date: 2025-01-01
 // Author: Gunnar Lidén
 
 // Class with style strings for the application
@@ -21,6 +21,9 @@ class InputEventReservationStyle
 
         // The style for the header div
         this.m_header_style = '';
+
+        // The style for the event name div
+        this.m_event_name_style = '';
 
         // The style for the label name div
         this.m_label_name_style = '';
@@ -60,6 +63,8 @@ class InputEventReservationStyle
 
         this.m_header_style = this.defaultHeaderStyle();
 
+        this.m_event_name_style = this.defaultEventNameStyle();
+
         this.m_label_name_style = this.defaultLabelNameStyle();
 
         this.m_label_email_style = this.defaultLabelEmailStyle();
@@ -77,7 +82,7 @@ class InputEventReservationStyle
     // Sets the default style for the input form div
     defaultForm()
     {
-        return 'clear: both; min-height: 500px; margin-left: 0px; margin-bottom: 10px;'
+        return 'clear: both; min-height: 420px; margin-left: 0px; margin-bottom: 10px;'
                 + ' font-family: Arial, Helvetica, sans-serif; font-size: 14px;' 
                 + 'background-color: rgb(223, 224, 225); border: 3px solid black; ';
 
@@ -86,35 +91,43 @@ class InputEventReservationStyle
     // Sets the default style for a row of the form
     defaultRow()
     {
-        return 'clear: both; width: 94%; min-height: 15px; margin-left: 3%; margin-top:5px; overflow: hidden; border: 1px solid blue; ';
+        return 'clear: both; width: 94%; min-height: 15px; padding-left: 3%; overflow: hidden; '; // border: 1px solid blue;
 
     } // defaultRow
 
     // Sets the default style for the left element in a row element
     defaultLeftElement()
     {
-        return 'float: left; width: 80%; min-height: 15px; margin-left: 3%; margin-top:5px; margin-bottom:5px; border: 1px solid red;';
+        return 'float: left; width: 78%; min-height: 15px; margin-left: 3%; margin-top:0px; margin-bottom:10px;'; //  border: 1px solid red;
 
     } // defaultLeftElement
 
     // Sets the default style for the right element in a row element
     defaultRightElement()
     {
-        return 'float: right; width: 10%; min-height: 15px; margin-right: 3%; margin-top:5px; margin-bottom:5px;  border: 1px solid green;';
+        return 'float: right; width: 10%; min-height: 15px; margin-right: 3%; margin-top:0px; margin-bottom:10px; '; //  border: 1px solid green;
 
     } // defaultRightElement
 
     // The default style for the header div
     defaultHeaderStyle()
     {
-        return 'font-size: 14px; background-color: black; color: white; text-align: center;';
+        return 'font-size: 16px; background-color: black; color: white; text-align: center;  margin-left: 1.5%; margin-bottom: 5px; padding-top: 5px; padding-bottom: 5px; ';
 
     } // defaultHeaderText
+
+    // The default style for the event name div
+    defaultEventNameStyle()
+    {
+        return 'font-size: 12px; background-color: #555555; color: white; text-align: center; padding-top: 5px; padding-bottom: 5px; ' + 
+            ' width: 94%; width: 94%;  margin-left: 3%; margin-top: 6px; margin-bottom: 12px; ';
+
+    } // defaultEventNameStyle		
 
     // The default style for the label divs
     defaultLabelDivStyle()
     {
-        return 'font-size: 14px; text-align: left;';
+        return 'font-size: 12px; padding-left: 18px; text-align: left;';
 
     } // defaultLabelDivStyle
 
@@ -163,17 +176,17 @@ class InputEventReservationStyle
 		
 		ret_style = ret_style + 'text-decoration: none; ';
 		
-		ret_style = ret_style + 'display: inline-block; ';
+		ret_style = ret_style + 'display: block; ';
 		
 		ret_style = ret_style + 'font-size: 12px; ';
 		
-		ret_style = ret_style + 'margin-top: 10px; ';
+		ret_style = ret_style + 'margin-top: 1px; ';
 		
-		ret_style = ret_style + 'margin-bottom: 10px; ';
+		ret_style = ret_style + 'margin-bottom: 1px; ';
 		
-		ret_style = ret_style + 'margin-left: 10px; ';
+		ret_style = ret_style + 'margin-left: auto; ';
 		
-		ret_style = ret_style + 'margin-right: 3px;';
+		ret_style = ret_style + 'margin-right: auto;';
 		
 		ret_style = ret_style + 'cursor: pointer;';
 		
@@ -291,6 +304,20 @@ class InputEventReservationStyle
         this.m_header_style = i_header_style;
 
     } // setHeader
+
+    // Returns the style for the event name div
+    getEventName()
+    {
+        return this.m_event_name_style;
+
+    } // getEventName
+
+    // Sets the style for the event name div
+    setEventName(i_event_name_style)
+    {
+        this.m_event_name_style = i_event_name_style;
+
+    } // setEventName	
 
     // Returns the style for the label name div
     getLabelName()

@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-31
+// Date: 2025-01-01
 // Author: Gunnar Lidén
 
 // File content
@@ -622,6 +622,8 @@ class InputEventReservation
 
         event_name_el.innerHTML = event_name;
 
+        event_name_el.setAttribute('style', this.m_styles.getEventName());
+
     } // contentName
 
     contentPrices()
@@ -701,7 +703,7 @@ class InputEventReservation
 
         name_html = name_html + 'id= ' + this.m_id_el.getIdInputName() + ' ';
 
-        name_html = name_html + 'type= "text"  size="30" maxlength="40" ';
+        name_html = name_html + 'type= "text"  size="27" maxlength="40" ';
 
         name_html = name_html + '>';
 
@@ -729,7 +731,7 @@ class InputEventReservation
 
         name_html = name_html + 'id= ' + this.m_id_el.getIdInputEmail() + ' ';
 
-        name_html = name_html + 'type= "text"  size="30" maxlength="40" ';
+        name_html = name_html + 'type= "text"  size="27" maxlength="40" ';
 
         name_html = name_html + '>';
 
@@ -757,7 +759,7 @@ class InputEventReservation
 
         name_html = name_html + 'id= ' + this.m_id_el.getIdInputRemark() + ' ';
 
-        name_html = name_html + 'type= "text"  size="30" maxlength="150" ';
+        name_html = name_html + 'type= "text"  size="27" maxlength="150" ';
 
         name_html = name_html + '>';
 
