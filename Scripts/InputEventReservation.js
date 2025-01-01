@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2024-12-30
+// Date: 2024-12-31
 // Author: Gunnar Lidén
 
 // File content
@@ -88,9 +88,6 @@ class InputEventReservation
         // First is globalOpenMainReservationFunctionName that calls 
         this.m_open_make_reservation_function_name = 'globalOpenMainReservationFunctionName()';
 
-        // The main reservation function name for existing reservation application Salmen
-        //QQ this.m_open_make_reservation_function_name_salmen = "setNameEmailRemarkFromFormOpenMakeReservation(\'Salmen\')";
-
         // Boolean flag telling if tabs and comments shall be removed
         this.m_remove_tabs_comments = false;
 
@@ -146,6 +143,14 @@ class InputEventReservation
         this.contentInputEmail(data_storage);
 
         this.contentInputRemark(data_storage);
+
+        this.contentButtonInfoName();
+
+        this.contentButtonInfoEmail();
+
+        this.contentButtonInfoRemark();
+
+        this.contentButtonInfoOpenReservation();
 
         this.debug('InputEventReservation.create Exit');
 
@@ -298,6 +303,29 @@ class InputEventReservation
 
     } // onChangeInputRemark
 
+    // User klickt the button info remark
+    static infoName()
+    {
+
+    } // infoName
+
+    // User klickt the button info remark
+    static infoEmail()
+    {
+
+    } // infoEmail
+
+    // User klickt the button info remark
+    static infoRemark()
+    {
+
+    } // infoRemark
+
+    // User klickt the button info remark
+    static infoOpenReservation()
+    {
+
+    } // infoOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Event Functions ///////////////////////////////////////////////
@@ -744,6 +772,114 @@ class InputEventReservation
         remark_el.value = remark_storage;    
 
     } // contentInputRemark
+
+    contentButtonInfoName()
+    {
+        var button_name_div_el = this.m_id_el.getElementDivInfoName();
+
+        var button_name_html = '';
+
+        button_name_html = button_name_html + '<button ';
+
+        button_name_html = button_name_html + 'id= ' + this.m_id_el.getIdButtonInfoName() + ' ';
+
+        button_name_html = button_name_html + 'onclick= "InputEventReservation.infoName()" ';
+
+        button_name_html = button_name_html + '>';
+
+        button_name_html = button_name_html + 'Info'; 
+
+        button_name_html = button_name_html + '</button>';
+
+
+        button_name_div_el.innerHTML = button_name_html;
+
+        var button_name_el = this.m_id_el.getElementButtonInfoName();
+
+        button_name_el.setAttribute('style', this.m_styles.getButtonInfoStyle());
+
+    } // contentButtonInfoName
+
+    contentButtonInfoEmail()
+    {
+        var button_email_div_el = this.m_id_el.getElementDivInfoEmail();
+
+        var button_email_html = '';
+
+        button_email_html = button_email_html + '<button ';
+
+        button_email_html = button_email_html + 'id= ' + this.m_id_el.getIdButtonInfoEmail() + ' ';
+
+        button_email_html = button_email_html + 'onclick= "InputEventReservation.infoEmail()" ';
+
+        button_email_html = button_email_html + '>';
+
+        button_email_html = button_email_html + 'Info'; 
+
+        button_email_html = button_email_html + '</button>';
+
+
+        button_email_div_el.innerHTML = button_email_html;
+
+        var button_email_el = this.m_id_el.getElementButtonInfoEmail();
+
+        button_email_el.setAttribute('style', this.m_styles.getButtonInfoStyle());
+
+    } // contentButtonInfoEmail
+
+    contentButtonInfoRemark()
+    {
+        var button_remark_div_el = this.m_id_el.getElementDivInfoRemark();
+
+        var button_remark_html = '';
+
+        button_remark_html = button_remark_html + '<button ';
+
+        button_remark_html = button_remark_html + 'id= ' + this.m_id_el.getIdButtonInfoRemark() + ' ';
+
+        button_remark_html = button_remark_html + 'onclick= "InputEventReservation.infoRemark()" ';
+
+        button_remark_html = button_remark_html + '>';
+
+        button_remark_html = button_remark_html + 'Info'; 
+
+        button_remark_html = button_remark_html + '</button>';
+
+
+        button_remark_div_el.innerHTML = button_remark_html;
+
+        var button_remark_el = this.m_id_el.getElementButtonInfoRemark();
+
+        button_remark_el.setAttribute('style', this.m_styles.getButtonInfoStyle());
+
+    } // contentButtonInfoRemark
+
+    contentButtonInfoOpenReservation()
+    {
+        var button_reservation_div_el = this.m_id_el.getElementDivInfoButton(); 
+
+        var button_reservation_html = '';
+
+        button_reservation_html = button_reservation_html + '<button ';
+
+        button_reservation_html = button_reservation_html + 'id= ' + this.m_id_el.getIdButtonInfoOpenReservation() + ' ';
+
+        button_reservation_html = button_reservation_html + 'onclick= "InputEventReservation.infoOpenReservation()" ';
+
+        button_reservation_html = button_reservation_html + '>';
+
+        button_reservation_html = button_reservation_html + 'Info'; 
+
+        button_reservation_html = button_reservation_html + '</button>';
+
+
+        button_reservation_div_el.innerHTML = button_reservation_html;
+
+        var button_reservation_el = this.m_id_el.getElementButtonInfoOpenReservation();
+
+        button_reservation_el.setAttribute('style', this.m_styles.getButtonInfoStyle());
+
+    } // contentButtonInfoOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Content Html Code /////////////////////////////////////////

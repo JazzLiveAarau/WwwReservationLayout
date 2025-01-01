@@ -1,5 +1,5 @@
 // File: InputEventReservationStyle.js
-// Date: 2024-12-22
+// Date: 2024-12-31
 // Author: Gunnar Lidén
 
 // Class with style strings for the application
@@ -37,6 +37,9 @@ class InputEventReservationStyle
         // The style for the open reservation button
         this.m_button_open_reservation_style = '';
 
+        // The style for the the info buttons
+        this.m_button_info_style = '';
+
         this.default();
 
     } // constructor
@@ -66,6 +69,8 @@ class InputEventReservationStyle
         this.m_event_dropdown_style = this.defaultEventDropdownStyle();
 
         this.m_button_open_reservation_style = this.defaultButtonOpenReservationStyle();
+
+        this.m_button_info_style = this.defaultButtonInfoStyle();
 
     } // default
 
@@ -175,6 +180,41 @@ class InputEventReservationStyle
         return ret_style;
 
     } // defaultButtonOpenReservationStyle
+
+    // The default style for the round info buttons
+    // padding and font-size determine the size
+    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_round_buttons
+    defaultButtonInfoStyle()
+    {
+		var ret_style = '';
+		
+		ret_style = ret_style + 'background-color: #555555; ';
+
+        ret_style = ret_style + 'border-radius: 50%; ';
+		
+		ret_style = ret_style + 'border: none; ';
+		
+		ret_style = ret_style + 'color: white; ';
+		
+		ret_style = ret_style + 'padding: 4px; ';
+		
+		ret_style = ret_style + 'text-align: center; ';
+		
+		ret_style = ret_style + 'text-decoration: none; ';
+		
+		ret_style = ret_style + 'display: inline-block; ';
+		
+		ret_style = ret_style + 'font-size: 10px; ';
+
+        //ret_style = ret_style + 'font-weight: 900;' // bold = 700
+		
+		ret_style = ret_style + 'margin: 0px 0px; ';
+		
+		ret_style = ret_style + 'cursor: pointer;';
+		
+        return ret_style;
+
+    } // defaultButtonInfoStyle
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Default Styles ////////////////////////////////////////////////
@@ -316,11 +356,25 @@ class InputEventReservationStyle
     } // getButtonOpenReservationStyle
 
 	// Sets the style for the open reservation button
-    setButtonOpenReservationStyle(i_event_dropdown_style)
+    setButtonOpenReservationStyle(i_button_open_reservation_style)
     {
-        this.m_button_open_reservation_style = i_event_dropdown_style;
+        this.m_button_open_reservation_style = i_button_open_reservation_style;
 
     } // setButtonOpenReservationStyle
+
+	// Returns the style for the the info buttons
+    getButtonInfoStyle()
+    {
+        return this.m_button_info_style;
+
+    } // getButtonInfoStyle
+
+	// Sets the style for the the info buttons
+    setButtonInfoStyle(i_button_info_style)
+    {
+        this.m_button_info_style = i_button_info_style;
+
+    } // setButtonInfoStyle		
     
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get And Set Styles //////////////////////////////////////////

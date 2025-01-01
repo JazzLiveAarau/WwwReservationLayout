@@ -1,5 +1,5 @@
 // File: InputEventReservationIdElement.js>
-// Date: 2024-12-22
+// Date: 2024-12-31
 // Author: Gunnar Lidén
 
 // File content
@@ -314,7 +314,7 @@ class InputEventReservationIdElement
    {
        return this.m_id_unique_str + 'input_name';
        
-   } // getIdButton
+   } // getIdInputName
 
    //Returns the input name element
    getElementInputName()
@@ -360,7 +360,7 @@ class InputEventReservationIdElement
             return null;
         }
 
-        return document.getElementById(this.getIdDivNameInfo());
+        return document.getElementById(this.getIdDivInfoName());
 
     } // getElementDivInfoName
 
@@ -389,7 +389,7 @@ class InputEventReservationIdElement
    {
        return this.m_id_unique_str + 'input_remark';
        
-   } // getIdButton
+   } // getIdInputRemark
 
    //Returns the input remark element
    getElementInputRemark()
@@ -450,7 +450,7 @@ class InputEventReservationIdElement
    {
        return this.m_id_unique_str + 'input_email';
        
-   } // getIdButton
+   } // getIdInputEmail
 
    //Returns the input email element
    getElementInputEmail()
@@ -557,6 +557,134 @@ class InputEventReservationIdElement
         return document.getElementById(this.getIdDivInfoButton());
 
     } // getElementDivInfoButton
+
+    // Returns the identity of the button info name
+    getIdButtonInfoName()
+    {
+        return this.m_id_unique_str + 'button_info_open_name';
+
+    } // getIdButtonInfoName
+
+    //Returns the button element info name
+    getElementButtonInfoName()
+    {
+        if (!this.isFormCreated())
+        {
+            alert("InputEventReservationElement.getElementButtonInfoName Object is not yet created");
+
+            return null;
+        }
+
+        var id_button_info_name = this.getIdButtonInfoName();
+
+        var button_info_open_reservation_el = document.getElementById(id_button_info_name);
+
+        if (null == button_info_open_reservation_el)
+        {
+            alert("InputEventReservationElement.getElementButtonInfoName There is no element with id_button_info_name= " + id_button_info_name);
+
+            return null;
+        }
+
+        return button_info_open_reservation_el;
+
+    } // getElementButtonInfoName
+
+    // Returns the identity of the button info email
+    getIdButtonInfoEmail()
+    {
+        return this.m_id_unique_str + 'button_info_email';
+
+    } // getIdButtonInfoEmail
+
+    //Returns the button element info email
+    getElementButtonInfoEmail()
+    {
+        if (!this.isFormCreated())
+        {
+            alert("InputEventReservationElement.getElementButtonInfoEmail Object is not yet created");
+
+            return null;
+        }
+
+        var id_button_info_remark = this.getIdButtonInfoEmail();
+
+        var button_info_remark_el = document.getElementById(id_button_info_remark);
+
+        if (null == button_info_remark_el)
+        {
+            alert("InputEventReservationElement.getElementButtonInfoEmail There is no element with id_button_info_remark= " + id_button_info_remark);
+
+            return null;
+        }
+
+        return button_info_remark_el;
+
+    } // getElementButtonInfoEmail
+
+    // Returns the identity of the button info remark
+    getIdButtonInfoRemark()
+    {
+        return this.m_id_unique_str + 'button_info_remark';
+
+    } // getIdButtonInfoRemark
+
+    //Returns the button element info remark
+    getElementButtonInfoRemark()
+    {
+        if (!this.isFormCreated())
+        {
+            alert("InputEventReservationElement.getElementButtonInfoRemark Object is not yet created");
+
+            return null;
+        }
+
+        var id_button_info_remark = this.getIdButtonInfoRemark();
+
+        var button_info_remark_el = document.getElementById(id_button_info_remark);
+
+        if (null == button_info_remark_el)
+        {
+            alert("InputEventReservationElement.getElementButtonInfoRemark There is no element with id_button_info_remark= " + id_button_info_remark);
+
+            return null;
+        }
+
+        return button_info_remark_el;
+
+    } // getElementButtonInfoRemark
+
+    // Returns the identity of the button info open reservation
+    getIdButtonInfoOpenReservation()
+    {
+        return this.m_id_unique_str + 'button_info_open_reservation';
+
+    } // getIdButtonInfoOpenReservation
+
+    //Returns the button element info open reservation
+    getElementButtonInfoOpenReservation()
+    {
+        if (!this.isFormCreated())
+        {
+            alert("InputEventReservationElement.getElementButtonInfoOpenReservation Object is not yet created");
+
+            return null;
+        }
+
+        var id_button_info_open_reservation = this.getIdButtonInfoOpenReservation();
+
+        var button_info_open_reservation_el = document.getElementById(id_button_info_open_reservation);
+
+        if (null == button_info_open_reservation_el)
+        {
+            alert("InputEventReservationElement.getElementButtonInfoOpenReservation There is no element with id_button_info_open_reservation= " + id_button_info_open_reservation);
+
+            return null;
+        }
+
+        return button_info_open_reservation_el;
+
+    } // getElementButtonInfoOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Identities And Objects ////////////////////////////////////////
