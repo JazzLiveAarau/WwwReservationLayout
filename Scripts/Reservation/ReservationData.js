@@ -33,6 +33,12 @@ class ReservationData
         // Number zero (0) is also allowed meaning ... TODO
         this.m_event_number = -12345;
 
+        // Language for default texts
+        this.m_language = 'german';
+
+        // Instance of the class ReservationDataText holding texts for this class
+        this.m_text = new ReservationDataText(this.m_language);
+
     } // constructor
 
     ///////////////////////////////////////////////////////////////////////////
@@ -177,7 +183,7 @@ class ReservationData
             return b_name;
         }
 
-        var illegal_msg = ReservationData.stringContainsIllegalCharacter(name_trim, ReservationData.nameDescription());
+        var illegal_msg = ReservationData.stringContainsIllegalCharacter(name_trim, ReservationDataText.nameDescription());
 
         if (illegal_msg.length > 0)
         {
@@ -195,7 +201,7 @@ class ReservationData
 
             if (i_b_alert)
             {
-                alert(ReservationData.firstOrFamilyNameMissing());
+                alert(ReservationDataText.firstOrFamilyNameMissing());
             }
         }
 
@@ -243,7 +249,7 @@ class ReservationData
             return b_email;
         }
 
-        var illegal_msg = ReservationData.stringContainsIllegalCharacter(email_trim, ReservationData.emailDescription());
+        var illegal_msg = ReservationData.stringContainsIllegalCharacter(email_trim, ReservationDataText.emailDescription());
 
         if (illegal_msg.length > 0)
         {
@@ -261,7 +267,7 @@ class ReservationData
 
             if (i_b_alert)
             {
-                alert(ReservationData.emailNotValid());
+                alert(ReservationDataText.emailNotValid());
             }            
         }
 
@@ -290,7 +296,7 @@ class ReservationData
         {
             if (i_b_alert)
             {
-                alert(ReservationData.nameEmailMissing());
+                alert(ReservationDataText.nameEmailMissing());
             }
 
             return true;
@@ -311,7 +317,7 @@ class ReservationData
         {
             if (i_b_alert)
             {
-                alert(ReservationData.nameEmailMissing());
+                alert(ReservationDataText.nameEmailMissing());
             }
 
             return true;
@@ -332,7 +338,7 @@ class ReservationData
         {
             if (i_b_alert)
             {
-                alert(ReservationData.nameEmailMissing());
+                alert(ReservationDataText.nameEmailMissing());
             }
 
             return true;
@@ -356,7 +362,7 @@ class ReservationData
             return true;
         }
 
-        var illegal_msg = ReservationData.stringContainsIllegalCharacter(remark_trim, ReservationData.remarkDescription());
+        var illegal_msg = ReservationData.stringContainsIllegalCharacter(remark_trim, ReservationDataText.remarkDescription());
 
         if (illegal_msg.length > 0)
         {
@@ -392,10 +398,10 @@ class ReservationData
             {
                 if (current_illegal_char == '\n')
                 {
-                    current_illegal_char = ReservationData.rowEnd();
+                    current_illegal_char = ReservationDataText.rowEnd();
                 }
 
-                ret_error_msg = current_illegal_char + ReservationData.isNotAllowed() + i_string_beschreibung;
+                ret_error_msg = current_illegal_char + ReservationDataText.isNotAllowed() + i_string_beschreibung;
 
                 break;
             }
@@ -422,7 +428,7 @@ class ReservationData
         {
             if (i_b_alert)
             {
-                alert(ReservationData.eventNumberNotValid());
+                alert(ReservationDataText.eventNumberNotValid());
             }
             return false;
         }
@@ -432,6 +438,8 @@ class ReservationData
     ///////////////////////////////////////////////////////////////////////////
     /////// End Check Data ////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    /*QQQQQQQ
 
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Error Messages //////////////////////////////////////////////
@@ -704,5 +712,7 @@ class ReservationData
     ///////////////////////////////////////////////////////////////////////////
     /////// End Error Messages ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    QQQQ*/
 
 } // ReservationData

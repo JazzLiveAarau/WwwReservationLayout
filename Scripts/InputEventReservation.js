@@ -31,6 +31,9 @@ class InputEventReservation
         // setGlobalVariableNameThisObject
         this.m_global_variable_name_this_object = i_global_variable_name_this_object;
 
+        // Language for default texts
+        this.m_language = 'german';
+
         // Defines the event_number for the reservation. 
         this.m_active_event_number = -1;
 
@@ -92,6 +95,8 @@ class InputEventReservation
         this.setElementDivContainer();
 
         this.initStorageVariables();
+
+        this.initDefaultTextLanguage();
 
     } // constructor
 
@@ -935,6 +940,25 @@ class InputEventReservation
 
     } // setEventNumber
 
+    // Returns the language for the default texts
+    getLanguage()
+    {
+        return this.m_language;
+
+    } // getLanguage
+
+    // Sets the language for the default texts
+    setLanguage(i_language)
+    {
+        if (DefaultText.isImplemented(i_language))
+        {
+            this.m_language = i_language;
+
+            this.m_texts.setLanguage(this.getLanguage());
+        }
+
+    } // setLanguage
+
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set And Get Members ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -1049,6 +1073,13 @@ class InputEventReservation
         ReservationStorage.initSession();
 
     } // initStorageVariables
+
+    // Initialization of default text language
+    initDefaultTextLanguage()
+    {
+        this.m_texts.setLanguage(this.getLanguage());
+
+    } // initDefaultTextLanguage
 
     // Writes debug to the console
     debug(i_msg_str)
