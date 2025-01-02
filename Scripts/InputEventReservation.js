@@ -317,27 +317,29 @@ class InputEventReservation
     } // onChangeInputRemark
 
     // User klickt the button info remark
-    static infoName()
+    infoName()
     {
+        alert(this.m_texts.getInfoName());
 
     } // infoName
 
     // User klickt the button info remark
-    static infoEmail()
+    infoEmail()
     {
+        alert(this.m_texts.getInfoEmail());
 
     } // infoEmail
 
     // User klickt the button info remark
-    static infoRemark()
+    infoRemark()
     {
-
+        alert(this.m_texts.getInfoRemark());
     } // infoRemark
 
     // User klickt the button info remark
-    static infoOpenReservation()
+    infoOpenReservation()
     {
-
+        alert(this.m_texts.getInfoOpenReservation());
     } // infoOpenReservation
 
     ///////////////////////////////////////////////////////////////////////////
@@ -788,7 +790,7 @@ class InputEventReservation
 
         button_name_html = button_name_html + 'id= ' + this.m_id_el.getIdButtonInfoName() + ' ';
 
-        button_name_html = button_name_html + 'onclick= "InputEventReservation.infoName()" ';
+        button_name_html = button_name_html + 'onclick= "' + this.getGlobalVariableNameThisObject() + '.infoName()" ';
 
         button_name_html = button_name_html + '>';
 
@@ -815,7 +817,7 @@ class InputEventReservation
 
         button_email_html = button_email_html + 'id= ' + this.m_id_el.getIdButtonInfoEmail() + ' ';
 
-        button_email_html = button_email_html + 'onclick= "InputEventReservation.infoEmail()" ';
+        button_email_html = button_email_html + 'onclick= "' + this.getGlobalVariableNameThisObject() + '.infoEmail()" ';
 
         button_email_html = button_email_html + '>';
 
@@ -842,7 +844,7 @@ class InputEventReservation
 
         button_remark_html = button_remark_html + 'id= ' + this.m_id_el.getIdButtonInfoRemark() + ' ';
 
-        button_remark_html = button_remark_html + 'onclick= "InputEventReservation.infoRemark()" ';
+        button_remark_html = button_remark_html + 'onclick= "' + this.getGlobalVariableNameThisObject() + '.infoRemark()" ';
 
         button_remark_html = button_remark_html + '>';
 
@@ -857,7 +859,7 @@ class InputEventReservation
 
         button_remark_el.setAttribute('style', this.m_styles.getButtonInfoStyle());
 
-    } // contentButtonInfoRemark
+    } // contentButtonInfoRemark 
 
     contentButtonInfoOpenReservation()
     {
@@ -869,7 +871,7 @@ class InputEventReservation
 
         button_reservation_html = button_reservation_html + 'id= ' + this.m_id_el.getIdButtonInfoOpenReservation() + ' ';
 
-        button_reservation_html = button_reservation_html + 'onclick= "InputEventReservation.infoOpenReservation()" ';
+        button_reservation_html = button_reservation_html + 'onclick= "' + this.getGlobalVariableNameThisObject() + '.infoOpenReservation()" ';
 
         button_reservation_html = button_reservation_html + '>';
 
