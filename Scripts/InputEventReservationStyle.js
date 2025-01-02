@@ -1,5 +1,5 @@
 // File: InputEventReservationStyle.js
-// Date: 2025-01-01
+// Date: 2025-01-02
 // Author: Gunnar Lidén
 
 // Class with style strings for the application
@@ -112,7 +112,7 @@ class InputEventReservationStyle
     // The default style for the header div
     defaultHeaderStyle()
     {
-        return 'font-size: 16px; background-color: black; color: white; text-align: center;  margin-left: 1.5%; margin-bottom: 5px; padding-top: 5px; padding-bottom: 5px; ';
+        return 'font-size: 16px; background-color: black; color: white; text-align: center; width: 98%; margin-bottom: 5px; padding-top: 5px; padding-bottom: 5px; ';
 
     } // defaultHeaderText
 
@@ -184,9 +184,13 @@ class InputEventReservationStyle
 		
 		ret_style = ret_style + 'margin-bottom: 1px; ';
 		
-		ret_style = ret_style + 'margin-left: auto; ';
+		// ret_style = ret_style + 'margin-left: auto; ';
 		
-		ret_style = ret_style + 'margin-right: auto;';
+		// ret_style = ret_style + 'margin-right: auto;';
+
+        ret_style = ret_style + 'margin-right: 2px; ';
+
+        ret_style = ret_style + 'float: right; ';
 		
 		ret_style = ret_style + 'cursor: pointer;';
 		
