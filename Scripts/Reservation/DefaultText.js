@@ -28,11 +28,76 @@ class DefaultText
     /////// Start Set Functions ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    // Set the description
+    setDescription(i_description)
+    {
+        this.m_description = i_description;
 
+    } // setDescription
 
+    // Set the german text
+    setGerman(i_german)
+    {
+        this.m_german = i_german;
+
+    } // setGerman
+
+    // Set the english text
+    setEnglish(i_english)
+    {
+        this.m_english = i_english;
+
+    } // setEnglish
+
+    // Set the swedish text
+    setSwedish(i_swedish)
+    {
+        this.m_swedish = i_swedish;
+
+    } // setSwedish
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Set Functions /////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Get Functions ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the text
+    getText()
+    {
+        if (g_reservation_language == 'german')
+        {
+            return this.m_german;
+        }
+        else if (g_reservation_language == 'english')
+        {
+            return this.m_english;
+        }
+        else if (g_reservation_language == 'swedish')
+        {
+            return this.m_swedish;
+        }
+        else
+        {
+            alert("DefaultText.getText Not an implemented language= " + i_language + 
+                            ' Variable description: ' + this.getDescription());
+
+            return '';
+        }
+
+    } // getText
+
+    // Returns the description (for debug)
+    getDescription()
+    {
+        this.m_description
+
+    } // getDescription
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Get Functions /////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
