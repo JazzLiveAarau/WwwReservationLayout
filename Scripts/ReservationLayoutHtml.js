@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2024-12-30
+// Date: 2025-01-02
 // Authors: Gunnar Lidén
 
 // Content
@@ -1353,7 +1353,9 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
 
-            main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml);' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(4) + 
+                'g_input_event_reservation = new InputEventReservation("id_div_container_input_event_reservation", g_event_program_xml, "g_input_event_reservation");' 
+                + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(4) + 'g_input_event_reservation.create();' + LayoutHtml.endRow();
 

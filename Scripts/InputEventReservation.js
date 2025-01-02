@@ -1,5 +1,5 @@
 // File: InputEventReservation.js
-// Date: 2025-01-01
+// Date: 2025-01-02
 // Author: Gunnar Lidén
 
 // File content
@@ -8,28 +8,13 @@
 // Class that creates a form for the input of reservation data
 // The class has member function that checks the input data
 
-// User selected a new item of the event program dropdown
-// Must be a global function. Member functions are not allowed
-function globalOnChangeEventProgramDropdown()
-{
-    g_input_event_reservation.onChangeEventProgramDropdown();
-
-} // globalOnChangeEventProgramDropdown
-
-// Open the web page MakeReservation with some input data in a query string.
-// 1. Call of InputEventReservation.openMainReservationFunctionName
-function globalOpenMainReservationFunctionName()
-{
-    g_input_event_reservation.openMainReservationFunctionName();
-
-} // globalOpenMainReservationFunctionName
-
 class InputEventReservation
 {
     // Creates the instance of the class
     // i_id_div_container: Identity for the div where the input form shall be created
     // i_event_program_xml: An EventProgramXml object that holds information about the events
-    constructor(i_id_div_container, i_event_program_xml) 
+    // i_global_variable_name_this_object: Name of the global variable that holds the instance of this class
+    constructor(i_id_div_container, i_event_program_xml, i_global_variable_name_this_object) 
     {
         // Member variables
         // ================
@@ -39,6 +24,12 @@ class InputEventReservation
 
         // An EventProgramXml object that holds information about the events
         this.m_event_program_xml = i_event_program_xml;
+
+        // For the implementation of event functions for this class, the 
+        // created object must be saved in a global variable and the name
+        // of the variable must be set by the member function 
+        // setGlobalVariableNameThisObject
+        this.m_global_variable_name_this_object = i_global_variable_name_this_object;
 
         // Defines the event_number for the reservation. 
         this.m_active_event_number = -1;
@@ -82,11 +73,10 @@ class InputEventReservation
         // Style for a row right element
         this.m_element_right_style_str = this.m_styles.getRightElement();
 
-        // The name of the function that will open the web page MakeReservation with
-        // some input data in a query string.
+        // The name of the function that will open the web page MakeReservation
         // It is not possible to directly call a member function of this class
-        // First is globalOpenMainReservationFunctionName that calls 
-        this.m_open_make_reservation_function_name = 'globalOpenMainReservationFunctionName()';
+        // Therefore m_global_variable_name_this_object
+        this.m_open_make_reservation_function_name = this.getGlobalVariableNameThisObject() + '.openMainReservationFunctionName()';
 
         // Boolean flag telling if tabs and comments shall be removed
         this.m_remove_tabs_comments = false;
@@ -104,6 +94,25 @@ class InputEventReservation
         this.initStorageVariables();
 
     } // constructor
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Global Variable /////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the name of the global variable that holds the instance of this class
+    // For the implementation of event functions for this class, the 
+    // created object must be saved in a global variable and the name
+    // of the variable must be set by this member function.
+    //  
+    getGlobalVariableNameThisObject()
+    {
+        return this.m_global_variable_name_this_object;
+
+    } // getGlobalVariableNameThisObject
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Global Variable ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Create Form /////////////////////////////////////////////////
@@ -132,7 +141,11 @@ class InputEventReservation
 
         this.contentDropdown();
 
-        this.contentsSelectedEvent();
+        this.contentEventName();
+
+        this.contentPrices();
+
+        this.contentInstructions();
 
         this.contentButtonOpenReservation();
 
@@ -176,7 +189,7 @@ class InputEventReservation
 
         var debug_msg = 'InputEventReservation.onChangeEventProgramDropdown event_number= ' + event_number.toString();
 
-        this.contentsSelectedEvent();
+        this.contentEventName();
 
         this.debug(debug_msg);
 
@@ -590,7 +603,9 @@ class InputEventReservation
 
         this.dropdownSetAppendString('');
 
-        this.dropdownSetOnchangeFunctionName("globalOnChangeEventProgramDropdown");
+        //QQ this.dropdownSetOnchangeFunctionName("globalOnChangeEventProgramDropdown");
+
+        this.dropdownSetOnchangeFunctionName(this.getGlobalVariableNameThisObject() + '.onChangeEventProgramDropdown');
 
         this.dropdownCreate();
 
@@ -600,19 +615,7 @@ class InputEventReservation
         
     } // contentDropdown
 
-    // Sets the content of the controls that get the data from the selected event
-    // 1. Set content of the name <div>. Call of contentName
-    contentsSelectedEvent()
-    {
-        this.contentName();
-
-        this.contentPrices();
-
-        this.contentInstructions();
-
-    } // contentsSelectedEvent
-
-    contentName()
+    contentEventName()
     {
         var event_number = this.getEventNumber();
 
@@ -624,7 +627,7 @@ class InputEventReservation
 
         event_name_el.setAttribute('style', this.m_styles.getEventName());
 
-    } // contentName
+    } // contentEventName
 
     contentPrices()
     {
