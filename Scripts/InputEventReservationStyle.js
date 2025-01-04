@@ -84,7 +84,7 @@ class InputEventReservationStyle
     {
         return 'clear: both; min-height: 420px; margin-left: 0px; margin-bottom: 10px;'
                 + ' font-family: Arial, Helvetica, sans-serif; font-size: 14px;' 
-                + 'background-color: rgb(223, 224, 225); border: 3px solid black; ';
+                + 'background-color: rgb(178, 210, 242); border: 3px solid black; ';
 
     } // defaultForm
 

@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2025-01-02
+// Date: 2025-01-03
 // Authors: Gunnar Lidén
 
 // Content
@@ -19,8 +19,16 @@ class LayoutHtml
     // i_layout_xml: Object for a reservation layout XML file. 
     // i_output_dir: Name of the output server directory and the layout XML file
     // i_layout_file_case: Layout file creation case
-    //                     MakeReservation, ShowLayout, AddReservation, SearchReservation,
-    //                     ReservationPrint, ReservationList, EventReservation
+    //          EventProgram      (new web application for EventProgramXml),
+    //          EventReservation  (based on InputEventReservation),
+    //          UserReservation   (new version of MakeReservation),
+    //          AdminReservation  (new version of AddReservation),
+    //          SearchReservation (a modified new version),
+    //          ShowLayout        (a slightly modified version),
+    //          ReservationList   (for the listing of reservations)
+    //          ReservationPrint  (for the printout of seat cards)
+    //          MakeReservation   (the JAZZ live AARAU version of UserReservation)
+    //          AddReservation    (the JAZZ live AARAU version of AdminReservation)
     // i_button_id_array: Button identities for the input layout file case 
     // m_layout_file_description: Description of the layout file case
     constructor(i_layout_xml, i_output_dir, i_layout_file_case, i_layout_file_description, i_button_id_array) 

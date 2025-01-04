@@ -206,13 +206,13 @@ class InputEventReservationText
     {
         var info_open_reservation = new DefaultText();
 
-        info_open_reservation.setDescription("Ein Tischplan wird gezeigt wo man Plätze wählen kann");
+        info_open_reservation.setDescription("Information: Click button 'Open table plan and select your seats'");
 
-        info_open_reservation.setGerman("Bitte Ihre E-Mail-Adresse eingeben. \nKarten mit diesen Namen werden ihre reservierte Plätze markieren..");
+        info_open_reservation.setGerman("Ein Tischplan wird gezeigt wo man Plätze wählen kann.");
 
-        info_open_reservation.setEnglish("Please enter your first name and your family name. \nCards with these names will mark your seats.");
+        info_open_reservation.setEnglish("A seating plan will be displayed where seats can be selected");
 
-        info_open_reservation.setSwedish("Var vänlig ange förnamn och efternamn. \nKort med dessa namn visar var ni ska sitta.");
+        info_open_reservation.setSwedish("En bordsplan visas och platser kan väljas");
 
         return info_open_reservation.getText();
 
