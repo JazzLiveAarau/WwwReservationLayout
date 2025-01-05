@@ -12,7 +12,7 @@ class ReservationLayoutXml
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
     // i_result_directory_name: XML file name. The file must be in a subdirectory with the name XML
-    constructor(i_callback_function_name, i_result_directory_name) 
+    constructor(i_callback_function_name, i_organisation_directory_name, i_result_directory_name) 
     {
         // Member variables
         // ================
@@ -20,7 +20,11 @@ class ReservationLayoutXml
         // Call back function name
         this.m_callback_function_name = i_callback_function_name;
 
-        // The result directory name. The XML layout file has the same name and is in subdirectory XML
+        // The dirctory for the organisation
+        this.m_organisation_directory_name = i_organisation_directory_name;
+
+        // The result directory name.  A subdirectory to m_organisation_directory_name
+        // The XML layout file has the same name and is in subdirectory XML
         this.m_result_directory_name = i_result_directory_name; 
 
         // Path and name of test XML file in the computer

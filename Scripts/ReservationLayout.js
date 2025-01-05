@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2024-12-15
+// Date: 2025-01-05
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -28,22 +28,31 @@ var g_add_temporary_test_functions = false;
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Initialisation for Guestbook Admin
-// 1. Load objects JazzGuests.xml and JazzGuestsUploaded.xml. 
+// Initialisation for the creation of all the HTML files making up the reservation system
+// 1. Create all the controls for this application
+//    Call of createReservationLayoutControls
+// 2. Get the last used name of the subdirectory where the output HTML will be saved
+//    Call of TODO
+// 3.  objects JazzGuests.xml and JazzGuestsUploaded.xml. 
 //    Call of loadAllXmlObjectsForAdminAndUpload
 // 2. Create the UtilLock object. The functions of this call is used to lock and unlock
 //    the files JazzGuests.xml and JazzGuestsUploaded.xml.
 function initReservationLayout()
 {
     debugReservationLayout('initReservationLayout Enter');
+
+    LayoutStorage.initLocal();
  
     createReservationLayoutControls();
+
+    // TODO From local storage
+    var organisation_directory_name = 'JAZZ_live_AARAU';
 
     var result_server_directory_name = 'Spagi_76_Chairs_V_1';
 
     g_layout_server_dir_text_box.setValue(result_server_directory_name);
 
-    g_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, result_server_directory_name);
+    g_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, organisation_directory_name, result_server_directory_name);
 
     //TODO initAdminControls();
 
@@ -84,9 +93,11 @@ function createUploadLayoutFiles()
 {
     debugReservationLayout('createUploadLayoutFiles Enter');
 
-    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+    //QQ var result_server_directory_name = g_layout_server_dir_text_box.getValue();
 
-    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+    //QQ var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
+    var absolute_path_dir_name = constructPathToResultDirectory();
 
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
 
@@ -116,7 +127,7 @@ function createUploadLayoutFiles()
 
         var html_file_name = file_data.getHtmlName();
 
-        var path_file_name = reservation_layout_full_path + result_server_directory_name + '/' + html_file_name;
+        var path_file_name = absolute_path_dir_name + html_file_name;
 
         var index_data = layout_file_number - 1;
 
@@ -135,6 +146,19 @@ function createUploadLayoutFiles()
     recursiveFileCreation();
 
 } // createUploadLayoutFiles
+
+// Returns the full path to the result directory
+function constructPathToResultDirectory()
+{
+    // TODO Organistaion directory
+
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+
+    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
+    return reservation_layout_full_path + result_server_directory_name  + '/';
+
+} // constructPathToResultDirectory
 
 // Loop index HTML file
 var g_create_html_file_index = -1;
