@@ -1,5 +1,5 @@
 /* 
-File: ReservationLayout.css Date: 2024-12-14
+File: ReservationLayout.css Date: 2025-01-06
 
 Author: Gunnar Liden
 
@@ -20,7 +20,7 @@ Defines all style classes for the application reservation layout
     width: 350px;
     margin-top: 20px;
     margin-left: 20px;
-
+    overflow: hidden; 
     min-height: 420px;
 }
 
@@ -58,6 +58,14 @@ Defines all style classes for the application reservation layout
 label
 {
     margin-left: 10px;
+}
+
+.cl_div_layout_organisation_dir
+{
+    margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 3%;
+    clear: both;
 }
 
 .cl_div_layout_result_dir

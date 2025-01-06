@@ -1,5 +1,5 @@
 // File: ReservationLayoutControls.js
-// Date: 2024-12-11
+// Date: 2025-01-06
 // Authors: Gunnar Lidén
 
 // Content
@@ -12,6 +12,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Organisation directory 
+var g_layout_organisation_dir_text_box = null;
 
 // Result directory where the generated HTML files and other files shall be stored
 var g_layout_server_dir_text_box = null;
@@ -62,6 +65,8 @@ function createReservationLayoutControls()
 {
     createTextBoxResultDirectory();
 
+    createTextBoxOrganisationDirectory();
+
     createLayoutSaveButton();
 
     createLayoutCancelButton();
@@ -85,6 +90,24 @@ function createReservationLayoutControls()
     createPremisesDoorDropdown();
 
 } // createResrvationLayoutControls
+
+// Create the text box for the organisation directory
+function createTextBoxOrganisationDirectory()
+{
+    g_layout_organisation_dir_text_box = new JazzTextBox("id_layout_organisation_dir", 'id_div_layout_organisation_dir');
+
+    g_layout_organisation_dir_text_box.setLabelText("Ordner für Organisation");
+
+    g_layout_organisation_dir_text_box.setLabelTextPositionAbove();
+
+    g_layout_organisation_dir_text_box.setSize("30");
+
+    g_layout_organisation_dir_text_box.setReadOnlyFlag(false);
+
+    g_layout_organisation_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
+
+} // createTextBoxOrganisationDirectory
+
 
 // Create the text box for the result server directory where generated files shall be stored
 function createTextBoxResultDirectory()

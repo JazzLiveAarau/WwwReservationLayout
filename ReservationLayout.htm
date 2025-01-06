@@ -25,10 +25,13 @@
     <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Xml_20231214.js"></script>
     
      <!-- Standard controls -->
-     <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Controls_20240106.js"></script>
+     <script type="text/javascript" src="Libs/Controls_Reservation_20240317.js"></script>
 
     <!--  Library with Utility classes -->
     <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Utils_20241111.js"></script>
+
+    <!--  Class with file utility functions  -->
+    <script type="text/javascript" src="Scripts/UtilFiles.js"></script>
 
     <!-- Styles for the application  -->
     <link rel="stylesheet" href="Styles/ReservationLayout.css">
@@ -83,7 +86,9 @@
             </div>
         </div>
 
-        <div id="id_div_layout_result_dir" class="cl_div_layout_result_dir" >URL where the result shall be stored</div> 
+        <div id="id_div_layout_organisation_dir" class="cl_div_layout_organisation_dir" >URL for the organisation</div>
+
+        <div id="id_div_layout_result_dir" class="cl_div_layout_result_dir" >URL dir where the result shall be stored</div> 
 
         <div id="id_div_layout_button_row_one" class="cl_div_layout_button_row_one" >
             <div id="id_div_layout_button_one" class="cl_div_layout_button_one" >Button one</div>

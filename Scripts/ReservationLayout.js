@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-05
+// Date: 2025-01-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -93,11 +93,11 @@ function createUploadLayoutFiles()
 {
     debugReservationLayout('createUploadLayoutFiles Enter');
 
-    //QQ var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
 
     //QQ var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
 
-    var absolute_path_dir_name = constructPathToResultDirectory();
+    var absolute_path_dir_name = constructPathToResultDirectory(result_server_directory_name);
 
     var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
 
@@ -148,15 +148,13 @@ function createUploadLayoutFiles()
 } // createUploadLayoutFiles
 
 // Returns the full path to the result directory
-function constructPathToResultDirectory()
+function constructPathToResultDirectory(i_result_server_directory_name)
 {
     // TODO Organistaion directory
 
-    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
-
     var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
 
-    return reservation_layout_full_path + result_server_directory_name  + '/';
+    return reservation_layout_full_path + i_result_server_directory_name  + '/';
 
 } // constructPathToResultDirectory
 
@@ -178,11 +176,11 @@ function recursiveFileCreation()
 
     if (g_create_html_file_index < n_files - 1)
     {
-        UtilServer.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], recursiveFileCreation);
+        UtilFiles.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], recursiveFileCreation);
     }
     else
     {
-        UtilServer.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], afterSaveAllHtml);
+        UtilFiles.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], afterSaveAllHtml);
     }
 
 } // recursiveFileCreation
