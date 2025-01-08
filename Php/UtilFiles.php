@@ -86,8 +86,14 @@ switch ($exec_case)
       case "ExecCreateFile":
         createFile($input_file_name, $file_content, $message_true, $message_false);
         break;
+      case "ExecCopyFile":
+        copyFile($input_file_name, $output_file_name, $message_true, $message_false, $message_error);
+        break;
+      case "ExecMoveFile":
+        moveFile($input_file_name, $output_file_name, $message_true, $message_false, $message_error);
+        break;
     default:
-      echo "Error LoginLogout.php Not an implemented case " . $exec_case;
+      echo $message_error . " UtilFiles.php Not an implemented case " . $exec_case;
 
 } // switch
 
@@ -151,6 +157,104 @@ function createFile($input_file_name, $file_content, $message_true, $message_fal
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Create End ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Copy Move Start ///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Copies a file
+function copyFile($input_file_name, $output_file_name, $message_true, $message_false, $message_error)
+{
+  $debug_str = "copyFile Enter";
+  debugAppend($debug_str);
+
+  if (file_exists($input_file_name))
+  {
+    if (copy($input_file_name, $output_file_name))
+    {
+      $debug_str = "copyFile File is copied. TRUE is returned";
+      debugAppend($debug_str);
+
+      echo $message_true;
+    }
+    else
+    {
+      $debug_str = "copyFile Failure copying file. FALSE is returned";
+      debugAppend($debug_str);
+
+      echo $message_false;
+    }
+  }
+  else
+  {
+    $debug_str = "copyFile File do not exist. FALSE is returned";
+    debugAppend($debug_str);
+
+    echo $message_error;
+  }
+
+} // copyFile
+
+// Moves a file
+function moveFile($input_file_name, $output_file_name, $message_true, $message_false, $message_error)
+{
+  $debug_str = "moveFile Enter";
+  debugAppend($debug_str);
+
+  if (file_exists($input_file_name))
+  { // File exists Start
+    
+    if (copy($input_file_name, $output_file_name))
+    { // File was copied Start
+      
+      $debug_str = "moveFile File is copied.";
+      debugAppend($debug_str);
+
+      if (unlink($input_file_name))
+      { // File was deleted Start
+        $debug_str = "moveFile File is copied and deleted. TRUE is returned";
+        debugAppend($debug_str);
+  
+        echo $message_true;
+
+      } // File was deleted End
+      else
+      {// File was NOT deleted Start
+
+        $debug_str = "moveFile Failure deleting file. FALSE is returned";
+        debugAppend($debug_str);
+  
+        echo $message_false;
+
+      } // File was NOT deleted End
+
+    } // File was copied End
+    else
+    { // File was NOT copied Start
+      
+      $debug_str = "moveFile Failure copying file. FALSE is returned";
+      debugAppend($debug_str);
+
+      echo $message_false;
+
+    } // File was NOT copied End
+
+  } // File exists End
+  else
+  { // File do not exist Start
+    
+    $debug_str = "moveFile File do not exist. FALSE is returned";
+    debugAppend($debug_str);
+
+    echo $message_error;
+
+  } // File do not exist End
+
+} // moveFile
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Copy Move End /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -602,7 +602,11 @@ function testLayout()
 
     var dir_name = '../TestDir_1/SubTestDir_1/';
 
-    var file_name = '../TestDir_1/SubTestDir_1/TestFile.txt';
+    var dir_name_out = '../TestDir_2/';
+
+    var file_name = '../TestDir_1/SubTestDir_1/TestFile_1.txt';
+
+    var file_name_out = '../TestDir_2/TestFile_2.txt';
 
     var file_content = '';
 
@@ -625,6 +629,12 @@ function testLayout()
     util_files_data.setDataExecCaseCreateFile(file_name, file_content, rel_path_php_dir, testTrue, testFalse);
 
     // util_files_data.setDataExecCaseDeleteFile(file_name, rel_path_php_dir, testTrue, testFalse);
+
+    // util_files_data.setDataExecCaseCreateDir(dir_name_out, rel_path_php_dir, testTrue, testFalse);
+
+    // util_files_data.setDataExecCaseCopyFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+
+    util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
 
     UtilFiles.dirFileAnyCase(util_files_data);
 

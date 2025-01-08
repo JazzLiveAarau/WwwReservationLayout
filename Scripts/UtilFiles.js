@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-06
+// Date: 2025-01-08
 // Author: Gunnar Lidén
 
 // File content
@@ -15,6 +15,31 @@
 
 class UtilFiles
 {
+    // Input to the function is an instance of the class UtilFilesData
+    // Class UtilFilesData has member functions for all available execution cases
+    // The valid execution cases are defined by the member functions
+    // UtilFilesData.setDataExecCaseDirExists
+    // UtilFilesData.setDataExecCaseFileExists
+    // UtilFilesData.setDataExecCaseCreateDir
+    // UtilFilesData.setDataExecCaseDeleteDir
+    // UtilFilesData.setDataExecCaseDeleteFile
+    // UtilFilesData.setDataExecCaseCreateFile
+    // UtilFilesData.setDataExecCaseCopyFile
+    // UtilFilesData.setDataExecCaseMoveFile
+    //
+    // Example: Copy and rename a file
+    // var util_files_data = new UtilFilesData();
+    // var input_file = '../TestDir_1/SubTestDir_1/TestFile_1.txt';
+    // var output_file = '../TestDir_2/TestFile_2.txt';
+    // var path_php_dir = 'Php/';
+    // var callback_true = callBackTrue;
+    // var callback_false = callBackFalse;
+    // util_files_data.setDataExecCaseCopyFile(input_file, output_file, path_php_dir, callback_true, callback_false);
+    // UtilFiles.dirFileAnyCase(util_files_data);
+    // function callBackTrue() { alert("callBackTrue"); }
+    // function callBackFalse() { alert("callBackFalse"); }
+    // 
+    // Input data:
     // i_util_files_data: An instance of class UtilFilesData
     // 1. Set the PHP file name to 'UtilFiles.php'
     static dirFileAnyCase(i_util_files_data)
@@ -98,232 +123,6 @@ class UtilFiles
         ); // post 
         
     } // dirFileAnyCase
-
-
-
-
-
-
-
-
-
-    // Save a file with the JQuery asynchronous function $.post and UtilServerSaveFile.php 
-    // Input parameters
-    // i_path_file_name: A relative or absolute URL for the created file
-    // i_content_string: The content of the file. Row ends defined as \n are not allowed
-    // i_callback_fctn:  The name of the callback function
-    //
-    // For an error the function UtilFiles.saveFileError will be called
-    static saveFileCallback(i_path_file_name, i_content_string, i_callback_fctn)
-    {
-        if (!UtilFiles.execApplicationOnServer())
-        {
-            alert("saveFileCallback UtilServerSaveFile.php cannot be executed on the local (live) server");
-
-            return;
-        }
-
-        var rel_path_file_name = UtilFiles.replaceAbsoluteWithRelativePath(i_path_file_name);
-
-        var rel_path_file_php = UtilFiles.getRelativeExecuteLevelPath('https://jazzliveaarau.ch/JazzScripts/Php/UtilServerSaveFile.php');
-    
-        $.post
-          (rel_path_file_php,
-            {
-              file_content: i_content_string,
-              file_name: rel_path_file_name
-            },
-            function(data_save, status_save)
-            {   
-                if (status_save == "success")
-                {
-                    // The PHP function returns succed for an opening failure. Therefore the returned
-                    // string Unable_to_open_file is used to handle this error.
-                    var index_fail_open = data_save.indexOf('Unable_to_open_file');
-                    var index_fail_write = data_save.indexOf('Unable_to_write_file');
-
-                    if (index_fail_open >= 0 || index_fail_write >= 0)
-                    {
- 
-                        UtilFiles.saveFileError(rel_path_file_name, data_save, status_save);
-                    }
-
-                    console.log(" UtilFiles.saveFileCallback Filed is saved. data_save= " + data_save.trim());
-
-                    i_callback_fctn();
-                }
-                else
-                {
-                    UtilFiles.saveFileError(rel_path_file_name, data_save, status_save);
-                }  
-
-            } // function
-        ); // post 
-
-        // console.log("saveFileCallback The function comes here, but without a return it won't come further");
-       
-    } // saveFileCallback
-
-    // Failure saving file
-    static saveFileError(i_rel_path_file_name, i_data_save, i_status_save)
-    {
-        console.log(" UtilFiles.saveFileCallback failure. data_save= " + i_data_save + ' status_save= ' + i_status_save);
-
-        alert("UtilFiles.saveFileCallback Unable to create file " + i_rel_path_file_name + ' status_save= ' + i_status_save);
-
-    } // saveFileError
-
-    // Copy a file with the JQuery asynchronous function $.post and UtilFilesCopyFile.php 
-    // Input parameters:
-    // i_url_file_input: The url (relative or absolute) for the server file to copy
-    // i_url_file_copy:  The url (relative or absolute) for the copied file
-    // i_callback_fctn:  The name of the callback function
-    static copyFileCallback(i_url_file_input, i_url_file_copy, i_callback_fctn)
-    {
-        if (!UtilFiles.execApplicationOnServer())
-        {
-            alert("copyFile UtilFilesCopyFile.php cannot be executed on the local (live) server");
-
-            return false;
-        }
-
-        var rel_path_file_input = UtilFiles.replaceAbsoluteWithRelativePath(i_url_file_input);
-
-        var rel_path_file_copy = UtilFiles.replaceAbsoluteWithRelativePath(i_url_file_copy);
-
-        var rel_path_file_php = UtilFiles.getRelativeExecuteLevelPath('https://jazzliveaarau.ch/JazzScripts/Php/UtilFilesCopyFile.php');
-
-        $.post
-        (rel_path_file_php,
-            {
-            file_input: rel_path_file_input,
-            file_copy: rel_path_file_copy
-            },
-            function(data_copy,status_copy)
-            {
-                if (status_copy == "success")
-                {
-                    var index_fail_copy = data_copy.indexOf('Unable_to_copy_file_');
-                    var index_fail_exist = data_copy.indexOf('File_exists_not');
-
-                    if (index_fail_copy >= 0 || index_fail_exist >= 0)
-                    {
-                        console.log(" UtilFiles.copyFile Failure copying file. data_copy= " + data_copy);
-
-                        if (index_fail_exist >= 0)
-                        {
-                            alert("UtilFiles.copyFile There is no file " + rel_path_file_input);
-                        }
-                        else
-                        {
-                            alert("UtilFiles.copyFile Unable to copy file " + rel_path_file_input);
-                        }
-
-                        UtilFiles.copyFileError(rel_path_file_input, data_copy, status_copy);
-                    }
-
-                    console.log(" UtilFiles.copyFile File is copied data_copy= " + data_copy.trim());
-
-                    i_callback_fctn();
-                }
-                else
-                {
-                    alert("Execution of UtilFilesCopyFile.php failed. data_copy= " + data_copy);
-
-                    UtilFiles.copyFileError(rel_path_file_input, data_copy, status_copy);
-                }          
-            } // function
-
-        ); // post
-        
-    } // copyFileCallback
-
-    // Failure copying file
-    static copyFileError(i_rel_path_file_name, i_data_copy, i_status_copy)
-    {
-        console.log(" UtilFiles.copyFileCallback failure. data_copy= " + i_data_copy + ' status_copy= ' + i_status_copy);
-
-        alert("UtilFiles.copyFileCallback Unable to copy file " + i_rel_path_file_name + ' status_copy= ' + i_status_copy);
-
-    } // copyFileError
-
-    // Move a file with the JQuery asynchronous function $.post and UtilFilesMoveFile.php 
-    // Input parameters:
-    // i_url_file_input: The url (relative or absolute) for the server file to move
-    // i_url_file_move:  The url (relative or absolute) for the moved file
-    // i_callback_fctn:  The name of the callback function
-    static moveFileCallback(i_url_file_input, i_url_file_move, i_callback_fctn)
-    {
-        if (!UtilFiles.execApplicationOnServer())
-        {
-            alert("moveFile UtilFilesMoveFile.php cannot be executed on the local (live) server");
-
-            return;
-        }
-
-        var rel_path_file_input = UtilFiles.replaceAbsoluteWithRelativePath(i_url_file_input);
-
-        var rel_path_file_move = UtilFiles.replaceAbsoluteWithRelativePath(i_url_file_move);
-
-        var rel_path_file_php = UtilFiles.getRelativeExecuteLevelPath('https://jazzliveaarau.ch/JazzScripts/Php/UtilFilesMoveFile.php');
-
-        $.post
-        (rel_path_file_php,
-            {
-            file_input: rel_path_file_input,
-            file_move: rel_path_file_move
-            },
-            function(data_move,status_move)
-            {
-                if (status_move == "success")
-                {
-                    
-                    var index_fail_copy = data_move.indexOf('Unable_to_copy_file_');
-                    var index_fail_exist = data_move.indexOf('File_exists_not');
-                    var index_fail_delete = data_move.indexOf('Unable_to_delete_file_');
-
-                    if (index_fail_copy >= 0 || index_fail_exist >= 0 ||  index_fail_delete >= 0)
-                    {
-                        console.log(" UtilFiles.UtilFilesmoveFile.php failure. data_move= " + data_move.trim());
-
-                        if (index_fail_exist >= 0)
-                        {
-                            alert("UtilFiles.moveFile There is no file " + rel_path_file_input);
-                        }
-                        else if (index_fail_delete >= 0)
-                        {
-                            alert("UtilFiles.moveFile Failure deleting file " + rel_path_file_input);
-                        }
-                        else
-                        {
-                            alert("UtilFiles.moveFile Unable to copy file " + rel_path_file_input);
-                        }
-
-                        UtilFiles.moveFileError(rel_path_file_input, data_move, status_move);
-                    }
-
-                    i_callback_fctn();
-                }
-                else
-                {
-                    alert("Execution of UtilFilesmoveFile.php failed. data_move= " + data_move.trim());
-
-                    UtilFiles.moveFileError(rel_path_file_input, data_move, status_move);
-                }          
-            } // function
-
-        ); // post
-        
-    } // moveFileCallback
-
-    // Failure moving file
-    static moveFileError(i_rel_path_file_name, i_data_move, i_status_move)
-    {
-        console.log(" UtilFiles.copyFileCallback failure. data_move= " + i_data_move + ' status_move= ' + i_status_move);
-
-        alert("UtilFiles.copyFileCallback Unable to move file " + i_rel_path_file_name + ' status_move= ' + i_status_move);
-
-    } // moveFileError
 
     // Returns the relative path (URL) to the executing HTML file 
     // If the input URL not is an absolute path starting with 
@@ -945,7 +744,16 @@ class UtilFiles
 } // UtilFiles
 
 
-// The class holds input data for UtilFiles functions
+// The class holds input data for the functions of class UtilFiles
+// The valid execution cases are defined by the member functions
+// setExecCaseDirExists  - setDataExecCaseDirExists
+// setExecCaseFileExists - setDataExecCaseFileExists
+// setExecCaseCreateDir  - setDataExecCaseCreateDir
+// setExecCaseDeleteDir  - setDataExecCaseDeleteDir
+// setExecCaseDeleteFile - setDataExecCaseDeleteFile
+// setExecCaseCreateFile - setDataExecCaseCreateFile
+// setExecCaseCopyFile   - setDataExecCaseCopyFile
+// setExecCaseMoveFile   - setDataExecCaseMoveFile
 class UtilFilesData
 {
     constructor()
@@ -989,9 +797,9 @@ class UtilFilesData
 
     // Sets data for the execution case 'directory exists'
     // i_input_dir_name: Name of the input directory
-    // i_relative_path_php_dir: Relative path to the directory with the PHP file UtilFiles.php (=null is allowed)
-    // i_callback_function_name: Name of the callback function when exexution succeeded (=null is allowed)
-    // i_error_callback_function_name: Name of the callback function when exexution failed (=null is allowed)
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseDirExists(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseDirExists Enter');
@@ -1012,6 +820,9 @@ class UtilFilesData
 
     // Sets data for the execution case 'file exists'
     // i_input_file_name: Name of the input file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseFileExists(i_input_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseFileExists Enter');
@@ -1032,6 +843,9 @@ class UtilFilesData
 
     // Sets data for the execution case 'create directory'
     // i_input_dir_name: Name of the input directory
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseCreateDir(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseCreateDir Enter');
@@ -1052,6 +866,9 @@ class UtilFilesData
 
     // Sets data for the execution case 'delete directory'
     // i_input_dir_name: Name of the input directory
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseDeleteDir(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseDeleteDir Enter');
@@ -1076,6 +893,9 @@ class UtilFilesData
 
     // Sets data for the execution case 'delete file'
     // i_input_file_name: Name of the input file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseDeleteFile(i_input_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseDeleteFile Enter');
@@ -1101,6 +921,9 @@ class UtilFilesData
     // Sets data for the execution case 'create file'
     // i_input_file_name: Name of the input file
     // i_file_content: The content of the file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseCreateFile(i_input_file_name, i_file_content, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Enter');
@@ -1120,6 +943,58 @@ class UtilFilesData
         this.setFileContent(i_file_content);
 
     } // setDataExecCaseCreateFile
+
+    // Sets data for the execution case 'copy file'
+    // i_input_file_name: Name of the input file
+    // i_output_file_name: The name of the output file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
+    setDataExecCaseCopyFile(i_input_file_name, i_output_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseCopyFile Enter');
+
+        this.init();
+
+        this.setExecCaseCopyFile();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputFileName(i_input_file_name);
+
+        this.setOutputFileName(i_output_file_name);
+
+    } // setDataExecCaseCopyFile
+
+    // Sets data for the execution case 'move file'
+    // i_input_file_name: Name of the input file
+    // i_output_file_name: The name of the output file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
+    setDataExecCaseMoveFile(i_input_file_name, i_output_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseMoveFile Enter');
+
+        this.init();
+
+        this.setExecCaseMoveFile();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputFileName(i_input_file_name);
+
+        this.setOutputFileName(i_output_file_name);
+
+    } // setDataExecCaseMoveFile
 
     // Handles the post execution result
     handlePostResult(i_data_post)
@@ -1393,6 +1268,20 @@ class UtilFilesData
         this.m_exec_case = 'ExecCreateFile';
 
     } // setExecCaseCreateFile
+
+    // Sets the UtilFiles execution case to 'copy file'
+    setExecCaseCopyFile()
+    {
+        this.m_exec_case = 'ExecCopyFile';
+
+    } // setExecCaseCopyFile
+
+    // Sets the UtilFiles execution case to 'move file'
+    setExecCaseMoveFile()
+    {
+        this.m_exec_case = 'ExecMoveFile';
+
+    } // setExecCaseMoveFile
 
 } // UtilFilesData
 
