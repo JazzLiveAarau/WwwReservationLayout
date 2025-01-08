@@ -1,5 +1,5 @@
 /* 
-File: ReservationLayout.css Date: 2025-01-06
+File: ReservationLayout.css Date: 2025-01-07
 
 Author: Gunnar Liden
 
@@ -159,7 +159,14 @@ label
 
 .cl_div_layout_button_xml_new
 {
+    margin-left: 3%;
     margin-right: 3%;
+    float: left;
+}
+
+.cl_div_layout_button_test
+{
+    margin-left: 3%;
     float: left;
 }
 

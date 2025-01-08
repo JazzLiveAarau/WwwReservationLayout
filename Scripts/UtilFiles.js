@@ -5,44 +5,108 @@
 // File content
 // =============
 //
-// Class with server utility functions based on the asynchronous jQuery function $.post.
-// Implemented functions are:
-// - Save (create) a file on the server defined by the file content and the file URL
-// - Copy a file. Input data are two URLs
-// - Move a file. Input data are two URLs
-// - Delete a file. Input data is an URL TODO Not yet implemented
+// Class with server directory and utility functions based on the jQuery function $.post.
 //
-// For debug there are also two function
-// - Initialize a debug file with a given name
-// - Append text the to the debug file. A name defines which debug file
-//
-// For the JAZZ live AARAU the absolute (full) URL may be given as input. The browsers
-// (the jQuery function $.post) only accept relative URLs, but these may be difficult
-// to set. In the class there are functions that convert the absolute URL to a relative
-// URL.
-//
-// Please also note that the functions only will execute if running on the server
-// for a jazz application. This is checked with UtilFiles.execApplicationOnServer.
-//
-// The server executing PHP files (functions) are in the dirextory /www/JazzScripts/Php
-//
-// Syntax for the jScript $.post function is: $.post(URL, data, callback); 
-// Parameter URL is the requested PHP file that processes the data on the server
-// Parameter data are object properties written as name:value pairs separated by commas 
-// within curly braces {}. 
-// Parameter callback is the name of the function that will be called when the data has 
-// been processed. In this class it is implemented as an anonymous function.
-// The callback function has two arguments: ret_data and status.
-// Argument ret_data is text written by the PHP function with echo.
-// Argument status returns the text 'success' if the PHP function has been executed.
-// Please note that the returned 'success' not means that from the calling function
-// requested result was achieved, like for instance that a file was actually saved. 
-// When the opening of a new file failed the reurned status is 'success' and for 
-// such a case the returned ret_data is returned woth a failure code that is examined
-// here. 
+// Please refer to class UtilServer
+
+
+
+
 
 class UtilFiles
 {
+    // i_util_files_data: An instance of class UtilFilesData
+    // 1. Set the PHP file name to 'UtilFiles.php'
+    static dirFileAnyCase(i_util_files_data)
+    {
+        debugReservationLayout('UtilFiles.dirFileAnyCase Enter');
+
+        if (null == i_util_files_data)
+        {
+            alert("UtilFiles.dirFileAnyCase Input object UtilFilesData is null");
+
+            return;            
+        }
+
+        var php_file_name = 'UtilFiles.php';
+
+        var rel_path_file_php = i_util_files_data.m_relative_path_php_dir + php_file_name;
+
+        /*
+        if (i_util_files_data.m_relative_path_php_dir == null || i_util_files_data.m_relative_path_php_dir.length == 0)
+        {
+            // TODO UtilServerSaveFile and not UtilFiles.php
+            rel_path_file_php = UtilFiles.getRelativeExecuteLevelPath('https://jazzliveaarau.ch/JazzScripts/Php/UtilServerSaveFile.php');
+        }
+        else
+        {
+            var index_absolut = i_util_files_data.m_relative_path_php_dir.indexOf('://');
+
+            if (index_absolut > 0)
+            {
+                var path_file_name = i_util_files_data.m_relative_path_php_dir + php_file_name;
+
+                rel_path_file_php = UtilFiles.getRelativeExecuteLevelPath(path_file_name);
+            }
+            else
+            {
+                rel_path_file_php = i_util_files_data.m_relative_path_php_dir + php_file_name;
+            }
+
+        } // Path to directory is defined
+         */
+
+        //var rel_path_input_file_name = UtilFiles.replaceAbsoluteWithRelativePath(i_util_files_data.m_input_file_name);
+
+        // var rel_path_input_file_name = i_util_files_data.m_input_file_name;
+
+        if (!UtilFiles.execApplicationOnServer())
+        {
+            alert("UtilFiles.dirFileAnyCase UtilFiles.php cannot be executed on the local (live) server");
+
+            return;
+        }
+
+        $.post
+          (rel_path_file_php,
+            {
+                exec_case:        i_util_files_data.m_exec_case,
+                input_dir_name:   i_util_files_data.m_input_dir_name,
+                input_file_name:  i_util_files_data.m_input_file_name,
+                output_file_name: i_util_files_data.m_output_file_name,
+                file_content:     i_util_files_data.m_file_content,
+                message_true:     i_util_files_data.m_message_true,
+                message_false:    i_util_files_data.m_message_false,
+                message_error:    i_util_files_data.m_message_error
+            },
+            function(data_post, status_post)
+            {   
+                if (status_post == "success")
+                {
+                    debugReservationLayout('UtilFiles.dirFileAnyCase TRUE');
+
+                    i_util_files_data.handlePostResult(data_post);
+                }
+                else
+                {
+                    debugReservationLayout('UtilFiles.dirFileAnyCase FALSE');
+
+                    i_util_files_data.handlePostErrorResult(data_post);
+                }  
+
+            } // function
+        ); // post 
+        
+    } // dirFileAnyCase
+
+
+
+
+
+
+
+
+
     // Save a file with the JQuery asynchronous function $.post and UtilServerSaveFile.php 
     // Input parameters
     // i_path_file_name: A relative or absolute URL for the created file
@@ -879,4 +943,456 @@ class UtilFiles
     } // isSamsungBrowser
 
 } // UtilFiles
+
+
+// The class holds input data for UtilFiles functions
+class UtilFilesData
+{
+    constructor()
+    {
+        // Case for UtilFiles
+        // Valid values are defined by functions setExecCaseXyz
+        this.m_exec_case = '';
+
+        // Callback function name
+        this.m_callback_function_name = null;
+
+        // Callback function name for an error
+        this.m_error_callback_function_name = null;
+
+        // Relative path to the PHP directory with file UtilFiles.php
+        // Setting the path is optional. If not set JazzScripts is assumed
+        this.m_relative_path_php_dir = null;
+
+        // Input directory name
+        this.m_input_dir_name = 'Undefined';
+
+        // Input file name
+        this.m_input_file_name = 'Undefined';
+
+        // Output file name
+        this.m_output_file_name = 'Undefined';
+
+        // File content
+        this.m_file_content = 'Undefined';
+
+        // Returned PHP (echo / data) message 'TRUE'
+        this.m_message_true = 'TRUE';
+
+        // Returned PHP (echo / data) message 'FALSE'
+        this.m_message_false = 'FALSE';
+
+        // Returned PHP (echo / data) error nessage always starting with 'FALSE'
+        this.m_message_error = 'FALSE';
+
+    } // constructor
+
+    // Sets data for the execution case 'directory exists'
+    // i_input_dir_name: Name of the input directory
+    // i_relative_path_php_dir: Relative path to the directory with the PHP file UtilFiles.php (=null is allowed)
+    // i_callback_function_name: Name of the callback function when exexution succeeded (=null is allowed)
+    // i_error_callback_function_name: Name of the callback function when exexution failed (=null is allowed)
+    setDataExecCaseDirExists(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseDirExists Enter');
+
+        this.init();
+
+        this.setExecCaseDirExists();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputDirName(i_input_dir_name);
+
+    } // setDataCaseDirExists
+
+    // Sets data for the execution case 'file exists'
+    // i_input_file_name: Name of the input file
+    setDataExecCaseFileExists(i_input_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseFileExists Enter');
+
+        this.init();
+
+        this.setExecCaseFileExists();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputFileName(i_input_file_name)
+
+    } // setDataExecCaseFileExists
+
+    // Sets data for the execution case 'create directory'
+    // i_input_dir_name: Name of the input directory
+    setDataExecCaseCreateDir(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseCreateDir Enter');
+
+        this.init();
+
+        this.setExecCaseCreateDir();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputDirName(i_input_dir_name);
+
+    } // setDataExecCaseCreateDir
+
+    // Sets data for the execution case 'delete directory'
+    // i_input_dir_name: Name of the input directory
+    setDataExecCaseDeleteDir(i_input_dir_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseDeleteDir Enter');
+
+        this.init();
+
+        this.setExecCaseDeleteDir();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputDirName(i_input_dir_name);
+
+        var error_msg = 'Not an existing directory= ' + i_input_dir_name;
+
+        this.setErrorMessage(error_msg);
+
+    } // setDataExecCaseDeleteDir
+
+    // Sets data for the execution case 'delete file'
+    // i_input_file_name: Name of the input file
+    setDataExecCaseDeleteFile(i_input_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseDeleteFile Enter');
+
+        this.init();
+
+        this.setExecCaseDeleteFile();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputFileName(i_input_file_name);
+
+        var error_msg = 'Not an existing file= ' + i_input_file_name;
+
+        this.setErrorMessage(error_msg);
+
+    } // setDataExecCaseDeleteFile
+
+    // Sets data for the execution case 'create file'
+    // i_input_file_name: Name of the input file
+    // i_file_content: The content of the file
+    setDataExecCaseCreateFile(i_input_file_name, i_file_content, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    {
+        debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Enter');
+
+        this.init();
+
+        this.setExecCaseCreateFile();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputFileName(i_input_file_name);
+
+        this.setFileContent(i_file_content);
+
+    } // setDataExecCaseCreateFile
+
+    // Handles the post execution result
+    handlePostResult(i_data_post)
+    {
+        debugReservationLayout('UtilFilesData.handlePostResult i_data_post= ' + i_data_post);
+
+        var index_true = i_data_post.indexOf(this.m_message_true);
+
+        var index_false = i_data_post.indexOf(this.m_message_false);
+
+        if (index_true < 0 && index_false < 0)
+        {
+            alert("UtilFilesData.handlePostResult Not TRUE or FALSE in i_data_post= " + i_data_post);
+        }
+        else if (index_true >= 0 && index_false >= 0)
+        {
+            alert("UtilFilesData.handlePostResult Both TRUE and FALSE in i_data_post= " + i_data_post);
+        }
+        else if (index_true >= 0 && index_false < 0)
+        {
+            if (this.m_callback_function_name != null || this.m_callback_function_name.length > 0)
+            {
+                debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Result TRUE');
+
+                this.m_callback_function_name;
+            }
+        }
+        else if (index_true < 0 && index_false >= 0)
+        {
+            if (this.m_error_callback_function_name != null || this.m_error_callback_function_name.length > 0)
+            {
+                debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Result Error');
+
+                this.m_error_callback_function_name;
+            }
+            else
+            {
+                alert("UtilFilesData.handlePostResult Execution case= " + this.m_exec_case + " failed i_data_post= " + i_data_post);
+            }
+        }
+        else
+        {
+            alert("UtilFilesData.handlePostResult Programming error ");
+        }
+
+
+    } // handlePostResult
+
+    handlePostErrorResult(i_data_post)
+    {
+        alert("UtilFilesData.handlePostErrorResult Execution case= " + this.m_exec_case + " failed i_data_post= " + i_data_post);
+
+    } // handlePostErrorResult
+
+    // Initialise all member variables
+    init()
+    {
+        // Case for UtilFiles
+        // Valid values are defined by functions setExecCaseXyz
+        this.m_exec_case = 'Undefined';
+
+        // Callback function name
+        this.m_callback_function_name = null;
+
+        // Callback function name for an error
+        this.m_error_callback_function_name = null;
+
+        // Relative path to the PHP directory with file UtilFiles.php
+        // Setting the path is optional. If not set JazzScripts is assumed
+        this.m_relative_path_php_dir = null;
+
+        // Input directory name
+        this.m_input_dir_name = 'Undefined';
+
+        // Input file name
+        this.m_input_file_name = 'Undefined';
+
+        // Output file name
+        this.m_output_file_name = 'Undefined';
+
+        // File content
+        this.m_file_content = 'Undefined';
+
+        // Returned PHP (echo / data) message 'TRUE'
+        this.m_message_true = 'TRUE';
+
+        // Returned PHP (echo / data) message 'FALSE'
+        this.m_message_false = 'FALSE';
+
+        // Returned PHP (echo / data) error nessage always starting with 'FALSE'
+        this.m_message_error = 'FALSE';
+
+    } // init
+
+     // Get the callback function name
+    getCallbackFunctionName()
+    {
+        return this.m_callback_function_name;   
+
+    } // getCallbackFunctionName
+
+     // Set the callback function name
+     setCallbackFunctionName(i_callback_function_name)
+     {
+         this.m_callback_function_name = i_callback_function_name;   
+ 
+     } // setCallbackFunctionName
+
+     // Get the allback function name
+     getErrorCallbackFunctionName()
+     {
+         return this.m_error_callback_function_name;   
+ 
+     } // getErrorCallbackFunctionName
+ 
+      // Get the allback function name
+      setErrorCallbackFunctionName(i_error_callback_function_name)
+      {
+          this.m_error_callback_function_name = i_error_callback_function_name;   
+  
+      } // setErrorCallbackFunctionName
+
+      // Get relative path to the PHP directory with file UtilFiles.php
+      // Setting the path is optional. If not set JazzScripts is assumed
+      // TODO Perhaps implement in this class
+      getRelativePathPhpDir()
+      {
+        return this.m_relative_path_php_dir;
+
+      } // getRelativePathPhpDir
+
+      // Set relative path to the PHP directory with file UtilFiles.php
+      // Setting the path is optional. If not set JazzScripts is assumed
+      setRelativePathPhpDir(i_relative_path_php_dir)
+      {
+        return this.m_relative_path_php_dir = i_relative_path_php_dir;
+
+      } // setRelativePathPhpDir
+
+    // Returns the error message without 'FALSE'
+    getErrorMessage()
+    {
+        var ret_msg = '';
+
+        var index_false = this.m_message_error.indexOf('FALSE');
+
+        if (index_false < 0)
+        {
+            alert("UtilFileData.getErrorMessage Error does not contain FALSE");
+
+            return 'UtilFileData.getErrorMessage Programming error';
+        }
+
+        ret_msg = this.m_message_error.substring(index_false);
+
+        ret_msg = ret_msg.trim();
+
+        return ret_msg;
+
+    } //getErrorMessage
+
+    // Sets the error message
+    setErrorMessage(i_error_msg)
+    {
+        this.m_message_error = 'FALSE' + ' ' + i_error_msg;
+
+    } // setErrorMessage
+
+    // Returns the input directory name
+    getInputDirName()
+    {
+        return this.m_input_dir_name;
+
+    } // getInputDirName
+
+    // Sets the input directory name
+    setInputDirName(i_input_dir_name)
+    {
+        this.m_input_dir_name = i_input_dir_name;
+
+    } // setInputDirName
+
+    // Returns the input file name
+    getInputFileName()
+    {
+        return this.m_input_file_name;
+
+    } // getInputFileName
+
+    // Sets the input file name
+    setInputFileName(i_input_file_name)
+    {
+        this.m_input_file_name = i_input_file_name;
+
+    } // setInputFileName
+	
+   // Returns the output file name
+   getOutputFileName()
+   {
+       return this.m_output_file_name;
+
+   } // getOutputFileName
+
+   // Sets the output file name
+   setOutputFileName(i_output_file_name)
+   {
+       this.m_output_file_name = i_output_file_name;
+
+   } // setOutputFileName
+   
+    // Returns the file content
+    getFileContent()
+    {
+        return this.m_file_content;
+
+    } // getFileContent
+
+    // Sets the file content
+    setFileContent(i_file_content)
+    {
+        this.m_file_content = i_file_content;
+
+    } // setFileContent
+
+    
+    // Returns the UtilFiles execution case
+    getExecCase()
+    {
+        return this.m_exec_case;
+
+    } // getExecCase
+
+    // Sets the UtilFiles execution case to 'directory exists'
+    setExecCaseDirExists()
+    {
+        this.m_exec_case = 'ExecDirExists';
+
+    } // setExecCaseDirExists
+
+    // Sets the UtilFiles execution case to 'file exists'
+    setExecCaseFileExists()
+    {
+        this.m_exec_case = 'ExecFileExists';
+
+    } // setExecCaseFileExists
+
+    // Sets the UtilFiles execution case to 'create directory'
+    setExecCaseCreateDir()
+    {
+        this.m_exec_case = 'ExecCreateDir';
+
+    } // setExecCaseCreateDir
+
+    // Sets the UtilFiles execution case to 'delete directory'
+    setExecCaseDeleteDir()
+    {
+        this.m_exec_case = 'ExecDeleteDir';
+
+    } // setExecCaseDeleteDir
+
+    // Sets the UtilFiles execution case to 'delete file'
+    setExecCaseDeleteFile()
+    {
+        this.m_exec_case = 'ExecDeleteFile';
+
+    } // setExecCaseDeleteFile
+
+    // Sets the UtilFiles execution case to 'create file'
+    setExecCaseCreateFile()
+    {
+        this.m_exec_case = 'ExecCreateFile';
+
+    } // setExecCaseCreateFile
+
+} // UtilFilesData
 

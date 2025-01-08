@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-06
+// Date: 2025-01-07
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -13,6 +13,9 @@
 
 // XML object layout
 var g_layout_xml = null;
+
+// An instance of the class CheckInputCreateDirs (global needed for its event member functions)
+var g_check_input_create_dirs = null;
 
 // All the tabulators, end of lines and code comments can be removed with this variable
 var g_remove_tabs_comments = false;
@@ -29,14 +32,18 @@ var g_add_temporary_test_functions = false;
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Initialisation for the creation of all the HTML files making up the reservation system
-// 1. Create all the controls for this application
+// 1. Init local storage. Call of LayoutStorage.initLocal
+// 2. Create all the controls for this application
 //    Call of createReservationLayoutControls
-// 2. Get the last used name of the subdirectory where the output HTML will be saved
-//    Call of TODO
-// 3.  objects JazzGuests.xml and JazzGuestsUploaded.xml. 
-//    Call of loadAllXmlObjectsForAdminAndUpload
-// 2. Create the UtilLock object. The functions of this call is used to lock and unlock
-//    the files JazzGuests.xml and JazzGuestsUploaded.xml.
+// 3. Get organisation and result directory names from local storage
+//    Call of LayoutStorage.getLocal
+// 4. Set text box controls for the directory names
+//    Calls of JazzTextBox.setValue
+// 5. Check that the organisation, result directory and layout definition XML file exist
+//    If directories or files exist the function directoriesXmlFileExist is called
+//    If not existing (or other failure) errorDirectoriesXmlFile is called
+// 5. Create object ReservationLayoutXml that loads the XML layout definition file
+//    After a succesful loading the function callbackAfterLoadOfXmlLayout is called
 function initReservationLayout()
 {
     debugReservationLayout('initReservationLayout Enter');
@@ -45,43 +52,195 @@ function initReservationLayout()
  
     createReservationLayoutControls();
 
-    // TODO From local storage
-    var organisation_directory_name = 'JAZZ_live_AARAU';
+    var layout_files_data_from_storage = LayoutStorage.getLocal();
 
-    var result_server_directory_name = 'Spagi_76_Chairs_V_1';
+   
+    var organisation_directory_name =  layout_files_data_from_storage.getOrganisationDir();            // 'JAZZ_live_AARAU';
+
+    var result_server_directory_name = layout_files_data_from_storage.getResultDir();          // 'Spagi_76_Chairs_V_2';
+
+    g_layout_organisation_dir_text_box.setValue(organisation_directory_name);
 
     g_layout_server_dir_text_box.setValue(result_server_directory_name);
 
-    g_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, organisation_directory_name, result_server_directory_name);
-
-    //TODO initAdminControls();
-
-    //TODO setAdminControls();
-
 } // initReservationLayout
-
-function callbackAfterLoadOfXmlLayout()
-{
-    debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
-
-    /*
-    var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
-    var file_case = g_layout_xml.getLayoutFileCase(4);
-    // g_layout_xml.setLayoutFileCase("NewFileName.htm", 4);
-    var layout_file_number = 3;  var button_id_number = 3;
-    var button_id = g_layout_xml.getLayoutFileButtonId(layout_file_number, button_id_number);
-    var n_id_buttons = g_layout_xml.getNumberOfLayoutFileIdButtons(layout_file_number);
-    //g_layout_xml.setLayoutFileButtonId("id_test_button", layout_file_number, button_id_number);
-    //g_layout_xml.setButtonTitle(1, "Default tooltip (HTML title)");
-
-    //g_layout_xml.setDoorText(2, "New door text");
-    */
-
-} // callbackAfterLoadOfXmlLayout
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Check Create Directories //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class checking that reservation layout directories exist. If not existing they will be
+// created after approval of the user
+class CheckInputCreateDirs
+{
+    constructor()
+    {
+        this.m_global_variable = null;
+
+        this.m_layout_files_data = null;
+
+        this.m_callback_success = null;
+
+        this.m_callback_failure = null;
+
+        this.m_relative_path_php_dir = 'Php/';
+    }
+
+    // Set, check and create directories if needed
+    // 1. Set member variables
+    // 2. Check and create directories if needed
+    //    Call of CheckInputCreateDirs.checkCreate
+    set(i_global_variable, i_layout_files_data, i_callback_success, i_callback_failure)
+    {
+        debugReservationLayout('CheckInputCreateDirs.set Enter');
+
+        this.m_global_variable = i_global_variable;
+
+        this.m_layout_files_data = i_layout_files_data;
+
+        this.m_callback_success = i_callback_success;
+
+        this.m_callback_failure = i_callback_failure;
+
+        this.checkCreate();
+
+    } // set
+
+    // Check and create directories if needed
+    // 1. Check all member variables
+    //    For non valid data call CheckInputCreateDirs.m_callback_failure
+    // 2. Check and create organisation directory if necessary
+    //    Call of CheckInputCreateDirs.checkCreateOrganisationDir
+    checkCreate()
+    {
+        debugReservationLayout('CheckInputCreateDirs.checkCreate Enter');
+
+        if (null == this.m_callback_failure || this.m_callback_failure.length == 0)
+        {
+            alert("CheckInputCreateDirs.check Callback error function not defined");
+
+            return;
+        }
+
+        if (null == this.m_layout_files_data)
+        {
+            alert("CheckInputCreateDirs.check Input object LayoutFilesData is null");
+
+            this.m_callback_failure(null); // = this.m_layout_files_data)
+
+            return; // Do not continue checking
+        }
+
+        if (this.m_layout_files_data.getOrganisationDir().length == 0)
+        {
+            alert("CheckInputCreateDirs.check Organisation directory is not defined");
+
+            this.m_callback_failure(this.m_layout_files_data); 
+
+            return; // Do not continue checking
+        }
+
+        if (this.m_layout_files_data.getResultDir().length == 0)
+        {
+            alert("CheckInputCreateDirs.check Result directory is not defined");
+
+            this.m_callback_failure(this.m_layout_files_data); 
+
+            return; // Do not continue checking
+        }        
+        
+        if (null == this.m_callback_success)
+        {
+            alert("CheckInputCreateDirs.check Callback success function not defined");
+
+            this.m_callback_failure(this.m_layout_files_data); 
+
+            return; // Do not continue checking
+        }
+
+        if (null == this.m_global_variable)
+        {
+            alert("CheckInputCreateDirs.check Global variable name string is not defined");
+
+            this.m_callback_failure(this.m_layout_files_data); 
+
+            return; // Do not continue checking
+        }
+
+        this.checkCreateOrganisationDir();
+
+    } // check
+
+    // Check and create organisation directory if necessary
+    // 1. Instantiate UtilFilesData and set organisation directory name
+    //    Call of UtilFilesData.setDataExecCaseDirExists 
+    // 2. Determine if organisation directory exists
+    //    Call of UtilFiles.dirFileAnyCase
+    checkCreateOrganisationDir()
+    {
+        debugReservationLayout('CheckInputCreateDirs.checkCreateOrganisationDir Enter');
+
+        var util_files_data = new UtilFilesData();
+
+        var input_dir_name = this.m_layout_files_data.getOrganisationDir();
+
+        // Parantheses necessary for the callback functions
+        util_files_data.setDataExecCaseDirExists(input_dir_name, this.m_relative_path_php_dir, 
+                this.m_global_variable.checkCreateResultDir, this.m_global_variable.createOrganisationDir);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // checkCreateOrganisationDir
+
+    // Create the organisation directory 
+    // 1. Ask the user if he approves
+    // 2. Instantiate UtilFilesData and set organisation directory name
+    //    Call of UtilFilesData.setDataExecCaseCreateDir 
+    // 3. Create the organisation directory
+    //    Call of UtilFiles.dirFileAnyCase
+    createOrganisationDir()
+    {
+        debugReservationLayout('CheckInputCreateDirs.createOrganisationDir Enter');
+
+        var input_dir_name = this.m_layout_files_data.getOrganisationDir();
+
+        var confirm_text = "Neuer Ordner " + input_dir_name + ' kreiren?';
+
+        if (confirm(confirm_text) == false) 
+        {
+            this.m_callback_failure(this.m_layout_files_data);
+        }
+
+        var util_files_data = new UtilFilesData();
+
+        var input_dir_name = this.m_layout_files_data.getOrganisationDir();
+
+        // Parantheses necessary for the callback functions
+        util_files_data.setDataExecCaseCreateDir(input_dir_name, this.m_relative_path_php_dir, 
+                this.m_global_variable.checkCreateResultDir(), this.m_global_variable.m_callback_failure());
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+ 
+    } // createOrganisationDir
+
+    checkCreateResultDir()
+    {
+        debugReservationLayout('CheckInputCreateDirs.checkCreateResultDir Enter');
+
+        alert("checkCreateResultDir Enter");
+
+    } // checkCreateResultDir
+
+} // CheckInputCreateDirs
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Check Create Directories ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -89,9 +248,70 @@ function callbackAfterLoadOfXmlLayout()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Create and upload layout files to the result server directory
+// 1. Get the input data and create directories if missing
+//    Call of getInputDataCreateFiles. This function has a callback /success) function
+//    with an instance of LayoutFilesInput as parameter
 function createUploadLayoutFiles()
 {
     debugReservationLayout('createUploadLayoutFiles Enter');
+
+    getInputDataCreateFiles();
+
+} // createUploadLayoutFiles
+
+// Returns an 
+function getInputDataCreateFiles()
+{
+    var organisaion_directory_name = g_layout_organisation_dir_text_box.getValue();
+
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+
+    var layout_files_data = new LayoutFilesData();
+
+    layout_files_data.setOrganisationDir(organisaion_directory_name);
+
+    layout_files_data.setResultDir(result_server_directory_name);
+
+    g_check_input_create_dirs = new CheckInputCreateDirs();
+
+    g_check_input_create_dirs.set(g_check_input_create_dirs, layout_files_data, directoriesExist, errorDirectoriesMissing);
+
+}
+
+// Callback function after checking if directories exist
+function directoriesExist(i_layout_files_data)
+{
+    debugReservationLayout('errorDirectoriesXmlFile Enter');
+
+    var organisation_directory_name = i_layout_files_data.getOrganisationDir();
+
+    var result_server_directory_name = i_layout_files_data.getResultDir();
+    
+    g_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, organisation_directory_name, result_server_directory_name);
+
+} // directoriesXmlFileExist
+
+function callbackAfterLoadOfXmlLayout()
+{
+    debugReservationLayout('callbackAfterLoadOfXmlLayout Enter');
+
+    createUploadLayoutFilesAfterCheck();
+
+} // callbackAfterLoadOfXmlLayout
+
+// Callback if directories are missing or other failure
+function errorDirectoriesMissing(i_layout_files_data)
+{
+    debugReservationLayout('errorDirectoriesMissing Enter');
+
+} // errorDirectoriesMissing
+
+// Create and upload layout files to the result server directory
+function createUploadLayoutFilesAfterCheck()
+{
+    debugReservationLayout('createUploadLayoutFilesAfterCheck Enter');
+
+    var organisaion_directory_name = g_layout_organisation_dir_text_box.getValue();
 
     var result_server_directory_name = g_layout_server_dir_text_box.getValue();
 
@@ -145,7 +365,7 @@ function createUploadLayoutFiles()
 
     recursiveFileCreation();
 
-} // createUploadLayoutFiles
+} // createUploadLayoutFilesAfterCheck
 
 // Returns the full path to the result directory
 function constructPathToResultDirectory(i_result_server_directory_name)
@@ -222,6 +442,13 @@ function onClickOfLayoutCancelButton()
 	alert("onClickOfLayoutCancelButton");
 
 }// onClickOfLayoutCancelButton
+
+// User clicked the layout test button
+function onClickOfLayoutTestButton()
+{
+	testLayout();
+
+}// onClickOfLayoutTestButton
 
 // User clicked the create new event XML files button
 function onClickOfXmlCreateNewButton()
@@ -362,6 +589,64 @@ function getIdDivResult()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Get Html Elements And Identities ////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Test Function /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Test function
+function testLayout()
+{
+    debugReservationLayout('testLayout Enter');
+
+    var dir_name = '../TestDir_1/SubTestDir_1/';
+
+    var file_name = '../TestDir_1/SubTestDir_1/TestFile.txt';
+
+    var file_content = '';
+
+    for (var row_number = 1; row_number <= 30; row_number++)
+    {
+        file_content += 'Der Alpdruck. Roman. Aufbau, Berlin 2014,  Seite 238. Erstveröffentlichung 1947. Row ' 
+                        + row_number.toString() + '\n';
+    }
+
+    var rel_path_php_dir = 'Php/'
+
+    var util_files_data = new UtilFilesData();
+
+    //util_files_data.setDataExecCaseDirExists(dir_name, rel_path_php_dir, testTrue, testFalse);
+
+    // util_files_data.setDataExecCaseCreateDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+
+    //util_files_data.setDataExecCaseDeleteDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+
+    util_files_data.setDataExecCaseCreateFile(file_name, file_content, rel_path_php_dir, testTrue, testFalse);
+
+    // util_files_data.setDataExecCaseDeleteFile(file_name, rel_path_php_dir, testTrue, testFalse);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // testLayout
+
+function testTrue()
+{
+    debugReservationLayout('testTrue Enter');
+
+    alert("testTrue");
+}
+
+function testFalse()
+{
+    debugReservationLayout('testFalse Enter');
+
+    alert("testFalse");
+    
+} // testFalse
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Test Function ///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 

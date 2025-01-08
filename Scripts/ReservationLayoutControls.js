@@ -1,5 +1,5 @@
 // File: ReservationLayoutControls.js
-// Date: 2025-01-06
+// Date: 2025-01-07
 // Authors: Gunnar Lidén
 
 // Content
@@ -24,6 +24,9 @@ var g_layout_save_button = null;
 
 // The reservation layout cancel button
 var g_layout_cancel_button = null;
+
+// The reservation layout test button
+var g_layout_test_button = null;
 
 // The XML create new events button
 var g_xml_create_new_button = null;
@@ -70,6 +73,8 @@ function createReservationLayoutControls()
     createLayoutSaveButton();
 
     createLayoutCancelButton();
+
+    createLayoutTestButton();
 
     createXmlCreateNewButton();
 
@@ -155,6 +160,21 @@ function createLayoutCancelButton()
     g_layout_cancel_button.setTitle('Abbrechen');
 
 } // createLayoutCancelButton
+
+ // Creates the reservation layout test button
+ function createLayoutTestButton()
+ {
+     g_layout_test_button = new JazzButton('id_layout_button_test', 'id_div_layout_button_test');
+ 
+     g_layout_test_button.setOnclickFunctionName("onClickOfLayoutTestButton");
+ 
+     g_layout_test_button.setCaption('Test');
+ 
+     g_layout_test_button.setLabelText("");
+ 
+     g_layout_test_button.setTitle('Test von neuen Funktionen');
+ 
+ } // createLayoutTestButton
 
 // Creates the XML create new button
 function createXmlCreateNewButton()

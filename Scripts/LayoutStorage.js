@@ -13,7 +13,7 @@ class LayoutStorage
     ///////////////////////////////////////////////////////////////////////////
 
     // Sets the layout data as windows local storage. 
-    // i_layout_data: An instance of the class LayoutData
+    // i_layout_data: An instance of the class LayoutFilesData
     static setLocal(i_layout_data)
     {
         localStorage.setItem(LayoutStorage.keyOrganisationDir(), i_layout_data.getOrganisationDir());
@@ -23,7 +23,7 @@ class LayoutStorage
     } // setLocal
 
     // Sets the layout data as windows session storage. 
-    // i_layout_data: An instance of the class LayoutData
+    // i_layout_data: An instance of the class LayoutFilesData
     static setSession(i_layout_data)
     {
         sessionStorage.setItem(LayoutStorage.keyOrganisationDir(), i_layout_data.getOrganisationDir());
@@ -40,11 +40,11 @@ class LayoutStorage
     /////// Start Get Functions ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns a reservation data object LayoutData with data from the 
+    // Returns a reservation data object LayoutFilesData with data from the 
     // windows local storage.
     static getLocal()
     {
-        var ret_layout_data = new LayoutData();
+        var ret_layout_data = new LayoutFilesData();
 
         var organisation_dir = localStorage.getItem(LayoutStorage.keyOrganisationDir());
 
@@ -58,11 +58,11 @@ class LayoutStorage
 
     } // getLocal
 
-    // Returns a reservation data object LayoutData with data from the 
+    // Returns a reservation data object LayoutFilesData with data from the 
     // windows session storage. 
     static getSession()
     {
-        var ret_layout_data = new LayoutData();
+        var ret_layout_data = new LayoutFilesData();
 
         var organisation_dir = sessionStorage.getItem(LayoutStorage.keyOrganisationDir());
 
@@ -174,7 +174,7 @@ class LayoutStorage
 } // LayoutStorage
 
 // Class that hold data for the creation of layout files
-class LayoutData
+class LayoutFilesData
 {
     constructor()
     {
@@ -214,4 +214,4 @@ class LayoutData
 
     } // setResultDir
 
-} // LayoutData
+} // LayoutFilesData
