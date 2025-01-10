@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-09
+// Date: 2025-01-10
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -616,43 +616,31 @@ function testLayout()
                         + row_number.toString() + '\n';
     }
 
-    var rel_path_php_dir = 'Php/'
+    var path_php_dir = 'Php/'
 
     var util_files_data = new UtilFilesData();
 
-    //util_files_data.setDataExecCaseDirExists(dir_name, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseDirExists(dir_name, path_php_dir, testTrue, testFalse);
 
-    // util_files_data.setDataExecCaseCreateDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+    // util_files_data.setDataExecCaseCreateDir(dir_name, path_php_dir, testTrue, testFalse);
 
-    //util_files_data.setDataExecCaseDeleteDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseDeleteDir(dir_name, path_php_dir, testTrue, testFalse);
 
-    //util_files_data.setDataExecCaseCreateFile(file_name, file_content, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseCreateFile(file_name, file_content, path_php_dir, testTrue, testFalse);
 
-    // util_files_data.setDataExecCaseDeleteFile(file_name, rel_path_php_dir, testTrue, testFalse);
+    // util_files_data.setDataExecCaseDeleteFile(file_name, path_php_dir, testTrue, testFalse);
 
-    // util_files_data.setDataExecCaseCreateDir(dir_name_out, rel_path_php_dir, testTrue, testFalse);
+    // util_files_data.setDataExecCaseCreateDir(dir_name_out, path_php_dir, testTrue, testFalse);
 
-    // util_files_data.setDataExecCaseCopyFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+    // util_files_data.setDataExecCaseCopyFile(file_name, file_name_out, path_php_dir, testTrue, testFalse);
 
-    //util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, path_php_dir, testTrue, testFalse);
 
     dir_name = '../Scripts/';
 
-    // util_files_data.setDataExecCaseCreateDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+    var callback_function = testScanDir;
 
-    file_name_out = 'TempScanDir/ListDir.xml';
-
-    var callback_function_array = [];
-
-    callback_function_array[0] = UtilFiles.loadOneXmlFile;
-
-    callback_function_array[1] = UtilFiles.getDirScanArray;
-
-    callback_function_array[2] = testScanDir;
-
-    util_files_data.setDataExecCaseScanDir(dir_name, file_name_out, rel_path_php_dir, callback_function_array, testFalse);
-
-    UtilFiles.dirFileAnyCase(util_files_data);
+    UtilFiles.getDirFileNames(dir_name, path_php_dir, callback_function);
 
 } // testLayout
 

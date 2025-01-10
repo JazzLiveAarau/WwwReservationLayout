@@ -141,8 +141,55 @@ class UtilFiles
 
 
     ///////////////////////////////////////////////////////////////////////////
-    /////////////////////// loadOneXmlFile Start //////////////////////////////
+    /////////////////////// File Name Array Start /////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Returns an array of file and directory names
+    // i_callback_function: The callback function. Function parameter shall be the array
+    // i_path_php_dir: Path to the directory of UtilFiles.php
+    // Please note that setOutputArrayCaseName is set in setDataExecCaseScanDir
+    // In the file UtilFiles.php is_dir do not work TODO
+    // Functions in this class are called in a chain defined as an array in an UtilFilesData object
+    // This object also holds results from the called functions like for instance the XML object with file data
+    // 1. Create an instance of class UtilFilesData
+    // 2. Define the temporarely used directory and file name for the XML file
+    //    TODO The directory must exist. It should be created if missing
+    // 3. Create the chain call array consisting of the following function names:
+    //    UtilFiles.loadOneXmlFile, UtilFiles.getDirScanArray and i_callback_function
+    //    Set the data of object UtilFilesData to the case 'scan directory'
+    //    Call of UtilFilesData.setDataExecCaseScanDir
+    // 4. Execute the case. Call of UtilFiles.dirFileAnyCase
+    //    The resulting array will be parameter to the input callback function
+    static getDirFileNames(i_dir_name, i_path_php_dir, i_callback_function)
+    {
+        debugReservationLayout('UtilFiles.getDirFileNames Enter');
+
+        var util_files_data = new UtilFilesData();
+
+        var file_name_out = 'TempScanDir/ListDir.xml';
+
+        var callback_function_array = [];
+    
+        callback_function_array[0] = UtilFiles.loadOneXmlFile;
+    
+        callback_function_array[1] = UtilFiles.getDirScanArray;
+    
+        callback_function_array[2] = i_callback_function;
+    
+        util_files_data.setDataExecCaseScanDir(i_dir_name, file_name_out, i_path_php_dir, callback_function_array, UtilFiles.errorGetDirFileNames);
+    
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // getDirFileNames
+
+    // Error callback function for function UtilFiles.getDirFileNames
+    static errorGetDirFileNames()
+    {
+        debugReservationLayout('UtilFiles.errorGetDirFileNames Enter');
+
+        alert("UtilFiles.errorGetDirFileNames Enter")
+
+    } // errorGetDirFileNames
 
     // Load the XML file.
      // i_util_files_data: An instance of class UtilFilesData
@@ -332,7 +379,7 @@ class UtilFiles
     } // getDirScanArray
 
     ///////////////////////////////////////////////////////////////////////////
-    /////////////////////// loadOneXmlFile Start //////////////////////////////
+    /////////////////////// File Name Array End ///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 
@@ -1432,7 +1479,7 @@ class UtilFilesData
 
         this.setCallbackFunctionArrayIndex(0);
 
-        this.setOutputArrayCaseFile();
+        this.setOutputArrayCaseName();
 
         this.setInputDirName(i_input_dir_name);
 
