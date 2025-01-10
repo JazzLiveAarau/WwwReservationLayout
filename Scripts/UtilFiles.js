@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-09
+// Date: 2025-01-10
 // Author: Gunnar Lidén
 
 // File content
@@ -9,8 +9,17 @@
 //
 // Please refer to class UtilServer
 
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// UtilFiles Start //////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 class UtilFiles
 {
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// dirFileAnyCase Start //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
     // Input to the function is an instance of the class UtilFilesData
     // Class UtilFilesData has member functions for all available execution cases
     // The valid execution cases are defined by the member functions
@@ -110,8 +119,6 @@ class UtilFiles
 
                     ret_util_files_data.setResultPostData(data_post);
 
-                    // i_util_files_data.handlePostResult(data_post);
-
                     i_util_files_data.handlePostResult(ret_util_files_data);
                 }
                 else
@@ -128,43 +135,212 @@ class UtilFiles
         
     } // dirFileAnyCase
 
-    static     // Load the XML file.
-    // https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced
-    // i_object_xml is the instance of this class. Call of this.setXmlObject
-    // does not work, while this= jazz_xmlhttp 
-    loadOneXmlFile()
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// dirFileAnyCase End ////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// loadOneXmlFile Start //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Load the XML file.
+     // i_util_files_data: An instance of class UtilFilesData
+    static loadOneXmlFile(i_util_files_data)
     {
-    // Request server object for the XML file
-    var jazz_xmlhttp = new XMLHttpRequest();
-    
-    // Event function: The server will return state and status 
-    // from object functions open and send.
-    jazz_xmlhttp.onreadystatechange = function() 
-    {
-        // Please note that this statement is executed several times, e.g.
-        // with readyState = 2 meaning that the request is received.
-        if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 200) 
+        debugReservationLayout('UtilFiles.loadOneXmlFile Enter');
+
+        var path_file_name_xml = i_util_files_data.getOutputFileName();
+
+        path_file_name_xml = 'Php/' + path_file_name_xml; // TODO
+
+        var callback_function_name = i_util_files_data.getCallbackFunctionName();
+
+        if (null != i_util_files_data.m_callback_function_array)
         {
-            var xml_object = jazz_xmlhttp.responseXML;
-
-            i_object_xml.setXmlObject(xml_object);
-
-            i_callback_function_name();    
+            callback_function_name = i_util_files_data.increaseIndexGetCurrentCallbackFunction();
         }
-        else if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 404) 
+
+        // Request server object for the XML file
+        var jazz_xmlhttp = new XMLHttpRequest();
+        
+        // Event function: The server will return state and status 
+        // from object functions open and send.
+        jazz_xmlhttp.onreadystatechange = function() 
         {
-            alert("Error 404: File " + i_path_file_name_xml + " not found" );
-        } 
+            // Please note that this statement is executed several times, e.g.
+            // with readyState = 2 meaning that the request is received.
+            if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 200) 
+            {
+                var xml_object = jazz_xmlhttp.responseXML;
+
+                var ret_util_files_data = i_util_files_data;
+
+                ret_util_files_data.setResultObjectArrayXml(xml_object);
+
+                callback_function_name(ret_util_files_data);    
+            }
+            else if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 404) 
+            {
+                alert("Error 404: File " + path_file_name_xml + " not found" );
+            } 
         };
     
         // Open the file
-        jazz_xmlhttp.open("GET", i_path_file_name_xml, true);
+        jazz_xmlhttp.open("GET", path_file_name_xml, true);
         
         jazz_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
             
         jazz_xmlhttp.send();	
 
     } // loadOneXmlFile
+
+    // Returns the directory list array
+    static getDirScanArray(i_util_files_data)
+    {
+        debugReservationLayout('UtilFiles.getDirScanArray Enter');
+
+        var dir_list_xml = i_util_files_data.getResultObjectArrayXml();
+
+        if (null == dir_list_xml)
+        {
+            alert("UtilFiles.getDirScanArray Input XML object is null");
+
+            return null;
+        }
+
+        var tag_name = 'DirFile';
+
+        var tag_type = 'Type';
+
+        var value_type_dir = 'Dir';
+
+        var value_type_file = 'File';
+
+        var rec_names = dir_list_xml.getElementsByTagName(tag_name);
+
+        var rec_types = dir_list_xml.getElementsByTagName(tag_type);
+
+        var n_rec_names = rec_names.length;
+
+        var n_rec_types = rec_types.length;
+
+        if (n_rec_names != n_rec_types)
+        {
+            alert("UtilFiles.getDirScanArray n_rec_names= " + n_rec_names.toString()) +
+                    ' not equal to n_rec_types= ' + n_rec_types.toString();
+
+            return null;
+        }
+
+        debugReservationLayout('UtilFiles.getDirScanArray Number of arrays name and type is ' + n_rec_names.toString());
+
+        var array_names = [];
+
+        var array_files = [];
+
+        var array_dirs = [];
+
+        var array_types = [];
+
+        var index_file = 0;
+
+        var index_dir = 0;
+
+        for (var index_rec = 0; index_rec < n_rec_names; index_rec++)
+        {
+            var rec_name = rec_names[index_rec];
+
+            var rec_type = rec_types[index_rec];
+
+            var file_name = rec_name.childNodes[0].nodeValue;
+
+            var file_type = rec_type.childNodes[0].nodeValue;
+
+            array_names[index_rec] = file_name;
+
+            array_types[index_rec] = file_type;
+
+            if (value_type_dir == file_type)
+            {
+                array_dirs[index_dir] = file_name;
+
+                index_dir = index_dir + 1;
+            }
+            else if (value_type_file == file_type)
+            {
+                array_files[index_file] = file_name;
+
+                index_file = index_file + 1;
+            }
+            else
+            {
+                alert("UtilFiles.getDirScanArray Not an implemented type value= " + file_type);
+
+                return null;
+            }
+
+        } // index_rec
+
+        var n_file_names_str = array_files.length.toString();
+
+        var n_dir_names_str = array_dirs.length.toString();
+
+        debugReservationLayout('UtilFiles.getDirScanArray Number of file names is ' + n_file_names_str);
+
+        debugReservationLayout('UtilFiles.getDirScanArray Number of directory names is ' + n_dir_names_str);
+
+        var callback_function_name = i_util_files_data.getCallbackFunctionName();
+
+        if (null != i_util_files_data.m_callback_function_array)
+        {
+            callback_function_name = i_util_files_data.increaseIndexGetCurrentCallbackFunction();
+        }
+
+        if (i_util_files_data.outputArrayCaseName())
+        {
+            debugReservationLayout('UtilFiles.getDirScanArray File and directory names returned');
+
+            callback_function_name(array_names);
+        }
+        else if (i_util_files_data.outputArrayCaseFile())
+        {
+            debugReservationLayout('UtilFiles.getDirScanArray File names returned');
+
+            callback_function_name(array_files);
+        }
+        else if (i_util_files_data.outputArrayCaseDir())
+        {
+            debugReservationLayout('UtilFiles.getDirScanArray Directory names returned');
+
+            callback_function_name(array_dirs);
+        }
+        else if (i_util_files_data.outputArrayCaseType())
+        {
+            debugReservationLayout('UtilFiles.getDirScanArray File types returned');
+
+            callback_function_name(array_types);
+        }
+        else
+        {
+            alert("UtilFiles.getDirScanArray Not an implemented output array case= " + i_util_files_data.getOutputArrayCase());
+
+            return null;           
+        }
+
+
+    } // getDirScanArray
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// loadOneXmlFile Start //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// UtilFiles End ////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////TODO Move or remove functions below ////////////////////////////////////
 
     // Returns the relative path (URL) to the executing HTML file 
     // If the input URL not is an absolute path starting with 
@@ -786,6 +962,10 @@ class UtilFiles
 } // UtilFiles
 
 
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// UtilFilesData Start //////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 // The class holds input data for the functions of class UtilFiles
 // The valid execution cases are defined by the member functions
 // setExecCaseDirExists  - setDataExecCaseDirExists
@@ -799,6 +979,10 @@ class UtilFiles
 // setExecCaseScanDir    - setDataExecCaseScanDir
 class UtilFilesData
 {
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Constructor Start /////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
     constructor()
     {
         // Case for UtilFiles
@@ -810,6 +994,15 @@ class UtilFilesData
 
         // Callback function name for an error
         this.m_error_callback_function_name = null;
+
+        // Array of callback functions for 'chain calling', e.g. setDataExecCaseScanDir
+        this.m_callback_function_array = null;
+
+        // Current index for m_callback_function_array
+        this.m_callback_function_array_index = -12345;
+
+        // Type of output aray case: name or type
+        this.m_output_array_case = 'name';
 
         // Relative path to the PHP directory with file UtilFiles.php
         // Setting the path is optional. If not set JazzScripts is assumed
@@ -843,6 +1036,179 @@ class UtilFilesData
         this.m_result_object_array_xml = null;
 
     } // constructor
+
+    // Initialise all member variables
+    init()
+    {
+        // Case for UtilFiles
+        // Valid values are defined by functions setExecCaseXyz
+        this.m_exec_case = 'Undefined';
+
+        // Callback function name
+        this.m_callback_function_name = null;
+
+        // Callback function name for an error
+        this.m_error_callback_function_name = null;
+
+        // Array of callback functions for 'chain calling', e.g. setDataExecCaseScanDir
+        this.m_callback_function_array = null;
+
+        // Current index for m_callback_function_array
+        this.m_callback_function_array_index = -12345;
+
+        // Type of output aray case: name, type, file or dir
+        this.m_output_array_case = 'name';
+
+        // Relative path to the PHP directory with file UtilFiles.php
+        // Setting the path is optional. If not set JazzScripts is assumed
+        this.m_relative_path_php_dir = null;
+
+        // Input directory name
+        this.m_input_dir_name = 'Undefined';
+
+        // Input file name
+        this.m_input_file_name = 'Undefined';
+
+        // Output file name
+        this.m_output_file_name = 'Undefined';
+
+        // File content
+        this.m_file_content = 'Undefined';
+
+        // Returned PHP (echo / data) message 'TRUE'
+        this.m_message_true = 'TRUE';
+
+        // Returned PHP (echo / data) message 'FALSE'
+        this.m_message_false = 'FALSE';
+
+        // Returned PHP (echo / data) error nessage always starting with 'FALSE'
+        this.m_message_error = 'FALSE';
+
+        // Output data from JQuery post that got it fron UtilFiles.php
+        this.m_result_post_data = 'Undefined';
+
+        // Array of files on a directory defined as an XML fule. 
+        this.m_result_object_array_xml = null;
+
+    } // init
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Constructor End ///////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////// 
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Handle Post Result Start //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Handles the post execution result
+    // This function is called in function dirFileAnyCase. It handles the result
+    // from the execution of the PHP functions in UtilFiles.php (the echo string)
+    // i_util_files_data: Instance of the class UtilFilesData
+    // 1. Determine if  UtilFiles.php execution returned true or false/failure
+    //    Strings m_message_true and m_message_false are used for this
+    // 2.  I: If returned value is true: 
+    //        Call of handlePostResultTrue
+    //    II: If returned value is false: 
+    //        Call UtilFilesData.m_error_callback_function_name
+    //        Please note that this function must always be defined
+    handlePostResult(i_util_files_data)
+    {
+      var data_post = i_util_files_data.getResultPostData();
+
+      debugReservationLayout('UtilFilesData.handlePostResult data_post= ' + data_post);
+
+      var index_true = data_post.indexOf(this.m_message_true);
+
+      var index_false = data_post.indexOf(this.m_message_false);
+
+      if (index_true < 0 && index_false < 0)
+      {
+          alert("UtilFilesData.handlePostResult Not TRUE or FALSE in data_post= " + data_post);
+      }
+      else if (index_true >= 0 && index_false >= 0)
+      {
+          alert("UtilFilesData.handlePostResult Both TRUE and FALSE in data_post= " + data_post);
+      }
+      else if (index_true >= 0 && index_false < 0)
+      {
+        this.handlePostResultTrue(i_util_files_data);
+      }
+      else if (index_true < 0 && index_false >= 0)
+      {
+          if (this.m_error_callback_function_name != null || this.m_error_callback_function_name.length > 0)
+          {
+              debugReservationLayout('UtilFilesData.handlePostResult Result Error');
+
+              this.m_error_callback_function_name;
+          }
+          else
+          {
+              alert("UtilFilesData.handlePostResult Execution case= " + this.m_exec_case + " failed data_post= " + data_post);
+          }
+      }
+      else
+      {
+          alert("UtilFilesData.handlePostResult Programming error ");
+      }
+
+
+    } // handlePostResult
+
+    // Handles the post execution result when the execution in UtilFiles.php (the echo string) returned true
+    // i_util_files_data: An instance of FileUtilsData. Please not that it is an instance of this class
+    // Case 'chain calls' (array of callback functions are defined)
+    // 1. Get the current (m_callback_function_array_index) callback function from array m_callback_function_array 
+    // 2. Increase and set the index. Call of UtilFilesData.setCallbackFunctionArray
+    //    Plese not that the index change is for the input object UtilFilesData that is returned by this function
+    // 3. Call the current callback function with the UtilFilesData object as parameter
+    // Normal case
+    // 1. Call the callback function UtilFilesData.m_callback_function_name if it is defined
+    //    The function m_callback_function_name must not be defined
+    //    Please also note that the function is called without any parameter
+    handlePostResultTrue(i_util_files_data)
+    {
+        var data_post = i_util_files_data.getResultPostData();
+
+        debugReservationLayout('UtilFilesData.handlePostResultTrue data_post= ' + data_post);
+
+        this.debugCallbackFunctionArray('handlePostResultTrue');
+
+        if (this.m_callback_function_array != null)
+        {
+            debugReservationLayout('UtilFilesData.handlePostResultTrue Call m_callback_function_array for index ' 
+                                + this.m_callback_function_array_index.toString());
+
+            var ret_util_files_data = i_util_files_data;
+
+            var current_callback_function = ret_util_files_data.getCurrentCallbackFunction();
+
+
+            current_callback_function(ret_util_files_data);
+            
+        }    
+        else if (this.m_callback_function_name != null || this.m_callback_function_name.length > 0)
+        {
+            debugReservationLayout('UtilFilesData.handlePostResultTrue Result TRUE: m_callback_function_name');
+
+            this.m_callback_function_name;
+        }
+
+    } // handlePostResultTrue
+
+    // Handles the case when the UtilFiles.php 'totally' failed, i.e. a programming error
+    handlePostErrorResult(i_util_files_data)
+    {
+        alert("UtilFilesData.handlePostErrorResult Execution case= " + this.m_exec_case + " failed data_post= " + i_util_files_data.getResultPostData());
+
+    } // handlePostErrorResult
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Handle Post Result Ende ///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Set Data Exec Cases Start /////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     // Sets data for the execution case 'directory exists'
     // i_input_dir_name: Name of the input directory
@@ -1049,9 +1415,10 @@ class UtilFilesData
     // i_input_dir_name: URL path to the directory
     // i_output_file_name: The name of the output XML file
 	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
-	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_callback_function_array: Array of callback functions for 'chain calls'
+    // i_callback_function_two: Callback function TRUE for the second callback of the 'chain calls'
 	// i_error_callback_function_name: Callback function FALSE / Failed
-    setDataExecCaseScanDir(i_input_dir_name, i_output_xml_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+    setDataExecCaseScanDir(i_input_dir_name, i_output_xml_file_name, i_relative_path_php_dir, i_callback_function_array, i_error_callback_function_name)
     {
         debugReservationLayout('UtilFilesData.setDataExecCaseScanDir Enter');
 
@@ -1061,9 +1428,11 @@ class UtilFilesData
 
         this.setRelativePathPhpDir(i_relative_path_php_dir);
 
-        this.setCallbackFunctionName(i_callback_function_name);
+        this.setCallbackFunctionArray(i_callback_function_array);
 
-        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+        this.setCallbackFunctionArrayIndex(0);
+
+        this.setOutputArrayCaseFile();
 
         this.setInputDirName(i_input_dir_name);
 
@@ -1075,106 +1444,13 @@ class UtilFilesData
 
     } // setDataExecCaseScanDir
 
-    // Handles the post execution result
-    handlePostResult(i_util_files_data)
-    {
-        var data_post = i_util_files_data.getResultPostData();// TODO Chan i_data ..
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Set Data Exec Cases End ///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
-        debugReservationLayout('UtilFilesData.handlePostResult data_post= ' + data_post);
-
-        var index_true = data_post.indexOf(this.m_message_true);
-
-        var index_false = data_post.indexOf(this.m_message_false);
-
-        if (index_true < 0 && index_false < 0)
-        {
-            alert("UtilFilesData.handlePostResult Not TRUE or FALSE in data_post= " + data_post);
-        }
-        else if (index_true >= 0 && index_false >= 0)
-        {
-            alert("UtilFilesData.handlePostResult Both TRUE and FALSE in data_post= " + data_post);
-        }
-        else if (index_true >= 0 && index_false < 0)
-        {
-            if (this.m_callback_function_name != null || this.m_callback_function_name.length > 0)
-            {
-                debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Result TRUE');
-
-                this.m_callback_function_name;
-            }
-        }
-        else if (index_true < 0 && index_false >= 0)
-        {
-            if (this.m_error_callback_function_name != null || this.m_error_callback_function_name.length > 0)
-            {
-                debugReservationLayout('UtilFilesData.setDataExecCaseCreateFile Result Error');
-
-                this.m_error_callback_function_name;
-            }
-            else
-            {
-                alert("UtilFilesData.handlePostResult Execution case= " + this.m_exec_case + " failed data_post= " + data_post);
-            }
-        }
-        else
-        {
-            alert("UtilFilesData.handlePostResult Programming error ");
-        }
-
-
-    } // handlePostResult
-
-    handlePostErrorResult(i_util_files_data)
-    {
-        alert("UtilFilesData.handlePostErrorResult Execution case= " + this.m_exec_case + " failed data_post= " + i_util_files_data.getResultPostData());
-
-    } // handlePostErrorResult
-
-    // Initialise all member variables
-    init()
-    {
-        // Case for UtilFiles
-        // Valid values are defined by functions setExecCaseXyz
-        this.m_exec_case = 'Undefined';
-
-        // Callback function name
-        this.m_callback_function_name = null;
-
-        // Callback function name for an error
-        this.m_error_callback_function_name = null;
-
-        // Relative path to the PHP directory with file UtilFiles.php
-        // Setting the path is optional. If not set JazzScripts is assumed
-        this.m_relative_path_php_dir = null;
-
-        // Input directory name
-        this.m_input_dir_name = 'Undefined';
-
-        // Input file name
-        this.m_input_file_name = 'Undefined';
-
-        // Output file name
-        this.m_output_file_name = 'Undefined';
-
-        // File content
-        this.m_file_content = 'Undefined';
-
-        // Returned PHP (echo / data) message 'TRUE'
-        this.m_message_true = 'TRUE';
-
-        // Returned PHP (echo / data) message 'FALSE'
-        this.m_message_false = 'FALSE';
-
-        // Returned PHP (echo / data) error nessage always starting with 'FALSE'
-        this.m_message_error = 'FALSE';
-
-        // Output data from JQuery post that got it fron UtilFiles.php
-        this.m_result_post_data = 'Undefined';
-
-        // Array of files on a directory defined as an XML fule. 
-        this.m_result_object_array_xml = null;
-
-    } // init
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Set Get Member Data Start /////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
      // Get the callback function name
     getCallbackFunctionName()
@@ -1203,6 +1479,220 @@ class UtilFilesData
           this.m_error_callback_function_name = i_error_callback_function_name;   
   
       } // setErrorCallbackFunctionName
+
+     // Get array of callback functions for 'chain calling', e.g. setDataExecCaseScanDir
+     getCallbackFunctionArray()
+     {
+         return this.m_callback_function_array;   
+ 
+     } // getCallbackFunctionArray
+ 
+      // Set Array of callback functions for 'chain calling', e.g. setDataExecCaseScanDir
+      setCallbackFunctionArray(i_callback_function_array)
+      {
+          debugReservationLayout('UtilFilesData.setCallbackFunctionArray Enter');
+
+          this.m_callback_function_array = i_callback_function_array;
+
+          this.debugCallbackFunctionArray('setCallbackFunctionArray');
+  
+      } // setCallbackFunctionArray
+
+      // Debug output of m_callback_function_array
+      debugCallbackFunctionArray(i_header)
+      {
+        if (null == this.m_callback_function_array)
+        {
+            debugReservationLayout(i_header + '  m_callback_function_array is null ');
+
+            return;
+        }
+
+        var n_files = this.m_callback_function_array.length;
+
+        debugReservationLayout(i_header + ' m_callback_function_array number of elements is ' + n_files.toString());
+
+      } // debugCallbackFunctionArray
+
+     // Get the output array type
+     getOutputArrayCase()
+     {
+         return this.m_output_array_case;   
+ 
+     } // getOutputArrayCase
+ 
+      // Set the output array type to names of files and directories
+      setOutputArrayCaseName()
+      {
+          this.m_output_array_case = 'name';
+  
+      } // setOutputArrayCaseName
+
+      // Set the output array type to only files 
+      setOutputArrayCaseFile()
+      {
+          this.m_output_array_case = 'file';
+  
+      } // setOutputArrayCaseFile
+
+      // Set the output array type to only files 
+      setOutputArrayCaseDir()
+      {
+          this.m_output_array_case = 'dir';
+  
+      } // setOutputArrayCaseDir
+
+      // Set he output array type to file types
+      setOutputArrayCaseType()
+      {
+          this.m_output_array_case = 'type';
+  
+      } // setOutputArrayCaseType
+
+      // Returns true if the output array case is names of files and directories
+      outputArrayCaseName()
+      {
+        if (this.getOutputArrayCase() == 'name')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+      } // outputArrayCaseName
+
+      // Returns true if the output array case is only file names
+      outputArrayCaseFile()
+      {
+        if (this.getOutputArrayCase() == 'file')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+      } // outputArrayCaseFile
+
+      // Returns true if the output array case is only directory names
+      outputArrayCaseDir()
+      {
+        if (this.getOutputArrayCase() == 'dir')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+      } // outputArrayCaseDir
+
+      // Returns true if the output array cas is file types
+      outputArrayCaseType()
+      {
+        if (this.getOutputArrayCase() == 'type')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+      } // outputArrayCaseType
+
+     // Get the index for the array of callback functions 
+     getCallbackFunctionArrayIndex()
+     {
+         return this.m_callback_function_array_index;   
+ 
+     } // getCallbackFunctionArrayIndex
+ 
+      // Set the index for the array of callback functions 
+      setCallbackFunctionArrayIndex(i_callback_function_array_index)
+      {
+          this.m_callback_function_array_index = i_callback_function_array_index;
+  
+      } // setCallbackFunctionArrayIndex
+
+     // Get current callback functions for the 'chain calling' and increase indev
+     getCurrentCallbackFunction()
+     {
+        debugReservationLayout('UtilFilesData.getCurrentCallbackFunction Enter');
+
+        var ret_callback_function = null;
+
+        if (null == this.m_callback_function_array)
+        {
+            alert("utilFilesData.increaseIndexGetCurrentCallbackFunction m_callback_function_array is null");
+
+            return ret_callback_function;
+        }
+        
+        var current_index = this.m_callback_function_array_index;
+
+        var n_functions = this.m_callback_function_array.length;
+
+        if (current_index < 0 || current_index >= n_functions)
+        {
+            alert("UtilFilesData.increaseIndexGetCurrentCallbackFunction Index= " + this.m_callback_function_array_index.toString() + 
+            'for array m_callback_function_array is not between 0 and ' + (n_functions - 1).toString());
+
+            return ret_callback_function;
+        }
+
+        ret_callback_function = this.m_callback_function_array[current_index];
+
+        return ret_callback_function;
+ 
+     } // getCurrentCallbackFunction
+
+     // Increase index and return the (new) current callback functions for the 'chain calling' 
+     increaseIndexGetCurrentCallbackFunction()
+     {
+        var ret_callback_function = null;
+
+        if (null == this.m_callback_function_array)
+        {
+            alert("utilFilesData.increaseIndexGetCurrentCallbackFunction m_callback_function_array is null");
+
+            return ret_callback_function;
+        }
+        
+        var current_index = this.m_callback_function_array_index;
+
+        var n_functions = this.m_callback_function_array.length;
+
+        if (current_index < 0 || current_index >= n_functions - 1)
+        {
+            alert("UtilFilesData.increaseIndexGetCurrentCallbackFunction Index= " + this.m_callback_function_array_index.toString() + 
+            'for array m_callback_function_array is not between 0 and ' + (n_functions - 2).toString());
+
+            return ret_callback_function;
+        }
+
+        var next_index = -1;
+
+        if (current_index < n_functions - 1)
+        {
+            next_index = current_index + 1;
+        }
+
+        this.setCallbackFunctionArrayIndex(next_index);
+
+
+        ret_callback_function = this.m_callback_function_array[next_index];
+
+        debugReservationLayout('UtilFilesData.increaseIndexGetCurrentCallbackFunction New index = ' 
+                         + next_index.toString());
+
+        return ret_callback_function;
+ 
+     } // increaseIndexGetCurrentCallbackFunction
 
       // Get relative path to the PHP directory with file UtilFiles.php
       // Setting the path is optional. If not set JazzScripts is assumed
@@ -1321,18 +1811,18 @@ class UtilFilesData
     } // setResultPostData
 
      // Get array of files on a directory defined as an XML fule. 
-    getResultObjectArrayXmg()
+    getResultObjectArrayXml()
     {
         return this.m_result_object_array_xml;
 
-    } // getResultObjectArrayXmg
+    } // getResultObjectArrayXml
 
      // Get array of files on a directory defined as an XML fule. 
-     setResultObjectArrayXmg(i_result_object_array_xml)
+     setResultObjectArrayXml(i_result_object_array_xml)
      {
          this.m_result_object_array_xml = i_result_object_array_xml;
  
-     } // setResultObjectArrayXmg
+     } // setResultObjectArrayXml
     
     // Returns the UtilFiles execution case
     getExecCase()
@@ -1404,5 +1894,14 @@ class UtilFilesData
 
     } // setExecCaseMoveFile
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////// Set Get Member Data End ///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 } // UtilFilesData
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// UtilFilesData End ////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 

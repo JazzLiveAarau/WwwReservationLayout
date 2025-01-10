@@ -642,11 +642,25 @@ function testLayout()
 
     file_name_out = 'TempScanDir/ListDir.xml';
 
-    util_files_data.setDataExecCaseScanDir(dir_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+    var callback_function_array = [];
+
+    callback_function_array[0] = UtilFiles.loadOneXmlFile;
+
+    callback_function_array[1] = UtilFiles.getDirScanArray;
+
+    callback_function_array[2] = testScanDir;
+
+    util_files_data.setDataExecCaseScanDir(dir_name, file_name_out, rel_path_php_dir, callback_function_array, testFalse);
 
     UtilFiles.dirFileAnyCase(util_files_data);
 
 } // testLayout
+
+function testScanDir(i_name_array)
+{
+    debugReservationLayout('testScanDir Number of elements is ' + i_name_array.length.toString());
+
+} // testScanDir
 
 function testTrue()
 {

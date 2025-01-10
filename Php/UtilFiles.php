@@ -1,7 +1,7 @@
 <?php
 
 // File: UtilFiles.php
-// Date: 2025-01-09
+// Date: 2025-01-10
 // Author: Gunnar Liden
 
 // File utility functions
@@ -307,7 +307,7 @@ function dirListXml($input_dir_name, $output_file_name, $message_true, $message_
 
       $dir_type = "Points";
     }
-    elseif (is_dir($dir_file))
+    elseif (is_dir($dir_file)) // TODO is_dir and is_file does not work (drwxr-xr-x Is first d for directory) clearstatcache() does not help
     {
       debugAppend("Dir");
 
