@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-08
+// Date: 2025-01-09
 // Author: Gunnar Lidén
 
 // File content
@@ -8,10 +8,6 @@
 // Class with server directory and utility functions based on the jQuery function $.post.
 //
 // Please refer to class UtilServer
-
-
-
-
 
 class UtilFiles
 {
@@ -110,11 +106,19 @@ class UtilFiles
                 {
                     debugReservationLayout('UtilFiles.dirFileAnyCase TRUE');
 
-                    i_util_files_data.handlePostResult(data_post);
+                    var ret_util_files_data = i_util_files_data;
+
+                    ret_util_files_data.setResultPostData(data_post);
+
+                    // i_util_files_data.handlePostResult(data_post);
+
+                    i_util_files_data.handlePostResult(ret_util_files_data);
                 }
                 else
                 {
                     debugReservationLayout('UtilFiles.dirFileAnyCase FALSE');
+
+                    // setResultPostData(i_result_post_data)
 
                     i_util_files_data.handlePostErrorResult(data_post);
                 }  
@@ -123,6 +127,44 @@ class UtilFiles
         ); // post 
         
     } // dirFileAnyCase
+
+    static     // Load the XML file.
+    // https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced
+    // i_object_xml is the instance of this class. Call of this.setXmlObject
+    // does not work, while this= jazz_xmlhttp 
+    loadOneXmlFile()
+    {
+    // Request server object for the XML file
+    var jazz_xmlhttp = new XMLHttpRequest();
+    
+    // Event function: The server will return state and status 
+    // from object functions open and send.
+    jazz_xmlhttp.onreadystatechange = function() 
+    {
+        // Please note that this statement is executed several times, e.g.
+        // with readyState = 2 meaning that the request is received.
+        if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 200) 
+        {
+            var xml_object = jazz_xmlhttp.responseXML;
+
+            i_object_xml.setXmlObject(xml_object);
+
+            i_callback_function_name();    
+        }
+        else if (jazz_xmlhttp.readyState == 4 && jazz_xmlhttp.status == 404) 
+        {
+            alert("Error 404: File " + i_path_file_name_xml + " not found" );
+        } 
+        };
+    
+        // Open the file
+        jazz_xmlhttp.open("GET", i_path_file_name_xml, true);
+        
+        jazz_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
+            
+        jazz_xmlhttp.send();	
+
+    } // loadOneXmlFile
 
     // Returns the relative path (URL) to the executing HTML file 
     // If the input URL not is an absolute path starting with 
@@ -754,6 +796,7 @@ class UtilFiles
 // setExecCaseCreateFile - setDataExecCaseCreateFile
 // setExecCaseCopyFile   - setDataExecCaseCopyFile
 // setExecCaseMoveFile   - setDataExecCaseMoveFile
+// setExecCaseScanDir    - setDataExecCaseScanDir
 class UtilFilesData
 {
     constructor()
@@ -792,6 +835,12 @@ class UtilFilesData
 
         // Returned PHP (echo / data) error nessage always starting with 'FALSE'
         this.m_message_error = 'FALSE';
+
+        // Output data from JQuery post that got it fron UtilFiles.php
+        this.m_result_post_data = 'Undefined';
+
+        // Array of files on a directory defined as an XML fule. 
+        this.m_result_object_array_xml = null;
 
     } // constructor
 
@@ -996,22 +1045,54 @@ class UtilFilesData
 
     } // setDataExecCaseMoveFile
 
-    // Handles the post execution result
-    handlePostResult(i_data_post)
+    // Sets data for the execution case 'scan directory'
+    // i_input_dir_name: URL path to the directory
+    // i_output_file_name: The name of the output XML file
+	// i_relative_path_php_dir: Path to the PHP file UtilFile.php
+	// i_callback_function_name: Callback function TRUE / Succeeded
+	// i_error_callback_function_name: Callback function FALSE / Failed
+    setDataExecCaseScanDir(i_input_dir_name, i_output_xml_file_name, i_relative_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
-        debugReservationLayout('UtilFilesData.handlePostResult i_data_post= ' + i_data_post);
+        debugReservationLayout('UtilFilesData.setDataExecCaseScanDir Enter');
 
-        var index_true = i_data_post.indexOf(this.m_message_true);
+        this.init();
 
-        var index_false = i_data_post.indexOf(this.m_message_false);
+        this.setExecCaseScanDir();
+
+        this.setRelativePathPhpDir(i_relative_path_php_dir);
+
+        this.setCallbackFunctionName(i_callback_function_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
+
+        this.setInputDirName(i_input_dir_name);
+
+        this.setOutputFileName(i_output_xml_file_name);
+        
+        var error_msg = 'Not an existing directory= ' + i_input_dir_name;
+
+        this.setErrorMessage(error_msg);
+
+    } // setDataExecCaseScanDir
+
+    // Handles the post execution result
+    handlePostResult(i_util_files_data)
+    {
+        var data_post = i_util_files_data.getResultPostData();// TODO Chan i_data ..
+
+        debugReservationLayout('UtilFilesData.handlePostResult data_post= ' + data_post);
+
+        var index_true = data_post.indexOf(this.m_message_true);
+
+        var index_false = data_post.indexOf(this.m_message_false);
 
         if (index_true < 0 && index_false < 0)
         {
-            alert("UtilFilesData.handlePostResult Not TRUE or FALSE in i_data_post= " + i_data_post);
+            alert("UtilFilesData.handlePostResult Not TRUE or FALSE in data_post= " + data_post);
         }
         else if (index_true >= 0 && index_false >= 0)
         {
-            alert("UtilFilesData.handlePostResult Both TRUE and FALSE in i_data_post= " + i_data_post);
+            alert("UtilFilesData.handlePostResult Both TRUE and FALSE in data_post= " + data_post);
         }
         else if (index_true >= 0 && index_false < 0)
         {
@@ -1032,7 +1113,7 @@ class UtilFilesData
             }
             else
             {
-                alert("UtilFilesData.handlePostResult Execution case= " + this.m_exec_case + " failed i_data_post= " + i_data_post);
+                alert("UtilFilesData.handlePostResult Execution case= " + this.m_exec_case + " failed data_post= " + data_post);
             }
         }
         else
@@ -1043,9 +1124,9 @@ class UtilFilesData
 
     } // handlePostResult
 
-    handlePostErrorResult(i_data_post)
+    handlePostErrorResult(i_util_files_data)
     {
-        alert("UtilFilesData.handlePostErrorResult Execution case= " + this.m_exec_case + " failed i_data_post= " + i_data_post);
+        alert("UtilFilesData.handlePostErrorResult Execution case= " + this.m_exec_case + " failed data_post= " + i_util_files_data.getResultPostData());
 
     } // handlePostErrorResult
 
@@ -1086,6 +1167,12 @@ class UtilFilesData
 
         // Returned PHP (echo / data) error nessage always starting with 'FALSE'
         this.m_message_error = 'FALSE';
+
+        // Output data from JQuery post that got it fron UtilFiles.php
+        this.m_result_post_data = 'Undefined';
+
+        // Array of files on a directory defined as an XML fule. 
+        this.m_result_object_array_xml = null;
 
     } // init
 
@@ -1219,6 +1306,33 @@ class UtilFilesData
 
     } // setFileContent
 
+    // Get output data from JQuery post that got it fron UtilFiles.php
+    getResultPostData()
+    {
+        return this.m_result_post_data;
+
+    } // getResultPostData
+
+    // Set output data from JQuery post that got it fron UtilFiles.php
+    setResultPostData(i_result_post_data)
+    {
+        this.m_result_post_data = i_result_post_data;
+
+    } // setResultPostData
+
+     // Get array of files on a directory defined as an XML fule. 
+    getResultObjectArrayXmg()
+    {
+        return this.m_result_object_array_xml;
+
+    } // getResultObjectArrayXmg
+
+     // Get array of files on a directory defined as an XML fule. 
+     setResultObjectArrayXmg(i_result_object_array_xml)
+     {
+         this.m_result_object_array_xml = i_result_object_array_xml;
+ 
+     } // setResultObjectArrayXmg
     
     // Returns the UtilFiles execution case
     getExecCase()
@@ -1280,6 +1394,13 @@ class UtilFilesData
     setExecCaseMoveFile()
     {
         this.m_exec_case = 'ExecMoveFile';
+
+    } // setExecCaseMoveFile
+
+    // Sets the UtilFiles execution case to 'scan directory'
+    setExecCaseScanDir()
+    {
+        this.m_exec_case = 'ExecScanDir';
 
     } // setExecCaseMoveFile
 

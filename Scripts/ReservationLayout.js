@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-07
+// Date: 2025-01-09
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -626,7 +626,7 @@ function testLayout()
 
     //util_files_data.setDataExecCaseDeleteDir(dir_name, rel_path_php_dir, testTrue, testFalse);
 
-    util_files_data.setDataExecCaseCreateFile(file_name, file_content, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseCreateFile(file_name, file_content, rel_path_php_dir, testTrue, testFalse);
 
     // util_files_data.setDataExecCaseDeleteFile(file_name, rel_path_php_dir, testTrue, testFalse);
 
@@ -634,7 +634,15 @@ function testLayout()
 
     // util_files_data.setDataExecCaseCopyFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
 
-    util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+    //util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
+
+    dir_name = '../Scripts/';
+
+    // util_files_data.setDataExecCaseCreateDir(dir_name, rel_path_php_dir, testTrue, testFalse);
+
+    file_name_out = 'TempScanDir/ListDir.xml';
+
+    util_files_data.setDataExecCaseScanDir(dir_name, file_name_out, rel_path_php_dir, testTrue, testFalse);
 
     UtilFiles.dirFileAnyCase(util_files_data);
 

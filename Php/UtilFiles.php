@@ -1,7 +1,7 @@
 <?php
 
 // File: UtilFiles.php
-// Date: 2025-01-08
+// Date: 2025-01-09
 // Author: Gunnar Liden
 
 // File utility functions
@@ -91,6 +91,9 @@ switch ($exec_case)
         break;
       case "ExecMoveFile":
         moveFile($input_file_name, $output_file_name, $message_true, $message_false, $message_error);
+        break;
+      case "ExecScanDir":
+        dirListXml($input_dir_name, $output_file_name, $message_true, $message_false, $message_error);
         break;
     default:
       echo $message_error . " UtilFiles.php Not an implemented case " . $exec_case;
@@ -255,6 +258,94 @@ function moveFile($input_file_name, $output_file_name, $message_true, $message_f
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Copy Move End /////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Scan Util Start ///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+function dirListXml($input_dir_name, $output_file_name, $message_true, $message_false, $message_error)
+{
+  $debug_str = "dirListXml Enter";
+  debugAppend($debug_str);
+ 
+  if (!is_dir($input_dir_name)) 
+  {
+    exit($message_error);
+  }
+
+  $file_array = scandir($input_dir_name);
+
+  if (false == $file_array)
+  {
+    exit($message_error);
+  }
+
+  $file_content = "";
+
+  $file_content = $file_content . "<ScanDir>" . PHP_EOL;
+
+  $n_files  = count($file_array);
+
+  for ($index_file = 0; $index_file < $n_files; $index_file++)
+  {
+    $dir_file = $file_array[$index_file];
+
+    debugAppend($dir_file);
+
+    $dir_type = "UndefinedType";
+
+    if (0 == strcmp($dir_file, "."))
+    {
+      debugAppend("Point");
+
+      $dir_type = "Point";
+    }
+    elseif (0 == strcmp($dir_file, ".."))
+    {
+      debugAppend("Points");
+
+      $dir_type = "Points";
+    }
+    elseif (is_dir($dir_file))
+    {
+      debugAppend("Dir");
+
+      $dir_type = "Dir";
+    }
+    else
+    {
+      debugAppend("File");
+
+      $dir_type = "File";
+    }   
+
+    if (0 == strcmp($dir_type, "Dir") || 0 == strcmp($dir_type, "File") )
+    {
+      $file_content = $file_content . "<DirFile>" . $dir_file  . "</DirFile>" . PHP_EOL;
+
+      $file_content = $file_content . "<Type>" . $dir_type  . "</Type>" . PHP_EOL;
+    }
+
+  } // index_file
+
+  $file_content = $file_content . "</ScanDir>" . PHP_EOL;
+
+  $file_object = fopen($output_file_name, "w") or exit($message_false."_".error_get_last());
+
+  fwrite($file_object, $file_content); 
+
+  fclose($file_object); 
+
+  $debug_str = "scanDir XML file created. TRUE is returned";
+  debugAppend($debug_str);
+
+  echo $message_true;
+
+} // dirListXml
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Scan Util End /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
