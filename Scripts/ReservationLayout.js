@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-10
+// Date: 2025-01-13
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -600,6 +600,37 @@ function testLayout()
 {
     debugReservationLayout('testLayout Enter');
 
+    testUtilUrl();
+
+} // testLayout
+
+// Test of UtilUrl
+function testUtilUrl()
+{
+    debugReservationLayout('testUtilUrl Enter');
+ 
+    var file_input = 'https://jazzliveaarau.ch/XmlTestData/EventProgramSample.xml';
+
+    // var rel_url = UtilUrl.getRelativeUrlHtml(file_input);
+
+    var absolute_url_to_file_or_dir = file_input;
+
+    var absolute_url_php_base_dir_or_file = 'https://jazzliveaarau.ch/JazzScripts/Php/SomePhpFile.php';
+
+    // var rel_url_php = UtilUrl.getRelativeUrlPhp(absolute_url_to_file_or_dir, absolute_url_php_base_dir_or_file);
+
+    var abs_url_dir = 'https://jazzliveaarau.ch/XmlTestData/testDir/SomeDir/';
+
+    var rel_url_dir = UtilUrl.getRelativeUrlHtmlDir(abs_url_dir);
+ 
+} // testUtilUrl
+
+
+// Test of UtilFilesData 
+function testUtilFilesData()
+{
+    debugReservationLayout('testUtilFilesData Enter');
+
     var dir_name = '../TestDir_1/SubTestDir_1/';
 
     var dir_name_out = '../TestDir_2/';
@@ -642,7 +673,7 @@ function testLayout()
 
     UtilFiles.getDirFileNames(dir_name, path_php_dir, callback_function);
 
-} // testLayout
+} // testUtilFilesData
 
 function testScanDir(i_name_array)
 {

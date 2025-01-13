@@ -1,5 +1,5 @@
 // File: ReservationOpen.js
-// Date: 2024-12-30
+// Date: 2025-01-13
 // Author: Gunnar Lidén
 
 // Class handling the opening of another window and passing data to and retrieving 
@@ -49,7 +49,7 @@ class ReservationOpen
     // Open the reservation page MakeReserservation.htm
     // 1. Check that m_reservation_data has been set
     // 2. Get relative URL to the directory where MakeReservation.htm is
-    //    Call of UtilUrl.getRelativePathToDirectory
+    //    Call of UtilUrl.getRelativeUrlHtmlDir
     // 3. Set session storage data.
     //    Call of ReservationStorage.setSession
     //    This data will/can be used by web page MakeReservation.htm
@@ -66,7 +66,7 @@ class ReservationOpen
             return;
         }
 
-        var relative_url_dir = UtilUrl.getRelativePathToDirectory(this.m_absolute_url_reservation_dir);
+        var relative_url_dir = UtilUrl.getRelativeUrlHtmlDir(this.m_absolute_url_reservation_dir);
 
         if (0 == relative_url_dir.length)
         {
