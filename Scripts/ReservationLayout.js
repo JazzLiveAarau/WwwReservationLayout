@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-13
+// Date: 2025-01-15
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -600,9 +600,57 @@ function testLayout()
 {
     debugReservationLayout('testLayout Enter');
 
-    testUtilUrl();
+    testUtilFilesDataAbsolute();
 
 } // testLayout
+
+function testUtilFilesDataAbsolute()
+{
+    debugReservationLayout('testUtilFilesDataAbsolute Enter');
+
+    var scheme_and_domain = UtilUrl.currentSchemeAndDomain();
+
+    var dir_name = '../TestDir_1/SubTestDir_1/';
+
+    var dir_name_out = '../TestDir_2/';
+
+    var file_name_out = '../TestDir_2/TestFile_2.txt'
+
+    var url_rel_test_dir_1 = './Php/';
+
+    var url_rel_test_file_1 = './Php/MyPhp.php';
+
+    var url_rel_test_file_2 = 'MyPhp.php';
+
+    var url_rel_test_dir_2 = '';
+
+    var abs_dir_name_out = UtilUrl.convertToAbsoluteUrl(dir_name_out);
+
+    var abs_file_name_out = UtilUrl.convertToAbsoluteUrl(file_name_out);
+
+    var url_abs_test_dir_1 = UtilUrl.convertToAbsoluteUrl(url_rel_test_dir_1);
+
+    var url_abs_test_file_1 = UtilUrl.convertToAbsoluteUrl(url_rel_test_file_1);
+
+    var url_abs_test_file_2 = UtilUrl.convertToAbsoluteUrl(url_rel_test_file_2);
+
+    var url_abs_test_dir_2 = UtilUrl.convertToAbsoluteUrl(url_rel_test_dir_2);
+
+    //var path_php_dir = 'Php/'
+
+    // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
+
+    var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
+
+    var util_files_data = new UtilFilesData();
+
+   // if (!util_files_data.setDataExecCaseDirExists(dir_name_out, path_php_dir, testTrue, testFalse)) { return; }
+
+    // util_files_data.setDataExecCaseDeleteFile(file_name_out, path_php_dir, testTrue, testFalse);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // testUtilFilesDataAbsolute
 
 // Test of UtilUrl
 function testUtilUrl()

@@ -1,5 +1,5 @@
 // File: UtilUrl.js
-// Date: 2025-01-13
+// Date: 2025-01-15
 // Author: Gunnar Lidén
 
 // Class with utility functions for URL
@@ -13,10 +13,7 @@
 // Domain: This is the first part of the absolute URL to the first slash
 // e.g. https://jazzliveaarau.ch/
 //
-// Slug: This is the part of the absolute URL from the first slash
-// e.g. /Guestbook/Version_2/GuestbookUpload.htm
-//
-// Relative URL to the domain: This is the slug
+// Relative Domain URL: This is the part of the absolute URL from the first slash
 // e.g. /Guestbook/Version_2/GuestbookUpload.htm
 //
 // Current directory URL: This is the directory for the executing function
@@ -52,6 +49,9 @@
 // is used and this class should compute the relative directory URL.
 //
 // https://developer.mozilla.org/en-US/docs/Web/API/URL_API/Resolving_relative_references
+// https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL
+// https://en.wikipedia.org/wiki/Clean_URL
+// https://www.geeksforgeeks.org/how-to-redirect-to-a-relative-url-in-javascript/
 
 // TODO This class (file) shall be in project WwwReservation and not in WwwReservationLayout
 class UtilUrl
@@ -192,6 +192,8 @@ class UtilUrl
             absolute_url_base_file = 'https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/EventReservation.htm'
 
             console.log("UtilUrl.getRelativeUrlHtml For test change to current_base= " + absolute_url_base_file);
+
+            alert("UtilUrl.getRelativeUrlHtml For test change to current_base= " + absolute_url_base_file);
         }  
     
         return UtilUrl.getRelativeUrlToInputBaseDir(i_absolute_url_to_file_or_dir, absolute_url_base_file);
@@ -224,56 +226,156 @@ class UtilUrl
 
         return UtilUrl.getRelativeUrlHtml(i_url_dir_absolute);
 
-        /*QQQQQQQ
-        var path_only_subdirs = UtilUrl.getPathOnlySubdirectories(i_url_dir_absolute);
+    } // getRelativeUrlHtmlDir
 
-        var current_base = window.location.href;
-
-        if (!UtilUrl.execApplicationOnServer())
+    // Returns the absolute URL i.e. replaces ../ and adds the base URL directory
+    // If the input URL is absolute this URL is returned
+    // i_url_relative: Input relative URL
+    // e.g. Php/
+    // 1. Get the current base directory 
+    //    Call of window.location.href and UtilUrl.getFilePath
+    //    e.g. https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/
+    // 2. Return the absolute URL as current base directory + input relative URL 
+    //    e.g. https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/Php/
+    static convertToAbsoluteUrl(i_url_relative)
+    {
+        if (i_url_relative.trim().length > 0)
         {
-            // Not possible to execute this function with the VS Live Server
-            console.log("UtilUrl.getRelativeUrlHtmlDir VS Live Server current_base= " + current_base);
-
-            current_base = 'https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/EventReservation.htm'
-
-            console.log("UtilUrl.getRelativeUrlHtmlDir For test change to current_base= " + current_base);
-        }
-
-        var current_base_path= UtilUrl.getFilePath(current_base);
-
-        var current_base_dir =  UtilUrl.getPathOnlySubdirectories(current_base_path);
-
-        var n_slashes = 0;
-
-        for (var index_char = 0; index_char < current_base_dir.length; index_char++)
-        {
-            var current_char = current_base_dir.substring(index_char, index_char + 1);
-
-            if (current_char == '/')
+            if (UtilUrl.isAbsolutePath(i_url_relative))
             {
-                n_slashes = n_slashes + 1;
+                return i_url_relative;
             }
         }
 
-        var n_levels_up = n_slashes - 1;
-
-        var up_levels_str = '';
-
-        for (var add_level = 1; add_level <= n_levels_up; add_level++)
+        if (!UtilUrl.execApplicationOnServer())
         {
-            up_levels_str = up_levels_str + '../';
+            alert("UtilUrl.getAbsolutUrl Application is running on VS Live Server. Please upload files and run on server ");
 
+            return '';
         }
 
-        var path_only_subdirs_without_first_slash = path_only_subdirs.substr(1);
+        var ret_absolute_url = UtilUrl.currentSchemeAndDomain();
 
-        var relative_path_dir = up_levels_str + path_only_subdirs_without_first_slash;
+        if (i_url_relative.trim().length == 0)
+        {
+            return ret_absolute_url + '/';
+        }
 
-        return relative_path_dir;
+        var dir_array = UtilUrl.currentPathOnlySubdirectoriesArray();
 
-        QQQQ*/
+        var n_up_levels = UtilUrl.getNumberUpLevels(i_url_relative);
 
-    } // getRelativeUrlHtmlDir
+        var index_end = n_up_levels - 2;
+
+        if (index_end >=0)
+        {
+            for (var index_dir = 0; index_dir <= index_end; index_dir++)
+            {
+    
+                var current_dir = dir_array[index_dir];
+    
+                ret_absolute_url =  ret_absolute_url + '/' + current_dir;
+    
+            } // index_dir
+
+            var path_keep = UtilUrl.extractKeepString(i_url_relative, n_up_levels);
+ 
+            ret_absolute_url =  ret_absolute_url + path_keep;
+
+        } // index_end >=0
+        else if (n_up_levels >= 1)
+        {
+            var path_keep = UtilUrl.extractKeepString(i_url_relative, n_up_levels);
+
+            ret_absolute_url =  ret_absolute_url  + '/' + path_keep;
+
+        } // n_up_levels >= 1
+        else if (n_up_levels == 0)
+        {
+            var sub_dir_str = './';
+
+            var index_sub_dir = i_url_relative.indexOf(sub_dir_str);
+
+            if (index_sub_dir == 0)
+            {
+                var keep_sub_dir = i_url_relative.substring(1);
+
+                ret_absolute_url =  ret_absolute_url + keep_sub_dir;
+            }
+            else
+            {
+                // File name is assumed
+
+                ret_absolute_url =  ret_absolute_url + '/' + i_url_relative;
+            }
+
+        }
+        else
+        {
+            alert("UtilUrl.convertToAbsoluteUrl Programming error");
+
+            return '';
+        }
+
+        return ret_absolute_url;
+
+    } // convertToAbsoluteUrl
+
+    // Returns the keep string
+    static extractKeepString(i_url_relative, i_n_up_levels)
+    {
+        var ret_keep_str = '';
+
+        var one_up_str = '../';
+
+        var one_up_str_length = one_up_str.length;
+
+        if (i_n_up_levels >= 1)
+        {
+            var index_keep = i_n_up_levels * one_up_str_length; 
+
+            ret_keep_str = i_url_relative.substring(index_keep);
+        }
+        else
+        {
+            ret_keep_str = 'TODO';
+        }
+
+        return ret_keep_str;
+
+    } // extractKeepString
+
+    // Returns the number of up levels
+    static getNumberUpLevels(i_rel_url_dir_or_file)
+    {
+        var index_str = '../';
+
+        var index_str_length = index_str.length;
+
+        var search_str = i_rel_url_dir_or_file;
+
+        var ret_n_up = 0;
+
+        for (var i_up = 0; i_up <= 100; i_up++)
+        {
+            var index_up_str = search_str.indexOf(index_str);
+
+            if (index_up_str < 0)
+            {
+                break;
+            }
+            else
+            {
+                ret_n_up = ret_n_up + 1;
+
+                search_str = search_str.substring(index_up_str + index_str_length);
+            }
+
+        } // i_up
+
+        return ret_n_up;
+
+    } // getNumberUpLevels
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Relative Paths ////////////////////////////////////////////////
@@ -283,7 +385,7 @@ class UtilUrl
     /////// Start Part Paths //////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns the end string of an URL i.e. without the homepage part
+    // Returns the end string of an URL i.e. without the scheme and domain part
     static getPathOnlySubdirectories(i_path_file_name)
     {
         var url_trim = i_path_file_name.trim();
@@ -297,7 +399,7 @@ class UtilUrl
             return '';
         }
 
-        var removed_slashes_str = url_trim.substr(index_slashes + 4);
+        var removed_slashes_str = url_trim.substring(index_slashes + 4);
 
         var index_slash = removed_slashes_str.indexOf('/');
 
@@ -322,6 +424,101 @@ class UtilUrl
         return path_only_subdirs;
 
     } // getPathOnlySubdirectories
+
+    // Returns an array of directory names up to the domain.
+    // 1. Get current path string with only directories
+    //    Call of window.location.href, UtilUrl.getFilePath and 
+    //    UtilUrl.getPathOnlySubdirectories
+    // 2. The end string of the input URL is extracted. The exctracted string is the
+    //    path after the scheme and domain part but not including a possible file name
+    //    Call of UtilUrl.getPathOnlySubdirectories
+    // 3. Loop through this extracted string and put directory names in an array
+    // 
+    static currentPathOnlySubdirectoriesArray()
+    {
+        var absolute_url_base_file = window.location.href;
+
+        var absolute_url_base_file_only_path = UtilUrl.getFilePath(absolute_url_base_file);
+
+        var only_directories =  UtilUrl.getPathOnlySubdirectories(absolute_url_base_file_only_path);
+
+        if (0 == only_directories.length)
+        {
+            return '';
+        }
+
+        var b_start = false;
+
+        var ret_array = [];
+
+        var out_index = -1;
+        
+        for (var index_char=0; index_char < only_directories.length; index_char++)
+        {
+            var current_char = only_directories.substring(index_char, index_char + 1);
+
+            if (current_char == '/' && !b_start) 
+            {
+                b_start = true;
+
+                out_index = out_index + 1;
+
+                ret_array[out_index] = '';
+            }
+            else if (current_char == '/' && b_start) 
+            {
+                b_start = false;
+            }
+            else
+            {
+                ret_array[out_index] = ret_array[out_index] + current_char;
+            }
+
+        } // index_char
+
+        return ret_array;
+
+    } // currentPathOnlySubdirectoriesArray
+
+    // Returns the current scheme and domain part of the URL
+    static getSchemeAndDomain(i_absolute_url)
+    {
+        if (!UtilUrl.isAbsolutePath(i_absolute_url))
+        {
+            return '';
+        }
+
+        var path_only_subdirs = UtilUrl.getPathOnlySubdirectories(i_absolute_url);
+
+        if (path_only_subdirs.length == 0)
+        {
+            return '';
+        }
+
+        var index_path_onlysubdirs = i_absolute_url.indexOf(path_only_subdirs);
+
+        if (index_path_onlysubdirs < 0)
+        {
+            alert("UtilUrl.getSchemeAndDomain index_path_onlysubdirs < 0");
+
+            return '';
+        }
+
+        var ret_scheme_domain = i_absolute_url.substring(0, index_path_onlysubdirs);
+
+        return ret_scheme_domain;
+        
+    } // getSchemeAndDomain
+
+    
+    // Returns the current scheme and domain part of the URL
+    static currentSchemeAndDomain()
+    {
+        var current_base = window.location.href;
+
+        return UtilUrl.getSchemeAndDomain(current_base);
+        
+    } // currentSchemeAndDomain
 
     // Returns the absolute URL without the file name
     static getFilePath(i_path_file_name)
@@ -463,6 +660,13 @@ class UtilUrl
     // https://www.geeksforgeeks.org/javascript-check-whether-a-url-string-is-absolute-or-relative/
     static isAbsolutePath(i_absolute_url)
     {
+        if (i_absolute_url == null)
+        {
+            alert("UtilUrl.isDirectoryPath  isAbsolutePath is null"); 
+
+            return false;
+        }
+
         var url_trim = i_absolute_url.trim();
 
         if (0 == url_trim.length)
@@ -494,6 +698,13 @@ class UtilUrl
     // Returns true if the input URL is to a directory, i.e. ending with a slash
     static isDirectoryPath(i_url_dir)
     {
+        if (i_url_dir == null)
+        {
+            alert("UtilUrl.isDirectoryPath  i_url_dir is null"); 
+
+            return false;
+        }
+
         var url_trim = i_url_dir.trim(); 
 
         var url_length = url_trim.length;
