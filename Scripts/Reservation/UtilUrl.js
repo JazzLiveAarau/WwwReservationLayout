@@ -1,5 +1,5 @@
 // File: UtilUrl.js
-// Date: 2025-01-15
+// Date: 2025-01-16
 // Author: Gunnar Lidén
 
 // Class with utility functions for URL
@@ -263,6 +263,15 @@ class UtilUrl
 
         var dir_array = UtilUrl.currentPathOnlySubdirectoriesArray();
 
+        var current_base_sub_dir = '';
+
+        if (dir_array.length > 0)
+        {
+            var index_dir = 0;
+
+            current_base_sub_dir = '/' + dir_array[index_dir];
+        }
+
         var n_up_levels = UtilUrl.getNumberUpLevels(i_url_relative);
 
         var index_end = n_up_levels - 2;
@@ -285,6 +294,8 @@ class UtilUrl
         } // index_end >=0
         else if (n_up_levels >= 1)
         {
+            ret_absolute_url =  ret_absolute_url + current_base_sub_dir;
+            
             var path_keep = UtilUrl.extractKeepString(i_url_relative, n_up_levels);
 
             ret_absolute_url =  ret_absolute_url  + '/' + path_keep;
@@ -292,6 +303,8 @@ class UtilUrl
         } // n_up_levels >= 1
         else if (n_up_levels == 0)
         {
+            ret_absolute_url =  ret_absolute_url + current_base_sub_dir;
+
             var sub_dir_str = './';
 
             var index_sub_dir = i_url_relative.indexOf(sub_dir_str);
@@ -309,7 +322,7 @@ class UtilUrl
                 ret_absolute_url =  ret_absolute_url + '/' + i_url_relative;
             }
 
-        }
+        } // n_up_levels == 1
         else
         {
             alert("UtilUrl.convertToAbsoluteUrl Programming error");

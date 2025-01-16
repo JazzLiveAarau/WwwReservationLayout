@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-15
+// Date: 2025-01-16
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -612,10 +612,30 @@ function testUtilFilesDataAbsolute()
 
     var dir_name = '../TestDir_1/SubTestDir_1/';
 
-    var dir_name_out = '../TestDir_2/';
+    //var dir_name_out = '../TestDir_2/';
 
     var file_name_out = '../TestDir_2/TestFile_2.txt'
 
+
+    var path_php_dir = './Php/'
+
+    // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
+
+    //var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
+
+    var util_files_data = new UtilFilesData();
+
+   if (!util_files_data.setDataExecCaseDirExists(dir_name, path_php_dir, testTrue, testFalse)) { return; }
+
+    // util_files_data.setDataExecCaseDeleteFile(file_name_out, path_php_dir, testTrue, testFalse);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // testUtilFilesDataAbsolute
+
+// Test the UtilUrl functions
+function testUtilUrl()
+{
     var url_rel_test_dir_1 = './Php/';
 
     var url_rel_test_file_1 = './Php/MyPhp.php';
@@ -636,21 +656,7 @@ function testUtilFilesDataAbsolute()
 
     var url_abs_test_dir_2 = UtilUrl.convertToAbsoluteUrl(url_rel_test_dir_2);
 
-    //var path_php_dir = 'Php/'
-
-    // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
-
-    var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
-
-    var util_files_data = new UtilFilesData();
-
-   // if (!util_files_data.setDataExecCaseDirExists(dir_name_out, path_php_dir, testTrue, testFalse)) { return; }
-
-    // util_files_data.setDataExecCaseDeleteFile(file_name_out, path_php_dir, testTrue, testFalse);
-
-    UtilFiles.dirFileAnyCase(util_files_data);
-
-} // testUtilFilesDataAbsolute
+} // testUtilUrl
 
 // Test of UtilUrl
 function testUtilUrl()

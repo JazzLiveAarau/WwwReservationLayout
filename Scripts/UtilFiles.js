@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-15
+// Date: 2025-01-16
 // Author: Gunnar Lidén
 
 // File content
@@ -65,38 +65,19 @@ class UtilFiles
     {
         debugReservationLayout('UtilFiles.dirFileAnyCase Enter');
 
-        if (null == i_util_files_data)
-        {
-            alert("UtilFiles.dirFileAnyCase Input object UtilFilesData is null");
+        var abs_util_files_data = UtilFiles.allFilesDirectoriesToAbsoluteUrl(i_util_files_data);
 
-            return;            
-        }
-
-        var rel_url_php_dir = '';
-
-        if (UtilUrl.isAbsolutePath(i_util_files_data.m_path_php_dir))
-        {
-            rel_url_php_dir = UtilUrl.getRelativeUrlHtmlDir(i_util_files_data.m_path_php_dir);
-        }
-        else
-        {
-            rel_url_php_dir = i_util_files_data.m_path_php_dir;
-        }
-
-        if (rel_url_php_dir.length == 0)
+        if (abs_util_files_data == null)
         {
             return;
         }
 
-        var php_file_name = UtilFiles.getUtilFilesPhpFileName();
+        var rel_php_html_util_files_data = UtilFiles.allFilesDirectoriesRelativePhpAndHtml(abs_util_files_data);
 
-        var rel_path_file_php = rel_url_php_dir + php_file_name;
-
-        var input_dir_name_rel_php =   UtilFiles.convertToRelativeUrlPhp(i_util_files_data.m_input_dir_name);
-
-        var input_file_name_rel_php =  UtilFiles.convertToRelativeUrlPhp(i_util_files_data.m_input_file_name);
-
-        var output_file_name_rel_php = UtilFiles.convertToRelativeUrlPhp(i_util_files_data.m_output_file_name);
+        if (rel_php_html_util_files_data == null)
+        {
+            return;
+        }
 
         if (!UtilUrl.execApplicationOnServer())
         {
@@ -106,16 +87,16 @@ class UtilFiles
         }
 
         $.post
-          (rel_path_file_php,
+          (rel_php_html_util_files_data.getPathRelativeHtmlPhpFile(),
             {
-                exec_case:        i_util_files_data.m_exec_case,
-                input_dir_name:   input_dir_name_rel_php,
-                input_file_name:  input_file_name_rel_php,
-                output_file_name: output_file_name_rel_php,
-                file_content:     i_util_files_data.m_file_content,
-                message_true:     i_util_files_data.m_message_true,
-                message_false:    i_util_files_data.m_message_false,
-                message_error:    i_util_files_data.m_message_error
+                exec_case:        rel_php_html_util_files_data.getExecCase(),
+                input_dir_name:   rel_php_html_util_files_data.getInputDirName(),
+                input_file_name:  rel_php_html_util_files_data.getInputFileName(),
+                output_file_name: rel_php_html_util_files_data.getOutputFileName(),
+                file_content:     rel_php_html_util_files_data.getFileContent(),
+                message_true:     rel_php_html_util_files_data.m_message_true,
+                message_false:    rel_php_html_util_files_data.m_message_false,
+                message_error:    rel_php_html_util_files_data.m_message_error
             },
             function(data_post, status_post)
             {   
@@ -143,6 +124,214 @@ class UtilFiles
         
     } // dirFileAnyCase
 
+    // Returns an UtilFileseData object where all input relative URLs have 
+    // been converted to absolute URLs
+    static allFilesDirectoriesToAbsoluteUrl(i_util_files_data)
+    {
+        if (null == i_util_files_data)
+        {
+            alert("UtilFiles.allFilesDirectoriesToAbsoluteUrl Input object UtilFilesData is null");
+
+            return null;            
+        }
+
+        var ret_abs_url = i_util_files_data;
+
+
+        // Start PHP directory
+
+        var abs_rel_php_dir = ret_abs_url.getPathPhpDir();
+
+        if (null == abs_rel_php_dir)
+        {
+            alert("UtilFiles.allFilesDirectoriesToAbsoluteUrl Input abs_rel_php_dir is null");
+
+            return null; 
+        }
+
+        var abs_php_dir = UtilUrl.convertToAbsoluteUrl(abs_rel_php_dir);
+
+        if (abs_php_dir.length == 0) { UtilFiles.errorAllAbsolute("abs_php_dir"); }
+
+        ret_abs_url.setPathPhpDir(abs_php_dir);
+
+        // End PHP directory
+
+        // Start input directory
+
+        var abs_rel_input_dir = ret_abs_url.getInputDirName();
+
+        if (abs_rel_input_dir != null)
+        {
+            var abs_input_dir = UtilUrl.convertToAbsoluteUrl(abs_rel_input_dir);
+
+            if (abs_php_dir.length == 0) { UtilFiles.errorAllAbsolute("abs_input_dir"); }
+
+            ret_abs_url.setInputDirName(abs_input_dir);
+        }
+
+         // End input directory
+
+        // Start input file
+
+        var abs_rel_input_file = ret_abs_url.getInputFileName();
+
+        if (abs_rel_input_file != null)
+        {
+            var abs_input_file = UtilUrl.convertToAbsoluteUrl(abs_rel_input_file);
+
+            if (abs_php_dir.length == 0) { UtilFiles.errorAllAbsolute("abs_input_file"); }
+
+            ret_abs_url.setInputFileName(abs_input_file);
+        }
+
+         // End input file
+
+        // Start output file
+
+        var abs_rel_output_file = ret_abs_url.getOutputFileName();
+
+        if (abs_rel_output_file != null)
+        {
+            var abs_output_file = UtilUrl.convertToAbsoluteUrl(abs_rel_output_file);
+
+            if (abs_php_dir.length == 0) { UtilFiles.errorAllAbsolute("abs_output_file"); }
+
+            ret_abs_url.setOutputFileName(abs_output_file);
+        }
+
+         // End output file
+
+        return ret_abs_url;
+
+    } // allFilesDirectoriesToAbsoluteUrl
+
+    // Returns an UtilFileseData object where all input absolute URLs have been
+    // converted to relative PHP URLs and the PHP file to URL relative HTML
+    static allFilesDirectoriesRelativePhpAndHtml(i_abs_util_files_data)
+    {
+        if (null == i_abs_util_files_data)
+        {
+            alert("UtilFiles.allFilesDirectoriesRelativePhpAndHtml Input object UtilFilesData is null");
+
+            return null;            
+        }
+
+        var ret_rel_php_html_url = i_abs_util_files_data;
+
+        // Start PHP directory and PHP file
+
+        var abs_php_dir = ret_rel_php_html_url.getPathPhpDir();
+
+        if (null == abs_php_dir)
+        {
+            alert("UtilFiles.allFilesDirectoriesRelativePhpAndHtml Input abs_php_dir is null");
+
+            return null; 
+        }
+
+        var rel_html_php_dir =UtilUrl.getRelativeUrlHtmlDir(abs_php_dir);
+
+        if (rel_html_php_dir.length == 0) { UtilFiles.errorAllRelative("rel_html_php_dir"); }
+
+        ret_rel_php_html_url.setPathPhpDir(rel_html_php_dir);
+
+        var php_file_name = UtilFiles.getUtilFilesPhpFileName();
+
+        var rel_html_php_file = rel_html_php_dir + php_file_name;
+
+        ret_rel_php_html_url.setPathRelativeHtmlPhpFile(rel_html_php_file);
+
+        // End PHP directory  and PHP file
+
+        // Start input directory
+
+        var abs_input_dir = ret_rel_php_html_url.getInputDirName();
+
+        if (abs_input_dir != null)
+        {
+            var rel_php_input_dir = UtilUrl.getRelativeUrlPhp(abs_input_dir, abs_php_dir);
+
+            if (rel_php_input_dir.length == 0) { UtilFiles.errorAllRelative("rel_php_input_dir"); }
+
+            ret_rel_php_html_url.setInputDirName(rel_php_input_dir);
+        }
+        else
+        {
+            ret_rel_php_html_url.setInputDirName(UtilFiles.notUsedParameterForThisExecutionCase());
+        }
+
+         // End input directory
+
+        // Start input file
+
+        var abs_input_file = ret_rel_php_html_url.getInputFileName();
+
+        if (abs_input_file != null)
+        {
+            var rel_php_input_file = UtilUrl.getRelativeUrlPhp(abs_input_file, abs_php_dir);
+
+            if (rel_php_input_file.length == 0) { UtilFiles.errorAllRelative("rel_php_input_file"); }
+
+            ret_rel_php_html_url.setInputFileName(rel_php_input_file);
+        }
+        else
+        {
+            ret_rel_php_html_url.setInputFileName(UtilFiles.notUsedParameterForThisExecutionCase());
+        }
+
+         // End input file
+
+        // Start output file
+
+        var abs_output_file = ret_rel_php_html_url.getOutputFileName();
+
+        if (abs_output_file != null)
+        {
+            var rel_php_output_file = UtilUrl.getRelativeUrlPhp(abs_output_file, abs_php_dir);
+
+            if (rel_php_output_file.length == 0) { UtilFiles.errorAllRelative("rel_php_output_file"); }
+
+            ret_rel_php_html_url.setOutputFileName(rel_php_output_file);
+        }
+        else
+        {
+            ret_rel_php_html_url.setOutputFileName(UtilFiles.notUsedParameterForThisExecutionCase());
+        }
+
+         // End output file
+
+        return ret_rel_php_html_url;
+
+    } // allFilesDirectoriesRelativePhpAndHtml
+
+    static notUsedParameterForThisExecutionCase()
+    {
+        return 'notUsedParameterForThisExecutionCase';
+
+    } // notUsedParameterForThisExecutionCase
+
+    // Error message allFilesDirectoriesToAbsoluteUrl. 
+    // Returns from the function with value null
+    static errorAllAbsolute(i_parameter_str)
+    {
+        alert("UtilFiles.allFilesDirectoriesToAbsoluteUrl Empty " + i_parameter_str);
+
+        return null;
+
+    } // errorAllAbsolute
+
+    // Error message allFilesDirectoriesRelativePhpAndHtml. 
+    // Returns from the function with value null
+    static errorAllRelative(i_parameter_str)
+    {
+        alert("UtilFiles.allFilesDirectoriesRelativePhpAndHtml Empty " + i_parameter_str);
+
+        return null;
+
+    } // errorAllRelative
+
+    /*QQQQQ
     // Returns relative to PHP URL
     // 1. If input URL is null the returned URL is null
     // 2. Convert if necessary and return relative URL
@@ -159,6 +348,7 @@ class UtilFiles
         return UtilUrl.getRelativeUrlPhp(i_absolute_url, abs_url_php_dir);
 
     } // convertToRelativeUrl
+     QQQ*/
 
     // Get the PHP file name for this classs UtilFiles
     static getUtilFilesPhpFileName()
@@ -466,17 +656,20 @@ class UtilFilesData
         // URL (relative or absolute) to the PHP directory with file UtilFiles.php
         this.m_path_php_dir = null;
 
+        // Relative URL to HTML for the PHP file
+        this.m_path_rel_html_php_file = null;
+
         // Input directory name
-        this.m_input_dir_name = 'Undefined';
+        this.m_input_dir_name = null;
 
         // Input file name
-        this.m_input_file_name = 'Undefined';
+        this.m_input_file_name = null;
 
         // Output file name
-        this.m_output_file_name = 'Undefined';
+        this.m_output_file_name = null;
 
         // File content
-        this.m_file_content = 'Undefined';
+        this.m_file_content = null;
 
         // Returned PHP (echo / data) message 'TRUE'
         this.m_message_true = 'TRUE';
@@ -488,7 +681,7 @@ class UtilFilesData
         this.m_message_error = 'FALSE';
 
         // Output data from JQuery post that got it fron UtilFiles.php
-        this.m_result_post_data = 'Undefined';
+        this.m_result_post_data = '';
 
         // Array of files on a directory defined as an XML fule. 
         this.m_result_object_array_xml = null;
@@ -520,17 +713,20 @@ class UtilFilesData
         // URL (relative or absolute) to the PHP directory with file UtilFiles.php
         this.m_path_php_dir = null;
 
+        // Relative URL to HTML for the PHP file
+        this.m_path_rel_html_php_file = null;
+
         // Input directory name
-        this.m_input_dir_name = 'Undefined';
+        this.m_input_dir_name = null;
 
         // Input file name
-        this.m_input_file_name = 'Undefined';
+        this.m_input_file_name = null;
 
         // Output file name
-        this.m_output_file_name = 'Undefined';
+        this.m_output_file_name = null;
 
         // File content
-        this.m_file_content = 'Undefined';
+        this.m_file_content = null;
 
         // Returned PHP (echo / data) message 'TRUE'
         this.m_message_true = 'TRUE';
@@ -542,7 +738,7 @@ class UtilFilesData
         this.m_message_error = 'FALSE';
 
         // Output data from JQuery post that got it fron UtilFiles.php
-        this.m_result_post_data = 'Undefined';
+        this.m_result_post_data = '';
 
         // Array of files on a directory defined as an XML fule. 
         this.m_result_object_array_xml = null;
@@ -647,7 +843,7 @@ class UtilFilesData
         {
             debugReservationLayout('UtilFilesData.handlePostResultTrue Result TRUE: m_callback_function_name');
 
-            this.m_callback_function_name;
+            this.m_callback_function_name();
         }
 
     } // handlePostResultTrue
@@ -1258,16 +1454,37 @@ class UtilFilesData
 
       } // setPathPhpDir
 
+      // Get the PHP file URL relative to the HTML directory 
+      getPathRelativeHtmlPhpFile()
+      {
+        return this.m_path_rel_html_php_file;
+
+      } // getPathRelativeHtmlPhpFile
+
+      // Get the PHP file URL relative to the HTML directory 
+      setPathRelativeHtmlPhpFile(i_path_rel_html_php_file)
+      {
+        if (null == i_path_rel_html_php_file)
+        {
+            alert("UtilFilesData.setPathRelativeHtmlPhpFile i_path_rel_html_php_file is null");
+
+            return;
+        }
+
+        this.m_path_rel_html_php_file = i_path_rel_html_php_file;
+
+      } // setPathRelativeHtmlPhpFile
+
       // Returns true if the input URL is a directory ending with a slash
       // Please note that the directories may have the value null. This is default.
-      // But it is not allowed to sei it to null with a set directory function
+      // But it is not allowed to set it to null with a set directory function
       // The function UtilFilesData.init should be used setting directory to null
       // Setting empty directory is not allowed (except for m_path_php_dir)
       checkDirUrl(i_dir_url)
       {
         if (null == i_dir_url)
         {
-            alert("UtilFilesData.CheckDirUrl URL directory is null");
+            alert("UtilFilesData.CheckDirUrl It is not allowed to set a URL directory to null with this function. Use init instead.");
 
             return false;
         }
@@ -1285,14 +1502,37 @@ class UtilFilesData
 
         var last_char = dir_url_trim.substring(dir_url_trim_length - 1, dir_url_trim_length);
 
-        if (last_char == '/')
+        if (last_char != '/')
+        {
+            alert("checkPhpDirUrl.checkDirUrl Last character of URL is not a slash" +
+                " Input directory= " + i_dir_url);
+
+            return false;
+        }
+
+        if (UtilUrl.isAbsolutePath(i_dir_url))
+        {
+            return true;
+        }
+
+        var index_two_points_slash = dir_url_trim.indexOf('../');
+
+        if (0 == index_two_points_slash)
+        {
+            return true;
+        }
+
+        var index_one_point_slash = dir_url_trim.indexOf('./');
+
+        if (0 == index_one_point_slash)
         {
             return true;
         }
         else
         {
-            alert("checkPhpDirUrl.checkDirUrl Last character of URL is not a slash");
-            
+            alert("checkPhpDirUrl.checkDirUrl First characters of a sub-directory must be a point and a slash" +
+                " Input directory= " + i_dir_url);
+
             return false;
         }
 
@@ -1321,13 +1561,36 @@ class UtilFilesData
 
         var last_char = dir_url_trim.substring(dir_url_trim_length - 1, dir_url_trim_length);
 
-        if (last_char == '/')
+        if (last_char != '/')
+        {
+            alert("checkPhpDirUrl.checkPhpDirUrl Last character of URL is not a slash." +
+                " Input directory= " + i_dir_url);
+
+            return false;
+        }
+
+        if (UtilUrl.isAbsolutePath(i_dir_url))
+        {
+            return true;
+        }
+
+        var index_two_points_slash = dir_url_trim.indexOf('../');
+
+        if (0 == index_two_points_slash)
+        {
+            return true;
+        }
+
+        var index_one_point_slash = dir_url_trim.indexOf('./');
+
+        if (0 == index_one_point_slash)
         {
             return true;
         }
         else
         {
-            alert("checkPhpDirUrl.checkPhpDirUrl Last character of URL is not a slash");
+            alert("checkPhpDirUrl.checkPhpDirUrl First characters of a sub-directory must be a point and a slash" +
+                    " Input directory= " + i_dir_url);
 
             return false;
         }
