@@ -239,6 +239,19 @@ class UtilUrl
     //    e.g. https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/Php/
     static convertToAbsoluteUrl(i_url_relative)
     {
+        if (i_url_relative.trim().length == 0)
+        {
+            alert("UtilUrl.getAbsolutUrl Input i_url_relative string is empty");
+
+            return '';
+        }
+
+        if (UtilUrl.isAbsolutePath(i_url_relative))
+        {
+            return i_url_relative;
+        }
+
+        /*QQQQ
         if (i_url_relative.trim().length > 0)
         {
             if (UtilUrl.isAbsolutePath(i_url_relative))
@@ -246,6 +259,7 @@ class UtilUrl
                 return i_url_relative;
             }
         }
+            QQQQ*/
 
         if (!UtilUrl.execApplicationOnServer())
         {
@@ -255,11 +269,6 @@ class UtilUrl
         }
 
         var ret_absolute_url = UtilUrl.currentSchemeAndDomain();
-
-        if (i_url_relative.trim().length == 0)
-        {
-            return ret_absolute_url + '/';
-        }
 
         var dir_array = UtilUrl.currentPathOnlySubdirectoriesArray();
 
@@ -274,10 +283,10 @@ class UtilUrl
 
         var n_up_levels = UtilUrl.getNumberUpLevels(i_url_relative);
 
-        var index_end = n_up_levels - 2;
-
-        if (index_end >=0)
+        if (n_up_levels >= 2)
         {
+            var index_end = n_up_levels - 2;
+
             for (var index_dir = 0; index_dir <= index_end; index_dir++)
             {
     
@@ -305,15 +314,24 @@ class UtilUrl
         {
             ret_absolute_url =  ret_absolute_url + current_base_sub_dir;
 
-            var sub_dir_str = './';
+            var point_slash_str = './';
 
-            var index_sub_dir = i_url_relative.indexOf(sub_dir_str);
+            var slash_str = '/';
 
-            if (index_sub_dir == 0)
+            var index_point_slash = i_url_relative.indexOf(point_slash_str);
+
+            var index_slash = i_url_relative.indexOf(slash_str);
+
+            if (index_point_slash == 0)
             {
                 var keep_sub_dir = i_url_relative.substring(1);
 
                 ret_absolute_url =  ret_absolute_url + keep_sub_dir;
+            }
+            else if (index_slash == 0)
+            {
+                // Would be nicer with i_url_relative but base dir already  aaded above
+                ret_absolute_url =  ret_absolute_url +'/';
             }
             else
             {

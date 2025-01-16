@@ -610,18 +610,28 @@ function testUtilFilesDataAbsolute()
 
     var scheme_and_domain = UtilUrl.currentSchemeAndDomain();
 
-    var dir_name = '../TestDir_1/SubTestDir_1/';
+    // var dir_name = '../TestDir_1/SubTestDir_1/';
+
+    // var dir_name = 'https://jazzliveaarau.ch/ReservationLayout/TestDir_1/SubTestDir_1/';
+
+    var dir_name = 'https://jazzliveaarau.ch/ReservationLayout/';
+
+    // var dir_name = '/ReservationLayout/';
 
     //var dir_name_out = '../TestDir_2/';
 
     var file_name_out = '../TestDir_2/TestFile_2.txt'
 
 
-    var path_php_dir = './Php/'
+    // var path_php_dir = './Php/'
 
     // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
 
-    //var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
+    // var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
+
+    var path_php_dir = '/ReservationLayout/';
+
+    // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/';
 
     var util_files_data = new UtilFilesData();
 

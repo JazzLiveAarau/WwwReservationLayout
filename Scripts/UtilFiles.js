@@ -1443,7 +1443,7 @@ class UtilFilesData
       // Returns true if the directory name was set
       setPathPhpDir(i_path_php_dir)
       {
-        if (!this.checkPhpDirUrl(i_path_php_dir))
+        if (!this.checkDirUrl(i_path_php_dir))
         {
             return false;
         }
@@ -1475,11 +1475,13 @@ class UtilFilesData
 
       } // setPathRelativeHtmlPhpFile
 
-      // Returns true if the input URL is a directory ending with a slash
+      // Returns true if the input URL is a directory:
+      // - Ending with a slash
+      // - Is an absolute path or is starting with ../ ./ or /
+      //
       // Please note that the directories may have the value null. This is default.
       // But it is not allowed to set it to null with a set directory function
       // The function UtilFilesData.init should be used setting directory to null
-      // Setting empty directory is not allowed (except for m_path_php_dir)
       checkDirUrl(i_dir_url)
       {
         if (null == i_dir_url)
@@ -1517,14 +1519,11 @@ class UtilFilesData
 
         var index_two_points_slash = dir_url_trim.indexOf('../');
 
-        if (0 == index_two_points_slash)
-        {
-            return true;
-        }
-
         var index_one_point_slash = dir_url_trim.indexOf('./');
 
-        if (0 == index_one_point_slash)
+        var index_slash =  dir_url_trim.indexOf('/');
+
+        if (0 == index_two_points_slash || 0 == index_one_point_slash || 0 == index_slash)
         {
             return true;
         }
@@ -1538,6 +1537,7 @@ class UtilFilesData
 
       } // checkDirUrl
 
+      /*QQQQQQ
       // Returns true if the PHP dir name is valid
       // Same check as in checkDirUrl but empty string is allowed
       // The PHP function is allowed to be in the HTML base directory
@@ -1596,6 +1596,8 @@ class UtilFilesData
         }
 
       } // checkPhpDirUrl
+
+    QQQ*/
 
     // Returns the error message without 'FALSE'
     getErrorMessage()
