@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-16
+// Date: 2025-01-17
 // Author: Gunnar Lidén
 
 // File content
@@ -7,7 +7,6 @@
 //
 // Class with server directory and utility functions based on the jQuery function $.post.
 //
-// Please refer to class UtilServer
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// UtilFiles Start //////////////////////////////////////////////////
@@ -15,7 +14,6 @@
 
 class UtilFiles
 {
-
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////// dirFileAnyCase Start //////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -31,12 +29,37 @@ class UtilFiles
     // UtilFilesData.setDataExecCaseCreateFile
     // UtilFilesData.setDataExecCaseCopyFile
     // UtilFilesData.setDataExecCaseMoveFile
+    // UtilFilesData.setDataExecCaseScanDir
     //
-    // Example: Copy and rename a file
+    // Input URLs for directories and fails may be absolute or relative. 
+    // The relative URLs shall be with respect to the PHP directory for the
+    // PHP file UtilFiles.php. The relative URL for the PHP directory of the 
+    // PHP file (also input data to this function) shall be with respect to 
+    // the directory for the application HTML file.
+    // Relative URLs shall start with '../', './' and '/'. The last alternative
+    // is for the case that the directory is the PHP or HTML directory, i.e.
+    // '/DirWherePhpFileIs/' and '/DirWhereHtmlFileIs/'.
+    // An URL to a dirctory must end with '/'.
+    // For most applications it is probably easier to use absolute URLs. A mix
+    // of absolute and reöative URLs is also possible.
+    //
+    // Example: Copy and rename a file using absolute URLs
+    // var util_files_data = new UtilFilesData();
+    // var input_file =   'https://viewsoncad.ch/Reservation/TestDir_1/SubTestDir_1/TestFile_1.txt';
+    // var output_file =  'https://viewsoncad.ch/Reservation/TestDir_2/TestFile_2.txt';
+    // var path_php_dir = 'https://viewsoncad.ch/Reservation/Php/';
+    // var callback_true = callBackTrue;
+    // var callback_false = callBackFalse;
+    // util_files_data.setDataExecCaseCopyFile(input_file, output_file, path_php_dir, callback_true, callback_false);
+    // UtilFiles.dirFileAnyCase(util_files_data);
+    // function callBackTrue() { alert("callBackTrue"); }
+    // function callBackFalse() { alert("callBackFalse"); }
+    //
+    // Example: Copy and rename a file using relative URLs
     // var util_files_data = new UtilFilesData();
     // var input_file = '../TestDir_1/SubTestDir_1/TestFile_1.txt';
     // var output_file = '../TestDir_2/TestFile_2.txt';
-    // var path_php_dir = 'Php/';
+    // var path_php_dir = './Php/';
     // var callback_true = callBackTrue;
     // var callback_false = callBackFalse;
     // util_files_data.setDataExecCaseCopyFile(input_file, output_file, path_php_dir, callback_true, callback_false);
@@ -48,19 +71,18 @@ class UtilFiles
     // i_util_files_data: An instance of class UtilFilesData
     //
     // Implementation description:
-    // 1. If the input URL directory to the PHP is absolute, get the relative URL
-    //    Call of UtilUrl.getRelativeUrlHtmlDir
-    // 2. Get the name of the PHP file for this class ('UtilFiles.php')
-    //    Call of UtilFiles.getUtilFilesPhpFileName
-    // 3. Construct the full relative URL to the PHP file
-    // 4. Convert absolute URLs to relative URLs to PHP directory for input 
-    //    files and directories. Conversion is only done for absolute URLs
-    //    Calls of UtilUrl.convertToRelativeUrlPhp
-    // 5. Call of the jQuery function post ($.post)
-    //    Succesful execution: 
-    //    Call of UtilFilesData.handlePostResult. Parameter object UtilFilesData
-    //    Failure
-    //    Call of UtilFilesData.handlePostErrorResult.
+    // 1. Make all input URLs for directories and files to absolute URLs
+    //    Call of UtilUrl.allFilesDirectoriesToAbsoluteUrl
+    // 2. Make all tje absolute URLs to URLs relative to zhe HTML directory
+    //    and the PHP directory relative the HTML directory
+    //    Call of UtilFiles.allFilesDirectoriesRelativePhpAndHtml
+    // 3. Send the execution request to the PHP file UtilFile.php. 
+    //    Call of the jQuery function post ($.post) with the relative URLs
+    //    as parameters
+    //    For a succesful execution: 
+    //        Call of UtilFilesData.handlePostResult(UtilFilesData)
+    //    For failure
+    //        Call of UtilFilesData.handlePostErrorResult(ReturnDataPhp).
     static dirFileAnyCase(i_util_files_data)
     {
         debugReservationLayout('UtilFiles.dirFileAnyCase Enter');
@@ -126,6 +148,19 @@ class UtilFiles
 
     // Returns an UtilFileseData object where all input relative URLs have 
     // been converted to absolute URLs
+    // 1. Copy the input UtilFileData object to a return object
+    // 2. Convert the PHP directory 
+    //    Call of UtilFilesData.getPathPhpDir, UtilUrl.convertToAbsoluteUrl 
+    //    and UtilFilesData.setPathPhpDir.
+    // 3. Convert the input directory it is defined (not null)
+    //    Call of UtilFilesData.getInputDirName, UtilUrl.convertToAbsoluteUrl 
+    //    and UtilFilesData.setInputDirName.
+    // 4. Convert the input file it is defined (not null)
+    //    Call of UtilFilesData.getInputFileName, UtilUrl.convertToAbsoluteUrl 
+    //    and UtilFilesData.setInputFileName.
+    // 5. Convert the output file it is defined (not null)
+    //    Call of UtilFilesData.getOutputFileName, UtilUrl.convertToAbsoluteUrl 
+    //    and UtilFilesData.setOutputFileName.
     static allFilesDirectoriesToAbsoluteUrl(i_util_files_data)
     {
         if (null == i_util_files_data)
@@ -207,7 +242,21 @@ class UtilFiles
     } // allFilesDirectoriesToAbsoluteUrl
 
     // Returns an UtilFileseData object where all input absolute URLs have been
-    // converted to relative PHP URLs and the PHP file to URL relative HTML
+    // converted to relative PHP URLs and the PHP file to an URL relative HTML
+    // 1. Copy the input UtilFileData object to a return object
+    // 2. Convert the PHP directory and set the PHP file name
+    //    Call of UtilFilesData.getPathPhpDir, UtilUrl.getRelativeUrlHtmlDir, 
+    //    UtilFilesData.setPathPhpDir, UtilFilesData.getUtilFilesPhpFileName 
+    //    and UtilFilesData.setPathRelativeHtmlPhpFile
+    // 3. Convert the input directory if defined. Set to 'NotUsed' if not.
+    //    Call of UtilFilesData.getInputDirName, UtilUrl.getRelativeUrlPhp,
+    //    UtilFilesData.setInputDirName or UtilFiles.notUsedParameterForThisExecutionCase
+    // 4. Convert the input file if defined. Set to 'NotUsed' if not.
+    //    Call of UtilFilesData.getInputFileName, UtilUrl.getRelativeUrlPhp,
+    //    UtilFilesData.setInputFileName or UtilFiles.notUsedParameterForThisExecutionCase
+    // 5. Convert the output file if defined. Set to 'NotUsed' if not.
+    //    Call of UtilFilesData.getOutputFileName, UtilUrl.getRelativeUrlPhp,
+    //    UtilFilesData.setOutputFileName or UtilFiles.notUsedParameterForThisExecutionCase
     static allFilesDirectoriesRelativePhpAndHtml(i_abs_util_files_data)
     {
         if (null == i_abs_util_files_data)
@@ -305,6 +354,8 @@ class UtilFiles
 
     } // allFilesDirectoriesRelativePhpAndHtml
 
+    // Return the string that the parameter not is used for this execution case
+    // A jQuery post parameter must not be null
     static notUsedParameterForThisExecutionCase()
     {
         return 'notUsedParameterForThisExecutionCase';
@@ -330,25 +381,6 @@ class UtilFiles
         return null;
 
     } // errorAllRelative
-
-    /*QQQQQ
-    // Returns relative to PHP URL
-    // 1. If input URL is null the returned URL is null
-    // 2. Convert if necessary and return relative URL
-    //    Call of UtilUrl.getRelativeUrlPhp
-    static convertToRelativeUrlPhp(i_absolute_url)
-    {
-        if (null == i_absolute_url)
-        {
-            return i_absolute_url;
-        }
-
-        var abs_url_php_dir = UtilUrl.convertToAbsoluteUrl(i_absolute_url); 
-
-        return UtilUrl.getRelativeUrlPhp(i_absolute_url, abs_url_php_dir);
-
-    } // convertToRelativeUrl
-     QQQ*/
 
     // Get the PHP file name for this classs UtilFiles
     static getUtilFilesPhpFileName()
@@ -1536,68 +1568,6 @@ class UtilFilesData
         }
 
       } // checkDirUrl
-
-      /*QQQQQQ
-      // Returns true if the PHP dir name is valid
-      // Same check as in checkDirUrl but empty string is allowed
-      // The PHP function is allowed to be in the HTML base directory
-      checkPhpDirUrl(i_dir_url)
-      {
-        if (null == i_dir_url)
-        {
-            alert("checkPhpDirUrl.CheckDirUrl URL directory is null");
-
-            return false;
-        }
-
-        var dir_url_trim = i_dir_url.trim();
-
-        if (dir_url_trim == 0)
-        {
-            return true;
-        }
-
-        var dir_url_trim_length = dir_url_trim.length;
-
-        var last_char = dir_url_trim.substring(dir_url_trim_length - 1, dir_url_trim_length);
-
-        if (last_char != '/')
-        {
-            alert("checkPhpDirUrl.checkPhpDirUrl Last character of URL is not a slash." +
-                " Input directory= " + i_dir_url);
-
-            return false;
-        }
-
-        if (UtilUrl.isAbsolutePath(i_dir_url))
-        {
-            return true;
-        }
-
-        var index_two_points_slash = dir_url_trim.indexOf('../');
-
-        if (0 == index_two_points_slash)
-        {
-            return true;
-        }
-
-        var index_one_point_slash = dir_url_trim.indexOf('./');
-
-        if (0 == index_one_point_slash)
-        {
-            return true;
-        }
-        else
-        {
-            alert("checkPhpDirUrl.checkPhpDirUrl First characters of a sub-directory must be a point and a slash" +
-                    " Input directory= " + i_dir_url);
-
-            return false;
-        }
-
-      } // checkPhpDirUrl
-
-    QQQ*/
 
     // Returns the error message without 'FALSE'
     getErrorMessage()

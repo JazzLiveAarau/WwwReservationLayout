@@ -229,6 +229,8 @@ class UtilUrl
     } // getRelativeUrlHtmlDir
 
     // Returns the absolute URL i.e. replaces ../ and adds the base URL directory
+    // The input relative URL may also start with ./ and /. It can also be only 
+    // only a file name (that is in the HTML directory)
     // If the input URL is absolute this URL is returned
     // i_url_relative: Input relative URL
     // e.g. Php/
@@ -250,16 +252,6 @@ class UtilUrl
         {
             return i_url_relative;
         }
-
-        /*QQQQ
-        if (i_url_relative.trim().length > 0)
-        {
-            if (UtilUrl.isAbsolutePath(i_url_relative))
-            {
-                return i_url_relative;
-            }
-        }
-            QQQQ*/
 
         if (!UtilUrl.execApplicationOnServer())
         {
