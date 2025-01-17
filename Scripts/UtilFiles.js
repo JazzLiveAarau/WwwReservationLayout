@@ -23,7 +23,7 @@ class UtilFiles
     // The valid execution cases are defined by the member functions
     // UtilFilesData.setDataExecCaseDirExists
     // UtilFilesData.setDataExecCaseFileExists
-    // UtilFilesData.setDataExecCaseCreateDir
+    // UtilFilesData.setDataExecCaseCreateDir 
     // UtilFilesData.setDataExecCaseDeleteDir
     // UtilFilesData.setDataExecCaseDeleteFile
     // UtilFilesData.setDataExecCaseCreateFile
@@ -307,7 +307,8 @@ class UtilFiles
         }
         else
         {
-            ret_rel_php_html_url.setInputDirName(UtilFiles.notUsedParameterForThisExecutionCase());
+            // Function setInputDirName cannot be use because input is checked
+            ret_rel_php_html_url.m_input_dir_name = UtilFiles.notUsedParameterForThisExecutionCase();
         }
 
          // End input directory
@@ -326,7 +327,8 @@ class UtilFiles
         }
         else
         {
-            ret_rel_php_html_url.setInputFileName(UtilFiles.notUsedParameterForThisExecutionCase());
+            // Function setInputFileName cannot be use because input is or may be checked in new versions
+            ret_rel_php_html_url.m_input_file_name = UtilFiles.notUsedParameterForThisExecutionCase();
         }
 
          // End input file
@@ -345,7 +347,8 @@ class UtilFiles
         }
         else
         {
-            ret_rel_php_html_url.setOutputFileName(UtilFiles.notUsedParameterForThisExecutionCase());
+            // Function setOutputFileName cannot be use because input is or may be checked in new versions
+            ret_rel_php_html_url.m_output_file_name = UtilFiles.notUsedParameterForThisExecutionCase();
         }
 
          // End output file
@@ -1538,7 +1541,7 @@ class UtilFilesData
 
         if (last_char != '/')
         {
-            alert("checkPhpDirUrl.checkDirUrl Last character of URL is not a slash" +
+            alert("UtilFilesData.checkDirUrl Last character of URL is not a slash" +
                 " Input directory= " + i_dir_url);
 
             return false;

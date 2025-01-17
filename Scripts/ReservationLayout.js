@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-16
+// Date: 2025-01-17
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -600,11 +600,24 @@ function testLayout()
 {
     debugReservationLayout('testLayout Enter');
 
-    testUtilFilesDataAbsolute();
+    testUtilFilesGetDirList();
 
 } // testLayout
 
-function testUtilFilesDataAbsolute()
+function testUtilFilesGetDirList()
+{
+    debugReservationLayout('testUtilFilesGetDirList Enter');
+
+    dir_name = '../Scripts/';
+
+    var callback_function = testScanDir;
+
+    UtilFiles.getDirFileNames(dir_name, path_php_dir, callback_function);
+
+ 
+} // testUtilFilesGetDirList
+
+function testExistCopyCreateMove()
 {
     debugReservationLayout('testUtilFilesDataAbsolute Enter');
 
@@ -620,28 +633,62 @@ function testUtilFilesDataAbsolute()
 
     //var dir_name_out = '../TestDir_2/';
 
-    var file_name_out = '../TestDir_2/TestFile_2.txt'
+    // var file_name_out = '../TestDir_2/TestFile_2.txt'
 
+    // var file_name_out = 'https://jazzliveaarau.ch/ReservationLayout/TestDir_2/TestFile_2.txt'
+
+    //var file_name_out = 'TestFile_2.txt'
+
+    // var file_name_out = './Php/TestFile_2.txt'
+
+    var file_content = '';
+
+    for (var row_number = 1; row_number <= 30; row_number++)
+    {
+        file_content += 'Der Alpdruck. Roman. Aufbau, Berlin 2014,  Seite 238. Erstveröffentlichung 1947. Row ' 
+                        + row_number.toString() + '\n';
+    }
 
     // var path_php_dir = './Php/'
 
-    // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
+    var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
 
     // var path_php_dir = 'https://jazzliveaarau.ch/JazzScripts/TestPhp/'
 
-    var path_php_dir = '/ReservationLayout/';
+    // var path_php_dir = '/ReservationLayout/';
 
     // var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/';
 
     var util_files_data = new UtilFilesData();
 
-   if (!util_files_data.setDataExecCaseDirExists(dir_name, path_php_dir, testTrue, testFalse)) { return; }
+   // if (!util_files_data.setDataExecCaseDirExists(dir_name, path_php_dir, testTrue, testFalse)) { return; }
 
-    // util_files_data.setDataExecCaseDeleteFile(file_name_out, path_php_dir, testTrue, testFalse);
+   // if (!util_files_data.setDataExecCaseCreateFile(file_name_out, file_content, path_php_dir, testTrue, testFalse)) { return; }
+
+
+   // var file_name = 'https://jazzliveaarau.ch/ReservationLayout/TestDir_2/TestFile_2.txt';
+
+   var file_name_out = '../TestDir_1/TestFile_1.txt';
+
+   // var file_name_out = '../TestDir_1/SubTestDir_1/TestFile_1.txt';
+
+   if (!util_files_data.setDataExecCaseCopyFile(file_name, file_name_out, path_php_dir, testTrue, testFalse)) { return; }
+
+   // var dir_name_out = '../TestDir_1/SubTestDir_1/SubSubTestDir_1/';
+
+   var dir_name_out = 'https://jazzliveaarau.ch/ReservationLayout/TestDir_1/SubTestDir_2/SubSubTestDir_2/';
+
+   // if (!util_files_data.setDataExecCaseCreateDir(dir_name_out, path_php_dir, testTrue, testFalse)) { return; }
+
+   var file_name = 'https://jazzliveaarau.ch/ReservationLayout/TestDir_1/TestFile_1.txt';
+
+   var file_name_out = '../TestDir_1/SubTestDir_1/SubSubTestDir_1/MovedTestFile_1.txt';
+
+   if (!util_files_data.setDataExecCaseMoveFile(file_name, file_name_out, path_php_dir, testTrue, testFalse) ) { return; }
 
     UtilFiles.dirFileAnyCase(util_files_data);
 
-} // testUtilFilesDataAbsolute
+}
 
 // Test the UtilUrl functions
 function testUtilUrl()
