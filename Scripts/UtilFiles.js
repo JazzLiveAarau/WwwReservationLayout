@@ -410,7 +410,8 @@ class UtilFiles
     // This object also holds results from the called functions like for instance the XML object with file data
     // 1. Create an instance of class UtilFilesData
     // 2. Define the temporarely used directory and file name for the XML file
-    //    TODO The directory must exist. It should be created if missing
+    //    Please note that the directory will be created if missing. See dirListXml in UtilFiles.php
+    //    Call of UtilFiles.getTempSubDirFileName
     // 3. Create the chain call array consisting of the following function names:
     //    UtilFiles.loadOneXmlFile, UtilFiles.getDirScanArray and i_callback_function
     //    Set the data of object UtilFilesData to the case 'scan directory'
@@ -423,7 +424,7 @@ class UtilFiles
 
         var util_files_data = new UtilFilesData();
 
-        var file_name_out = i_path_php_dir + '/TempScanDir/ListDir.xml';
+        var file_name_out = UtilFiles.getTempSubDirFileName(i_path_php_dir);
 
         var callback_function_array = [];
     
@@ -438,6 +439,15 @@ class UtilFiles
         UtilFiles.dirFileAnyCase(util_files_data);
 
     } // getDirFileNames
+
+    // Returns the URL for the temporary stored XML file with directory names
+    // Please note that this directory will be created if missing. 
+    // See function dirListXml in UtilFiles.php
+    static getTempSubDirFileName(i_path_php_dir)
+    {
+        return i_path_php_dir + 'TempScanDir/ListDir.xml';
+
+    } // getTempSubDirFileName
 
     // Error callback function for function UtilFiles.getDirFileNames
     static errorGetDirFileNames(i_data_post)

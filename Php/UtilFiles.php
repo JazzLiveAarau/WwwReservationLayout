@@ -1,7 +1,7 @@
 <?php
 
 // File: UtilFiles.php
-// Date: 2025-01-10
+// Date: 2025-01-19
 // Author: Gunnar Liden
 
 // File utility functions
@@ -329,6 +329,8 @@ function dirListXml($input_dir_name, $output_file_name, $message_true, $message_
 
   } // index_file
 
+  createListXmlDirIfMissing($output_file_name);
+
   $file_content = $file_content . "</ScanDir>" . PHP_EOL;
 
   $file_object = fopen($output_file_name, "w") or exit($message_false."_".error_get_last());
@@ -343,6 +345,46 @@ function dirListXml($input_dir_name, $output_file_name, $message_true, $message_
   echo $message_true;
 
 } // dirListXml
+
+// Creates the directory for the dirListXml file if not existing
+function createListXmlDirIfMissing($output_file_name)
+{
+  $debug_str = "createListXmlDirIfMissing Enter";
+  // debugAppend($debug_str);
+
+  $dir_name = dirname($output_file_name);
+
+  $debug_str = "createListXmlDirIfMissing dir_name " . $dir_name;
+  // debugAppend($debug_str);
+
+  if (is_dir($dir_name))
+  {
+    $debug_str = "createListXmlDirIfMissing Existing directory dir_name= " . $dir_name;
+    debugAppend($debug_str);
+
+    return true;
+  }
+
+  $permissions = 0777;
+
+  $recursive = true;
+
+  if (mkdir($dir_name, $permissions, $recursive))
+  {
+    $debug_str = "createListXmlDirIfMissing Created directory dir_name= " . $dir_name;
+    debugAppend($debug_str);
+
+    return true;
+  }
+  else
+  {
+    $debug_str = "createListXmlDirIfMissing Failure creating directory dir_name= " . $dir_name;
+    debugAppend($debug_str);
+
+    return false;
+  }
+
+} // createListXmlDirIfMissing
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Scan Util End /////////////////////////////////////////////////////
