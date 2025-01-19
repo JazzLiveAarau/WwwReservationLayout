@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-17
+// Date: 2025-01-19
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -610,12 +610,20 @@ function testUtilFilesGetDirList()
 
     dir_name = '../Scripts/';
 
+     var path_php_dir = 'https://jazzliveaarau.ch/ReservationLayout/Php/'
+
     var callback_function = testScanDir;
 
     UtilFiles.getDirFileNames(dir_name, path_php_dir, callback_function);
 
  
 } // testUtilFilesGetDirList
+
+function testScanDir(i_name_array)
+{
+    debugReservationLayout('testScanDir Number of elements is ' + i_name_array.length.toString());
+
+} // testScanDir
 
 function testExistCopyCreateMove()
 {
@@ -785,12 +793,6 @@ function testUtilFilesData()
     UtilFiles.getDirFileNames(dir_name, path_php_dir, callback_function);
 
 } // testUtilFilesData
-
-function testScanDir(i_name_array)
-{
-    debugReservationLayout('testScanDir Number of elements is ' + i_name_array.length.toString());
-
-} // testScanDir
 
 function testTrue()
 {

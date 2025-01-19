@@ -1,5 +1,5 @@
 // File: UtilFiles.js
-// Date: 2025-01-17
+// Date: 2025-01-19
 // Author: Gunnar Lidén
 
 // File content
@@ -423,7 +423,7 @@ class UtilFiles
 
         var util_files_data = new UtilFilesData();
 
-        var file_name_out = 'TempScanDir/ListDir.xml';
+        var file_name_out = i_path_php_dir + '/TempScanDir/ListDir.xml';
 
         var callback_function_array = [];
     
@@ -440,11 +440,11 @@ class UtilFiles
     } // getDirFileNames
 
     // Error callback function for function UtilFiles.getDirFileNames
-    static errorGetDirFileNames()
+    static errorGetDirFileNames(i_data_post)
     {
-        debugReservationLayout('UtilFiles.errorGetDirFileNames Enter');
+        debugReservationLayout('UtilFiles.errorGetDirFileNames i_data_post= ' + i_data_post);
 
-        alert("UtilFiles.errorGetDirFileNames Enter")
+        alert("UtilFiles.errorGetDirFileNames Error: " + i_data_post)
 
     } // errorGetDirFileNames
 
@@ -455,8 +455,6 @@ class UtilFiles
         debugReservationLayout('UtilFiles.loadOneXmlFile Enter');
 
         var path_file_name_xml = i_util_files_data.getOutputFileName();
-
-        path_file_name_xml = 'Php/' + path_file_name_xml; // TODO
 
         var callback_function_name = i_util_files_data.getCallbackFunctionName();
 
@@ -798,7 +796,6 @@ class UtilFilesData
     //        Call of handlePostResultTrue
     //    II: If returned value is false: 
     //        Call UtilFilesData.m_error_callback_function_name
-    //        Please note that this function must always be defined
     handlePostResult(i_util_files_data)
     {
       var data_post = i_util_files_data.getResultPostData();
@@ -823,11 +820,11 @@ class UtilFilesData
       }
       else if (index_true < 0 && index_false >= 0)
       {
-          if (this.m_error_callback_function_name != null || this.m_error_callback_function_name.length > 0)
+          if (this.m_error_callback_function_name != null)
           {
               debugReservationLayout('UtilFilesData.handlePostResult Result Error');
 
-              this.m_error_callback_function_name;
+              this.m_error_callback_function_name(data_post);
           }
           else
           {
@@ -1208,6 +1205,8 @@ class UtilFilesData
         }
     
         this.setOutputFileName(i_output_xml_file_name);
+
+        this.setErrorCallbackFunctionName(i_error_callback_function_name);
         
         var error_msg = 'Not an existing directory= ' + i_input_dir_name;
 
