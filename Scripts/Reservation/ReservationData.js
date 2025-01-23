@@ -1,3 +1,6 @@
+// DO NOT MAKE ANY CHANGES IN THIS FILE. THE FILED WAS MOVED (COPIED) TO 
+// PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE  
+
 // File: ReservationData.js
 // Date: 2024-12-29
 // Author: Gunnar Lidén

@@ -1,3 +1,7 @@
+// DO NOT MAKE ANY CHANGES IN THIS FILE. THE FILED WAS MOVED (COPIED) TO 
+// PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE  
+
+
 // File: DefaultText.js
 // Date: 2025-01-02
 // Author: Gunnar Lidén

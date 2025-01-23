@@ -1,3 +1,7 @@
+// DO NOT MAKE ANY CHANGES IN THIS FILE. THE FILED WAS MOVED (COPIED) TO 
+// PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE  
+
+
 // File: UtilFiles.js
 // Date: 2025-01-19
 // Author: Gunnar Lidén
