@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2025-04-18
+// Date: 2025-04-19
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -101,7 +101,7 @@ class ReservationEventXml
 
         // debugReservationLayout('file_name_full_path= ' + file_name_full_path);
 
-        UtilServer.saveFileCallback(file_name_full_path, content_string, this.m_callback_function_name);
+        UtilServer.saveCallback(file_name_full_path, content_string, this.m_callback_function_name);
 
     } // createNewObjectSaveFile
 
@@ -118,7 +118,7 @@ class ReservationEventXml
 
         var xml_content_str = pretty_print.xmlToWinFormattedString();
 
-        UtilServer.saveFileCallback(file_name_full_path, xml_content_str, i_callback_after_save_function_name);
+        UtilServer.saveCallback(file_name_full_path, xml_content_str, i_callback_after_save_function_name);
 
     } // saveFile
 

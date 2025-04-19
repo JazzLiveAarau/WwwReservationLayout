@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-04-17
+// Date: 2025-04-19
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -365,8 +365,6 @@ function createUploadLayoutFilesAfterCheck()
    g_path_file_name_array = path_file_name_array;
    g_layout_html_code_array = layout_html_code_array; 
 
-    // Previously test UtilServer.saveFileCallback(path_file_name_array[3], layout_html_code_array[3], afterSaveHtml);
-
     recursiveFileCreation();
 
 } // createUploadLayoutFilesAfterCheck
@@ -400,11 +398,11 @@ function recursiveFileCreation()
 
     if (g_create_html_file_index < n_files - 1)
     {
-        UtilFiles.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], recursiveFileCreation);
+        UtilFiles.saveCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], recursiveFileCreation);
     }
     else
     {
-        UtilFiles.saveFileCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], afterSaveAllHtml);
+        UtilFiles.saveCallback(g_path_file_name_array[g_create_html_file_index], g_layout_html_code_array[g_create_html_file_index], afterSaveAllHtml);
     }
 
 } // recursiveFileCreation
