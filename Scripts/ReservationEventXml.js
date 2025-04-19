@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2024-12-13
+// Date: 2025-04-18
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -1073,8 +1073,9 @@ class ReservationEventXml
 
         number_str = '_' + number_str;
 
+        var ret_str = this.m_subdir_xml + start_name + add_str + number_str + '.xml';
 
-        return this.m_subdir_xml + '/' + start_name + add_str + number_str + '.xml';
+        return ret_str;
 
     } // getXmlEventFileName
 

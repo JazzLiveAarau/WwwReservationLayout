@@ -3,20 +3,20 @@
 <EventProgram>
   <!--  Event 1 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>10</Month>
-    <Day>5</Day>
+    <Day>4</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Victoria Mozalevskaya Trio feat. Dimitri Howald</EventName>
-    <ShortText>Als Manifest für die Freiheit jenseits ....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Nolan Quinn Quintet</EventName>
+    <ShortText>Astreiner amerikanischer Jazz. Quinn und sein Team machen kein Hehl  ....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -26,20 +26,20 @@
   <!--  Event 1 End  -->
   <!--  Event 2 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>10</Month>
-    <Day>19</Day>
+    <Day>18</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Dominic Egli Plurism</EventName>
-    <ShortText>Ein gnadenlos groovendes ......</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Manfred Junker Organ Trio</EventName>
+    <ShortText>Diesmal lässt es der Konstanzer Gitarrist  ......</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -49,20 +49,20 @@
   <!--  Event 2 End  -->
   <!--  Event 3 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>11</Month>
-    <Day>2</Day>
+    <Day>1</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Felix Huber COMPROject</EventName>
-    <ShortText>NotYetSetNodeValue</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Renzo Spotti Quartet</EventName>
+    <ShortText>Nach über drei Jahrzehnten im Trio sichert ...</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -72,20 +72,20 @@
   <!--  Event 3 End  -->
   <!--  Event 4 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>11</Month>
-    <Day>16</Day>
+    <Day>15</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Yuri Storione Quartet feat. Perico Sambeat</EventName>
-    <ShortText>Nach beeindruckendem Einstand vor drei Jahren ......</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Rodrigo Botter Maio Brasil Group</EventName>
+    <ShortText>Die Combo wurde durch ihr jahrelanges Zusammenspiel ......</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -95,20 +95,20 @@
   <!--  Event 4 End  -->
   <!--  Event 5 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>11</Month>
-    <Day>30</Day>
+    <Day>29</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Silvan Joray Trio</EventName>
-    <ShortText>Eine selten gehörte Perfektion ......</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Atlantic Puffin</EventName>
+    <ShortText>Am Anfang war Ornette Coleman - als gemeinsames ......</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -118,20 +118,20 @@
   <!--  Event 5 End  -->
   <!--  Event 6 Start  -->
   <Event>
-    <Year>2024</Year>
+    <Year>2025</Year>
     <Month>12</Month>
-    <Day>14</Day>
+    <Day>13</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Sonja Indin und Band</EventName>
-    <ShortText>And Then She Wrote / Poetry Goes Jazz .....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Roberto Bossard New Group</EventName>
+    <ShortText>Seit rund zehn Jahren bereits tourt die Band .....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -141,20 +141,20 @@
   <!--  Event 6 End  -->
   <!--  Event 7 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>1</Month>
-    <Day>11</Day>
+    <Day>10</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Oliver Pellet Group feat. Seamus Blake</EventName>
-    <ShortText>Pandemie 2020, die Welt steht still, und inmitten des Erstaunens .....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>The Joe Haider Jazz Orchestra</EventName>
+    <ShortText>Letztens verkündete er bereits schon seinen .....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -164,20 +164,20 @@
   <!--  Event 7 End  -->
   <!--  Event 8 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>1</Month>
-    <Day>25</Day>
+    <Day>24</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Switalo Jazz</EventName>
-    <ShortText>Und weil das Quartett vor sechs Jahren so ......</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Chloe Marsigny Sextet</EventName>
+    <ShortText>Fasziniert vom Jazz der 60-er sowie inspiriert ......</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -187,20 +187,20 @@
   <!--  Event 8 End  -->
   <!--  Event 9 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>2</Month>
-    <Day>8</Day>
+    <Day>7</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Patrick Joray Quintet</EventName>
-    <ShortText>Namhafte Exponenten der hiesigen treffen auf .....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Charlotte Lang Group</EventName>
+    <ShortText>Die poetische Musik der aufstrebenden Künstlerin .....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -210,20 +210,20 @@
   <!--  Event 9 End  -->
   <!--  Event 10 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>2</Month>
-    <Day>22</Day>
+    <Day>21</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Seven Things</EventName>
-    <ShortText>Werden die Augen geschlossen, fühlt man sich in .....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Martin Lechner Band</EventName>
+    <ShortText>Die grossen Crooner des 20. Jahrhunderts waren wohl Wegbereiter .....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -233,20 +233,20 @@
   <!--  Event 10 End  -->
   <!--  Event 11 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>3</Month>
-    <Day>8</Day>
+    <Day>7</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>PrismE</EventName>
-    <ShortText>Modern und europäisch präsentiert sich .....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Matthias Spillmann Trio</EventName>
+    <ShortText>Das Trio aus Trompete, Bass und Schlagzeug - für die aktuelle .....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -256,20 +256,20 @@
   <!--  Event 11 End  -->
   <!--  Event 12 Start  -->
   <Event>
-    <Year>2025</Year>
+    <Year>2026</Year>
     <Month>3</Month>
-    <Day>22</Day>
+    <Day>21</Day>
     <TimeStartHour>15</TimeStartHour>
-    <TimeStartMinute>30</TimeStartMinute>
+    <TimeStartMinute>0</TimeStartMinute>
     <TimeEndHour>17</TimeEndHour>
-    <TimeEndMinute>15</TimeEndMinute>
+    <TimeEndMinute>0</TimeEndMinute>
     <Place>Spagi by Marcello</Place>
     <Street>Metzgergasse 8</Street>
     <City>5000 Aarau</City>
     <EventCancelled>FALSE</EventCancelled>
-    <EventName>Raphael Jost Quintett</EventName>
-    <ShortText>Nachdem sein Trio als letzter von acht Gigs ....</ShortText>
-    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_1/</UrlReservationDir>
+    <EventName>Baschnagel Group</EventName>
+    <ShortText>10 Years Baschnagel Group. Nach zwei erfolgreichen ....</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
     <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
     <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
     
@@ -277,4 +277,50 @@
     </Instructions>
   </Event>
   <!--  Event 12 End  -->
+  <!--  Event 13 Start  -->
+  <Event>
+    <Year>2026</Year>
+    <Month>3</Month>
+    <Day>28</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>0</TimeStartMinute>
+    <TimeEndHour>17</TimeEndHour>
+    <TimeEndMinute>0</TimeEndMinute>
+    <Place>Spagi by Marcello</Place>
+    <Street>Metzgergasse 8</Street>
+    <City>5000 Aarau</City>
+    <EventCancelled>FALSE</EventCancelled>
+    <EventName>Jubiläumskonzert</EventName>
+    <ShortText>NotYetSetNodeValue</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
+    <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
+    <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
+    
+    Reservierte Plätze müssen 10 Minuten vor Konzertbeginn eingenommen werden, sonst werden sie freigegeben.
+    </Instructions>
+  </Event>
+  <!--  Event 13 End  -->
+  <!--  Event 14 Start  -->
+  <Event>
+    <Year>2026</Year>
+    <Month>3</Month>
+    <Day>29</Day>
+    <TimeStartHour>15</TimeStartHour>
+    <TimeStartMinute>30</TimeStartMinute>
+    <TimeEndHour>18</TimeEndHour>
+    <TimeEndMinute>15</TimeEndMinute>
+    <Place>NotYetSetNodeValue</Place>
+    <Street>NotYetSetNodeValue</Street>
+    <City>NotYetSetNodeValue</City>
+    <EventCancelled>FALSE</EventCancelled>
+    <EventName>Jam Session</EventName>
+    <ShortText>NotYetSetNodeValue</ShortText>
+    <UrlReservationDir>https://jazzliveaarau.ch/ReservationDevelopment/Spagi_76_Chairs_V_2/</UrlReservationDir>
+    <Prices>Eintritt: Fr. 25.- / 15.-</Prices>
+    <Instructions>Für Reservationen die am Konzerttag nach 12.30 Uhr online gemacht werden, übernehmen wir keine Gewähr.
+    
+    Reservierte Plätze müssen 10 Minuten vor Konzertbeginn eingenommen werden, sonst werden sie freigegeben.
+    </Instructions>
+  </Event>
+  <!--  Event 14 End  -->
 </EventProgram>

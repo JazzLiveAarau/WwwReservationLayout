@@ -1,5 +1,5 @@
 // File: ReservationLayout.js
-// Date: 2025-01-19
+// Date: 2025-04-17
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -58,6 +58,10 @@ function initReservationLayout()
     var organisation_directory_name =  layout_files_data_from_storage.getOrganisationDir();            // 'JAZZ_live_AARAU';
 
     var result_server_directory_name = layout_files_data_from_storage.getResultDir();          // 'Spagi_76_Chairs_V_2';
+
+    organisation_directory_name = 'JAZZ_live_AARAU'; // QQQQQ
+
+    result_server_directory_name = 'Spagi_76_Chairs_V_2'; // QQQQQ 
 
     g_layout_organisation_dir_text_box.setValue(organisation_directory_name);
 
