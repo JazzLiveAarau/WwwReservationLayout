@@ -1,0 +1,113 @@
+/* 
+File: ReservationNewSeason.css Date: 2025-04-21
+
+Author: Gunnar Liden
+
+General information
+====================
+
+Defines all style classes for the application reservation new season
+
+*/
+
+/* The whole page */
+.cl_div_season_page
+{
+    border: solid 2px blue;
+    font-family: 'Arial';
+    font-size: 15px;
+    font-weight: bold;
+    width: 350px;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden; 
+    min-height: 420px;
+}
+
+
+/* Text logo <div> element */
+.cl_div_season_text_logo
+{
+    /* border: solid 2px yellow; */
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;   
+    width: 100%;
+}
+
+.cl_div_season_result
+{
+    border: solid 2px red;
+    font-family: 'Arial';
+    font-size: 12px;
+    font-weight: bold;
+    width: 750px;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding: 10px;
+
+    min-height: 420px;
+}    
+
+/* For all <label> elements */
+label
+{
+    margin-left: 10px;
+}
+
+.cl_div_season_organisation_dir
+{
+    margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_season_create_set_xml_row
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;   
+}
+
+.cl_div_season_bottom_row
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;
+}
+
+.cl_div_season_button_xml_new
+{
+    margin-left: 3%;
+    margin-right: 3%;
+    float: left;
+}
+
+/* For some <button> elements */
+button
+{
+    border: solid 2px black;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 95%;
+}
+
+
+/* Image <img> Elemente in <div> element logo */
+.cl_jazz_notes_title img
+{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+

@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2024-12-30
+// Date: 2025-04-21
 // Author: Gunnar Lidén
 
 
@@ -12,7 +12,7 @@
 class EventProgramXml
 {
     // Creates the instance of the class
-    // i_subdir_xml: The subdirectory for the event XML file, e.g. SaisonXml
+    // i_subdir_xml: The subdirectory for the event XML file, e.g. XML
     // m_event_program_file_name: Name of the event program XML file
     // i_callback_function_name: Function that shall be called after creation (loading) of the XML object
     constructor(i_subdir_xml, i_event_program_file_name, i_callback_function_name) 
@@ -119,11 +119,6 @@ class EventProgramXml
    {
         var ret_value = false;
 
-        if (!this.eventCancelledFlagIsDefinedInXmlFile())
-        {
-            return ret_value;
-        }
-
         var event_cancelled_str = this.getEventCancelled(i_event_number);
         
         if (event_cancelled_str == 'TRUE')
@@ -139,23 +134,7 @@ class EventProgramXml
 
    } // eventIsCancelled
 
-   // Returns true if the event cancelled flag is defined in the season XML file
-   eventCancelledFlagIsDefinedInXmlFile()
-   {
-        var year_autumn = this.getYearAutumn();
-
-        if (year_autumn < 2019)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-
-   } // eventCancelledFlagIsDefinedInXmlFile
-
-   // Returns the band name
+   // Returns the event name
     getEventName(i_event_number)
     {
         return this.getEventNodeValue(this.m_tags.getEventName(), i_event_number);
@@ -191,11 +170,216 @@ class EventProgramXml
    } // getInstructions
    
     ///////////////////////////////////////////////////////////////////////////
-    /////// End Get event Functions ////////(////////////////////////////////
+    /////// End Get event Functions ////////(//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////// Start Node Value Functions //////////////////////
+    ///////////////////////// Start Set Event Data ////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+     // Set the Event day
+    setDay(i_event_number, i_node_value)
+    {
+        return this.setEventNodeValue(this.m_tags.getDay(), i_event_number, i_node_value);
+        
+    } // setDay
+
+     // Set the Event month
+     setMonth(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getMonth(), i_event_number, i_node_value);
+         
+     } // setMonth
+
+     // Set the Event year
+     setYear(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getYear(), i_event_number, i_node_value);
+         
+     } // setYear
+
+     // Set the event start hour
+     setStartHour(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getStartHour(), i_event_number, i_node_value);
+         
+     } // setStartHour
+
+     // Set the event start minute
+     setStartMinute(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getStartMinute(), i_event_number, i_node_value);
+         
+     } // setStartMinute
+
+     // Set the event end hour
+     setEndHour(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEndHour(), i_event_number, i_node_value);
+         
+     } // setEndHour
+
+     // Set the event end minute
+     setEndMinute(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEndMinute(), i_event_number, i_node_value);
+         
+     } // setEndMinute
+
+     // Set the event place
+     setPlace(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getPlace(), i_event_number, i_node_value);
+         
+     } // setPlace
+
+     // Set the event cancelled flag
+     setCancelled(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getCancelled(), i_event_number, i_node_value);
+         
+     } // setCancelled
+
+     // Set the event cancelled flag to true
+     setCancelledToTrue(i_event_number)
+     {
+        this.setCancelled(i_event_number, "TRUE");
+
+     } // setCancelledToTrue
+
+     // Set the event cancelled flag to false
+     setCancelledToFalse(i_event_number)
+     {
+        this.setCancelled(i_event_number, "FALSE");
+
+     } // setCancelledToFalse
+
+     // Set the event name
+     setEventName(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEventName(), i_event_number, i_node_value);
+         
+     } // setEventName
+
+     // Set the event short text
+     setShortText(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getShortText(), i_event_number, i_node_value);
+         
+     } // setShortText
+
+     // Set the URL to the reservation subdirectory
+     setUrlReservationDir(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getUrlReservationDir(), i_event_number, i_node_value);
+         
+     } // setUrlReservationDir
+
+     // Set the URL to the reservation subdirectory
+     setPrices(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getPrices(), i_event_number, i_node_value);
+         
+     } // setPrices
+
+     // Set the URL to the reservation subdirectory
+     setInstructions(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getInstructions(), i_event_number, i_node_value);
+         
+     } // setInstructions
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// End Set Event Data //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Append Guest Node  ////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	// https://www.webdeveloper.com/forum/d/231973-append-xml-node-in-javascript/3
+
+	// Appends an event node   
+    appendEventNode()
+    {
+        var new_event = this.getXmlObject().createElement(this.m_tags.getEvent());
+
+        var year_node = this.getXmlObject().createElement(this.m_tags.getYear());
+        var year_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        year_node.appendChild(year_text);
+        new_event.appendChild(year_node);
+
+        var month_node = this.getXmlObject().createElement(this.m_tags.getMonth());
+        var month_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        month_node.appendChild(month_text);
+        new_event.appendChild(month_node);
+
+        var day_node = this.getXmlObject().createElement(this.m_tags.getDay());
+        var day_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        day_node.appendChild(day_text);
+        new_event.appendChild(day_node);
+
+        var start_hour_node = this.getXmlObject().createElement(this.m_tags.getStartHour());
+        var start_hour_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        start_hour_node.appendChild(start_hour_text);
+        new_event.appendChild(start_hour_node);
+
+        var start_minute_node = this.getXmlObject().createElement(this.m_tags.getStartMinute());
+        var start_minute_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        start_minute_node.appendChild(start_minute_text);
+        new_event.appendChild(start_minute_node);
+
+        var end_hour_node = this.getXmlObject().createElement(this.m_tags.getEndHour());
+        var end_hour_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        end_hour_node.appendChild(end_hour_text);
+        new_event.appendChild(end_hour_node);
+
+        var end_minute_node = this.getXmlObject().createElement(this.m_tags.getEndMinute());
+        var end_minute_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        end_minute_node.appendChild(end_minute_text);
+        new_event.appendChild(end_minute_node);
+
+        var place_node = this.getXmlObject().createElement(this.m_tags.getPlace());
+        var place_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        place_node.appendChild(place_text);
+        new_event.appendChild(place_node);
+
+        var cancelled_node = this.getXmlObject().createElement(this.m_tags.getCancelled());
+        var cancelled_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        cancelled_node.appendChild(cancelled_text);
+        new_event.appendChild(cancelled_node);
+
+        var event_name_node = this.getXmlObject().createElement(this.m_tags.getEventName());
+        var event_name_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        event_name_node.appendChild(event_name_text);
+        new_event.appendChild(event_name_node);
+
+        var text_node = this.getXmlObject().createElement(this.m_tags.getShortText());
+        var short_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_node.appendChild(short_text);
+        new_event.appendChild(text_node);
+
+        var url_node = this.getXmlObject().createElement(this.m_tags.getUrlReservationDir());
+        var url_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        url_node.appendChild(url_text);
+        new_event.appendChild(url_node);
+
+        var prices_node = this.getXmlObject().createElement(this.m_tags.getPrices());
+        var prices_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        prices_node.appendChild(prices_text);
+        new_event.appendChild(prices_node);
+
+        var instructions_node = this.getXmlObject().createElement(this.m_tags.getInstructions());
+        var instructions_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        instructions_node.appendChild(instructions_text);
+        new_event.appendChild(instructions_node);
+
+        this.getXmlObject().documentElement.appendChild(new_event);	
+
+    } // appendEventNode
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// Start Record Node Value  ////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     // Returns the event node value for a given event number and a tag name
@@ -224,6 +408,38 @@ class EventProgramXml
         return ret_data;
         
     } // getEventNodeValue
+
+    // Sets the event node value for a given event record number and a tag name
+    setEventNodeValue(i_record_tag, i_record_number, i_event_record_node_value)
+    {	
+        if (!this.checkEventProgramXml()){ return; }
+
+        var n_records = this.getNumberOfEvents();
+        
+        if (i_record_number < 1 || i_record_number > n_records)
+        {
+            alert("SeasonXml.setJazzTaskNodeValue Record number is not between 1 and " + n_records.toString());
+            
+            return;		
+        }
+            
+        var event_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getEvent());
+
+        var event_rec_node = event_rec_nodes[i_record_number-1];
+        
+        var node_value = this.setFlagNodeValueIsNotSetForEmptyString(i_event_record_node_value);
+        
+        this.setNodeValue(event_rec_node, i_record_tag, node_value);
+        
+    } // setEventNodeValue
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// End Record Node Value  //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////  
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// Start Node Value Functions //////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     // Returns the node value. Input is an XML node and the tag name
     getNodeValueTagName(i_node, i_xml_tag)
