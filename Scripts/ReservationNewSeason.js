@@ -44,11 +44,18 @@ function onClickOfXmlCreateNewButton()
 {
     var season_case = 'current';
 
-    var abs_event_program_url = 'https://jazzliveaarau.ch/ReservationLayout/EventProgramXml/EventProgram.xml';
+    var main_dir = 'ReservationLayout'; // Development
+    // var main_dir = 'Reservation'; // Release
+
+    var result_dir = 'Spagi_76_Chairs_V_2';
+
+    var sub_xml_dir = 'SaisonXML';
+
+    var xml_filename = 'EventProgram.xml';
 
     var callback_fctn = callbackEventProgramCreated;
 
-    var create_event_xml = new  SeasonToEventProgramXml(season_case, abs_event_program_url, callback_fctn);
+    var create_event_xml = new  SeasonToEventProgramXml(season_case, main_dir, result_dir, sub_xml_dir, xml_filename, callback_fctn);
 
 	//TODO createNewXmlEventFiles();
 
