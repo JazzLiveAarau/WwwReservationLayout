@@ -102,6 +102,13 @@ class SeasonToEventProgramXml
     } // eventObjectXml
 
     // Append event XML records with data from season XML records
+    // 1. Loop all season concerts
+    // 1.1 Set local variables for each concert record
+    //     Calls of SeaonXml functions getYear, getDay, getPlace, ....
+    // 1.2 Append program event record. Call of ReservationEventXml.appendEventNode
+    // 1.3 Set even record values
+    //     Calls of ReservationEventXml functions setXear, setDay, setPlace, ....
+    // 2. Call function SeasonToEventProgramXml.modifyEventStrings
     static fromSeasonToEvent()
     {
         var n_concerts = g_season_to_event_data.m_season_xml.getNumberOfConcerts();
@@ -164,9 +171,92 @@ class SeasonToEventProgramXml
 
         } // concert_number
 
-        SeasonToEventProgramXml.saveEventXml();
+        SeasonToEventProgramXml.modifyEventStrings();
        
     } // fromSeasonToEvent
+
+    // Event names are shortened and also texts (since they not yet are used)
+    static modifyEventStrings()
+    {
+
+        var n_events = g_season_to_event_data.m_event_xml.getNumberOfEvents();
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+            var event_name = g_season_to_event_data.m_event_xml.getEventName(event_number);
+
+            var event_text = g_season_to_event_data.m_event_xml.getShortText(event_number);
+
+            event_name = SeasonToEventProgramXml.modifyEventName(event_name);
+
+            event_text = SeasonToEventProgramXml.modifyEventText(event_text);
+
+            g_season_to_event_data.m_event_xml.setEventName(event_number, event_name);
+
+            g_season_to_event_data.m_event_xml.setShortText(event_number, event_text);
+        }
+
+        SeasonToEventProgramXml.saveEventXml();
+
+    } // modifyEventStrings
+
+    // Interact with the user
+    static interactEventName(i_event_name, i_max_event_name_length)
+    {
+        var ret_name = '';
+
+        var prompt_instruction = 'Name ist zu lang. Bitte Text korrigieren';
+
+        var input_text = UtilXml.unescapeString(i_event_name);
+
+        input_text = input_text.substring(0, i_max_event_name_length);
+
+        var modified_text = prompt(prompt_instruction, input_text);
+
+        if (modified_text == null || modified_text.trim() == '')
+        {
+            ret_name = input_text;
+        }
+        else
+        {
+            ret_name = modified_text.trim().substring(0, i_max_event_name_length);
+        }
+
+        return ret_name;
+
+    } // interactEventName
+
+    // Shorten the event name if necessary
+    static modifyEventName(i_event_name)
+    {
+        var ret_event_name = i_event_name;
+
+        var max_event_name_length = 30;
+
+        if (ret_event_name.length > max_event_name_length)
+        {
+            ret_event_name = SeasonToEventProgramXml.interactEventName(ret_event_name, max_event_name_length);
+        }
+
+        return ret_event_name;
+
+    } // modifyEventName
+
+    // Shorten the event name if necessary
+    static modifyEventText(i_event_name)
+    {
+        var ret_event_text = i_event_name;
+
+        var max_event_text_length = 60;
+
+        if (ret_event_text.length > max_event_text_length)
+        {
+            ret_event_text = ret_event_text.substring(0, max_event_text_length) + '...';
+        }
+
+        return ret_event_text;
+
+    } // modifyEventText
 
     // Save the event XML file
     static saveEventXml()

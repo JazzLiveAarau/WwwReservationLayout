@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2025-04-23
+// Date: 2025-04-24
 // Author: Gunnar Lidén
 
 // Inhalt
