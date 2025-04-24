@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewSeason.css Date: 2025-04-21
+File: ReservationNewSeason.css Date: 2025-04-24
 
 Author: Gunnar Liden
 
@@ -60,7 +60,15 @@ label
     margin-left: 10px;
 }
 
-.cl_div_season_organisation_dir
+.cl_div_season_main_dir
+{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_season_result_dir
 {
     margin-top: 3px;
     margin-bottom: 5px;
