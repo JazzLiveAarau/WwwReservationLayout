@@ -76,6 +76,13 @@ label
     clear: both;
 }
 
+.cl_div_event_program_row
+{
+    margin-top: 10px;
+    border: solid 1px yellow; 
+    clear: both;   
+}
+
 .cl_div_season_create_set_xml_row
 {
     margin-top: 10px;
@@ -91,6 +98,13 @@ label
 }
 
 .cl_div_season_button_xml_new
+{
+    margin-left: 3%;
+    margin-right: 3%;
+    float: left;
+}
+
+.cl_div_event_program_button
 {
     margin-left: 3%;
     margin-right: 3%;

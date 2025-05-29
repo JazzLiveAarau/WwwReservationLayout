@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2025-04-24
+// Date: 2025-05-29
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -17,8 +17,11 @@ var g_layout_main_dir_text_box = null;
 // Result directory where the generated HTML files and other files shall be stored
 var g_layout_server_dir_text_box = null;
 
-// Button for the generation of new season XML files
-var g_xml_create_new_button = null;
+// Button for the generation of new season (event) XML files
+var g_xml_create_event_files_button = null;
+
+// Button for the creation of a new event program XML file
+var g_xml_create_event_program_button = null;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
@@ -103,9 +106,7 @@ function callbackEventProgramCreated()
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
-// User clicked the create new event XML files button
-function onClickOfXmlCreateNewButton()
+function onClickOfNewSeasonXmlButton()
 {
     var input_data = getNewSeasonDataInput();
 
@@ -116,7 +117,15 @@ function onClickOfXmlCreateNewButton()
 
     execCreateEventProgramXmlFile();
 
-}// onClickOfXmlCreateNewButton
+} // onClickOfNewSeasonXmlButton
+
+
+// User clicked the create new event XML files button
+function onClickOfNewEventXmlFilesButton()
+{
+
+
+}// onClickOfNewEventXmlFilesButton
 
 // Returns an instance of NewSeasonData
 function getNewSeasonDataInput()
@@ -160,6 +169,8 @@ function createReservationNewSeasonControls()
 
     createTextBoxResultDirectory();
 
+    createNewSeasonXmlButton();
+
     createXmlCreateNewButton();
 
 } // createReservationNewSeasonControls
@@ -198,20 +209,37 @@ function createTextBoxResultDirectory()
 
 } // createTextBoxResultDirectory
 
-// Creates the XML create new button
+// Creates a new event program XML file for the new season
+function createNewSeasonXmlButton()
+{
+    g_xml_create_event_program_button = new JazzButton('id_event_program_button', 'id_div_event_program_button');
+
+    g_xml_create_event_program_button.setOnclickFunctionName("onClickOfNewSeasonXmlButton");
+
+    g_xml_create_event_program_button.setCaption('Neue Event Programm Datei');
+
+    g_xml_create_event_program_button.setLabelText("");
+
+    g_xml_create_event_program_button.setWidth("220px");
+
+    g_xml_create_event_program_button.setTitle('XML Event Programm Datei generieren und speichern');
+
+} // createNewSeasonXmlButton
+
+// Creates the event (concert) XML files for the new season
 function createXmlCreateNewButton()
 {
-    g_xml_create_new_button = new JazzButton('id_layout_button_xml_new', 'id_div_season_button_xml_new');
+    g_xml_create_event_files_button = new JazzButton('id_layout_button_xml_new', 'id_div_season_button_xml_new');
 
-    g_xml_create_new_button.setOnclickFunctionName("onClickOfXmlCreateNewButton");
+    g_xml_create_event_files_button.setOnclickFunctionName("onClickOfNewEventXmlFilesButton");
 
-    g_xml_create_new_button.setCaption('Neue XML Dateien');
+    g_xml_create_event_files_button.setCaption('Neue Konzert XML Dateien');
 
-    g_xml_create_new_button.setLabelText("");
+    g_xml_create_event_files_button.setLabelText("");
 
-    g_xml_create_new_button.setWidth("140px");
+    g_xml_create_event_files_button.setWidth("220px");
 
-    g_xml_create_new_button.setTitle('XML Event Dateien generieren und speichern');
+    g_xml_create_event_files_button.setTitle('XML Event Dateien generieren und speichern');
 
 } // createXmlCreateNewButton
 
