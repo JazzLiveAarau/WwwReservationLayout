@@ -7,7 +7,7 @@
 //
 // Class creating an EventProgramXml XML file from a season XML file
 
-// Instance of SeasonToEventProgramXmlData holding data for the execution
+// Instance of ReservationNewSeasonData holding data for the execution
 var g_season_to_event_data = null;
 
 class SeasonToEventProgramXml
@@ -25,7 +25,7 @@ class SeasonToEventProgramXml
     } // constructor
 
     // Initialization
-    // 1. Create object SeasonToEventProgramXmlData
+    // 1. Create object ReservationNewSeasonData
     //    Set global variable g_season_to_event_data
     // 2. Check input. Call SeasonToEventProgramXml.checkInput
     // 3. Construct the URL for the output eventprogram XML file
@@ -38,7 +38,7 @@ class SeasonToEventProgramXml
     // 7. Create the season XML object. Call of SeasonToEventProgramXml.seasonXmlObject
     static start(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
     {
-        g_season_to_event_data = new SeasonToEventProgramXmlData(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn);
+        g_season_to_event_data = new ReservationNewSeasonData(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn);
 
         SeasonToEventProgramXml.checkInput();
 
@@ -420,9 +420,8 @@ class SeasonToEventProgramXml
 
 } // SeasonToEventProgramXml
 
-// Holds the data necessary for the execution of SeasonToEventProgramXml
-// The class is based on callback functions and they have to be static
-class SeasonToEventProgramXmlData
+// Holds the data necessary for the creation of the new season files
+class ReservationNewSeasonData
 {
     constructor(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
     {
@@ -467,4 +466,4 @@ class SeasonToEventProgramXmlData
 
     } // constructor
 
-} // SeasonToEventProgramXmlData
+} // ReservationNewSeasonData
