@@ -99,35 +99,11 @@ function execCreateEventProgramXmlFile()
 {
     g_new_season_files_data = reservationNewSeasonDataObject();
 
-    /*QQQQQQQQ
-    var input_data = getNewSeasonDataInput();
-
-    if (!input_data.dataIsValid())
-    {
-        return;
-    }
-
-    var season_case = 'current';
-
-    var main_dir = input_data.getMainDir(); //Reservation or ReservationLayout
-   
-    var result_dir = input_data.getResultDir();
-
-    var sub_xml_dir = 'SaisonXML';
-
-    var xml_filename = 'EventProgram.xml';
-
-    var callback_fctn = callbackEventProgramCreated;
-
-    var create_event_xml = new  SeasonToEventProgramXml(season_case, main_dir, result_dir, sub_xml_dir, xml_filename, callback_fctn);
-    QQQQ*/
-
     var create_event_xml = new  SeasonToEventProgramXml();
 
 } // execCreateEventProgramXmlFile
 
-
-// 
+// Callback after creation of the event program XML file
 function callbackEventProgramCreated()
 {
     setNewSeasonLocalStorageData();

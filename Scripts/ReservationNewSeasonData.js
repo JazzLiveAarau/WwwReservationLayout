@@ -11,7 +11,7 @@
 // Holds the data necessary for the creation of the new season files
 class ReservationNewSeasonData
 {
-    constructor(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
+    constructor(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_event_program_callback_fctn)
     {
         // Season case current, previous or next
         this.m_season_case = i_season_case;
@@ -29,7 +29,7 @@ class ReservationNewSeasonData
         this.m_xml_filename = i_xml_filename;
 
         // Callback function for the creation of the event program file
-        this.m_callback_fctn = i_callback_fctn;
+        this.m_event_program_callback_fctn = i_event_program_callback_fctn;
 
         // Absolute URL for the output event XML program file
         this.m_abs_event_program_url = '';
@@ -58,6 +58,15 @@ class ReservationNewSeasonData
     } // constructor
 
     // Initialization
+    // 1. Check input. Call checkInput
+    // 2. Construct the URL for the output eventprogram XML file
+    //    Call of absUrlEventProgramFile
+    // 3. Construct the relative URL for the directory of the output event XML program file
+    //    Call of relUrlEventProgramDir
+    // 4. Constructs the absolute URL for the result directory
+    //    Call of absUrlResultDir
+    // 5. Get season start year. 
+    //    Call of seasonStartYear
     init()
     {
         this.checkInput();

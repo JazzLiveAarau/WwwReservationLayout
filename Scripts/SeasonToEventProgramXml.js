@@ -22,18 +22,9 @@ class SeasonToEventProgramXml
     } // constructor
 
     // Initialization
-    // 1. Create object ReservationNewSeasonData
-    //    Set global variable g_new_season_files_data
-    // 2. Check input. Call SeasonToEventProgramXml.checkInput
-    // 3. Construct the URL for the output eventprogram XML file
-    //    Call of SeasonToEventProgramXml.absUrlEventProgramFile
-    // 4. Construct the relative URL for the directory of the output event XML program file
-    //    Call of  SeasonToEventProgramXml.relUrlEventProgramDir
-    // 5. Constructs the absolute URL for the result directory
-    //    Call of SeasonToEventProgramXml.absUrlResultDir
-    // 6. Get season start year. Call of SeasonToEventProgramXml.seasonStartYear
-    // 7. Create the season XML object. Call of SeasonToEventProgramXml.seasonXmlObject
-    //QQQQstatic start(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
+    // 1. Check that object ReservationNewSeasonData is defined (g_new_season_files_data)
+    // 2. Create the season XML object. 
+    //    Call of SeasonToEventProgramXml.seasonXmlObject
     static start()
     {
         if (g_new_season_files_data == null)
@@ -42,26 +33,6 @@ class SeasonToEventProgramXml
 
             return;
         }
-
-        /*QQQQQ
-        g_new_season_files_data = new ReservationNewSeasonData(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn);
-
-        SeasonToEventProgramXml.checkInput();
-
-        if (!g_new_season_files_data.m_input_data_ok)
-        {
-            return;
-        }
-
-        SeasonToEventProgramXml.absUrlEventProgramFile();
-
-        SeasonToEventProgramXml.relUrlEventProgramDir();
-
-        SeasonToEventProgramXml.absUrlResultDir();
-
-        SeasonToEventProgramXml.seasonStartYear();
-
-        QQQ*/
 
         SeasonToEventProgramXml.seasonXmlObject();
 
@@ -277,85 +248,11 @@ class SeasonToEventProgramXml
 
         var xml_content_str = pretty_print.xmlToWinFormattedString();
 
-        var callback_fctn = g_new_season_files_data.m_callback_fctn;
+        var callback_fctn = g_new_season_files_data.m_event_program_callback_fctn;
 
         UtilServer.saveCallback(file_name_full_path, xml_content_str, callback_fctn);
 
     } // saveEventXml
-
-    /*QQQQQQ
-    //  Constructs the absolute URL for the event program file
-    static absUrlEventProgramFile()
-    {
-        var abs_url = 'https://jazzliveaarau.ch/';
-
-        abs_url =  abs_url + g_new_season_files_data.m_main_dir + '/';
-
-        abs_url =  abs_url + g_new_season_files_data.m_result_dir + '/';
-
-        abs_url =  abs_url + g_new_season_files_data.m_sub_xml_dir + '/';
-
-        abs_url =  abs_url + g_new_season_files_data.m_xml_filename;
-
-        g_new_season_files_data.m_abs_event_program_url = abs_url;
-
-    } // absUrlEventProgramFile
-
-   //  Constructs the absolute URL for the event program file
-   static absUrlResultDir()
-   {
-       var abs_url = 'https://jazzliveaarau.ch/';
-
-       abs_url =  abs_url + g_new_season_files_data.m_main_dir + '/';
-
-       abs_url =  abs_url + g_new_season_files_data.m_result_dir + '/';
-
-       g_new_season_files_data.m_abs_result_dir_url = abs_url;
-
-   } // absUrlResultDir
-
-    // Constructs the relative URL for the directory of the output event XML program file
-    static relUrlEventProgramDir()
-    {
-        var rel_url = '../';
-
-        rel_url =  rel_url + g_new_season_files_data.m_main_dir + '/';
-
-        rel_url =  rel_url + g_new_season_files_data.m_result_dir + '/';
-
-        rel_url =  rel_url + g_new_season_files_data.m_sub_xml_dir;
-
-        g_new_season_files_data.m_rel_event_program_dir_url = rel_url;
-
-    } // relUrlEventProgramDir
-
-    // Sets the season start year
-    // Season changes 1/4
-    // (Code copied from WwwHomepage getCurrentSeasonStartYear)
-    static seasonStartYear()
-    {
-        var now_date = new Date();
-        var now_year = now_date.getFullYear();
-        var now_month = now_date.getMonth() + 1;
-      
-        g_new_season_files_data.m_season_start_year = now_year;
-        
-        if (now_month < 4)
-        {
-            g_new_season_files_data.m_season_start_year = now_year - 1;
-        }
-
-         if (g_new_season_files_data.m_season_case == 'previous')
-         {
-            g_new_season_files_data.m_season_start_year = g_new_season_files_data.m_season_start_year - 1;
-         }
-         else if (g_new_season_files_data.m_season_case == 'next')
-         {
-            g_new_season_files_data.m_season_start_year = g_new_season_files_data.m_season_start_year + 1;
-         }
-
-    } // seasonStartYear
-     QQQQQ*/ 
 
     // Returns reservation instructions
     // (extracted from Application.xml for the reervation confirmation email)
@@ -374,61 +271,6 @@ class SeasonToEventProgramXml
                     'Fr. 15.- SchülerInnen/StudentInnen (mit Legi, Ausweis)  \n'  ;
         
     } // prices
-
-    /*QQQQQ
-    // Checks the input 
-    static checkInput()
-    {
-        g_new_season_files_data.m_input_data_ok = true;
-
-        if (g_new_season_files_data.m_season_case == 'current' || g_new_season_files_data.m_season_case == 'previous' 
-                                                || g_new_season_files_data.m_season_case == 'next')
-        {
-            ; // Do nothing
-        }
-        else
-        {
-            alert("SeasonToEventProgramXml.checkInput Input case not current, previous or next. m_season_case= " 
-                            + g_new_season_files_data.m_season_case);
-
-            g_new_season_files_data.m_input_data_ok = false;
-        }
-
-        if (g_new_season_files_data.m_main_dir == 'Reservation' || g_new_season_files_data.m_main_dir == 'ReservationLayout' )
-        {
-            ;  // Do nothing
-        }
-        else
-        {
-            alert("SeasonToEventProgramXml.checkInput Input main dir not Reservation or ReservationLayout m_main_dir= " 
-                + g_new_season_files_data.m_main_dir);
-
-            g_new_season_files_data.m_input_data_ok = false;            
-        }
-
-        if (g_new_season_files_data.m_result_dir.trim().length == 0)
-        {
-            alert("SeasonToEventProgramXml.checkInput Input result directory string is empty " );
-
-            g_new_season_files_data.m_input_data_ok = false;     
-        }
-
-        if (g_new_season_files_data.m_sub_xml_dir.trim().length == 0)
-        {
-            alert("SeasonToEventProgramXml.checkInput Input string for the directory of the XML file is empty" );
-
-            g_new_season_files_data.m_input_data_ok = false;     
-        }
-
-        if (g_new_season_files_data.m_xml_filename.trim().length == 0)
-        {
-            alert("SeasonToEventProgramXml.checkInput Input string for the XML file name is empty" );
-
-            g_new_season_files_data.m_input_data_ok = false;     
-        }
-
-    } // checkInput
-     QQQ*/
 
 } // SeasonToEventProgramXml
 
