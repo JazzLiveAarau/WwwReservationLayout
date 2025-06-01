@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-04-24
+// Date: 2025-06-01
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -25,15 +25,17 @@ class SeasonToEventProgramXml
     } // constructor
 
     // Initialization
-    // 1. Check input. Call SeasonToEventProgramXml.checkInput
-    // 2. Construct the URL for the output eventprogram XML file
+    // 1. Create object SeasonToEventProgramXmlData
+    //    Set global variable g_season_to_event_data
+    // 2. Check input. Call SeasonToEventProgramXml.checkInput
+    // 3. Construct the URL for the output eventprogram XML file
     //    Call of SeasonToEventProgramXml.absUrlEventProgramFile
-    // 3. Construct the relative URL for the directory of the output event XML program file
+    // 4. Construct the relative URL for the directory of the output event XML program file
     //    Call of  SeasonToEventProgramXml.relUrlEventProgramDir
-    // 4. Constructs the absolute URL for the result directory
+    // 5. Constructs the absolute URL for the result directory
     //    Call of SeasonToEventProgramXml.absUrlResultDir
-    // 4. Get season start year. Call of SeasonToEventProgramXml.seasonStartYear
-    // 5. Create the season XML object. Call of SeasonToEventProgramXml.seasonXmlObject
+    // 6. Get season start year. Call of SeasonToEventProgramXml.seasonStartYear
+    // 7. Create the season XML object. Call of SeasonToEventProgramXml.seasonXmlObject
     static start(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
     {
         g_season_to_event_data = new SeasonToEventProgramXmlData(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn);
