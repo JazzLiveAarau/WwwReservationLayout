@@ -23,6 +23,9 @@ var g_xml_create_event_files_button = null;
 // Button for the creation of a new event program XML file
 var g_xml_create_event_program_button = null;
 
+// Instance of ReservationNewSeasonData holding data for the execution
+var g_new_season_files_data = null;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +53,8 @@ function initReservationNewSeason()
 
     setNewSeasonControls(new_season_data);
 
+    g_new_season_files_data = null;
+
 } // initReservationNewSeason
 
 // Set the controls
@@ -61,9 +66,40 @@ function setNewSeasonControls(i_new_season_data)
 
 } // setNewSeasonControls
 
+// Return object ReservationNewSeasonData holding data for the creation of the XML files
+function reservationNewSeasonDataObject()
+{
+    var input_data = getNewSeasonDataInput();
+
+    if (!input_data.dataIsValid())
+    {
+        return;
+    }
+
+    var season_case = 'current';
+
+    var main_dir = input_data.getMainDir(); //Reservation or ReservationLayout
+   
+    var result_dir = input_data.getResultDir();
+
+    var sub_xml_dir = 'SaisonXML';
+
+    var xml_filename = 'EventProgram.xml';
+
+    var event_program_callback_fctn = callbackEventProgramCreated;
+
+    var ret_exec_data = new ReservationNewSeasonData(season_case, main_dir, result_dir, sub_xml_dir, xml_filename, event_program_callback_fctn);
+
+    return ret_exec_data;
+
+} // reservationNewSeasonDataObject
+
 // Create the event program XML file
 function execCreateEventProgramXmlFile()
 {
+    g_new_season_files_data = reservationNewSeasonDataObject();
+
+    /*QQQQQQQQ
     var input_data = getNewSeasonDataInput();
 
     if (!input_data.dataIsValid())
@@ -84,8 +120,12 @@ function execCreateEventProgramXmlFile()
     var callback_fctn = callbackEventProgramCreated;
 
     var create_event_xml = new  SeasonToEventProgramXml(season_case, main_dir, result_dir, sub_xml_dir, xml_filename, callback_fctn);
+    QQQQ*/
+
+    var create_event_xml = new  SeasonToEventProgramXml();
 
 } // execCreateEventProgramXmlFile
+
 
 // 
 function callbackEventProgramCreated()
@@ -93,6 +133,8 @@ function callbackEventProgramCreated()
     setNewSeasonLocalStorageData();
 
     alert("Event Program XML file created");
+
+    g_new_season_files_data = null;
 
     //TODO createNewXmlEventFiles();
 
