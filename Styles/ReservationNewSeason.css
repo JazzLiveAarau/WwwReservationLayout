@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewSeason.css Date: 2025-04-24
+File: ReservationNewSeason.css Date: 2025-06-01
 
 Author: Gunnar Liden
 
@@ -17,11 +17,11 @@ Defines all style classes for the application reservation new season
     font-family: 'Arial';
     font-size: 15px;
     font-weight: bold;
-    width: 350px;
+    width: 265px;
     margin-top: 20px;
     margin-left: 20px;
     overflow: hidden; 
-    min-height: 420px;
+    min-height: 270px;
 }
 
 
@@ -42,7 +42,7 @@ Defines all style classes for the application reservation new season
 
 .cl_div_season_result
 {
-    border: solid 2px red;
+    /* border: solid 2px red; */
     font-family: 'Arial';
     font-size: 12px;
     font-weight: bold;
@@ -78,22 +78,22 @@ label
 
 .cl_div_event_program_row
 {
+    /* border: solid 1px yellow; */
     margin-top: 10px;
-    border: solid 1px yellow; 
     clear: both;   
 }
 
 .cl_div_season_create_set_xml_row
 {
+    /* border: solid 1px yellow;  */
     margin-top: 10px;
-    border: solid 1px yellow; 
     clear: both;   
 }
 
 .cl_div_season_bottom_row
 {
+    /* border: solid 1px yellow; */
     margin-top: 10px;
-    border: solid 1px yellow; 
     clear: both;
 }
 

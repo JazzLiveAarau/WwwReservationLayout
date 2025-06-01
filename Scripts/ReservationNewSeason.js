@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2025-05-29
+// Date: 2025-06-01
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -180,7 +180,7 @@ function createTextBoxMainDirectory()
 {
     g_layout_main_dir_text_box = new JazzTextBox("id_season_main_dir", 'id_div_season_main_dir');
 
-    g_layout_main_dir_text_box.setLabelText("Reservation oder ReservationLayout");
+    g_layout_main_dir_text_box.setLabelText("ReservationLayout / Reservation");
 
     g_layout_main_dir_text_box.setLabelTextPositionAbove();
 
@@ -197,7 +197,7 @@ function createTextBoxResultDirectory()
 {
     g_layout_server_dir_text_box = new JazzTextBox("id_season_result_dir", 'id_div_season_result_dir');
 
-    g_layout_server_dir_text_box.setLabelText("Ordner für Konzertsaal");
+    g_layout_server_dir_text_box.setLabelText("Ordner für Konzertsaal-Sitzplan");
 
     g_layout_server_dir_text_box.setLabelTextPositionAbove();
 
@@ -216,11 +216,11 @@ function createNewSeasonXmlButton()
 
     g_xml_create_event_program_button.setOnclickFunctionName("onClickOfNewSeasonXmlButton");
 
-    g_xml_create_event_program_button.setCaption('Neue Event Programm Datei');
+    g_xml_create_event_program_button.setCaption('Neue Event Programm XML Datei');
 
     g_xml_create_event_program_button.setLabelText("");
 
-    g_xml_create_event_program_button.setWidth("220px");
+    g_xml_create_event_program_button.setWidth("245px");
 
     g_xml_create_event_program_button.setTitle('XML Event Programm Datei generieren und speichern');
 
@@ -237,7 +237,7 @@ function createXmlCreateNewButton()
 
     g_xml_create_event_files_button.setLabelText("");
 
-    g_xml_create_event_files_button.setWidth("220px");
+    g_xml_create_event_files_button.setWidth("245px");
 
     g_xml_create_event_files_button.setTitle('XML Event Dateien generieren und speichern');
 
