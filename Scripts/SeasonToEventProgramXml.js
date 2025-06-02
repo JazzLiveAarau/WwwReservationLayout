@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-06-01
+// Date: 2025-06-02
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -9,18 +9,6 @@
 
 class SeasonToEventProgramXml
 {
-    // i_season_case: current, previous or next season
-    // i_main_dir: Directory Reservation (Release) or ReservationLayout (Development)
-    // i_result_dir: Directory for concert room/version, e.g. Spagi_76_Chairs_V_2
-    // i_sub_xml_dir: Subdirectory for the XML event file
-    // i_xml_filename: Name of the XML event file
-    constructor(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn)
-    {
-        // Start function
-        SeasonToEventProgramXml.start(i_season_case, i_main_dir, i_result_dir, i_sub_xml_dir, i_xml_filename, i_callback_fctn);
-
-    } // constructor
-
     // Initialization
     // 1. Check that object ReservationNewSeasonData is defined (g_new_season_files_data)
     // 2. Create the season XML object. 

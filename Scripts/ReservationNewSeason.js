@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2025-06-01
+// Date: 2025-06-02
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -99,7 +99,7 @@ function execCreateEventProgramXmlFile()
 {
     g_new_season_files_data = reservationNewSeasonDataObject();
 
-    var create_event_xml = new  SeasonToEventProgramXml();
+    SeasonToEventProgramXml.start();
 
 } // execCreateEventProgramXmlFile
 
@@ -115,6 +115,15 @@ function callbackEventProgramCreated()
     //TODO createNewXmlEventFiles();
 
 } // callbackEventProgramCreated
+
+// Create the event XML files
+function execCreateNewXmlEventFiles()
+{
+     g_new_season_files_data = reservationNewSeasonDataObject();
+
+     CreateXmlEventFiles.start();
+
+} // execCreateNewXmlEventFiles
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -137,11 +146,17 @@ function onClickOfNewSeasonXmlButton()
 
 } // onClickOfNewSeasonXmlButton
 
-
 // User clicked the create new event XML files button
 function onClickOfNewEventXmlFilesButton()
 {
+    var input_data = getNewSeasonDataInput();
 
+    if (!input_data.dataIsValid())
+    {
+        return;
+    }
+
+    execCreateNewXmlEventFiles();
 
 }// onClickOfNewEventXmlFilesButton
 

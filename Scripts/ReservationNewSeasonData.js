@@ -1,5 +1,5 @@
 // File: ReservationNewSeasonData.js
-// Date: 2025-06-01
+// Date: 2025-06-02
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -51,6 +51,18 @@ class ReservationNewSeasonData
 
         // Instance of EventProgramXml
         this.m_event_xml = null;
+
+        // Current index for m_event_xml_array in recursive loop
+        this.m_event_object_index = null;
+
+        // Array with event XML objects 
+        this.m_event_xml_array = null;
+
+        // String that will be added to the output XML event file names
+        //  e.g. Salmen (because of the old version of the reservation system)
+        // String may be empty 
+        this.m_file_name_add_str = 'Salmen';
+
 
         // Initialization
         this.init();
