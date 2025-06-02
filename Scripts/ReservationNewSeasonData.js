@@ -25,7 +25,7 @@ class ReservationNewSeasonData
         // Subdirectory for the XML event file
         this.m_sub_xml_dir = i_sub_xml_dir;
 
-        // Name of the XML event file
+        // Name of the XML event program file
         this.m_xml_filename = i_xml_filename;
 
         // Callback function for the creation of the event program file
@@ -233,5 +233,56 @@ class ReservationNewSeasonData
          }
 
     } // seasonStartYear
+
+    // Returns message that all event files have been created
+    msgAllEventProgramFileCreated()
+    {
+        var ret_msg = '';
+
+        var file_name =  this.m_xml_filename;
+
+        ret_msg = ret_msg + 'Datei ' + file_name;
+
+         ret_msg = ret_msg +  ' ist kreiert im Ordner \n';
+
+        ret_msg = ret_msg + this.wwwResultDirUrl();
+
+        return ret_msg;
+        
+    } // msgAllEventProgramFileCreated
+
+    // Returns message that all event files have been created
+    msgAllEventFilesCreated()
+    {
+        var ret_msg = '';
+
+        var n_files =  this.m_event_xml_array.length;
+
+        ret_msg = ret_msg + 'Alle ' + n_files.toString();
+
+         ret_msg = ret_msg +  ' Event Dateien sind kreiert im Ordner \n';
+
+        ret_msg = ret_msg + this.wwwResultDirUrl();
+
+        return ret_msg;
+
+    } // msgAllEventFilesCreated
+
+    // Url with wwww to the result directory
+    wwwResultDirUrl()
+    {
+        var ret_url = '';
+
+        ret_url = ret_url + '/www/';
+
+        ret_url = ret_url + this.m_main_dir + '/';
+
+        ret_url = ret_url + this.m_result_dir + '/';
+
+        ret_url = ret_url + this.m_sub_xml_dir + '/';
+
+        return ret_url;
+
+    } // wwwResultDirUrl
 
 } // ReservationNewSeasonData

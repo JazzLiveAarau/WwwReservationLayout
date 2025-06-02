@@ -108,11 +108,9 @@ function callbackEventProgramCreated()
 {
     setNewSeasonLocalStorageData();
 
-    alert("Event Program XML file created");
+    alert(g_new_season_files_data.msgAllEventProgramFileCreated());
 
-    g_new_season_files_data = null;
-
-    //TODO createNewXmlEventFiles();
+     g_new_season_files_data = null;
 
 } // callbackEventProgramCreated
 
