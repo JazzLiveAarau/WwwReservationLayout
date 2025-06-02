@@ -64,9 +64,38 @@ class CreateXmlEventFiles
     {
          CreateXmlEventFiles.debugConsole('CreateXmlEventFiles.createEventXmlObjectRecursively Enter');
 
+        g_new_season_files_data.m_event_object_index = g_new_season_files_data.m_event_object_index + 1;
+
+        var n_events = g_new_season_files_data.m_event_xml.getNumberOfEvents();
+
+        var event_number = g_new_season_files_data.m_event_object_index + 1;
+
+        var b_new_file = true;
+
+        var callback_function_name = CreateXmlEventFiles.createEventXmlObjectRecursively;
+
+        if (n_events == event_number)
+        {
+            callback_function_name = CreateXmlEventFiles.allEventXmlObjectsCreated;
+        }
+
+        var file_name_add_str = g_new_season_files_data.m_file_name_add_str;
+
+        var subdir_event_xml_files = g_new_season_files_data.m_event_files_sub_dir;
+
+        g_new_season_files_data.m_event_xml_array[g_new_season_files_data.m_event_object_index] = 
+            new ReservationEventXml(subdir_event_xml_files, file_name_add_str, event_number, b_new_file, callback_function_name);
 
     } // createEventXmlObjectRecursively
 
+    // Callback after creation of all objects
+    static allEventXmlObjectsCreated()
+    {
+         CreateXmlEventFiles.debugConsole('CreateXmlEventFiles.allEventXmlObjectsCreated Enter');
+
+    } // allEventXmlObjectsCreated
+
+    // Write debug to the console
     static debugConsole(i_msg_str)
     {
         console.log(i_msg_str);
@@ -79,7 +108,14 @@ class CreateXmlEventFiles
 } // CreateXmlEventFiles
 
 /*
+function createEventXmlObjectRecursively()
+{
 
+
+
+    g_event_xml_array[g_event_object_index] = new ReservationEventXml(g_subdir_event_xml_files, g_file_name_add_str, event_number, b_new_file, callback_function_name);
+
+} // createEventXmlObjectArrayRecursively
 */
 
 ///////////////////////////////////////////////////////////////////////////////////////////

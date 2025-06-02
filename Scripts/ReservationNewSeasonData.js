@@ -63,6 +63,8 @@ class ReservationNewSeasonData
         // String may be empty 
         this.m_file_name_add_str = 'Salmen';
 
+        // Subdirectory m_result_dir/m_sub_xml_dir/
+        this.m_event_files_sub_dir = '';
 
         // Initialization
         this.init();
@@ -93,6 +95,8 @@ class ReservationNewSeasonData
         this.absUrlResultDir();
 
         this.relUrlEventProgramDir();
+
+        this.eventFilesSubDir();
 
         this.seasonStartYear();
 
@@ -195,6 +199,13 @@ class ReservationNewSeasonData
         this.m_rel_event_program_dir_url = rel_url;
 
     } // relUrlEventProgramDir
+
+    // Subdirectory m_result_dir/m_sub_xml_dir/
+    eventFilesSubDir()
+    {
+        this.m_event_files_sub_dir = this.m_result_dir + '/' + this.m_sub_xml_dir + '/';
+
+    } // eventFilesSubDir
 
     // Sets the season start year
     // Season changes 1/4
