@@ -38,7 +38,25 @@
         // Directory where the file will be saved
         $target_dir = "../../ReservationLayout/" . $file_name_no_ext . "/XML/";
 
-        fwrite($debug_file, "target_dir= " . $target_dir . "\n");
+        if ( !is_dir($target_dir)) 
+        {
+            if (!mkdir($target_dir, 0777, true)) 
+            {
+                fwrite($debug_file, "Failure creating target_dir= " . $target_dir . "\n");
+
+                fclose($debug_file);
+
+                exit('Failed to create directory...');
+            }
+            else
+            {
+                 fwrite($debug_file, "target_dir= " . $target_dir . " was created" . "\n");
+            }
+        }
+        else
+        {
+            fwrite($debug_file, "target_dir= " . $target_dir . " exists already" . "\n");
+        }
 
         // Path + file name. ["name"] is an attribute for $_FILES 
         $target_file = $target_dir . $file_name;
@@ -55,23 +73,20 @@
         echo "UploadFileToServer file_type= " . $file_type . "<br>";
 
         // Allow certain file formats
-        //if($file_type != "doc" && $file_type != "docx" && $file_type != "pdf") 
         if($file_type != "xml") 
         {
             $status_msg = $status_msg . "UploadFileToServer Sorry, only xml is allowed.";
 
-            echo "UploadFileToServer Sorry, only xml file is allowed.<br>";
-
-            fwrite($debug_file, "UploadFileToServer Sorry, only xml file is allowed" . "\n");
+            fwrite($debug_file, "Sorry, only xml file is allowed" . "\n");
             
             $b_upload_ok = 0;
         }
 
         if ($b_upload_ok == 0) 
         {
-            $status_msg = $status_msg . "UploadFileToServer Sorry, your file was not uploaded.";
+            $status_msg = $status_msg . "Sorry, your file was not uploaded.";
 
-            fwrite($debug_file, "UploadFileToServer Sorry, your file was not uploaded" . "\n");
+            fwrite($debug_file, "Sorry, your file was not uploaded" . "\n");
         } 
         else 
         {
