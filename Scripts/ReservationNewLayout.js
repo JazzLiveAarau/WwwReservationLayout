@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-03
+// Date: 2025-06-07
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -17,6 +17,14 @@ var g_layout_main_dir_text_box = null;
 // Result directory where the generated HTML files and other files shall be stored
 var g_layout_server_dir_text_box = null;
 
+// The name of the layout XML file name
+// The name is g_layout_server_dir_text_box + '.xml'
+var g_layout_xml_filename = '';
+
+// Server directory for the layout XML file
+// e.g. /www/ReservationLayout/XML/Spagi_90_Chairs_V_1/
+var g_layout_xml_server_dir = '';
+
 // Name of the layout XML file
 var g_xml_filename_text_box = null;
 
@@ -31,6 +39,10 @@ var g_upload_xml_button = null;
 
 // Button download layout XML file
 var g_download_xml_button = null;
+
+// The object of class ControUploadFile for the upload of the XML file 
+var g_xml_upload = null;
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
@@ -64,9 +76,25 @@ function setNewLayoutControls(i_new_season_data)
 
     g_layout_server_dir_text_box.setValue(i_new_season_data.getResultDir()); 
 
-    g_xml_filename_text_box.setValue(i_new_season_data.getResultDir() + '.xml'); 
+    g_xml_filename_text_box.setValue( i_new_season_data.getResultDir()); 
+
+    setGlobalLayoutXmlVariablesFromControls();
 
 } // setNewLayoutControls
+
+// Sets the layout XML global variables g_layout_xml_filename and g_layout_xml_server_dir
+function setGlobalLayoutXmlVariablesFromControls()
+{
+    var server_main_dir =  g_layout_server_dir_text_box.getValue();
+
+    var result_dir = g_xml_filename_text_box.getValue();
+
+    g_layout_xml_filename = result_dir + '.xml';
+
+    g_layout_xml_server_dir = '/www/' + g_layout_main_dir_text_box.getValue() + '/' + 
+                                server_main_dir + '/XML/';
+
+} // setGlobalLayoutXmlVariablesFromControls
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -88,7 +116,9 @@ function onClickCreateLayoutFilesButton()
 function onClickUploadXmlFileButton()
 {
 
-	alert("Enter onClickUploadXmlFileButton");
+	// alert("Enter onClickUploadXmlFileButton");
+
+    g_xml_upload.hideUploadDiv(false);
 
 }// onClickUploadXmlFileButton
 
@@ -100,8 +130,116 @@ function onClickDownloadXmlFileButton()
 
 }// onClickDownloadXmlFileButton
 
+// The user has selected a DOC local file that shall be uploaded
+// 1. Set the selected file name and activate the upload file function.
+//    Call setSelectedFileNameActivateUploadFileFunction
+// 2. Check if the selected file is OK. Call of ControUploadFile.checkSelectedFileName
+//    Return if the file is unvalid. The check function has displayed an error message
+// 3. Set the server full file name in the DOC text box. Please note however that the
+//    actual server directory name is set by UploadFileToServer.php
+//    Call of ControUploadFile.getSelectedFileServerUrl and JazztextBox.setValue
+// 4. Return with the message that upload cannot be done with VSC Live server
+//    Call of execApplicationOnServer
+// 5. Set the active record full file name. Call of getUserInputFromFormSetActiveRecordLinkDoc
+//    Return from php uses this value
+// 6. Set the caption for the button that the user shall klick to upload the selected file
+//    Call of ControUploadFile.displayButtonCaption
+function eventUserSelectedXml()
+{
+	// alert("Enter eventUserSelectedXml");
+
+     g_xml_upload.setSelectedFileNameActivateUploadFileFunction();
+
+     if (!checkSelectedXmlFileName())
+     {
+        g_xml_upload.initSelectedFileName();
+
+        return;
+
+     } // b_check
+
+    var file_server_url = g_layout_xml_server_dir + g_xml_upload.getSelectedFileName();
+
+    if (!UtilServer.execApplicationOnServer())
+    {
+        alert("XML Datei kann nicht lokal (mit Visual Studio Code) aufgeladen werden");
+
+        return;
+    }
+
+    g_xml_upload.displayButtonCaption();
+ 
+} // eventUserSelectedXml
+
+// Checks the selected XML file
+function checkSelectedXmlFileName()
+{
+    var selected_file_name = g_xml_upload.getSelectedFileName();
+
+    if (g_layout_xml_filename == selected_file_name)
+    {
+        return true;
+    }
+    else
+    {
+        var err_msg = 'Falsche Name der gewählte Datei ' + selected_file_name + '\n' + 
+                'Ändere Name zu '+  g_layout_xml_filename;
+
+        alert(err_msg);
+
+        return false;
+    }
+
+} // checkSelectedXmlFileName
+
+// Name of the result directory was changed
+function onInputResultDirectoryName()
+{
+    setGlobalLayoutXmlVariablesFromControls();
+
+    g_xml_filename_text_box.setValue(g_layout_xml_filename);
+
+    setNewSeasonLocalStorageData();
+
+} // onInputResultDirectoryName
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Local Storage /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Returns an instance of NewSeasonData
+function getNewSeasonDataInput()
+{
+    var ret_new_season_data = new NewSeasonData();
+
+    ret_new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+
+    ret_new_season_data.setResultDir(g_layout_server_dir_text_box.getValue());
+
+    ret_new_season_data.checkData();
+
+    return ret_new_season_data;
+
+} // getNewSeasonDataInput
+
+function setNewSeasonLocalStorageData()
+{
+    var new_season_data = new NewSeasonData();
+
+    new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+
+    new_season_data.setResultDir(g_layout_server_dir_text_box.getValue());
+
+    NewSeasonStorage.setLocal(new_season_data);
+
+} // setNewSeasonLocalStorageData
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Local Storage ///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -111,11 +249,11 @@ function onClickDownloadXmlFileButton()
 // Creates all the controls for the application
 function createReservationNewLayoutControls()
 {
+    createTextBoxXmlFilename();
+
     createTextBoxMainDirectory();
 
     createTextBoxResultDirectory();
-
-    createTextBoxXmlFilename();
 
     createTextBoxProgressMessages();
 
@@ -124,6 +262,8 @@ function createReservationNewLayoutControls()
     createUploadXmlButton();
 
     createDownloadXmlButton();
+
+    createUploadXmlControl();
 
 } // createReservationNewSeasonControls
 
@@ -157,6 +297,8 @@ function createTextBoxResultDirectory()
 
     g_layout_server_dir_text_box.setReadOnlyFlag(false);
 
+    g_layout_server_dir_text_box.setOninputFunctionName("onInputResultDirectoryName");
+
     g_layout_server_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
 
 } // createTextBoxResultDirectory
@@ -166,11 +308,11 @@ function createTextBoxXmlFilename()
 {
     g_xml_filename_text_box = new JazzTextBox("id_upload_download_xml_textbox", 'id_div_upload_download_xml_textbox');
 
-    g_xml_filename_text_box.setLabelText("Layout Datei ");
+    g_xml_filename_text_box.setLabelText("Layout XML Dateiname");
 
-    g_xml_filename_text_box.setLabelTextPositionLeft();
+    g_xml_filename_text_box.setLabelTextPositionAbove();
 
-    g_xml_filename_text_box.setSize("23");
+    g_xml_filename_text_box.setSize("33");
 
     g_xml_filename_text_box.setReadOnlyFlag(true);
 
@@ -252,6 +394,22 @@ function createDownloadXmlButton()
 
 } // createDownloadXmlButton
 
+// Create control for uploading of an XML file
+function createUploadXmlControl()
+{
+    g_xml_upload = new ControUploadFile('id_upload_xml_row', 'id_div_upload_xml_row');
+
+    g_xml_upload.setLabelText("");
+
+    g_xml_upload.setOnchangeFunctionName("eventUserSelectedXml");
+
+    g_xml_upload.setButtonCaption("Datei hochladen");
+
+    g_xml_upload.setExtensions(".xml");
+
+    g_xml_upload.hideUploadDiv(true);
+
+} // createUploadXmlControl
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create Controls /////////////////////////////////////////////

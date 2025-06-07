@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-06-03
+File: ReservationNewLayout.css Date: 2025-06-06
 
 Author: Gunnar Liden
 
@@ -10,7 +10,7 @@ Defines all style classes for the application reservation new layout
 
 */
 
-/* The whole page */
+/* The whole page  min-height: 360px; */
 .cl_div_season_page
 {
     border: solid 2px blue;
@@ -21,7 +21,7 @@ Defines all style classes for the application reservation new layout
     margin-top: 20px;
     margin-left: 20px;
     overflow: hidden; 
-    min-height: 360px;
+    min-height: 370px;
 }
 
 
@@ -75,7 +75,8 @@ label
 {
     /* border: solid 1px red; */
     margin-left: 3%;
-    font-size: 8px;
+    font-size: 12px;
+    font-style: italic;
     width: 93%;
     clear: both;
 }
@@ -84,6 +85,7 @@ label
 {
     font-size: 12px;
     font-weight: bold;
+    font-style: italic;
     text-align: center;
     margin-top: 2px;
 }
@@ -115,11 +117,22 @@ label
     float: left;
 }
 
-.cl_div_upload_popup_row
+.cl_div_popup_container
 {
     /* border: solid 1px green; */
-    margin-top: 10px;
-    min-height: 15px;
+    height: 40px;
+    clear: both;
+}
+
+.cl_div_upload_xml_row
+{
+    /* border: solid 1px green; */
+    border: solid 2px rgb(143, 50, 110);
+    background-color: rgb(255, 174, 0);
+    margin-top: 0px;
+    margin-left: 0%;
+    width: 99%;
+    padding: 4px;  
     clear: both;   
 }
 

@@ -21,6 +21,9 @@
     <!--  Class handling the storage of new season data in the computer  -->
     <script type="text/javascript" src="Scripts/NewSeasonStorage.js"></script>
 
+    <!--  Class for the upload file control  -->
+    <script type="text/javascript" src="Scripts/ControlUploadFile.js"></script>
+
      <!-- Standard controls -->
      <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Controls_20250406.js"></script>
 
@@ -32,6 +35,9 @@
 
     <!--  jQuery library -->
     <script src="jQuery/jquery-3.6.0.js"></script>
+
+    <!--  jQuery plugin Upload Form with Ajax -->
+    <script src="jQuery/jquery.form.js"></script> 
 
     <title>Reservation New layout</title>
 
@@ -57,10 +63,10 @@
             <div id="id_div_download_xml_button" class="cl_div_download_xml_button" >download</div>
         </div> 
 
-        <div id="id_div_upload_popup_row" class="cl_div_upload_popup_row" >
-            
-        </div> 
-
+        <div id="id_div_popup_container" class="cl_div_popup_container">
+            <div id="id_div_upload_xml_row" class="cl_div_upload_xml_row" ></div>
+        </div>
+        
         <div id="id_div_create_layout_files_row"" class="cl_div_create_layout_files_row" >
             <div id="id_div_create_layout_files_button" class="cl_div_create_layout_files_button" >Container create files</div>
         </div>
