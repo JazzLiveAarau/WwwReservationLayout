@@ -40,9 +40,14 @@ var g_upload_xml_button = null;
 // Button download layout XML file
 var g_download_xml_button = null;
 
+// Button for copying layout directories and files
+var g_copy_dir_files_button = null;
+
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
 
+// The object of class UtilCopyArrayData
+var g_util_copy_array_data = null;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
@@ -96,6 +101,13 @@ function setGlobalLayoutXmlVariablesFromControls()
 
 } // setGlobalLayoutXmlVariablesFromControls
 
+// Copy directories and files for the new layout
+function execCopyDirFiles()
+{
+    g_util_copy_array_data = new UtilCopyArrayData();
+    
+} // execCopyDirFiles
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -107,10 +119,17 @@ function setGlobalLayoutXmlVariablesFromControls()
 // User clicked the create layout files button
 function onClickCreateLayoutFilesButton()
 {
-
-	alert("Enter onClickCreateLayoutFilesButton");
+    alert("Enter onClickCopyDirFilesButton");
+    
 
 }// onClickCreateLayoutFilesButton
+
+// User clicked the copying layout directories and files
+function onClickCopyDirFilesButton()
+{
+	execCopyDirFiles();
+
+}// onClickCopyDirFilesButton
 
 // User clicked the upload layout XML file button
 function onClickUploadXmlFileButton()
@@ -255,6 +274,8 @@ function createReservationNewLayoutControls()
 
     createTextBoxResultDirectory();
 
+    copyDirFilesButton();
+
     createTextBoxProgressMessages();
 
     createLayoutFileslButton();
@@ -302,6 +323,23 @@ function createTextBoxResultDirectory()
     g_layout_server_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
 
 } // createTextBoxResultDirectory
+
+// Creates the button copying layout directories and files
+function copyDirFilesButton()
+{
+    g_copy_dir_files_button = new JazzButton('id_copy_files', 'id_div_copy_files');
+
+    g_copy_dir_files_button.setOnclickFunctionName("onClickCopyDirFilesButton");
+
+    g_copy_dir_files_button.setCaption('Dateien für das Layout kopieren');
+
+    g_copy_dir_files_button.setLabelText("");
+
+    g_copy_dir_files_button.setWidth("250px");
+
+    g_copy_dir_files_button.setTitle('Dateien für das Layout kopieren');
+
+} // copyDirFilesButton
 
 // Create the text box for the name of the layout XML file
 function createTextBoxXmlFilename()

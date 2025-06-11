@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-06-06
+File: ReservationNewLayout.css Date: 2025-06-11
 
 Author: Gunnar Liden
 
@@ -21,7 +21,7 @@ Defines all style classes for the application reservation new layout
     margin-top: 20px;
     margin-left: 20px;
     overflow: hidden; 
-    min-height: 370px;
+    min-height: 420px;
 }
 
 
@@ -55,6 +55,14 @@ label
 }
 
 .cl_div_season_result_dir
+{
+    margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 3%;
+    clear: both;
+}
+
+.cl_div_copy_files
 {
     margin-top: 3px;
     margin-bottom: 5px;
