@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-07
+// Date: 2025-06-12
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -22,7 +22,7 @@ var g_layout_server_dir_text_box = null;
 var g_layout_xml_filename = '';
 
 // Server directory for the layout XML file
-// e.g. /www/ReservationLayout/XML/Spagi_90_Chairs_V_1/
+// e.g. /www/ReservationLayout/Spagi_90_Chairs_V_1/XML/
 var g_layout_xml_server_dir = '';
 
 // Name of the layout XML file
@@ -105,7 +105,47 @@ function setGlobalLayoutXmlVariablesFromControls()
 function execCopyDirFiles()
 {
     g_util_copy_array_data = new UtilCopyArrayData();
-    
+
+    var domain_url = 'https://jazzliveaarau.ch/';
+
+    var origin_url = 'ReservationLayout/'
+
+    g_util_copy_array_data.setAbsoluteOriginDirUrl(domain_url + origin_url);
+
+    var target_url = g_layout_main_dir_text_box.getValue()   + '/' + 
+                     g_layout_server_dir_text_box.getValue() + '/';
+
+     g_util_copy_array_data.setAbsoluteTargetDirUrl(domain_url + target_url);
+
+     var php_dir = origin_url + 'Php/';
+
+     g_util_copy_array_data.setAbsolutePhpDirUrl(domain_url + php_dir);
+
+     var origin_target_files_array = [];
+
+    var images_app_dir = 'ImagesApp/';
+
+    origin_target_files_array[ 0] = images_app_dir + 'text_add_reservation.png';
+    origin_target_files_array[ 1] = images_app_dir + 'text_delete_off.png';
+    origin_target_files_array[ 2] = images_app_dir + 'text_delete_on.png';
+    origin_target_files_array[ 3] = images_app_dir + 'text_reservation_display.png';
+    origin_target_files_array[ 4] = images_app_dir + 'text_reservation_list.png';
+    origin_target_files_array[ 5] = images_app_dir + 'text_reservation_print.png';
+    origin_target_files_array[ 6] = images_app_dir + 'text_reserve_seats.png';
+    origin_target_files_array[ 7] = images_app_dir + 'text_reserve_select_undef.png';
+    origin_target_files_array[ 8] = images_app_dir + 'text_save_reservation.png';
+    origin_target_files_array[ 9] = images_app_dir + 'text_save_reservation_white.png';
+    origin_target_files_array[10] = images_app_dir + 'text_select_seats.png';
+
+
+
+
+    g_util_copy_array_data.setOriginFileUrlArray(origin_target_files_array);
+
+    g_util_copy_array_data.setTargetFileUrlArray(origin_target_files_array);
+
+    g_util_copy_array_data.setBoolDeleteOriginFileArrayToFalse();
+
 } // execCopyDirFiles
 
 ///////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 // File: UtilCopyArrayData.js
-// Date: 2025-06-11
+// Date: 2025-06-12
 // Author: Gunnar Lidén
 
 // File content
@@ -33,6 +33,12 @@ class UtilCopyArrayData
 
         // Name of the PHP file used by class UtilFiles
         this.m_php_file_name = 'UtilFiles.php';
+
+        // Input origin file URL array
+        this.m_input_origin_file_url_array = [];
+
+        // Input target file URL array
+        this.m_input_target_file_url_array = [];
 
         // Absolute origin file URL array
         this.m_abs_origin_file_url_array = [];
@@ -99,7 +105,11 @@ class UtilCopyArrayData
     // Input URLs may be absolute or relative m_abs_origin_dir_url
     setOriginFileUrlArray(i_abs_or_rel_origin_file_url_array)
     {
-         this.m_abs_origin_file_url_array = this.convertRelToAbsUrl(i_abs_or_rel_origin_file_url_array, false);
+          this.m_input_origin_file_url_array = i_abs_or_rel_origin_file_url_array;
+
+          var b_origin = true;
+
+          this.setAbsoluteFileArray(b_origin);
 
     } // setOriginFileUrlArray
 
@@ -114,7 +124,11 @@ class UtilCopyArrayData
     // Input URLs may be absolute or relative m_abs_origin_dir_url
     setTargetFileUrlArray(i_abs_or_rel_target_file_url_array)
     {
-         this.m_abs_target_file_url_array =  this.convertRelToAbsUrl(i_abs_or_rel_target_file_url_array, true);
+          this.m_input_target_file_url_array = i_abs_or_rel_target_file_url_array;
+
+          var b_origin = false;
+
+          this.setAbsoluteFileArray(b_origin);
 
     } // setTargetFileUrlArray
 
@@ -152,7 +166,7 @@ class UtilCopyArrayData
     // Set the array of booleans delete origin file to true
     setBoolDeleteOriginFileArrayToTrue()
     {
-        var n_files = this.m_abs_origin_dir_url.length;
+        var n_files = this.m_abs_origin_file_url_array.length;
 
         if (n_files == 0)
         {
@@ -161,7 +175,7 @@ class UtilCopyArrayData
             return false;
         }
 
-        if (n_files != this.m_abs_target_dir_url.length)
+        if (n_files != this.m_abs_target_file_url_array.length)
         {
             alert("UtilCopyArrayData.setBoolDeleteOriginFileArrayToTrue Number of origin and target files not the same");
 
@@ -182,7 +196,7 @@ class UtilCopyArrayData
     // Set the array of booleans delete origin file to true
     setBoolDeleteOriginFileArrayToFalse()
     {
-        var n_files = this.m_abs_origin_dir_url.length;
+        var n_files = this.m_abs_origin_file_url_array.length;
 
         if (n_files == 0)
         {
@@ -191,7 +205,7 @@ class UtilCopyArrayData
              return false;
         }
 
-        if (n_files != this.m_abs_target_dir_url.length)
+        if (n_files != this.m_abs_target_file_url_array.length)
         {
             alert("UtilCopyArrayData.setBoolDeleteOriginFileArrayToFalse Number of origin and target files not the same");
 
@@ -209,46 +223,70 @@ class UtilCopyArrayData
 
     } // setBoolDeleteOriginFileArrayToFalse
 
-    convertRelToAbsUrl(i_abs_or_rel_file_url_array, i_b_target)
-    {
-        var ret_array = i_abs_or_rel_file_url_array;
 
-        var abs_start = this.getAbsoluteOriginDirUrl();
+     // Input arrays may be relative or absolute
+     // This function sets the absolute aeeay
+     setAbsoluteFileArray(i_b_origin)
+     {
+          var input_array = null;
 
-        if (i_b_target)
-        {
-            abs_start = this.getAbsoluteTargetDirUrl();
-        }
+          var output_array = [];
 
-         for (var index_url = 0; index_url < ret_array.length; index_url++)
-         {
-            var current_url = ret_array[index_url];
+          if (i_b_origin)
+          {
+               input_array = this.m_input_origin_file_url_array;
 
-            index_abs = current_url.indexOf(abs_start);
+               this.m_abs_origin_file_url_array = null;
+          }
+          else
+          {
+               input_array = this.m_input_target_file_url_array;   
+               
+               this.m_abs_target_file_url_array = null;
+          }
 
-            if (index_abs < 0)
-            {
-                var out_url = '';
+          var abs_start = this.getAbsoluteOriginDirUrl();
 
-                if (current_url.substring(0, 1) == '/')
-                {
-                    out_url = abs_start + current_url.substring(1);
-                }
-                else
-                {
-                    out_url = abs_start + current_url;
-                }
+          if (!i_b_origin)
+          {
+               abs_start = this.getAbsoluteTargetDirUrl();
+          }
 
-                 ret_array[index_url] = out_url;
+          for (var index_url = 0; index_url < input_array.length; index_url++)
+          {
+                    var current_url = input_array[index_url];
 
-            } // Relative URL
+                    var index_abs = current_url.indexOf(abs_start);
 
-        
-         } // index_url
+               if (index_abs < 0)
+               {
+                    var out_url = '';
 
-        return ret_array;
+                    if (current_url.substring(0, 1) == '/')
+                    {
+                         out_url = abs_start + current_url.substring(1);
+                    }
+                    else
+                    {
+                         out_url = abs_start + current_url;
+                    }
 
-    } // convertRelToAbsOriginUrl
+                    output_array[index_url] = out_url;
+
+               } // Relative URL
+
+          } // index_abs
+
+          if (i_b_origin)
+          {
+               this.m_abs_origin_file_url_array = output_array;
+          }
+          else
+          {
+               this.m_abs_target_file_url_array = output_array; 
+          }
+
+     } // setAbsoluteFileArray
 
     // Add end slash '/' to absolute dir URL if needed
     addEndSlashIfNeeded(i_abs_dir_url)
