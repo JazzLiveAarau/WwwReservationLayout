@@ -1,5 +1,5 @@
 // File: UtilCopyArrayData.js
-// Date: 2025-06-12
+// Date: 2025-06-13
 // Author: Gunnar Lidén
 
 // File content
@@ -28,14 +28,20 @@ class UtilCopyArrayData
         // Absolute URL to the target directory
         this.m_abs_target_dir_url = '';
 
-         // Absolute URL to the UtilFiles.php directory 
-        this.m_abs_php_dir_url = '';
+         // Absolute URL to the target UtilFiles.php directory 
+        this.m_abs_target_php_dir_url = '';
 
         // Name of the PHP file used by class UtilFiles
         this.m_php_file_name = 'UtilFiles.php';
 
+        // Absolute URL to the origin scripts_directory
+        this.m_abs_origin_scripts_dir_url = '';
+
+        // Absolute URL to the target scripts_directory
+        this.m_abs_target_scripts_dir_url = ''; // TODO Remove
+
         // Input origin file URL array
-        this.m_input_origin_file_url_array = [];
+        this.m_input_origin_file_url_array = []; // TODO Remove
 
         // Input target file URL array
         this.m_input_target_file_url_array = [];
@@ -87,19 +93,53 @@ class UtilCopyArrayData
          
     } // getAbsoluteTargetDirUrl
 
-    // Set the absolute URL to the PHP directory
-    setAbsolutePhpDirUrl(i_abs_php_dir_url)
+    // Set the absolute URL to the target PHP directory
+    setAbsoluteTargetPhpDirUrl(i_abs_php_dir_url)
     {
-         this.m_abs_php_dir_url = this.addEndSlashIfNeeded(i_abs_php_dir_url);
+         this.m_abs_target_php_dir_url = this.addEndSlashIfNeeded(i_abs_php_dir_url);
 
-    } // setAbsolutePhpDirUrl
+    } // setAbsoluteTargetPhpDirUrl
 
     // Returns the absolute URL to the PHP directory
     getAbsolutePhpDirUrl()
     {
-         return this.m_abs_php_dir_url;
+         return this.m_abs_target_php_dir_url;
          
     } // getAbsolutePhpDirUrl
+
+    // Set the absolute URL to the origin scripts directory
+    setAbsoluteOriginScriptsDirUrl(i_abs_origin_scripts_dir_url) // TODO Remove
+    {
+         this.m_abs_origin_scripts_dir_url = this.addEndSlashIfNeeded(i_abs_origin_scripts_dir_url);
+
+    } // setAbsoluteOriginScriptsDirUrl
+
+    // Returns the absolute URL to the origin scripts directory
+    getAbsoluteOriginScriptsDirUrl() // TODO Remove
+    {
+         return this.m_abs_origin_scripts_dir_url;
+         
+    } // getAbsoluteOriginScriptsDirUrl
+
+    // Set the absolute URL to the origin scripts directory
+    setAbsoluteTargetScriptsDirUrl(i_abs_target_scripts_dir_url)  // TODO Remove
+    {
+         this.m_abs_target_scripts_dir_url = this.addEndSlashIfNeeded(i_abs_target_scripts_dir_url);
+
+    } // setAbsoluteTargetScriptsDirUrl
+
+    // Returns the absolute URL to the origin scripts directory
+    getAbsoluteTargetScriptsDirUrl() // TODO Remove
+    {
+         return this.m_abs_target_scripts_dir_url;
+         
+    } // getAbsoluteTargetScriptsDirUrl
+
+/*
+
+*/
+
+
 
     // Set the URLs for the origin files
     // Input URLs may be absolute or relative m_abs_origin_dir_url
@@ -247,9 +287,13 @@ class UtilCopyArrayData
 
           var abs_start = this.getAbsoluteOriginDirUrl();
 
+          var abs_script_start = this.getAbsoluteOriginScriptsDirUrl();
+
           if (!i_b_origin)
           {
                abs_start = this.getAbsoluteTargetDirUrl();
+
+               abs_script_start = this.getAbsoluteTargetScriptsDirUrl();
           }
 
           for (var index_url = 0; index_url < input_array.length; index_url++)
@@ -257,6 +301,8 @@ class UtilCopyArrayData
                     var current_url = input_array[index_url];
 
                     var index_abs = current_url.indexOf(abs_start);
+
+                    var index_scripts_abs = current_url.indexOf(abs_script_start);
 
                if (index_abs < 0)
                {
