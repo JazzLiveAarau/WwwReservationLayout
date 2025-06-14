@@ -20,8 +20,14 @@ class UtilCopyArrayData
     ///////////////////////////////////////////////////////////////////////
 
     // Member variables of the class
-    constructor()
+    constructor(i_domain_url, i_abs_php_util_file_dir)
     {
+        // Domain
+        this.m_domain_url = i_domain_url;
+
+        // Absolute URL the directory with the file UtilFiles.php for class UtiFiles
+        this.m_abs_php_util_file_dir = i_abs_php_util_file_dir;
+
         // Absolute URL to the origin directory
         this.m_abs_origin_dir_url = '';
 
@@ -68,6 +74,27 @@ class UtilCopyArrayData
     /////////////////// Get And Set Start /////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 
+      // Set the domain URL
+    setDomainUrl(i_domain_url)
+    {
+         this.m_domain_url = this.addEndSlashIfNeeded(i_domain_url);
+
+    } // setDomainUrl
+
+    // Returns the domain URL
+    getDomainUrl()
+    {
+         return this.m_domain_url;
+         
+    } // getDomainUrl   
+    
+    // Returns the absolute URL the directory with the file UtilFiles.php for class UtiFiles
+    getAbsoluteUtilFilesPhpDir()
+    {
+          return this.m_abs_php_util_file_dir;
+
+    } // getAbsoluteUtilFilesPhpDir
+
     // Set the absolute URL to the origin directory
     setAbsoluteOriginDirUrl(i_abs_origin_dir_url)
     {
@@ -103,12 +130,12 @@ class UtilCopyArrayData
 
     } // setAbsoluteTargetPhpDirUrl
 
-    // Returns the absolute URL to the PHP directory
-    getAbsolutePhpDirUrl()
+    // Returns the absolute target URL to the PHP directory
+    getAbsoluteTargetPhpDirUrl()
     {
          return this.m_abs_target_php_dir_url;
          
-    } // getAbsolutePhpDirUrl
+    } // getAbsoluteTargetPhpDirUrl
 
     // Set the absolute URL to the origin scripts directory
     setAbsoluteOriginScriptsDirUrl(i_abs_origin_scripts_dir_url) // TODO Remove

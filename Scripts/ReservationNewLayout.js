@@ -17,12 +17,18 @@ var g_layout_main_dir_text_box = null;
 // Result directory where the generated HTML files and other files shall be stored
 var g_layout_server_dir_text_box = null;
 
+// Target main dir: ReservationLayout or Reservation
+var g_layout_target_main_dir = '';
+
+// Target result directory, e.g. Spagi_90_Chairs_V_1
+var g_layout_target_result_dir = '';
+
 // The name of the layout XML file name
 // The name is g_layout_server_dir_text_box + '.xml'
 var g_layout_xml_filename = '';
 
 // Server directory for the layout XML file
-// e.g. /www/ReservationLayout/Spagi_90_Chairs_V_1/XML/
+// e.g. ReservationLayout/Spagi_90_Chairs_V_1/XML/
 var g_layout_xml_server_dir = '';
 
 // Name of the layout XML file
@@ -90,47 +96,57 @@ function setNewLayoutControls(i_new_season_data)
 // Sets the layout XML global variables g_layout_xml_filename and g_layout_xml_server_dir
 function setGlobalLayoutXmlVariablesFromControls()
 {
-    var server_main_dir =  g_layout_server_dir_text_box.getValue();
+    g_layout_target_main_dir = g_layout_main_dir_text_box.getValue();
 
-    g_layout_xml_filename = server_main_dir + '.xml';
+    g_layout_target_result_dir =  g_layout_server_dir_text_box.getValue();
 
-    g_layout_xml_server_dir = '/www/' + g_layout_main_dir_text_box.getValue() + '/' + 
-                                server_main_dir + '/XML/';
+    g_layout_xml_filename = g_layout_target_result_dir + '.xml';
+
+    g_layout_xml_server_dir = g_layout_target_main_dir + '/' + 
+                              g_layout_target_result_dir + '/XML/';
 
 } // setGlobalLayoutXmlVariablesFromControls
 
 // Copy directories and files for the new layout
 function execCopyDirFiles()
 {
-    g_util_copy_array_data = new UtilCopyArrayData();
-
     var domain_url = 'https://jazzliveaarau.ch/';
+
+    var origin_url = 'ReservationLayout/';
+
+    var util_files_php_dir = domain_url + origin_url + 'Php/';
+
+    g_util_copy_array_data = new UtilCopyArrayData(domain_url, util_files_php_dir);
 
     var origin_url = 'ReservationLayout/';
 
     g_util_copy_array_data.setAbsoluteOriginDirUrl(domain_url + origin_url);
 
-    var target_url = g_layout_xml_server_dir;
+    var target_url = g_layout_target_main_dir + '/' + g_layout_target_result_dir + '/';
 
      g_util_copy_array_data.setAbsoluteTargetDirUrl(domain_url + target_url);
 
-     var target_php_dir = origin_url + 'Php/';
+     var target_php_dir = 'Php/';
 
-     g_util_copy_array_data.setAbsoluteTargetPhpDirUrl(domain_url + target_php_dir);
+     g_util_copy_array_data.setAbsoluteTargetPhpDirUrl(domain_url + target_url + target_php_dir);
 
-     var origin_script_url = 'Reservation/Scripts/';
+     var origin_script_url = 'Reservation/Scripts/';  // TODO Change
 
      g_util_copy_array_data.setAbsoluteOriginScriptsDirUrl(domain_url + origin_script_url);
 
-     var target_script_url = g_layout_xml_server_dir  + 'Scripts/'; 
+     var target_script_url = 'Scripts/'; 
 
-     g_util_copy_array_data.setAbsoluteTargetScriptsDirUrl(domain_url + target_script_url);
+     g_util_copy_array_data.setAbsoluteTargetScriptsDirUrl(domain_url + target_url + target_script_url);
 
      var rel_target_dir_array = [];
 
-     rel_target_dir_array[0] = target_url + 'XML/';
+     // rel_target_dir_array[0] = domain_url + target_url + 'XML/';
 
-     rel_target_dir_array[1] = target_url + 'SaisonXML/';
+     // rel_target_dir_array[1] = domain_url + target_url + 'SaisonXML/';
+
+     rel_target_dir_array[0] = 'XML/';
+
+     rel_target_dir_array[1] = 'SaisonXML/';
 
      g_util_copy_array_data.setAbsoluteTargetDirArray(rel_target_dir_array);
 
@@ -228,6 +244,8 @@ TODO Find another solution */
     g_util_copy_array_data.setTargetFileUrlArray(target_files_array);
 
     g_util_copy_array_data.setBoolDeleteOriginFileArrayToFalse();
+
+    UtilCopyArray.copyFilesCreateDirs(g_util_copy_array_data);
 
 } // execCopyDirFiles
 
@@ -600,7 +618,15 @@ function debugReservationNewLayout(i_msg_str)
 
 } // debugReservationNewLayout
 
+// Displays the input string in the debugger Console TODO Should not be called in UtilFiles
+function debugReservationLayout(i_msg_str)
+{
+    console.log(i_msg_str);
+
+    // UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
+
+} // debugReservationLayout
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Debug Function //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-
