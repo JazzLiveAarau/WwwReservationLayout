@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-13
+// Date: 2025-06-14
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -81,7 +81,7 @@ function setNewLayoutControls(i_new_season_data)
 
     g_layout_server_dir_text_box.setValue(i_new_season_data.getResultDir()); 
 
-    g_xml_filename_text_box.setValue( i_new_season_data.getResultDir()); 
+    g_xml_filename_text_box.setValue( i_new_season_data.getResultDir() + '.xml'); 
 
     setGlobalLayoutXmlVariablesFromControls();
 
@@ -92,9 +92,7 @@ function setGlobalLayoutXmlVariablesFromControls()
 {
     var server_main_dir =  g_layout_server_dir_text_box.getValue();
 
-    var result_dir = g_xml_filename_text_box.getValue();
-
-    g_layout_xml_filename = result_dir + '.xml';
+    g_layout_xml_filename = server_main_dir + '.xml';
 
     g_layout_xml_server_dir = '/www/' + g_layout_main_dir_text_box.getValue() + '/' + 
                                 server_main_dir + '/XML/';
@@ -112,8 +110,7 @@ function execCopyDirFiles()
 
     g_util_copy_array_data.setAbsoluteOriginDirUrl(domain_url + origin_url);
 
-    var target_url = g_layout_main_dir_text_box.getValue()   + '/' + 
-                     g_layout_server_dir_text_box.getValue() + '/';
+    var target_url = g_layout_xml_server_dir;
 
      g_util_copy_array_data.setAbsoluteTargetDirUrl(domain_url + target_url);
 
@@ -123,12 +120,19 @@ function execCopyDirFiles()
 
      var origin_script_url = 'Reservation/Scripts/';
 
-     g_util_copy_array_data.setAbsoluteOriginScriptsDirUrl(domain_url + origin_script_url)
+     g_util_copy_array_data.setAbsoluteOriginScriptsDirUrl(domain_url + origin_script_url);
 
-     var target_script_url = g_layout_main_dir_text_box.getValue()   + '/' + 
-                     g_layout_server_dir_text_box.getValue() + '/Scripts/';
+     var target_script_url = g_layout_xml_server_dir  + 'Scripts/'; 
 
-     g_util_copy_array_data.setAbsoluteTargetScriptsDirUrl(domain_url + target_script_url)
+     g_util_copy_array_data.setAbsoluteTargetScriptsDirUrl(domain_url + target_script_url);
+
+     var rel_target_dir_array = [];
+
+     rel_target_dir_array[0] = target_url + 'XML/';
+
+     rel_target_dir_array[1] = target_url + 'SaisonXML/';
+
+     g_util_copy_array_data.setAbsoluteTargetDirArray(rel_target_dir_array);
 
      var origin_files_array = [];
 
@@ -341,6 +345,15 @@ function onInputResultDirectoryName()
 
 } // onInputResultDirectoryName
 
+// Name of the main directory was changed
+function onInputMainDirectoryName()
+{
+    setGlobalLayoutXmlVariablesFromControls();
+
+    setNewSeasonLocalStorageData();
+
+} // onInputMainDirectoryName
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -419,6 +432,8 @@ function createTextBoxMainDirectory()
     g_layout_main_dir_text_box.setSize("32");
 
     g_layout_main_dir_text_box.setReadOnlyFlag(false);
+
+    g_layout_main_dir_text_box.setOninputFunctionName("onInputMainDirectoryName");
 
     g_layout_main_dir_text_box.setTitle("Für Release Ordner Reservation eingeben");
 

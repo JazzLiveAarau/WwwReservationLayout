@@ -1,5 +1,5 @@
 // File: NewSeasonStorage.js
-// Date: 2025-05-29
+// Date: 2025-06-14
 // Author: Gunnar Lidén
 
 // Class handling the storage of new season data in the computer
@@ -189,7 +189,7 @@ class NewSeasonData
         this.m_main_dir_name = "ReservationLayout";
 
         // Name of the server result directory name
-        this.m_result_directory_name = "Spagi_76_Chairs_V_3"; //QQ Temporary
+        this.m_result_directory_name = "Spagi_90_Chairs_V_1"; //QQ Temporary
 
         // Flag telling if data is OK
         this.m_data_is_valid = true;

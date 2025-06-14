@@ -1,5 +1,5 @@
 // File: UtilCopyArrayData.js
-// Date: 2025-06-13
+// Date: 2025-06-14
 // Author: Gunnar Lidén
 
 // File content
@@ -54,6 +54,9 @@ class UtilCopyArrayData
 
         // Array of booleans delete origin file
         this.m_bool_delete_origin_file_array = [];
+
+        // Array of absolute target directories that shall be created
+        this.m_abs_target_dir_array = null;
 
     } // constructor
 
@@ -135,7 +138,26 @@ class UtilCopyArrayData
          
     } // getAbsoluteTargetScriptsDirUrl
 
+    // Set array of target directory URLs that shall be created
+    // Input URLs may be absolute oder relative
+    setAbsoluteTargetDirArray(i_abs_or_rel_target_dir_array)
+    {
+        var converted_url = this.convertTargetDirArrayToAbsoluteUrls(i_abs_or_rel_target_dir_array);
+
+        this.m_abs_target_dir_array = converted_url;
+
+    } // setAbsoluteTargetDirArray
+
+    // Returns array of target directory URLs that shall be created
+    getAbsoluteTargetDirArray()
+    {
+          return this.m_abs_target_dir_array;
+
+    } // getAbsoluteTargetDirArray
+
 /*
+        // Array of absolute target directories that shall be created
+        this.m_abs_target_dir_array = null;
 
 */
 
@@ -262,6 +284,57 @@ class UtilCopyArrayData
          return true;
 
     } // setBoolDeleteOriginFileArrayToFalse
+
+     // Convert directory URLs to absolute URL if thex are relative
+     convertTargetDirArrayToAbsoluteUrls(i_url_dir_array)
+     {
+          var ret_url_dir_array = [];
+
+          if (i_url_dir_array == null || i_url_dir_array.length == 0)
+          {
+               alert("convertTargetDirArrayToAbsoluteUrls Input array null or empty");
+
+               return ret_url_dir_array;
+          }
+
+          var n_url = i_url_dir_array.length;
+
+          var  abs_start = this.getAbsoluteTargetDirUrl();
+
+          for (var index_url = 0; index_url < n_url; index_url++)
+          {
+
+               var current_url = i_url_dir_array[index_url];
+
+               var index_abs = current_url.indexOf(abs_start);
+
+               if (index_abs < 0)
+               {
+                    var out_url = '';
+
+                    if (current_url.substring(0, 1) == '/')
+                    {
+                         out_url = abs_start + current_url.substring(1);
+                    }
+                    else
+                    {
+                         out_url = abs_start + current_url;
+                    }
+
+                    ret_url_dir_array[index_url] = out_url;
+
+               } // Relative URL
+               else
+               {
+                    ret_url_dir_array[index_url] = current_url;
+               }
+
+          } // index_url
+
+
+          return ret_url_dir_array;
+
+     } // convertTargetDirArrayToAbsoluteUrls
 
 
      // Input arrays may be relative or absolute
