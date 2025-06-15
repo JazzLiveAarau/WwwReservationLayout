@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-14
+// Date: 2025-06-15
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -51,9 +51,6 @@ var g_copy_dir_files_button = null;
 
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
-
-// The object of class UtilCopyArrayData
-var g_util_copy_array_data = null;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
@@ -621,7 +618,7 @@ function debugReservationNewLayout(i_msg_str)
 // Displays the input string in the debugger Console TODO Should not be called in UtilFiles
 function debugReservationLayout(i_msg_str)
 {
-    console.log(i_msg_str);
+    // Tempoprary QQQ console.log(i_msg_str);
 
     // UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
 

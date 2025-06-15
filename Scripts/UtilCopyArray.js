@@ -1,5 +1,5 @@
 // File: UtilCopyArray.js
-// Date: 2025-06-11
+// Date: 2025-06-15
 // Author: Gunnar Lidén
 
 // File content
@@ -9,25 +9,31 @@
 //
 
 //////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////// UtilCopyArray Start //////////////////////////////////////////
+/////////////////////// UtilCopyArray Start //////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
+
+
+// The object of class UtilCopyArrayData
+// The static class UtilCopyArray uses this variable for input and execution data
+var g_util_copy_array_data = null;
+
 
 class UtilCopyArray
 {
     // Copy files and create directories defined by the input object UtilCopyArrayData
-    static copyFilesCreateDirs(i_class_data)
+    static copyFilesCreateDirs()
     {
-        if (!UtilCopyArray.checkInput(i_class_data))
-        {
-            return;
-        }
+        UtilCopyArray.debug("copyFilesCreateDirs", "Enter");
 
+        UtilCopyArray.checkInput(g_util_copy_array_data);
 
     } // copyFilesCreateDirs
 
     // Check the input data
     static checkInput(i_class_data)
     {
+        UtilCopyArray.debug("checkInput", "Enter");
+        
         UtilCopyArray.inputToConsole(i_class_data);
 
         UtilCopyArray.checkIfOriginDirExists(i_class_data);
@@ -37,31 +43,121 @@ class UtilCopyArray
     // Checks if the origin directory (ReservationLayout) exists
     static checkIfOriginDirExists(i_class_data)
     {
+        UtilCopyArray.debug("checkIfOriginDirExists", "Enter");
+
         var util_files_data = new UtilFilesData();
 
         var origin_dir = i_class_data.getAbsoluteOriginDirUrl();
 
         var path_php_dir = i_class_data.getAbsoluteUtilFilesPhpDir();
 
-        var success_function_name = UtilCopyArray.createDirsRecursive;
+        // var success_function_name = UtilCopyArray.createDirsRecursive; TODO Find another solution
 
-        var error_function_name = UtilCopyArray.execFailed;
+        // var error_function_name = UtilCopyArray.execFailed; TODO Find another solution
 
-        // Callback functions seem not to work
+        var success_function_name = globatCreateDirsRecursive;
+
+        var error_function_name = globalExecFailed;
+
+        g_index_create_directories = -1;
 
         util_files_data.setDataExecCaseDirExists(origin_dir, path_php_dir, success_function_name, error_function_name);
 
-         // UtilFiles.dirFileAnyCase(util_files_data);
+        UtilFiles.dirFileAnyCase(util_files_data);
 
     } // checkIfOriginDirExists
 
+     // Checks if the target directory (e.g Spagi_90_Chairs_v_1) exists
+    static checkIfTargetDirExists(i_class_data)
+    {
+        UtilCopyArray.debug("checkIfTargetDirExists", "Enter");
+
+        var util_files_data = new UtilFilesData();
+
+        var target_dir = g_util_copy_array_data.getAbsoluteTargetDirUrl();
+
+        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+        // var success_function_name = UtilCopyArray.createDirsRecursive; TODO Find another solution
+
+        // var error_function_name = UtilCopyArray.execFailed; TODO Find another solution
+
+        var success_function_name = globalCreateTargetDir; // 
+
+        var error_function_name = globatCreateDirsRecursive;
+
+        util_files_data.setDataExecCaseDirExists(target_dir, path_php_dir, success_function_name, error_function_name);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // checkIfTargetDirExists
+
+    // Create the target main directory
+    static createTargetDir()
+    {
+        UtilCopyArray.debug("createTargetDir", "Enter");
+
+        var util_files_data = new UtilFilesData();
+
+        var target_dir = g_util_copy_array_data.getAbsoluteTargetDirUrl();
+
+        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+        var success_function_name = globatCreateDirsRecursive;
+
+        var error_function_name = globalExecFailed;
+
+         UtilCopyArray.debug("", "Directory name= " + target_dir);
+
+        util_files_data.setDataExecCaseCreateDir(target_dir, path_php_dir, success_function_name, error_function_name);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // createTargetDir
+   
+    // Create directories recursively
     static createDirsRecursive()
     {
-        alert("UtilCopyArray.execFailed Enter");
+        UtilCopyArray.debug("createDirsRecursive", "Enter");
+
+        g_index_create_directories = g_index_create_directories + 1;
+
+        var dir_array = g_util_copy_array_data.getAbsoluteTargetDirArray();
+
+        var util_files_data = new UtilFilesData();
+
+        var name_dir = dir_array[g_index_create_directories];
+
+        UtilCopyArray.debug("", "Directory name= " + name_dir);
+
+        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+        var success_function_name = globatCreateDirsRecursive;
+
+        if (g_index_create_directories == dir_array.length - 2)
+        {
+            success_function_name = globatCreateFilesRecursive;
+        }
+
+        var error_function_name = globalExecFailed;
+
+        util_files_data.setDataExecCaseCreateDir(name_dir, path_php_dir, success_function_name, error_function_name);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // createDirsRecursive
+
+    static createFilesRecursive()
+    {
+        UtilCopyArray.debug("createFilesRecursive", "Enter");
+
+        alert("UtilCopyArray.createFilesRecursive Enter");
     }
 
     static execFailed()
     {
+        UtilCopyArray.debug("execFailed", "Enter");
+
         alert("UtilCopyArray.execFailed Enter");
     }
 
@@ -134,6 +230,35 @@ class UtilCopyArray
 
 
 } // UtilCopyArray
+
+var g_index_create_directories = -1;
+
+// 
+function globalCreateTargetDir()
+{
+    UtilCopyArray.createTargetDir();
+}
+
+// Global function corresponding to UtilCopyArray.createDirsRecursive
+function globatCreateDirsRecursive()
+{
+    UtilCopyArray.createDirsRecursive();
+    
+} // globatCreateDirsRecursive
+
+// Global function corresponding to UtilCopyArray.createFilesRecursive
+function globatCreateFilesRecursive()
+{
+    UtilCopyArray.createFilesRecursive();
+
+} // globatCreateFilesRecursive
+
+// Global function corresponding to UtilCopyArray.globalExecFailed
+function globalExecFailed()
+{
+    UtilCopyArray.execFailed();
+    
+} // globalExecFailed
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// UtilCopyArray End ////////////////////////////////////////////
