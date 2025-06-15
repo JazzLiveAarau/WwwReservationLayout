@@ -3,7 +3,7 @@
 // PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE
 
 // File: UtilUrl.js
-// Date: 2025-01-16
+// Date: 2025-01-16 2025-06-15 debug added
 // Author: Gunnar Lidén
 
 // Class with utility functions for URL
@@ -150,19 +150,19 @@ class UtilUrl
 
         var slug_input_file_or_dir_without_first_slash = slug_input_file_or_dir.substr(1);
 
-        var relative_url_dir_or_file = up_levels_str + slug_input_file_or_dir_without_first_slash;
+        var relative_url_dir_or_file = up_levels_str + slug_input_file_or_dir_without_first_slash;UtilUrl.debug
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir slug_input_file_or_dir_without_first_slash= " + slug_input_file_or_dir_without_first_slash);
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir slug_input_file_or_dir_without_first_slash= " + slug_input_file_or_dir_without_first_slash);
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir slug_base_dir= " + slug_base_dir);
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir slug_base_dir= " + slug_base_dir);
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir n_slashes= " + n_slashes.toString());
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir n_slashes= " + n_slashes.toString());
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir n_levels_up= " + n_levels_up.toString());
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir n_levels_up= " + n_levels_up.toString());
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir up_levels_str= " + up_levels_str);
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir up_levels_str= " + up_levels_str);
 
-        console.log("UtilUrl.getRelativeUrlToInputBaseDir relative_url_dir_or_file= " + relative_url_dir_or_file);
+        UtilUrl.debug("UtilUrl.getRelativeUrlToInputBaseDir relative_url_dir_or_file= " + relative_url_dir_or_file);
 
         return relative_url_dir_or_file;
 
@@ -179,7 +179,7 @@ class UtilUrl
     //    Call of UtilUrl.getRelativeUrlToInputBaseDir
     static getRelativeUrlHtml(i_absolute_url_to_file_or_dir)
     {
-        console.log("UtilUrl.getRelativeUrlHtml Enter. i_absolute_url_to_file_or_dir= " + i_absolute_url_to_file_or_dir);
+        UtilUrl.debug("UtilUrl.getRelativeUrlHtml Enter. i_absolute_url_to_file_or_dir= " + i_absolute_url_to_file_or_dir);
 
         if (!UtilUrl.isAbsolutePath(i_absolute_url_to_file_or_dir))
         {
@@ -191,11 +191,11 @@ class UtilUrl
         if (!UtilUrl.execApplicationOnServer())
         {
             // Not possible to execute this function with the VS Live Server
-            console.log("UtilUrl.getRelativeUrlHtml VS Live Server current_base= " + absolute_url_base_file);
+            UtilUrl.debug("UtilUrl.getRelativeUrlHtml VS Live Server current_base= " + absolute_url_base_file);
 
             absolute_url_base_file = 'https://jazzliveaarau.ch/ReservationLayout/Spagi_76_Chairs_V_1/EventReservation.htm'
 
-            console.log("UtilUrl.getRelativeUrlHtml For test change to current_base= " + absolute_url_base_file);
+            UtilUrl.debug("UtilUrl.getRelativeUrlHtml For test change to current_base= " + absolute_url_base_file);
 
             alert("UtilUrl.getRelativeUrlHtml For test change to current_base= " + absolute_url_base_file);
         }  
@@ -207,7 +207,7 @@ class UtilUrl
     // Get relative URL to a base PHP directory
     static getRelativeUrlPhp(i_absolute_url_to_file_or_dir, i_absolute_url_php_base_dir_or_file)
     {
-        console.log("UtilUrl.getRelativeUrlPhp Enter");
+        UtilUrl.debug("UtilUrl.getRelativeUrlPhp Enter");
 
         return UtilUrl.getRelativeUrlToInputBaseDir(i_absolute_url_to_file_or_dir, i_absolute_url_php_base_dir_or_file);
 
@@ -446,7 +446,7 @@ class UtilUrl
             return '';
         }
 
-        console.log("UtilUrl.getPathOnlySubdirectories path_only_subdirs= " + path_only_subdirs);
+        UtilUrl.debug("UtilUrl.getPathOnlySubdirectories path_only_subdirs= " + path_only_subdirs);
 
         return path_only_subdirs;
 
@@ -566,7 +566,7 @@ class UtilUrl
                 return ret_file_path;
             }
 
-            console.log("UtilUrl.getFilePath ret_file_path= " + ret_file_path);
+            UtilUrl.debug("UtilUrl.getFilePath ret_file_path= " + ret_file_path);
 
             return ret_file_path;
         }
@@ -608,7 +608,7 @@ class UtilUrl
             return "";
         }
 
-        console.log("UtilUrl.getFileName ret_file_name= " + ret_file_name);
+        UtilUrl.debug("UtilUrl.getFileName ret_file_name= " + ret_file_name);
 
         return ret_file_name;
 
@@ -648,7 +648,7 @@ class UtilUrl
 
         ret_file_name_no_ext = file_name.substring(0, index_last_point);
 
-        console.log("UtilUrl.getFileNameWithoutExtension ret_file_name_no_ext= " + ret_file_name_no_ext);
+        UtilUrl.debug("UtilUrl.getFileNameWithoutExtension ret_file_name_no_ext= " + ret_file_name_no_ext);
 
         return ret_file_name_no_ext;
 
@@ -666,7 +666,7 @@ class UtilUrl
             return '';
         }
 
-        console.log("UtilUrl.getFileExtension Extension= " + i_file_name.substring(index_last_point));
+        UtilUrl.debug("UtilUrl.getFileExtension Extension= " + i_file_name.substring(index_last_point));
 
         return i_file_name.substring(index_last_point);
 
@@ -709,13 +709,13 @@ class UtilUrl
 
         if (index_url > 0)
         {
-            console.log("UtilUrl.isAbsolutePath It is an absolute path i_absolute_url= " + i_absolute_url);
+            UtilUrl.debug("UtilUrl.isAbsolutePath It is an absolute path i_absolute_url= " + i_absolute_url);
 
             return true;
         }
         else
         {
-            console.log("UtilUrl.isAbsolutePath It is NOT an absolute path i_absolute_url= " + i_absolute_url);
+            UtilUrl.debug("UtilUrl.isAbsolutePath It is NOT an absolute path i_absolute_url= " + i_absolute_url);
 
             return false;
         }
@@ -747,13 +747,13 @@ class UtilUrl
 
         if (last_char == '/')
         {
-            console.log("UtilUrl.isDirectoryPath It is a directory last_char= '" + last_char + "'");
+            UtilUrl.debug("UtilUrl.isDirectoryPath It is a directory last_char= '" + last_char + "'");
 
             return true;
         }
         else
         {
-            console.log("UtilUrl.isDirectoryPath It is NOT a directory last_char= '" + last_char + "'");
+            UtilUrl.debug("UtilUrl.isDirectoryPath It is NOT a directory last_char= '" + last_char + "'");
 
             return false;
         }
@@ -783,7 +783,7 @@ class UtilUrl
     
         if (index_url > 0) 
         {
-            console.log("UtilUrl.execApplicationOnServer Running with VS live server. current_base= " + current_base);
+            UtilUrl.debug("UtilUrl.execApplicationOnServer Running with VS live server. current_base= " + current_base);
 
             return false;
         }
@@ -798,5 +798,21 @@ class UtilUrl
     ///////////////////////////////////////////////////////////////////////////
     /////// End Running On Server /////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Debug Start ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Debug output Added 20250615
+    static debug(i_debug_str)
+    {
+        // Temorary QQQ console.log(i_debug_str);
+
+    } // debug
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Debug End /////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 
 } // UtilUrl

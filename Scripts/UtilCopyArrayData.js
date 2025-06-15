@@ -64,6 +64,14 @@ class UtilCopyArrayData
         // Array of absolute target directories that shall be created
         this.m_abs_target_dir_array = null;
 
+        // Array of existing directories that already exist
+        // Data is set by UtilCopyArray
+        this.m_abs_target_dir_existing_array = null;
+
+        // Array of not existing directories that shall be created
+        // Data is set by UtilCopyArray
+        this.m_abs_target_dir_not_existing_array = null;
+
     } // constructor
 
     ///////////////////////////////////////////////////////////////////////
@@ -182,14 +190,75 @@ class UtilCopyArrayData
 
     } // getAbsoluteTargetDirArray
 
+    // Initialize the array of existing directories that already exist
+    // Data was set by UtilCopyArray
+    initAbsoluteTargetDirExistingArray()
+    {
+          this.m_abs_target_dir_existing_array = [];
+
+    } // initAbsoluteTargetDirExistingArray
+
+    // Add directory name that already is existing
+    // Data is set by UtilCopyArray
+    addAbsoluteTargetDirToExistingArray(i_abs_target_dir_existing)
+    {
+          if (null == this.m_abs_target_dir_existing_array)
+          {
+               alert("addAbsoluteTargetDirToExistingArray Input array is null");
+
+               return;
+          }
+
+          var current_array_length = this.m_abs_target_dir_existing_array.length;
+
+          this.m_abs_target_dir_existing_array[current_array_length] = i_abs_target_dir_existing;
+
+    } // addAbsoluteTargetDirToExistingArray
+
+    // Returns the array of existing directories that already exist
+    // Function is called by UtilCopyArray
+    getAbsoluteTargetDirExistingArray()
+    {
+          return this.m_abs_target_dir_existing_array;
+
+    } // getAbsoluteTargetDirExistingArray
+
+    // Initialize the array of not existing directories that shall be created
+    // Function is called by UtilCopyArray
+    initAbsoluteTargetDirNotExistingArray()
+    {
+          this.m_abs_target_dir_not_existing_array = [];
+
+    } // initAbsoluteTargetDirNotExistingArray
+
+    // Add directory name that not yet exists and that sjall be created
+    // Data is set by UtilCopyArray
+    addAbsoluteTargetDirToNotExistingArray(i_abs_target_dir_not_existing)
+    {
+          if (null == this.m_abs_target_dir_not_existing_array)
+          {
+               alert("addAbsoluteTargetDirToNotExistingArray Input array is null");
+
+               return;
+          }
+
+          var current_array_length = this.m_abs_target_dir_not_existing_array.length;
+
+          this.m_abs_target_dir_not_existing_array[current_array_length] = i_abs_target_dir_not_existing;
+
+    } // addAbsoluteTargetDirToNotExistingArray
+
+    // Returns the array of not existing directories that shall be created
+    //  Data was set by UtilCopyArray
+    getAbsoluteTargetDirNotExistingArray()
+    {
+          return this.m_abs_target_dir_not_existing_array;
+
+    } // getAbsoluteTargetDirNotExistingArray
+
 /*
-        // Array of absolute target directories that shall be created
-        this.m_abs_target_dir_array = null;
 
 */
-
-
-
     // Set the URLs for the origin files
     // Input URLs may be absolute or relative m_abs_origin_dir_url
     setOriginFileUrlArray(i_abs_or_rel_origin_file_url_array)

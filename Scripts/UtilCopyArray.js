@@ -55,11 +55,9 @@ class UtilCopyArray
 
         // var error_function_name = UtilCopyArray.execFailed; TODO Find another solution
 
-        var success_function_name = globatCreateDirsRecursive;
+        var success_function_name = globalCheckIfTargetDirExists;
 
         var error_function_name = globalExecFailed;
-
-        g_index_create_directories = -1;
 
         util_files_data.setDataExecCaseDirExists(origin_dir, path_php_dir, success_function_name, error_function_name);
 
@@ -82,11 +80,17 @@ class UtilCopyArray
 
         // var error_function_name = UtilCopyArray.execFailed; TODO Find another solution
 
-        var success_function_name = globalCreateTargetDir; // 
+        var true_function_name = globatGetExistingDirsRecursive; // 
 
-        var error_function_name = globatCreateDirsRecursive;
+        var false_function_name = globalCreateTargetDir;
 
-        util_files_data.setDataExecCaseDirExists(target_dir, path_php_dir, success_function_name, error_function_name);
+        g_index_create_directories = -1;
+
+        g_util_copy_array_data.initAbsoluteTargetDirExistingArray();
+
+        g_util_copy_array_data.initAbsoluteTargetDirNotExistingArray();
+
+        util_files_data.setDataExecCaseDirExists(target_dir, path_php_dir, true_function_name, false_function_name);
 
         UtilFiles.dirFileAnyCase(util_files_data);
 
@@ -103,22 +107,22 @@ class UtilCopyArray
 
         var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
 
-        var success_function_name = globatCreateDirsRecursive;
+        var success_function_name = globatGetExistingDirsRecursive;
 
         var error_function_name = globalExecFailed;
 
-         UtilCopyArray.debug("", "Directory name= " + target_dir);
+        UtilCopyArray.debug("", "Target main directory= " + target_dir);
 
         util_files_data.setDataExecCaseCreateDir(target_dir, path_php_dir, success_function_name, error_function_name);
 
         UtilFiles.dirFileAnyCase(util_files_data);
 
     } // createTargetDir
-   
-    // Create directories recursively
-    static createDirsRecursive()
+
+    // Get the directories that exist and that not yet exist
+    static getExistingDirsRecursive()
     {
-        UtilCopyArray.debug("createDirsRecursive", "Enter");
+        UtilCopyArray.debug("getExistingDirsRecursive", "Enter");
 
         g_index_create_directories = g_index_create_directories + 1;
 
@@ -128,15 +132,111 @@ class UtilCopyArray
 
         var name_dir = dir_array[g_index_create_directories];
 
+        UtilCopyArray.debug(g_index_create_directories.toString(), "Directory name= " + name_dir);
+
+        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+        var true_function_name = globatDirExists; 
+
+        var false_function_name = globatDirExistsNot;
+
+        util_files_data.setDataExecCaseDirExists(name_dir, path_php_dir, true_function_name, false_function_name);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+
+    } // getExistingDirsRecursive
+
+    // Directory exists
+    static dirExists()
+    {
+        UtilCopyArray.debug("dirExists", "Enter");
+
+        var dir_array = g_util_copy_array_data.getAbsoluteTargetDirArray();
+
+        var next_function_to_call = UtilCopyArray.getExistingDirsRecursive;
+
+        if (g_index_create_directories == dir_array.length - 1)
+        {
+            g_index_create_directories = -1;
+
+            next_function_to_call = UtilCopyArray.createDirsRecursive;
+        }
+
+        var current_dir = dir_array[g_index_create_directories];
+
+        UtilCopyArray.debug("dirExists", "Add " + current_dir);
+
+        g_util_copy_array_data.addAbsoluteTargetDirToExistingArray(current_dir);
+
+        next_function_to_call();
+ 
+    } // dirExists
+
+    // Directory do not exist
+    static dirExistsNot()
+    {
+        UtilCopyArray.debug("dirExistsNot", "Enter");
+
+        var dir_array = g_util_copy_array_data.getAbsoluteTargetDirArray();
+
+        var next_function_to_call = UtilCopyArray.getExistingDirsRecursive;
+
+        if (g_index_create_directories == dir_array.length - 1)
+        {
+            g_index_create_directories = -1;
+
+            next_function_to_call = UtilCopyArray.createDirsRecursive;
+        }
+
+        var current_dir = dir_array[g_index_create_directories];
+
+        UtilCopyArray.debug("dirExistsNot", "Add " + current_dir);
+
+        g_util_copy_array_data.addAbsoluteTargetDirToNotExistingArray(current_dir);
+
+        next_function_to_call();
+
+    } // dirExistsNot
+   
+    // Create directories recursively
+    static createDirsRecursive()
+    {
+        UtilCopyArray.debug("createDirsRecursive", "Enter");
+
+        var not_yet_existing_dir = g_util_copy_array_data.getAbsoluteTargetDirNotExistingArray();
+
+        var existing_dir = g_util_copy_array_data.getAbsoluteTargetDirExistingArray();
+
+        UtilCopyArray.debug("createDirsRecursive", "Number of existing directories     " + existing_dir.length.toString());
+
+        UtilCopyArray.debug("createDirsRecursive", "Number of not existing directories " + not_yet_existing_dir.length.toString());
+
+        if (not_yet_existing_dir.length == 0)
+        {
+             UtilCopyArray.debug("createDirsRecursive", "All directories were already created");
+
+             g_index_create_directories = -1;
+
+            UtilCopyArray.createFilesRecursive();
+        }
+
+        g_index_create_directories = g_index_create_directories + 1;
+
+        var util_files_data = new UtilFilesData();
+
+        var name_dir = not_yet_existing_dir[g_index_create_directories];
+
         UtilCopyArray.debug("", "Directory name= " + name_dir);
 
         var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
 
         var success_function_name = globatCreateDirsRecursive;
 
-        if (g_index_create_directories == dir_array.length - 2)
+        if (g_index_create_directories == not_yet_existing_dir.length - 1)
         {
             success_function_name = globatCreateFilesRecursive;
+
+             g_index_create_directories = -1;
         }
 
         var error_function_name = globalExecFailed;
@@ -233,11 +333,35 @@ class UtilCopyArray
 
 var g_index_create_directories = -1;
 
+function globalCheckIfTargetDirExists()
+{
+    UtilCopyArray.checkIfTargetDirExists();
+}
+
 // 
 function globalCreateTargetDir()
 {
     UtilCopyArray.createTargetDir();
 }
+
+function globatGetExistingDirsRecursive()
+{
+    UtilCopyArray.getExistingDirsRecursive();
+
+} // globatGetExistingDirsRecursive
+
+
+function globatDirExists()
+{
+    UtilCopyArray.dirExists();
+
+} // globatDirExists
+
+function globatDirExistsNot()
+{
+    UtilCopyArray.dirExistsNot();
+
+} // globatDirExistsNot
 
 // Global function corresponding to UtilCopyArray.createDirsRecursive
 function globatCreateDirsRecursive()
