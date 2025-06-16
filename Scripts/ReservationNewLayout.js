@@ -2,6 +2,13 @@
 // Date: 2025-06-16
 // Author: Gunnar Lidén
 
+// TODO  2025-06-16
+//      Determine which files are used by the reservation system
+//      Copy zese files to LibsLayout, copy them with this application
+//      Make the same for PhpLayout
+//      Change references in ReservationLayoutHtml.js to subdirectories Libs
+//      Change references for PHP to subdirectory Php
+
 // Inhalt
 // =============
 //
