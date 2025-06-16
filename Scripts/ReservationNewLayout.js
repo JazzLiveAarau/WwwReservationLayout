@@ -52,6 +52,22 @@ var g_copy_dir_files_button = null;
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
 
+
+// Variables for the creation of the HTML files
+// --------------------------------------------
+
+// XML object layout
+var g_layout_xml = null;
+
+// An instance of the class CheckInputCreateDirs (global needed for its event member functions)
+var g_check_input_create_dirs = null;
+
+// All the tabulators, end of lines and code comments can be removed with this variable
+var g_remove_tabs_comments = false;
+
+// In order to be able to test the created HTML files some functions are added
+var g_add_temporary_test_functions = false;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +120,18 @@ function setGlobalLayoutXmlVariablesFromControls()
 
 } // setGlobalLayoutXmlVariablesFromControls
 
+function getUtilFilesPhpDir()
+{
+  var domain_url = 'https://jazzliveaarau.ch/';
+
+    var origin_url = 'ReservationLayout/';
+
+    var util_files_php_dir = domain_url + origin_url + 'Php/';
+
+    return util_files_php_dir;
+
+} // getUtilFilesPhpDir
+
 // Copy directories and files for the new layout
 function execCopyDirFiles()
 {
@@ -111,7 +139,9 @@ function execCopyDirFiles()
 
     var origin_url = 'ReservationLayout/';
 
-    var util_files_php_dir = domain_url + origin_url + 'Php/';
+    //QQ var util_files_php_dir = domain_url + origin_url + 'Php/';
+
+    var util_files_php_dir = getUtilFilesPhpDir();
 
     g_util_copy_array_data = new UtilCopyArrayData(domain_url, util_files_php_dir);
 
@@ -145,9 +175,13 @@ function execCopyDirFiles()
 
      rel_target_dir_array[1] = 'SaisonXML/';
 
-      rel_target_dir_array[2] = 'ImagesApp/';
+     rel_target_dir_array[2] = 'ImagesApp/';
 
-       rel_target_dir_array[3] = 'ImagesLayout/';
+     rel_target_dir_array[3] = 'ImagesLayout/';
+
+     rel_target_dir_array[4] = 'Libs/';
+
+     rel_target_dir_array[5] = 'Php/';
 
      g_util_copy_array_data.setAbsoluteTargetDirArray(rel_target_dir_array);
 
@@ -250,6 +284,148 @@ TODO Find another solution */
 
 } // execCopyDirFiles
 
+// Create the HTML files defined by the XML layout file in /ReservationLayout/ResultDir/XML/ResultDir.xml
+function execCreateLayoutHtmlFiles()
+{
+    debugReservationNewLayout("execCreateLayoutHtmlFiles Create HTML files for layout " + g_layout_target_result_dir);
+
+    var organisation_directory_name = 'NotUsed';
+
+    g_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, organisation_directory_name, g_layout_target_result_dir);
+
+} // execCreateLayoutHtmlFiles
+
+// The Layout XML file is loaded
+function callbackAfterLoadOfXmlLayout()
+{
+    debugReservationNewLayout("callbackAfterLoadOfXmlLayout The layout XML file /" + 
+            g_layout_target_result_dir + '/XML/' + g_layout_target_result_dir + '.xml object ist created');
+
+    createUploadLayoutFilesAfterCheck();
+
+} // callbackAfterLoadOfXmlLayout
+
+// Create and upload layout files to the result server directory
+function createUploadLayoutFilesAfterCheck()
+{
+    debugReservationNewLayout('createUploadLayoutFilesAfterCheck Enter');
+
+    var result_server_directory_name = g_layout_target_result_dir;
+
+    var absolute_path_dir_name = constructPathToResultDirectory(result_server_directory_name);
+
+    var layout_file_data_array = getLayoutFileDataArrayFromXml(g_layout_xml);
+
+    var n_layout_file_data = layout_file_data_array.length;
+
+    //n_layout_file_data = 1; // Temporary
+
+    var path_file_name_array = [];
+
+    var layout_html_code_array = [];
+
+    for (var layout_file_number=1; layout_file_number <= n_layout_file_data; layout_file_number++)
+    {
+        var file_data = getLayoutFileDataFromXml(g_layout_xml, layout_file_number);
+
+        var layout_file_case = file_data.getFileCase();
+
+        var layout_file_description = file_data.getDescription();
+
+        // var n_button_ids = file_data.getNumberButtonId();
+
+        var button_id_array = file_data.getButtonIdArray();
+
+        var layout_html = new LayoutHtml(g_layout_xml, result_server_directory_name, layout_file_case, layout_file_description, button_id_array);
+
+        var layout_html_code = layout_html.get();
+
+        var html_file_name = file_data.getHtmlName();
+
+        var path_file_name = absolute_path_dir_name + html_file_name;
+
+        var index_data = layout_file_number - 1;
+
+        path_file_name_array[index_data] = path_file_name;
+
+        layout_html_code_array[index_data] = layout_html_code;
+
+    } // index_file_data
+
+   g_create_html_file_index = -1;
+
+   g_path_file_name_array = path_file_name_array;
+   g_layout_html_code_array = layout_html_code_array; 
+
+    recursiveFileCreation();
+
+} // createUploadLayoutFilesAfterCheck
+
+// Returns the full path to the result directory
+function constructPathToResultDirectory(i_result_server_directory_name)
+{
+    var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+
+    return reservation_layout_full_path + i_result_server_directory_name  + '/';
+
+} // constructPathToResultDirectory
+
+// Loop index HTML file
+var g_create_html_file_index = -1;
+var g_path_file_name_array = [];
+var g_layout_html_code_array = []; 
+
+// Recursively create all HTML files
+function recursiveFileCreation()
+{
+    var n_files = g_path_file_name_array.length;
+
+    g_create_html_file_index = g_create_html_file_index + 1;
+
+    var util_files_data = new UtilFilesData();
+
+    var file_name = g_path_file_name_array[g_create_html_file_index];
+
+    var file_content =  g_layout_html_code_array[g_create_html_file_index];
+
+    var path_php_dir = getUtilFilesPhpDir();
+
+    var success_function_name = recursiveFileCreation;
+
+    if (g_create_html_file_index == n_files - 1)
+    {
+        success_function_name = afterSaveAllHtml;
+    }
+
+    var error_function_name = errorCreatingHtmlFile;
+
+
+    util_files_data.setDataExecCaseCreateFile(file_name, file_content, path_php_dir, success_function_name, error_function_name);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // recursiveFileCreation
+
+function errorCreatingHtmlFile()
+{
+    alert("errorCreatingHtmlFile");
+
+} // errorCreatingHtmlFile
+
+// After saving all the HTML files
+function afterSaveAllHtml()
+{
+    var result_server_directory_name = g_layout_server_dir_text_box.getValue();
+
+    var uploaded_msg = 'HTML Dateien sind kreiert und zum Server Ordner ' + 
+                        result_server_directory_name + ' hochgeladen';
+
+    debugReservationNewLayout('afterSaveAllHtml ' + uploaded_msg);
+
+    alert(uploaded_msg);
+
+} // afterSaveAllHtml
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -261,7 +437,9 @@ TODO Find another solution */
 // User clicked the create layout files button
 function onClickCreateLayoutFilesButton()
 {
-    alert("Enter onClickCopyDirFilesButton");
+    debugReservationNewLayout("onClickCreateLayoutFilesButton User klicked the button create the HTML layutut files");
+
+    execCreateLayoutHtmlFiles();
     
 
 }// onClickCreateLayoutFilesButton
