@@ -1,5 +1,5 @@
 // File: UtilCopyArray.js
-// Date: 2025-06-15
+// Date: 2025-06-16
 // Author: Gunnar Lidén
 
 // File content
@@ -84,7 +84,7 @@ class UtilCopyArray
 
         var false_function_name = globalCreateTargetDir;
 
-        g_index_create_directories = -1;
+        g_index_directory_or_file = -1;
 
         g_util_copy_array_data.initAbsoluteTargetDirExistingArray();
 
@@ -124,15 +124,15 @@ class UtilCopyArray
     {
         UtilCopyArray.debug("getExistingDirsRecursive", "Enter");
 
-        g_index_create_directories = g_index_create_directories + 1;
+        g_index_directory_or_file = g_index_directory_or_file + 1;
 
         var dir_array = g_util_copy_array_data.getAbsoluteTargetDirArray();
 
         var util_files_data = new UtilFilesData();
 
-        var name_dir = dir_array[g_index_create_directories];
+        var name_dir = dir_array[g_index_directory_or_file];
 
-        UtilCopyArray.debug(g_index_create_directories.toString(), "Directory name= " + name_dir);
+        UtilCopyArray.debug(g_index_directory_or_file.toString(), "Directory name= " + name_dir);
 
         var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
 
@@ -155,18 +155,18 @@ class UtilCopyArray
 
         var next_function_to_call = UtilCopyArray.getExistingDirsRecursive;
 
-        if (g_index_create_directories == dir_array.length - 1)
-        {
-            g_index_create_directories = -1;
-
-            next_function_to_call = UtilCopyArray.createDirsRecursive;
-        }
-
-        var current_dir = dir_array[g_index_create_directories];
+        var current_dir = dir_array[g_index_directory_or_file];
 
         UtilCopyArray.debug("dirExists", "Add " + current_dir);
 
         g_util_copy_array_data.addAbsoluteTargetDirToExistingArray(current_dir);
+
+        if (g_index_directory_or_file == dir_array.length - 1)
+        {
+            g_index_directory_or_file = -1;
+
+            next_function_to_call = UtilCopyArray.createDirsRecursive;
+        }
 
         next_function_to_call();
  
@@ -181,18 +181,18 @@ class UtilCopyArray
 
         var next_function_to_call = UtilCopyArray.getExistingDirsRecursive;
 
-        if (g_index_create_directories == dir_array.length - 1)
-        {
-            g_index_create_directories = -1;
-
-            next_function_to_call = UtilCopyArray.createDirsRecursive;
-        }
-
-        var current_dir = dir_array[g_index_create_directories];
+        var current_dir = dir_array[g_index_directory_or_file];
 
         UtilCopyArray.debug("dirExistsNot", "Add " + current_dir);
 
         g_util_copy_array_data.addAbsoluteTargetDirToNotExistingArray(current_dir);
+
+        if (g_index_directory_or_file == dir_array.length - 1)
+        {
+            g_index_directory_or_file = -1;
+
+            next_function_to_call = UtilCopyArray.createDirsRecursive;
+        }
 
         next_function_to_call();
 
@@ -215,35 +215,38 @@ class UtilCopyArray
         {
              UtilCopyArray.debug("createDirsRecursive", "All directories were already created");
 
-             g_index_create_directories = -1;
+             g_index_directory_or_file = -1;
 
             UtilCopyArray.createFilesRecursive();
         }
-
-        g_index_create_directories = g_index_create_directories + 1;
-
-        var util_files_data = new UtilFilesData();
-
-        var name_dir = not_yet_existing_dir[g_index_create_directories];
-
-        UtilCopyArray.debug("", "Directory name= " + name_dir);
-
-        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
-
-        var success_function_name = globatCreateDirsRecursive;
-
-        if (g_index_create_directories == not_yet_existing_dir.length - 1)
+        else
         {
-            success_function_name = globatCreateFilesRecursive;
+            g_index_directory_or_file = g_index_directory_or_file + 1;
 
-             g_index_create_directories = -1;
-        }
+            var util_files_data = new UtilFilesData();
 
-        var error_function_name = globalExecFailed;
+            var name_dir = not_yet_existing_dir[g_index_directory_or_file];
 
-        util_files_data.setDataExecCaseCreateDir(name_dir, path_php_dir, success_function_name, error_function_name);
+            UtilCopyArray.debug("", "Create directory= " + name_dir);
 
-        UtilFiles.dirFileAnyCase(util_files_data);
+            var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+            var success_function_name = globatCreateDirsRecursive;
+
+            if (g_index_directory_or_file == not_yet_existing_dir.length - 1)
+            {
+                success_function_name = globatCreateFilesRecursive;
+
+                g_index_directory_or_file = -1;
+            }
+
+            var error_function_name = globalExecFailed;
+
+            util_files_data.setDataExecCaseCreateDir(name_dir, path_php_dir, success_function_name, error_function_name);
+
+            UtilFiles.dirFileAnyCase(util_files_data);
+
+        } // Create directory
 
     } // createDirsRecursive
 
@@ -331,7 +334,8 @@ class UtilCopyArray
 
 } // UtilCopyArray
 
-var g_index_create_directories = -1;
+// Index for directory or file
+var g_index_directory_or_file = -1;
 
 function globalCheckIfTargetDirExists()
 {

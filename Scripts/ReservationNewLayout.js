@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-15
+// Date: 2025-06-16
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -144,6 +144,10 @@ function execCopyDirFiles()
      rel_target_dir_array[0] = 'XML/';
 
      rel_target_dir_array[1] = 'SaisonXML/';
+
+      rel_target_dir_array[2] = 'ImagesApp/';
+
+       rel_target_dir_array[3] = 'ImagesLayout/';
 
      g_util_copy_array_data.setAbsoluteTargetDirArray(rel_target_dir_array);
 
