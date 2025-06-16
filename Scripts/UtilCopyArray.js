@@ -201,7 +201,7 @@ class UtilCopyArray
     // Create directories recursively
     static createDirsRecursive()
     {
-        UtilCopyArray.debug("createDirsRecursive", "Enter");
+        UtilCopyArray.debug("createDirsRecursive", "g_index_directory_or_file= " + g_index_directory_or_file.toString());
 
         var not_yet_existing_dir = g_util_copy_array_data.getAbsoluteTargetDirNotExistingArray();
 
@@ -213,11 +213,11 @@ class UtilCopyArray
 
         if (not_yet_existing_dir.length == 0)
         {
-             UtilCopyArray.debug("createDirsRecursive", "All directories were already created");
+             UtilCopyArray.debug("createDirsRecursive", "All directories are already created. Continue directly to copyFilesRecursive");
 
              g_index_directory_or_file = -1;
 
-            UtilCopyArray.createFilesRecursive();
+            UtilCopyArray.copyFilesRecursive();
         }
         else
         {
@@ -235,7 +235,7 @@ class UtilCopyArray
 
             if (g_index_directory_or_file == not_yet_existing_dir.length - 1)
             {
-                success_function_name = globatCreateFilesRecursive;
+                success_function_name = globatCopyFilesRecursive;
 
                 g_index_directory_or_file = -1;
             }
@@ -250,12 +250,56 @@ class UtilCopyArray
 
     } // createDirsRecursive
 
-    static createFilesRecursive()
+    // Copy files recursively
+    static copyFilesRecursive()
     {
-        UtilCopyArray.debug("createFilesRecursive", "Enter");
+        UtilCopyArray.debug("copyFilesRecursive", "Enter g_index_directory_or_file= " + g_index_directory_or_file.toString());
 
-        alert("UtilCopyArray.createFilesRecursive Enter");
-    }
+        var origin_file_array = g_util_copy_array_data.getAbsoluteOriginFileUrlArray();
+
+        var target_file_array = g_util_copy_array_data.getAbsoluteTargetFileUrlArray();
+
+        g_index_directory_or_file = g_index_directory_or_file + 1;
+
+        var util_files_data = new UtilFilesData();
+
+        var origin_file_url = origin_file_array[g_index_directory_or_file];
+
+        var target_file_url = target_file_array[g_index_directory_or_file];
+
+        UtilCopyArray.debug(g_index_directory_or_file.toString(), "origin_file_url= " + origin_file_url);
+
+        UtilCopyArray.debug(g_index_directory_or_file.toString(), "target_file_url= " + target_file_url);
+
+        var path_php_dir = g_util_copy_array_data.getAbsoluteUtilFilesPhpDir();
+
+        var success_function_name = globatCopyFilesRecursive;
+
+        if (g_index_directory_or_file == origin_file_array.length - 1)
+        {
+            success_function_name = globalFinish;
+
+            g_index_directory_or_file = -1;
+        }
+
+        var error_function_name = globalExecFailed;
+
+        util_files_data.setDataExecCaseCopyFile(origin_file_url, target_file_url, path_php_dir, success_function_name, error_function_name);
+
+        UtilFiles.dirFileAnyCase(util_files_data);
+       
+    } // copyFilesRecursive
+
+    // TODO Implement delete files defined by UtilCopyArrayData.getBoolDeleteOriginFileArray
+
+    // All files have been copied
+    static finish()
+    {
+        UtilCopyArray.debug("finish", "Enter");
+
+        alert("UtilCopyArray.finish All files have been copied");
+
+    } // finish
 
     static execFailed()
     {
@@ -374,12 +418,19 @@ function globatCreateDirsRecursive()
     
 } // globatCreateDirsRecursive
 
-// Global function corresponding to UtilCopyArray.createFilesRecursive
-function globatCreateFilesRecursive()
+// Global function corresponding to UtilCopyArray.copyFilesRecursive
+function globatCopyFilesRecursive()
 {
-    UtilCopyArray.createFilesRecursive();
+    UtilCopyArray.copyFilesRecursive();
 
-} // globatCreateFilesRecursive
+} // globatCopyFilesRecursive
+
+// Global function corresponding to UtilCopyArray.globalFinish
+function globalFinish()
+{
+    UtilCopyArray.finish();
+    
+} // globalFinish
 
 // Global function corresponding to UtilCopyArray.globalExecFailed
 function globalExecFailed()
