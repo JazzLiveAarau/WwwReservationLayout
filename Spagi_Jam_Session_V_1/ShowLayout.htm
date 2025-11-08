@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang=de>
+    <header>
+        <meta charset="utf-8">
+        <meta name="description" content="Reservation of seats for a concert">
+        <meta name="author" content="Gunnar Lidén">
+
+        <!-- Force the browser not to use the cached web page  Start -->
+        <meta http-equiv=“Pragma” content=”no-cache”>
+        <meta http-equiv=“Expires” content=”-1″>
+        <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
+        <!-- Force the browser not to use the cached web page  End -->
+
+
+        <title>JAZZ live AARAU Reservation SPAGI by Marcello </title>
+
+
+
+        <!-- Included external Javascripts   -->
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/Reservation.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationXmlTags.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationConcerts.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationEmail.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationFiles.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationStrings.js" ></script>
+        <script type="text/javascript" src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/CoronaForm.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationPremises.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js" ></script>
+
+        <noscript>
+            Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
+            Eine Anleitung wie Sie JavaScript in Ihrem Browser einschalten, befindet sich 
+            <a href="http://www.enable-javascript.com/de/" target="_blank">hier</a>.
+        </noscript>
+
+        <script>
+            // The function setEventFunctions must probably not be defined for vase ShowLayout. TODO
+            function setEventFunctions()
+            {
+            }
+        </script>
+
+
+    </header>
+
+
+
+    <body style= "background-color:#dfe0e1" onload="mainShowLayout()"  scrolling="auto">
+        <script>
+            // XML file defining the layout of the concert premises
+            // This global variable was previously defined in the file ReservationSalmen.js
+            // This file ReservationSalmen.js is no longer included in the <head> section
+            g_url_file_layout_xml = "XML/Spagi_Jam_Session_V_1.xml";
+        </script>
+
+        <table><tbody>
+            <tr><td>
+                <p id="id_reservation_show_concert_date_band"  align="center" style="font-family: Arial; font:bold; font-size:22pt; height:40px; width:900px;  color:red; background-color: black; margin-bottom:0px;  border: 0px none black; padding:0px;">Paragraph display event</p>
+            </td></tr>
+            <tr><td>
+            <svg id= "LayoutSalmen" height=1575 width=900 style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);margin-top:0px; padding:0px"  >
+                <rect width=900 height=1575 />
+                <rect  x=0 y=0 width=33 height=1575 style="fill:rgb(222, 223, 224);stroke-width:1;stroke:black" />
+                <rect  x=867 y=0 width=33 height=1575 style="fill:rgb(222, 223, 224);stroke-width:1;stroke:black" />
+                <rect  x=0 y=0 width=900 height=99 style="fill:rgb(0, 0, 0);stroke-width:1;stroke:black" />
+                <rect  x=0 y=1542 width=900 height=33 style="fill:rgb(222, 223, 224);stroke-width:1;stroke:black" />
+                <image x= 252 y= 4 width=400px height=40px xlink:href=ImagesLayout/jazz_live_aarau_text_logo.png> <title>JAZZ live AARAU Text Logo</title>  </image>
+                <image x= 75 y= 84 width=750px height=150px xlink:href=ImagesLayout/icon_stage.png> <title>Bühne</title>  </image>
+                <image x= 663 y= 1293 width=130px height=230px xlink:href=ImagesLayout/icon_cash_desk.png> <title>Kasse</title>  </image>
+                <image x= 834 y= 596 width=73px height=163px xlink:href=ImagesLayout/icon_door_staff.png> <title>Tür</title>  </image>
+                <image x= 834 y= 1068 width=73px height=235px xlink:href=ImagesLayout/icon_door_main.png> <title>Tür</title>  </image>
+                <image x= 56 y= 1509 width=163px height=73px xlink:href=ImagesLayout/icon_door_back.png> <title>Tür</title>  </image>
+                <rect  x=112 y=281 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=153 y=545 fill=white>11</text>
+                <circle  cx=90 cy=307 r=16 id="11_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=311 id="cir_text_11_A"  fill="white" >A</text>
+
+                <circle  cx=235 cy=307 r=16 id="11_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=311 id="cir_text_11_B"  fill="white" >B</text>
+
+                <circle  cx=90 cy=359 r=16 id="11_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=363 id="cir_text_11_C"  fill="white" >C</text>
+
+                <circle  cx=235 cy=359 r=16 id="11_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=363 id="cir_text_11_D"  fill="white" >D</text>
+
+                <circle  cx=90 cy=411 r=16 id="11_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=415 id="cir_text_11_E"  fill="white" >E</text>
+
+                <circle  cx=235 cy=411 r=16 id="11_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=415 id="cir_text_11_F"  fill="white" >F</text>
+
+                <circle  cx=90 cy=463 r=16 id="11_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=467 id="cir_text_11_G"  fill="white" >G</text>
+
+                <circle  cx=235 cy=463 r=16 id="11_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=467 id="cir_text_11_H"  fill="white" >H</text>
+
+                <circle  cx=90 cy=515 r=16 id="11_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=519 id="cir_text_11_I"  fill="white" >I</text>
+
+                <circle  cx=235 cy=515 r=16 id="11_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=519 id="cir_text_11_J"  fill="white" >J</text>
+
+                <circle  cx=90 cy=567 r=16 id="11_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=571 id="cir_text_11_K"  fill="white" >K</text>
+
+                <circle  cx=235 cy=567 r=16 id="11_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=571 id="cir_text_11_L"  fill="white" >L</text>
+
+                <circle  cx=90 cy=619 r=16 id="11_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=623 id="cir_text_11_M"  fill="white" >M</text>
+
+                <circle  cx=235 cy=619 r=16 id="11_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=623 id="cir_text_11_N"  fill="white" >N</text>
+
+                <circle  cx=90 cy=671 r=16 id="11_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=675 id="cir_text_11_O"  fill="white" >O</text>
+
+                <circle  cx=235 cy=671 r=16 id="11_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=675 id="cir_text_11_P"  fill="white" >P</text>
+
+                <circle  cx=90 cy=723 r=16 id="11_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=727 id="cir_text_11_Q"  fill="white" >Q</text>
+
+                <circle  cx=235 cy=723 r=16 id="11_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=727 id="cir_text_11_R"  fill="white" >R</text>
+
+                <circle  cx=90 cy=775 r=16 id="11_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=779 id="cir_text_11_S"  fill="white" >S</text>
+
+                <circle  cx=235 cy=775 r=16 id="11_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=779 id="cir_text_11_T"  fill="white" >T</text>
+
+
+
+                <rect  x=382 y=281 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=423 y=545 fill=white>12</text>
+                <circle  cx=360 cy=307 r=16 id="12_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=311 id="cir_text_12_A"  fill="white" >A</text>
+
+                <circle  cx=505 cy=307 r=16 id="12_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=311 id="cir_text_12_B"  fill="white" >B</text>
+
+                <circle  cx=360 cy=359 r=16 id="12_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=363 id="cir_text_12_C"  fill="white" >C</text>
+
+                <circle  cx=505 cy=359 r=16 id="12_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=363 id="cir_text_12_D"  fill="white" >D</text>
+
+                <circle  cx=360 cy=411 r=16 id="12_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=415 id="cir_text_12_E"  fill="white" >E</text>
+
+                <circle  cx=505 cy=411 r=16 id="12_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=415 id="cir_text_12_F"  fill="white" >F</text>
+
+                <circle  cx=360 cy=463 r=16 id="12_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=467 id="cir_text_12_G"  fill="white" >G</text>
+
+                <circle  cx=505 cy=463 r=16 id="12_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=467 id="cir_text_12_H"  fill="white" >H</text>
+
+                <circle  cx=360 cy=515 r=16 id="12_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=519 id="cir_text_12_I"  fill="white" >I</text>
+
+                <circle  cx=505 cy=515 r=16 id="12_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=519 id="cir_text_12_J"  fill="white" >J</text>
+
+                <circle  cx=360 cy=567 r=16 id="12_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=571 id="cir_text_12_K"  fill="white" >K</text>
+
+                <circle  cx=505 cy=567 r=16 id="12_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=571 id="cir_text_12_L"  fill="white" >L</text>
+
+                <circle  cx=360 cy=619 r=16 id="12_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=623 id="cir_text_12_M"  fill="white" >M</text>
+
+                <circle  cx=505 cy=619 r=16 id="12_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=623 id="cir_text_12_N"  fill="white" >N</text>
+
+                <circle  cx=360 cy=671 r=16 id="12_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=675 id="cir_text_12_O"  fill="white" >O</text>
+
+                <circle  cx=505 cy=671 r=16 id="12_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=675 id="cir_text_12_P"  fill="white" >P</text>
+
+                <circle  cx=360 cy=723 r=16 id="12_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=727 id="cir_text_12_Q"  fill="white" >Q</text>
+
+                <circle  cx=505 cy=723 r=16 id="12_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=727 id="cir_text_12_R"  fill="white" >R</text>
+
+                <circle  cx=360 cy=775 r=16 id="12_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=779 id="cir_text_12_S"  fill="white" >S</text>
+
+                <circle  cx=505 cy=775 r=16 id="12_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=779 id="cir_text_12_T"  fill="white" >T</text>
+
+
+
+                <rect  x=652 y=281 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=693 y=545 fill=white>13</text>
+                <circle  cx=630 cy=307 r=16 id="13_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=311 id="cir_text_13_A"  fill="white" >A</text>
+
+                <circle  cx=775 cy=307 r=16 id="13_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=311 id="cir_text_13_B"  fill="white" >B</text>
+
+                <circle  cx=630 cy=359 r=16 id="13_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=363 id="cir_text_13_C"  fill="white" >C</text>
+
+                <circle  cx=775 cy=359 r=16 id="13_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=363 id="cir_text_13_D"  fill="white" >D</text>
+
+                <circle  cx=630 cy=411 r=16 id="13_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=415 id="cir_text_13_E"  fill="white" >E</text>
+
+                <circle  cx=775 cy=411 r=16 id="13_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=415 id="cir_text_13_F"  fill="white" >F</text>
+
+                <circle  cx=630 cy=463 r=16 id="13_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=467 id="cir_text_13_G"  fill="white" >G</text>
+
+                <circle  cx=775 cy=463 r=16 id="13_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=467 id="cir_text_13_H"  fill="white" >H</text>
+
+                <circle  cx=630 cy=515 r=16 id="13_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=519 id="cir_text_13_I"  fill="white" >I</text>
+
+                <circle  cx=775 cy=515 r=16 id="13_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=519 id="cir_text_13_J"  fill="white" >J</text>
+
+                <circle  cx=630 cy=567 r=16 id="13_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=571 id="cir_text_13_K"  fill="white" >K</text>
+
+                <circle  cx=775 cy=567 r=16 id="13_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=571 id="cir_text_13_L"  fill="white" >L</text>
+
+                <circle  cx=630 cy=619 r=16 id="13_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=623 id="cir_text_13_M"  fill="white" >M</text>
+
+                <circle  cx=775 cy=619 r=16 id="13_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=623 id="cir_text_13_N"  fill="white" >N</text>
+
+                <circle  cx=630 cy=671 r=16 id="13_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=675 id="cir_text_13_O"  fill="white" >O</text>
+
+                <circle  cx=775 cy=671 r=16 id="13_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=675 id="cir_text_13_P"  fill="white" >P</text>
+
+                <circle  cx=630 cy=723 r=16 id="13_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=727 id="cir_text_13_Q"  fill="white" >Q</text>
+
+                <circle  cx=775 cy=723 r=16 id="13_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=727 id="cir_text_13_R"  fill="white" >R</text>
+
+                <circle  cx=630 cy=775 r=16 id="13_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=779 id="cir_text_13_S"  fill="white" >S</text>
+
+                <circle  cx=775 cy=775 r=16 id="13_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=779 id="cir_text_13_T"  fill="white" >T</text>
+
+
+
+                <rect  x=112 y=832 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=153 y=1096 fill=white>21</text>
+                <circle  cx=90 cy=858 r=16 id="21_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=862 id="cir_text_21_A"  fill="white" >A</text>
+
+                <circle  cx=235 cy=858 r=16 id="21_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=862 id="cir_text_21_B"  fill="white" >B</text>
+
+                <circle  cx=90 cy=910 r=16 id="21_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=914 id="cir_text_21_C"  fill="white" >C</text>
+
+                <circle  cx=235 cy=910 r=16 id="21_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=914 id="cir_text_21_D"  fill="white" >D</text>
+
+                <circle  cx=90 cy=962 r=16 id="21_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=966 id="cir_text_21_E"  fill="white" >E</text>
+
+                <circle  cx=235 cy=962 r=16 id="21_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=966 id="cir_text_21_F"  fill="white" >F</text>
+
+                <circle  cx=90 cy=1014 r=16 id="21_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1018 id="cir_text_21_G"  fill="white" >G</text>
+
+                <circle  cx=235 cy=1014 r=16 id="21_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1018 id="cir_text_21_H"  fill="white" >H</text>
+
+                <circle  cx=90 cy=1066 r=16 id="21_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1070 id="cir_text_21_I"  fill="white" >I</text>
+
+                <circle  cx=235 cy=1066 r=16 id="21_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1070 id="cir_text_21_J"  fill="white" >J</text>
+
+                <circle  cx=90 cy=1118 r=16 id="21_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1122 id="cir_text_21_K"  fill="white" >K</text>
+
+                <circle  cx=235 cy=1118 r=16 id="21_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1122 id="cir_text_21_L"  fill="white" >L</text>
+
+                <circle  cx=90 cy=1170 r=16 id="21_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1174 id="cir_text_21_M"  fill="white" >M</text>
+
+                <circle  cx=235 cy=1170 r=16 id="21_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1174 id="cir_text_21_N"  fill="white" >N</text>
+
+                <circle  cx=90 cy=1222 r=16 id="21_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1226 id="cir_text_21_O"  fill="white" >O</text>
+
+                <circle  cx=235 cy=1222 r=16 id="21_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1226 id="cir_text_21_P"  fill="white" >P</text>
+
+                <circle  cx=90 cy=1274 r=16 id="21_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1278 id="cir_text_21_Q"  fill="white" >Q</text>
+
+                <circle  cx=235 cy=1274 r=16 id="21_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1278 id="cir_text_21_R"  fill="white" >R</text>
+
+                <circle  cx=90 cy=1326 r=16 id="21_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=122 y=1330 id="cir_text_21_S"  fill="white" >S</text>
+
+                <circle  cx=235 cy=1326 r=16 id="21_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=195 y=1330 id="cir_text_21_T"  fill="white" >T</text>
+
+
+
+                <rect  x=382 y=832 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=423 y=1096 fill=white>22</text>
+                <circle  cx=360 cy=858 r=16 id="22_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=862 id="cir_text_22_A"  fill="white" >A</text>
+
+                <circle  cx=505 cy=858 r=16 id="22_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=862 id="cir_text_22_B"  fill="white" >B</text>
+
+                <circle  cx=360 cy=910 r=16 id="22_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=914 id="cir_text_22_C"  fill="white" >C</text>
+
+                <circle  cx=505 cy=910 r=16 id="22_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=914 id="cir_text_22_D"  fill="white" >D</text>
+
+                <circle  cx=360 cy=962 r=16 id="22_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=966 id="cir_text_22_E"  fill="white" >E</text>
+
+                <circle  cx=505 cy=962 r=16 id="22_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=966 id="cir_text_22_F"  fill="white" >F</text>
+
+                <circle  cx=360 cy=1014 r=16 id="22_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1018 id="cir_text_22_G"  fill="white" >G</text>
+
+                <circle  cx=505 cy=1014 r=16 id="22_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1018 id="cir_text_22_H"  fill="white" >H</text>
+
+                <circle  cx=360 cy=1066 r=16 id="22_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1070 id="cir_text_22_I"  fill="white" >I</text>
+
+                <circle  cx=505 cy=1066 r=16 id="22_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1070 id="cir_text_22_J"  fill="white" >J</text>
+
+                <circle  cx=360 cy=1118 r=16 id="22_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1122 id="cir_text_22_K"  fill="white" >K</text>
+
+                <circle  cx=505 cy=1118 r=16 id="22_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1122 id="cir_text_22_L"  fill="white" >L</text>
+
+                <circle  cx=360 cy=1170 r=16 id="22_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1174 id="cir_text_22_M"  fill="white" >M</text>
+
+                <circle  cx=505 cy=1170 r=16 id="22_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1174 id="cir_text_22_N"  fill="white" >N</text>
+
+                <circle  cx=360 cy=1222 r=16 id="22_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1226 id="cir_text_22_O"  fill="white" >O</text>
+
+                <circle  cx=505 cy=1222 r=16 id="22_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1226 id="cir_text_22_P"  fill="white" >P</text>
+
+                <circle  cx=360 cy=1274 r=16 id="22_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1278 id="cir_text_22_Q"  fill="white" >Q</text>
+
+                <circle  cx=505 cy=1274 r=16 id="22_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1278 id="cir_text_22_R"  fill="white" >R</text>
+
+                <circle  cx=360 cy=1326 r=16 id="22_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=392 y=1330 id="cir_text_22_S"  fill="white" >S</text>
+
+                <circle  cx=505 cy=1326 r=16 id="22_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=465 y=1330 id="cir_text_22_T"  fill="white" >T</text>
+
+
+
+                <rect  x=652 y=832 width=101 height=528 style="fill:rgb(255, 255, 255);stroke-width:4;stroke:rgb(255, 255, 255)" />
+                <text x=693 y=1096 fill=white>23</text>
+                <circle  cx=630 cy=858 r=16 id="23_A"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=862 id="cir_text_23_A"  fill="white" >A</text>
+
+                <circle  cx=775 cy=858 r=16 id="23_B"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=862 id="cir_text_23_B"  fill="white" >B</text>
+
+                <circle  cx=630 cy=910 r=16 id="23_C"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=914 id="cir_text_23_C"  fill="white" >C</text>
+
+                <circle  cx=775 cy=910 r=16 id="23_D"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=914 id="cir_text_23_D"  fill="white" >D</text>
+
+                <circle  cx=630 cy=962 r=16 id="23_E"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=966 id="cir_text_23_E"  fill="white" >E</text>
+
+                <circle  cx=775 cy=962 r=16 id="23_F"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=966 id="cir_text_23_F"  fill="white" >F</text>
+
+                <circle  cx=630 cy=1014 r=16 id="23_G"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1018 id="cir_text_23_G"  fill="white" >G</text>
+
+                <circle  cx=775 cy=1014 r=16 id="23_H"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1018 id="cir_text_23_H"  fill="white" >H</text>
+
+                <circle  cx=630 cy=1066 r=16 id="23_I"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1070 id="cir_text_23_I"  fill="white" >I</text>
+
+                <circle  cx=775 cy=1066 r=16 id="23_J"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1070 id="cir_text_23_J"  fill="white" >J</text>
+
+                <circle  cx=630 cy=1118 r=16 id="23_K"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1122 id="cir_text_23_K"  fill="white" >K</text>
+
+                <circle  cx=775 cy=1118 r=16 id="23_L"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1122 id="cir_text_23_L"  fill="white" >L</text>
+
+                <circle  cx=630 cy=1170 r=16 id="23_M"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1174 id="cir_text_23_M"  fill="white" >M</text>
+
+                <circle  cx=775 cy=1170 r=16 id="23_N"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1174 id="cir_text_23_N"  fill="white" >N</text>
+
+                <circle  cx=630 cy=1222 r=16 id="23_O"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1226 id="cir_text_23_O"  fill="white" >O</text>
+
+                <circle  cx=775 cy=1222 r=16 id="23_P"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1226 id="cir_text_23_P"  fill="white" >P</text>
+
+                <circle  cx=630 cy=1274 r=16 id="23_Q"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1278 id="cir_text_23_Q"  fill="white" >Q</text>
+
+                <circle  cx=775 cy=1274 r=16 id="23_R"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1278 id="cir_text_23_R"  fill="white" >R</text>
+
+                <circle  cx=630 cy=1326 r=16 id="23_S"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=662 y=1330 id="cir_text_23_S"  fill="white" >S</text>
+
+                <circle  cx=775 cy=1326 r=16 id="23_T"  style="cursor: pointer; "   stroke= "black" stroke-width= "4"  fill="yellow" />
+                <text x=735 y=1330 id="cir_text_23_T"  fill="white" >T</text>
+
+
+
+                <rect  x=670 y=5 width= "220" height= "29" 
+                     id= "button_send_email"  style="fill:white;stroke-width:1;stroke:black"></rect>
+                <image  x=680 y=6 width= "168px" height= "26px"  id= "text_image_send_email" 
+                     style="cursor: pointer; "
+                     onmousedown="mouseDownSendEmailOrMakeReservationText()" 
+                     xlink:href= "ImagesApp/text_reserve_select_undef.png" >
+                         <title>Sitzplätze reservieren: 
+        Die Reservation wird registriert und eine Bestätigungs-E-Mail wird gesendet.</title> 
+                 </image>
+
+            </svg>
+            </td></tr>
+            <tr><td>
+                <img id="id_sponsor_image" src="ImagesLayout/jazz_live_aarau_sponsor_logos.png" alt="Sponsoren"  height= "100px" >
+                <div id="id_reservation_close_window_text"> </div>
+            </td></tr>
+        </tbody></table>
+    </body>
+
+</html>
