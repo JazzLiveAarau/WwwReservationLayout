@@ -629,7 +629,7 @@ function createTextBoxMainDirectory()
 {
     g_layout_main_dir_text_box = new JazzTextBox("id_season_main_dir", 'id_div_season_main_dir');
 
-    g_layout_main_dir_text_box.setLabelText("ReservationLayout / Reservation");
+    g_layout_main_dir_text_box.setLabelText("1. ReservationLayout / Reservation");
 
     g_layout_main_dir_text_box.setLabelTextPositionAbove();
 
@@ -639,7 +639,7 @@ function createTextBoxMainDirectory()
 
     g_layout_main_dir_text_box.setOninputFunctionName("onInputMainDirectoryName");
 
-    g_layout_main_dir_text_box.setTitle("Für Release Ordner Reservation eingeben");
+    g_layout_main_dir_text_box.setTitle("Schritt 1: Für new (Test) Ordner ReservationLayout eingeben. Für Release Ordner Reservation eingeben");
 
 } // createTextBoxMainDirectory
 
@@ -648,7 +648,7 @@ function createTextBoxResultDirectory()
 {
     g_layout_server_dir_text_box = new JazzTextBox("id_season_result_dir", 'id_div_season_result_dir');
 
-    g_layout_server_dir_text_box.setLabelText("Ordner für Konzertsaal-Sitzplan");
+    g_layout_server_dir_text_box.setLabelText("2. Ordner für Konzertsaal-Sitzplan");
 
     g_layout_server_dir_text_box.setLabelTextPositionAbove();
 
@@ -658,7 +658,7 @@ function createTextBoxResultDirectory()
 
     g_layout_server_dir_text_box.setOninputFunctionName("onInputResultDirectoryName");
 
-    g_layout_server_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
+    g_layout_server_dir_text_box.setTitle("Schritt 2: Name des Server-Ordners für den neuen Konzertsaal.");
 
 } // createTextBoxResultDirectory
 
@@ -669,13 +669,13 @@ function copyDirFilesButton()
 
     g_copy_dir_files_button.setOnclickFunctionName("onClickCopyDirFilesButton");
 
-    g_copy_dir_files_button.setCaption('Dateien für das Layout kopieren');
+    g_copy_dir_files_button.setCaption('3. Initialisierung des Layouts');
 
     g_copy_dir_files_button.setLabelText("");
 
     g_copy_dir_files_button.setWidth("250px");
 
-    g_copy_dir_files_button.setTitle('Dateien für das Layout kopieren');
+    g_copy_dir_files_button.setTitle('Schritt 3: Ordner kreieren und Dateien für das Layout kopieren');
 
 } // copyDirFilesButton
 
@@ -692,7 +692,7 @@ function createTextBoxXmlFilename()
 
     g_xml_filename_text_box.setReadOnlyFlag(true);
 
-    g_xml_filename_text_box.setTitle("Zeigt der Name der Layout XML Datei");
+    g_xml_filename_text_box.setTitle("Zeigt der Name der Layout XML Datei, die das Lokal definiert");
 
     g_xml_filename_text_box.setClass('cl_upload_download_xml_textbox');
 
@@ -726,13 +726,13 @@ function createLayoutFileslButton()
 
     g_create_layout_files_button.setOnclickFunctionName("onClickCreateLayoutFilesButton");
 
-    g_create_layout_files_button.setCaption('Dateien für das Layout generieren');
+    g_create_layout_files_button.setCaption('5. Dateien des Layouts generieren');
 
     g_create_layout_files_button.setLabelText("");
 
     g_create_layout_files_button.setWidth("250px");
 
-    g_create_layout_files_button.setTitle('Alle Dateien für das neue Layout generieren');
+    g_create_layout_files_button.setTitle('Schritt 5: Alle Dateien für das neue Layout generieren');
 
 } // createLayoutFileslButton
 
@@ -743,13 +743,13 @@ function createUploadXmlButton()
 
     g_upload_xml_button.setOnclickFunctionName("onClickUploadXmlFileButton");
 
-    g_upload_xml_button.setCaption('Upload');
+    g_upload_xml_button.setCaption('4. Upload');
 
     g_upload_xml_button.setLabelText("");
 
     g_upload_xml_button.setWidth("76px");
 
-    g_upload_xml_button.setTitle('Layout XML Datei hochladen');
+    g_upload_xml_button.setTitle('Scritt 4: Layout XML Datei hochladen. Die Datei definiert das Lokal');
 
 } // createUploadXmlButton
 
