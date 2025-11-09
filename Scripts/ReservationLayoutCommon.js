@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2024-12-14
+// Date: 2025-11-09
 // Authors: Gunnar Lidén
 
 // Content
@@ -703,6 +703,8 @@ class CashierData
        // An instance of this class to be used for case set_xml_object
        this.m_input_data_object = i_input_data_object;
 
+       this.m_cashier_is_defined = false;
+
        this.m_upper_left_x = "";
        this.m_upper_left_y = "";
 	   this.m_image = "";
@@ -727,6 +729,10 @@ class CashierData
 
     } // execute
 
+    // Get and set cashier is defined
+    cashierIsDefined(){return this.m_cashier_is_defined;}
+    setCashierIsDefined(i_cashier_is_defined){this.m_cashier_is_defined = i_cashier_is_defined;}
+
     // Get and set functions for the member variables
     getUpperLeftX(){ return this.m_upper_left_x; }
     setUpperLeftX(i_upper_left_x){ this.m_upper_left_x = i_upper_left_x; }
@@ -746,12 +752,21 @@ class CashierData
     // Sets the dat from the XML object m_layout_xml
     setDataFromXml()
     {
-        this.m_upper_left_x = this.m_layout_xml.getCashUpperLeftX();
-        this.m_upper_left_y = this.m_layout_xml.getCashUpperLeftY();
-		this.m_image = this.m_layout_xml.getCashImage();
-		this.m_image_width = this.m_layout_xml.getCashImageWidth();
-		this.m_image_height = this.m_layout_xml.getCashImageHeight();
- 
+        if (this.m_layout_xml.cashierIsDefined())
+        {
+            this.setCashierIsDefined(true);
+
+            this.m_upper_left_x = this.m_layout_xml.getCashUpperLeftX();
+            this.m_upper_left_y = this.m_layout_xml.getCashUpperLeftY();
+            this.m_image = this.m_layout_xml.getCashImage();
+            this.m_image_width = this.m_layout_xml.getCashImageWidth();
+            this.m_image_height = this.m_layout_xml.getCashImageHeight();
+        }
+        else
+        {
+            this.setCashierIsDefined(false);
+        }
+
     } // setDataFromXml
 
     // Checks the data

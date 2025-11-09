@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2024-12-06
+// Date: 2025-11-09
 // Author: Gunnar Lidén
 
 // File content
@@ -843,6 +843,50 @@ class ReservationLayoutXml
     /////// End Set Layout Functions //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Are Xml Elements Defined Functions //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Returns true if cashier desk is defined
+    cashierIsDefined()
+    {
+        var cash_upper_left_x_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashUpperLeftX());
+        var n_cash_upper_left_x = cash_upper_left_x_rec_nodes.length;
+
+        var cash_upper_left_y_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashUpperLeftY());
+        var n_cash_upper_left_y = cash_upper_left_y_rec_nodes.length;
+
+        var cash_image_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashImage());
+        var n_cash_image = cash_image_rec_nodes.length;
+
+        var cash_image_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashImageWidth());
+        var n_cash_image_width = cash_image_width_rec_nodes.length;
+
+        var cash_image_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashImageHeight());
+        var n_cash_image_height = cash_image_height_rec_nodes.length;
+
+        var n_sum = n_cash_upper_left_x + n_cash_upper_left_y + n_cash_image + n_cash_image_width + n_cash_image_height;
+
+        if (n_sum > 0 && n_sum < 5)
+        {
+            alert("ReservationLayoutXml.cashierIsDefined Warning Cashier data is not OK");
+        }
+
+        if (1 == n_cash_upper_left_x && 1 == n_cash_upper_left_y && 1 == n_cash_image && 
+            1 == n_cash_image_width && 1 == n_cash_image_height)
+        {
+            return true;
+        }
+        else
+        { 
+            return false;
+        }
+        
+    } // cashierIsDefined
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Are Xml Elements Defined Functions ////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
 
     ///////////////////////////////////////////////////////////////////////////

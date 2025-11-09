@@ -738,6 +738,15 @@ class CashierSvg
 
        // Get cashier data from the layout XML file    
         var cashier_data = getCashierDataFromXml(this.m_layout_xml);	
+
+        var b_cashier_defined = cashier_data.cashierIsDefined();
+        if (!b_cashier_defined)
+        {
+            this.m_svg_code = '';
+
+            return;
+        }
+
         var cashier_upper_left_x = cashier_data.getUpperLeftX();
         var cashier_upper_left_y = cashier_data.getUpperLeftY();
         var cashier_image =        cashier_data.getImage();		
