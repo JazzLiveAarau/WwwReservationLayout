@@ -1,5 +1,5 @@
 // File: UtilCopyArray.js
-// Date: 2025-06-16
+// Date: 2025-11-09
 // Author: Gunnar Lidén
 
 // File content
@@ -24,6 +24,13 @@ class UtilCopyArray
     static copyFilesCreateDirs()
     {
         UtilCopyArray.debug("copyFilesCreateDirs", "Enter");
+
+        if (!UtilUrl.execApplicationOnServer())
+        {
+            alert("UtilCopyArray.copyFilesCreateDirs Execution with Live Server is not possible");
+
+            return;
+        }
 
         UtilCopyArray.checkInput(g_util_copy_array_data);
 

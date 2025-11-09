@@ -1,6 +1,7 @@
 
 // DO NOT MAKE ANY CHANGES IN THIS FILE. THE FILED WAS MOVED (COPIED) TO 
 // PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE
+// Change made 20251109. See below !!!!!!!!!!!!!!!!!!!!
 
 // File: UtilUrl.js
 // Date: 2025-01-16 2025-06-15 debug added
@@ -777,7 +778,8 @@ class UtilUrl
     {
         var current_base = window.location.href;
 
-        var vs_live_server_url = '127.0.0.1:5500';
+        //20251109 var vs_live_server_url = '127.0.0.1:5500';
+        var vs_live_server_url = '127.0.0.1:';
     
         var index_url = current_base.indexOf(vs_live_server_url);
     

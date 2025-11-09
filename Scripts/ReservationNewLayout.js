@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-06-16
+// Date: 2025-11-09
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -8,6 +8,13 @@
 //      Make the same for PhpLayout
 //      Change references in ReservationLayoutHtml.js to subdirectories Libs
 //      Change references for PHP to subdirectory Php
+// TODO 2025-11-09
+//      - Change resrvation scripts so that Events.Xml is used
+//      - Change the creation of the HTML code so that the defintion data (image file name) is used
+//        Make it also allowed that cashier data not is defined (and stage, doors, ....)
+//      - Season Program not OK ???
+//      - Save Xml.php is missing
+//      - Allow only one concert/event ??
 
 // Inhalt
 // =============
