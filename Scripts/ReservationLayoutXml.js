@@ -847,7 +847,7 @@ class ReservationLayoutXml
     /////// Start Are Xml Elements Defined Functions //////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    // Returns true if cashier desk is defined
+    // Returns true if the cashier desk is defined in the XML file
     cashierIsDefined()
     {
         var cash_upper_left_x_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getCashUpperLeftX());
@@ -883,6 +883,142 @@ class ReservationLayoutXml
         }
         
     } // cashierIsDefined
+
+    // Returns true if the stage is defined in the XML file
+    stageIsDefined()
+    {
+        var stage_upper_left_x_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageUpperLeftX());
+        var n_stage_upper_left_x = stage_upper_left_x_rec_nodes.length;
+
+        var stage_upper_left_y_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageUpperLeftY());
+        var n_stage_upper_left_y = stage_upper_left_y_rec_nodes.length;
+
+        var stage_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageWidth());
+        var n_stage_width = stage_width_rec_nodes.length;
+
+        var stage_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageHeight());
+        var n_stage_height = stage_height_rec_nodes.length;
+
+        var stage_text_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageText());
+        var n_stage_text = stage_text_rec_nodes.length;
+
+        var stage_color_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageColor());
+        var n_stage_color = stage_color_rec_nodes.length;
+
+        var stage_stroke_color_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageStrokeColor());
+        var n_stage_stroke_color = stage_stroke_color_rec_nodes.length;
+
+        var stage_stroke_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageStrokeWidth());
+        var n_stage_stroke_width = stage_stroke_width_rec_nodes.length;
+
+        var stage_text_rel_procent_x_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageTextRelXProcent());
+        var n_text_rel_procent_x = stage_text_rel_procent_x_rec_nodes.length;
+
+        var stage_text_rel_procent_y_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageTextRelYProcent());
+        var n_text_rel_procent_y = stage_text_rel_procent_y_rec_nodes.length;
+
+        var stage_text_color_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageTextColor());
+        var n_stage_text_color = stage_text_color_rec_nodes.length;
+
+        var stage_image_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageImage());
+        var n_stage_image = stage_image_rec_nodes.length;
+
+        var stage_image_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageImageWidth());
+        var n_stage_image_width = stage_image_width_rec_nodes.length;
+
+        var stage_image_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageImageHeight());
+        var n_stage_image_height = stage_image_height_rec_nodes.length;
+
+        var n_sum = n_stage_upper_left_x + n_stage_upper_left_y + n_stage_width + n_stage_height +
+                    n_stage_text + n_stage_color + n_stage_stroke_color + n_stage_stroke_width +
+                    n_text_rel_procent_x + n_text_rel_procent_y + n_stage_text_color +
+                    n_stage_image + n_stage_image_width + n_stage_image_height;
+
+        if (n_sum > 0 && n_sum < 14)
+        {
+            alert("ReservationLayoutXml.stageIsDefined Warning Stage data is not OK");
+        }
+
+        if (1 == n_stage_upper_left_x && 1 == n_stage_upper_left_y && 1 == n_stage_width && n_stage_height &&
+            1 == n_stage_text && 1 == n_stage_color && 1 == n_stage_stroke_color && 1 == n_stage_stroke_width &&
+            1 == n_text_rel_procent_x && 1 == n_text_rel_procent_y && 1 == n_stage_text_color && 
+            1 == n_stage_image && 1 == n_stage_image_width && 1 == n_stage_image_height )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    } // stageIsDefined
+
+    // Returns true if the organizer data is defined in the XML file
+    organizerIsDefined()
+    {
+        var organizer_name_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerName());
+        var n_organizer_name = organizer_name_rec_nodes.length;
+
+        var organizer_text_logo_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerTextLogo());
+        var n_organizer_text_logo = organizer_text_logo_rec_nodes.length;
+
+        var organizer_text_logo_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerTextLogoWidth());
+        var n_organizer_text_logo_width = organizer_text_logo_width_rec_nodes.length;
+
+        var organizer_text_logo_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerTextLogoHeight());
+        var n_organizer_text_logo_height = organizer_text_logo_height_rec_nodes.length;
+
+        var organizer_logo_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerLogo());
+        var n_organizer_logo = organizer_logo_rec_nodes.length;
+
+        var organizer_logo_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerLogoWidth());
+        var n_organizer_logo_width = organizer_logo_width_rec_nodes.length;
+
+        var organizer_logo_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getOrganizerLogoHeight());
+        var n_organizer_logo_height = organizer_logo_height_rec_nodes.length;
+
+         var n_sum = n_organizer_name + n_organizer_text_logo + n_organizer_text_logo_width + n_organizer_text_logo_height +
+                     n_organizer_logo + n_organizer_logo_width + n_organizer_logo_height;
+
+        if (n_sum > 0 && n_sum < 7)
+        {
+            alert("ReservationLayoutXml.organizerIsDefined Warning Organizer data is not OK");
+        }
+
+        if (1 == n_organizer_name && 1 == n_organizer_text_logo && 1 == n_organizer_text_logo_width && 1 == n_organizer_text_logo_height &&
+            1 == n_organizer_logo && 1 == n_organizer_logo_width && 1 == n_organizer_logo_height )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    } // organizerIsDefined
+
+    // Returns true if the sponsor data is defined in the XML file
+    sponsorIsDefined()
+    {
+        var sponsor_image_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getSponsorsImage());
+        var n_sponsor_image = sponsor_image_rec_nodes.length;
+
+        var sponsor_image_width_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getSponsorsImageWidth());
+        var n_sponsor_image_width = sponsor_image_width_rec_nodes.length;
+
+        var sponsor_image_height_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getSponsorsImageHeight());
+        var n_sponsor_image_height = sponsor_image_height_rec_nodes.length;
+
+        if (1 == n_sponsor_image && 1 == n_sponsor_image_width && 1 == n_sponsor_image_height)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    } // sponsorIsDefined
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Are Xml Elements Defined Functions ////////////////////////////
@@ -3057,6 +3193,8 @@ class ReservationLayoutTags
     getOrganizerLogo(){return this.m_tag_organizer_logo;}
     getOrganizerLogoWidth(){return this.m_tag_organizer_logo_width;}
     getOrganizerLogoHeight(){return this.m_tag_organizer_logo_height;}
+
+    // Sponsor data
     getSponsorsImage(){return this.m_tag_sponsors_image;}
     getSponsorsImageWidth(){return this.m_tag_sponsors_image_width;}
     getSponsorsImageHeight(){return this.m_tag_sponsors_image_height;}

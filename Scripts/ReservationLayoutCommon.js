@@ -38,6 +38,9 @@ class PremisesData
        this.m_wall_thickness = -12345;
        this.m_max_width_pixel = -12345;  
        this.m_max_reservation_procent = -12345;
+
+       this.m_organizer_is_defined = false;
+
        this.m_organizer_name = "";
        this.m_organizer_text_logo = "";
        this.m_organizer_text_logo_width = "";
@@ -45,6 +48,9 @@ class PremisesData
        this.m_organizer_logo = "";
        this.m_organizer_logo_width = "";
        this.m_organizer_logo_height = "";
+
+       this.m_sponsor_is_defined = false;
+
        this.m_sponsors_image = "";
        this.m_sponsors_image_width = "";
        this.m_sponsors_image_height = "";
@@ -66,6 +72,14 @@ class PremisesData
         }
 
     } // execute
+
+    // Get and set organizer is defined
+    organizerIsDefined(){return this.m_organizer_is_defined;}
+    setOrganizerIsDefined(i_organizer_is_defined){this.m_organizer_is_defined = i_organizer_is_defined;}
+
+    // Get and set sponsor is defined
+    sponsorIsDefined(){return this.m_sponsor_is_defined;}
+    setSponsorIsDefined(i_sponsor_is_defined){this.m_sponsor_is_defined = i_sponsor_is_defined;}
 
     // Get and set functions for the member variables
     getName(){ return this.m_name; }
@@ -131,16 +145,37 @@ class PremisesData
 
         this.m_max_reservation_procent = parseInt(this.m_layout_xml.getMaxReservationsProcent());
 
-        this.m_organizer_name = this.m_layout_xml.getOrganizerName();
-        this.m_organizer_text_logo = this.m_layout_xml.getOrganizerTextLogo();
-        this.m_organizer_text_logo_width = this.m_layout_xml.getOrganizerTextLogoWidth();
-        this.m_organizer_text_logo_height = this.m_layout_xml.getOrganizerTextLogoHeight();
-        this.m_organizer_logo = this.m_layout_xml.getOrganizerLogo();
-        this.m_organizer_logo_width = this.m_layout_xml.getOrganizerLogoWidth();
-        this.m_organizer_logo_height = this.m_layout_xml.getOrganizerLogoHeight();
-        this.m_sponsors_image = this.m_layout_xml.getSponsorsImage();
-        this.m_sponsors_image_width = this.m_layout_xml.getSponsorsImageWidth();
-        this.m_sponsors_image_height = this.m_layout_xml.getSponsorsImageHeight();
+        if (this.m_layout_xml.organizerIsDefined())
+        {
+            this.setOrganizerIsDefined(true);
+
+            this.m_organizer_name = this.m_layout_xml.getOrganizerName();
+            this.m_organizer_text_logo = this.m_layout_xml.getOrganizerTextLogo();
+            this.m_organizer_text_logo_width = this.m_layout_xml.getOrganizerTextLogoWidth();
+            this.m_organizer_text_logo_height = this.m_layout_xml.getOrganizerTextLogoHeight();
+            this.m_organizer_logo = this.m_layout_xml.getOrganizerLogo();
+            this.m_organizer_logo_width = this.m_layout_xml.getOrganizerLogoWidth();
+            this.m_organizer_logo_height = this.m_layout_xml.getOrganizerLogoHeight();
+
+         }
+         else
+         {
+            this.setOrganizerIsDefined(false);
+         }
+
+        if (this.m_layout_xml.sponsorIsDefined())
+        {
+            this.setSponsorIsDefined(true);
+
+            this.m_sponsors_image = this.m_layout_xml.getSponsorsImage();
+            this.m_sponsors_image_width = this.m_layout_xml.getSponsorsImageWidth();
+            this.m_sponsors_image_height = this.m_layout_xml.getSponsorsImageHeight();
+
+         }
+         else
+         {
+            this.setSponsorIsDefined(false);
+         }
 
     } // setDataFromXml
 
@@ -535,6 +570,8 @@ class StageData
        // An instance of this class to be used for case set_xml_object
        this.m_input_data_object = i_input_data_object;
 
+       this.m_stage_is_defined = false;
+
         this.m_upper_left_x = "";
         this.m_upper_left_y = "";
         this.m_width = "";
@@ -567,6 +604,10 @@ class StageData
         }
 
     } // execute
+
+    // Get and set cashier is defined
+    stageIsDefined(){return this.m_stage_is_defined;}
+    setStageIsDefined(i_stage_is_defined){this.m_stage_is_defined = i_stage_is_defined;}
 
     // Get and set functions for the member variables
     getUpperLeftX(){ return this.m_upper_left_x; }
@@ -614,20 +655,30 @@ class StageData
     // Sets the dat from the XML object m_layout_xml
     setDataFromXml()
     {
-        this.m_upper_left_x = this.m_layout_xml.getStageUpperLeftX();
-        this.m_upper_left_y = this.m_layout_xml.getStageUpperLeftY();
-        this.m_width = this.m_layout_xml.getStageWidth();
-        this.m_height = this.m_layout_xml.getStageHeight();
-        this.m_text = this.m_layout_xml.getStageText();
-        this.m_color = this.m_layout_xml.getStageColor();
-        this.m_stroke_color = this.m_layout_xml.getStageStrokeColor();
-        this.m_stroke_width = this.m_layout_xml.getStageStrokeWidth();
-        this.m_text_rel_x_procent = this.m_layout_xml.getStageTextRelXProcent();
-        this.m_text_rel_y_procent = this.m_layout_xml.getStageTextRelYProcent();
-        this.m_text_color = this.m_layout_xml.getStageTextColor();
-        this.m_image = this.m_layout_xml.getStageImage();
-        this.m_image_width = this.m_layout_xml.getStageImageWidth();
-        this.m_image_height = this.m_layout_xml.getStageImageHeight();
+        if (this.m_layout_xml.stageIsDefined())
+        {
+            this.setStageIsDefined(true);
+
+            this.m_upper_left_x = this.m_layout_xml.getStageUpperLeftX();
+            this.m_upper_left_y = this.m_layout_xml.getStageUpperLeftY();
+            this.m_width = this.m_layout_xml.getStageWidth();
+            this.m_height = this.m_layout_xml.getStageHeight();
+            this.m_text = this.m_layout_xml.getStageText();
+            this.m_color = this.m_layout_xml.getStageColor();
+            this.m_stroke_color = this.m_layout_xml.getStageStrokeColor();
+            this.m_stroke_width = this.m_layout_xml.getStageStrokeWidth();
+            this.m_text_rel_x_procent = this.m_layout_xml.getStageTextRelXProcent();
+            this.m_text_rel_y_procent = this.m_layout_xml.getStageTextRelYProcent();
+            this.m_text_color = this.m_layout_xml.getStageTextColor();
+            this.m_image = this.m_layout_xml.getStageImage();
+            this.m_image_width = this.m_layout_xml.getStageImageWidth();
+            this.m_image_height = this.m_layout_xml.getStageImageHeight();
+        }
+        else
+        {
+            this.setStageIsDefined(false);
+        }
+
 
     } // setDataFromXml
 

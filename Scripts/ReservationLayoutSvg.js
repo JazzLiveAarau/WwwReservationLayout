@@ -474,6 +474,8 @@ class PremisesSvg
         var premises_width = premises_data.getWidth(); 
         var premises_height = premises_data.getHeight();
         var wall_thickness = premises_data.getWallThickness();
+
+        // TODO premises_data.organizerIsDefined
         var organizer_name = premises_data.getOrganizerName();
         var organizer_text_logo = premises_data.getOrganizerTextLogo();
        
@@ -615,6 +617,14 @@ class StageSvg
     
         // Get stage data from the layout XML file    
         var stage_data = getStageDataFromXml(this.m_layout_xml);
+
+        var b_stage_defined = stage_data.stageIsDefined();
+        if (!b_stage_defined)
+        {
+            this.m_svg_code = '';
+
+            return;
+        }
 
         var stage_upper_left_x = stage_data.getUpperLeftX();
         var stage_upper_left_y = stage_data.getUpperLeftY();
