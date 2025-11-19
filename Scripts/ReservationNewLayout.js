@@ -148,7 +148,7 @@ function getUtilFilesPhpDir()
 // Copy directories and files for the new layout
 // 1. Create object holding all the data for the copying of files
 //    Instance of the class UtilCopyArrayData
-// 2. Set orgin and target directories
+// 2. Set origin and target directories
 //    Call UtilCopyArrayData.setAbsoluteOriginDirUrl
 //    Call UtilCopyArrayData.setAbsoluteTargetDirUrl
 //    Call UtilCopyArrayData.setAbsoluteTargetPhpDirUrl
