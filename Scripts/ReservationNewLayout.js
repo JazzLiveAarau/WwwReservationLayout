@@ -159,9 +159,16 @@ function getUtilFilesPhpDir()
 // 4. Set absolute target directory URLs
 //    Call of UtilCopyArrayData.setAbsoluteTargetDirArray
 // 5. Create origin an target file names arrays with relative URLs
-//    ImagesApp/text_add_reservation.png, ImagesApp/text_delete_off.png, etc.
-//    ImagesLayout/text_add_reservation.png, ImagesLayout/text_delete_off.png, etc.
-//    
+//    ImagesApp     to ImagesApp:     Button captions as images
+//    ImagesLayout  to ImagesLayout:  Images on the layout
+//    ScriptsLayout to Libs:          JavaScripts
+//    PhpLayout     to Php:           Resevation Php files
+// 6. Set origin, target and delete origin arrays
+//    Call UtilCopyArrayData.setOriginFileUrlArray
+//    Call UtilCopyArrayData.setTargetFileUrlArray
+//    Call UtilCopyArrayData.setBoolDeleteOriginFileArrayToFalse
+// 7. Copy server files
+//    Call of UtilCopyArray.copyFilesCreateDirs(g_util_copy_array_data)
 function execCopyDirFiles()
 {
     var domain_url = 'https://jazzliveaarau.ch/';
@@ -196,10 +203,6 @@ function execCopyDirFiles()
 
      var rel_target_dir_array = [];
 
-     // rel_target_dir_array[0] = domain_url + target_url + 'XML/';
-
-     // rel_target_dir_array[1] = domain_url + target_url + 'SaisonXML/';
-
      rel_target_dir_array[0] = 'XML/';
 
      rel_target_dir_array[1] = 'SaisonXML/';
@@ -219,50 +222,52 @@ function execCopyDirFiles()
       var target_files_array = [];
 
     var images_app_dir = 'ImagesApp/';
-    origin_files_array[ 0] = images_app_dir + 'text_add_reservation.png';
-    origin_files_array[ 1] = images_app_dir + 'text_delete_off.png';
-    origin_files_array[ 2] = images_app_dir + 'text_delete_on.png';
-    origin_files_array[ 3] = images_app_dir + 'text_reservation_display.png';
-    origin_files_array[ 4] = images_app_dir + 'text_reservation_list.png';
-    origin_files_array[ 5] = images_app_dir + 'text_reservation_print.png';
-    origin_files_array[ 6] = images_app_dir + 'text_reserve_seats.png';
-    origin_files_array[ 7] = images_app_dir + 'text_reserve_select_undef.png';
-    origin_files_array[ 8] = images_app_dir + 'text_save_reservation.png';
-    origin_files_array[ 9] = images_app_dir + 'text_save_reservation_white.png';
-    origin_files_array[10] = images_app_dir + 'text_select_seats.png';
-    target_files_array[ 0] = origin_files_array[ 0];
-    target_files_array[ 1] = origin_files_array[ 1];
-    target_files_array[ 2] = origin_files_array[ 2];
-    target_files_array[ 3] = origin_files_array[ 3];
-    target_files_array[ 4] = origin_files_array[ 4];
-    target_files_array[ 5] = origin_files_array[ 5];
-    target_files_array[ 6] = origin_files_array[ 6];
-    target_files_array[ 7] = origin_files_array[ 7];
-    target_files_array[ 8] = origin_files_array[ 8];
-    target_files_array[ 9] = origin_files_array[ 9];
-    target_files_array[10] = origin_files_array[10];
 
+    origin_files_array.push(images_app_dir + 'text_add_reservation.png');
+    target_files_array.push(images_app_dir + 'text_add_reservation.png');
+    origin_files_array.push(images_app_dir + 'text_delete_off.png');
+    target_files_array.push(images_app_dir + 'text_delete_off.png');
+    origin_files_array.push(images_app_dir + 'text_delete_on.png');
+    target_files_array.push(images_app_dir + 'text_delete_on.png');
+    origin_files_array.push(images_app_dir + 'text_reservation_display.png');
+    target_files_array.push(images_app_dir + 'text_reservation_display.png');
+    origin_files_array.push(images_app_dir + 'text_reservation_list.png');
+    target_files_array.push(images_app_dir + 'text_reservation_list.png');
+    origin_files_array.push(images_app_dir + 'text_reservation_print.png');
+    target_files_array.push(images_app_dir + 'text_reservation_print.png');
+    origin_files_array.push(images_app_dir + 'text_reserve_seats.png');
+    target_files_array.push(images_app_dir + 'text_reserve_seats.png');
+    origin_files_array.push(images_app_dir + 'text_reserve_select_undef.png');
+    target_files_array.push(images_app_dir + 'text_reserve_select_undef.png');
+    origin_files_array.push(images_app_dir + 'text_add_reservation.png');
+    target_files_array.push(images_app_dir + 'text_add_reservation.png');
+    origin_files_array.push(images_app_dir + 'text_save_reservation.png');
+    target_files_array.push(images_app_dir + 'text_save_reservation.png');
+    origin_files_array.push(images_app_dir + 'text_save_reservation_white.png');
+    target_files_array.push(images_app_dir + 'text_save_reservation_white.png');
+    origin_files_array.push(images_app_dir + 'text_select_seats.png');
+    target_files_array.push(images_app_dir + 'text_select_seats.png');
 
     var images_layout = 'ImagesLayout/';
-    origin_files_array[11] = images_layout + 'icon_cash_desk.png';
-    origin_files_array[12] = images_layout + 'icon_door_back.png';
-    origin_files_array[13] = images_layout + 'icon_door_main.png';
-    origin_files_array[14] = images_layout + 'icon_door_staff.png';
-    origin_files_array[15] = images_layout + 'icon_stage.png';
-    origin_files_array[16] = images_layout + 'jazz_live_aarau_logo.png';
-    origin_files_array[17] = images_layout + 'jazz_live_aarau_sponsor_logos.png';
-    origin_files_array[18] = images_layout + 'jazz_live_aarau_text_logo.png';
-    target_files_array[11] = origin_files_array[11];
-    target_files_array[12] = origin_files_array[12];
-    target_files_array[13] = origin_files_array[13];
-    target_files_array[14] = origin_files_array[14];
-    target_files_array[15] = origin_files_array[15];
-    target_files_array[16] = origin_files_array[16];
-    target_files_array[17] = origin_files_array[17];
-    target_files_array[18] = origin_files_array[18];
+
+    origin_files_array.push(images_layout + 'icon_cash_desk.png');
+    target_files_array.push(images_layout + 'icon_cash_desk.png');
+    origin_files_array.push(images_layout + 'icon_door_back.png');
+    target_files_array.push(images_layout + 'icon_door_back.png');
+    origin_files_array.push(images_layout + 'icon_door_main.png');
+    target_files_array.push(images_layout + 'icon_door_main.png');
+    origin_files_array.push(images_layout + 'icon_door_staff.png');
+    target_files_array.push(images_layout + 'icon_door_staff.png');
+    origin_files_array.push(images_layout + 'icon_stage.png');
+    target_files_array.push(images_layout + 'icon_stage.png');
+    origin_files_array.push(images_layout + 'jazz_live_aarau_logo.png');
+    target_files_array.push(images_layout + 'jazz_live_aarau_logo.png');
+    origin_files_array.push(images_layout + 'jazz_live_aarau_sponsor_logos.png');
+    target_files_array.push(images_layout + 'jazz_live_aarau_sponsor_logos.png');
+    origin_files_array.push(images_layout + 'jazz_live_aarau_text_logo.png');
+    target_files_array.push(images_layout + 'jazz_live_aarau_text_logo.png');
 
     var scripts_origin = 'ScriptsLayout/';
-
     var scripts_target = 'Libs/';
 
     origin_files_array.push(scripts_origin + 'CoronaForm.js');
@@ -287,7 +292,6 @@ function execCopyDirFiles()
     target_files_array.push(scripts_target + 'ReservationXmlTags.js');
 
     var php_origin = 'PhpLayout/';
-
     var php_target = 'Php/';
 
     origin_files_array.push(php_origin + 'SendEmail.php');
@@ -298,41 +302,6 @@ function execCopyDirFiles()
     target_files_array.push(php_target + 'SaveXml.php');
 
     /* TODO Find another solution
-
-    The file ReservationLayoutHtml.js defines the scripts that the reservation system needs,
-    i.e. the HTML files in the resulting directory 
-
-    There is already a subdirectory Reservation in the Scripts directory
-    There should all javascript files be that is used by the reservation system
-    Some javascript files are files are probably not used in scripts/Reservation/
-
-    Copying shall be made from scripts/Reservation/
-
-    A similar solution should be made for the PHP files
-
-    origin_files_array[19] = domain_url + origin_script_url + 'Reservation.js';
-    target_files_array[19] = domain_url + target_script_url + 'Reservation.js';
-    origin_files_array[20] = domain_url + origin_script_url + 'ReservationXmlTags.js';
-    target_files_array[20] = domain_url + target_script_url + 'ReservationXmlTags.js';
-    origin_files_array[21] = domain_url + origin_script_url + 'ReservationConcerts.js';
-    target_files_array[21] = domain_url + target_script_url + 'ReservationConcerts.js';
-    origin_files_array[22] = domain_url + origin_script_url + 'ReservationEmail.js';
-    target_files_array[22] = domain_url + target_script_url + 'ReservationEmail.js';
-    origin_files_array[23] = domain_url + origin_script_url + 'ReservationFiles.js';
-    target_files_array[23] = domain_url + target_script_url + 'ReservationFiles.js';
-    origin_files_array[24] = domain_url + origin_script_url + 'ReservationStrings.js';
-    target_files_array[24] = domain_url + target_script_url + 'ReservationStrings.js';
-    origin_files_array[25] = domain_url + origin_script_url + 'CoronaForm.js';
-    target_files_array[25] = domain_url + target_script_url + 'CoronaForm.js';
-    origin_files_array[26] = domain_url + origin_script_url + 'ReservationPremises.js';
-    target_files_array[26] = domain_url + target_script_url + 'ReservationPremises.js';
-    origin_files_array[27] = domain_url + origin_script_url + 'ReservationEvents.js';
-    target_files_array[27] = domain_url + target_script_url + 'ReservationEvents.js';
-    origin_files_array[28] = domain_url + origin_script_url + 'ReservationSearch.js';
-    target_files_array[28] = domain_url + target_script_url + 'ReservationSearch.js';
-    origin_files_array[29] = domain_url + origin_script_url + 'DisplayNames.js';
-    target_files_array[29] = domain_url + target_script_url + 'DisplayNames.js';
-
 
       TODO
         <script type="text/javascript" src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
