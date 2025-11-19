@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-09
+// Date: 2025-11-19
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -132,6 +132,7 @@ function setGlobalLayoutXmlVariablesFromControls()
 
 } // setGlobalLayoutXmlVariablesFromControls
 
+// Returns the URL for the UtilFiles.php directory /ReservationLayout/Php/
 function getUtilFilesPhpDir()
 {
   var domain_url = 'https://jazzliveaarau.ch/';
@@ -145,6 +146,22 @@ function getUtilFilesPhpDir()
 } // getUtilFilesPhpDir
 
 // Copy directories and files for the new layout
+// 1. Create object holding all the data for the copying of files
+//    Instance of the class UtilCopyArrayData
+// 2. Set orgin and target directories
+//    Call UtilCopyArrayData.setAbsoluteOriginDirUrl
+//    Call UtilCopyArrayData.setAbsoluteTargetDirUrl
+//    Call UtilCopyArrayData.setAbsoluteTargetPhpDirUrl
+//    Call UtilCopyArrayData.setAbsoluteOriginScriptsDirUrl
+//    Call UtilCopyArrayData.setAbsoluteTargetScriptsDirUrl
+// 3. Create an array with relative URLs for target directories:
+//    XML, SaisonXML, ImagesApp, ImagesLayout, Libs and Php
+// 4. Set absolute target directory URLs
+//    Call of UtilCopyArrayData.setAbsoluteTargetDirArray
+// 5. Create origin an target file names arrays with relative URLs
+//    ImagesApp/text_add_reservation.png, ImagesApp/text_delete_off.png, etc.
+//    ImagesLayout/text_add_reservation.png, ImagesLayout/text_delete_off.png, etc.
+//    
 function execCopyDirFiles()
 {
     var domain_url = 'https://jazzliveaarau.ch/';
@@ -243,6 +260,42 @@ function execCopyDirFiles()
     target_files_array[16] = origin_files_array[16];
     target_files_array[17] = origin_files_array[17];
     target_files_array[18] = origin_files_array[18];
+
+    var scripts_origin = 'ScriptsLayout/';
+
+    var scripts_target = 'Libs/';
+
+    origin_files_array.push(scripts_origin + 'CoronaForm.js');
+    target_files_array.push(scripts_target + 'CoronaForm.js');
+    origin_files_array.push(scripts_origin + 'DisplayNames.js');
+    target_files_array.push(scripts_target + 'DisplayNames.js');
+    origin_files_array.push(scripts_origin + 'Reservation.js');
+    target_files_array.push(scripts_target + 'Reservation.js');
+    origin_files_array.push(scripts_origin + 'ReservationConcerts.js');
+    target_files_array.push(scripts_target + 'ReservationConcerts.js');
+    origin_files_array.push(scripts_origin + 'ReservationEmail.js');
+    target_files_array.push(scripts_target + 'ReservationEmail.js');
+    origin_files_array.push(scripts_origin + 'ReservationEvents.js');
+    target_files_array.push(scripts_target + 'ReservationEvents.js');
+    origin_files_array.push(scripts_origin + 'ReservationFiles.js');
+    target_files_array.push(scripts_target + 'ReservationFiles.js');
+    origin_files_array.push(scripts_origin + 'ReservationSearch.js');
+    target_files_array.push(scripts_target + 'ReservationSearch.js');
+    origin_files_array.push(scripts_origin + 'ReservationStrings.js');
+    target_files_array.push(scripts_target + 'ReservationStrings.js');
+    origin_files_array.push(scripts_origin + 'ReservationXmlTags.js');
+    target_files_array.push(scripts_target + 'ReservationXmlTags.js');
+
+    var php_origin = 'PhpLayout/';
+
+    var php_target = 'Php/';
+
+    origin_files_array.push(php_origin + 'SendEmail.php');
+    target_files_array.push(php_target + 'SendEmail.php');
+    origin_files_array.push(php_origin + 'SaveXmlExit.php');
+    target_files_array.push(php_target + 'SaveXmlExit.php');
+    origin_files_array.push(php_origin + 'SaveXml.php');
+    target_files_array.push(php_target + 'SaveXml.php');
 
     /* TODO Find another solution
 
