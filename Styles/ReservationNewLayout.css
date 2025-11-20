@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-11-08
+File: ReservationNewLayout.css Date: 2025-11-20
 
 Author: Gunnar Liden
 
@@ -10,8 +10,8 @@ Defines all style classes for the application reservation new layout
 
 */
 
-/* The whole page  min-height: 360px; */
-.cl_div_season_page
+/* The whole page  */
+.cl_div_layout_page
 {
     border: solid 2px blue;
     font-family: 'Arial';
@@ -21,12 +21,12 @@ Defines all style classes for the application reservation new layout
     margin-top: 20px;
     margin-left: 20px;
     overflow: hidden; 
-    min-height: 420px;
+    min-height: 400px;
 }
 
 
 /* Text logo <div> element */
-.cl_div_season_text_logo
+.cl_div_layout_text_logo
 {
     /* border: solid 2px yellow; */
     text-align: center;
@@ -46,7 +46,7 @@ label
     margin-left: 10px;
 }
 
-.cl_div_season_main_dir
+.cl_div_layout_main_dir
 {
     border-bottom: dashed 3px blue;
     padding-bottom: 5px;
@@ -56,7 +56,7 @@ label
     clear: both;
 }
 
-.cl_div_season_result_dir
+.cl_div_layout_result_dir
 {
     border-bottom: dashed 3px blue;
     padding-bottom: 5px;
@@ -169,7 +169,26 @@ label
     float: left;
 }
 
-.cl_div_message_row
+.cl_div_show_layout_row
+{
+    /* border-bottom: dashed 3px blue; */
+    padding-bottom: 5px;
+    padding-left: 5%;
+    margin-top: 5px;
+    min-height: 20px;
+    overflow: hidden;  
+    clear: both;   
+}
+
+.cl_div_show_layout_button
+{
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 90%;
+    float: left;
+}
+
+.cl_div_message_row /* TODO Remove ?? */
 {
     /* border: solid 1px green; */
     margin-left: 3%;
