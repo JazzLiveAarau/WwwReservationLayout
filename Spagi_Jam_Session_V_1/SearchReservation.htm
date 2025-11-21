@@ -29,6 +29,7 @@
         <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationEvents.js" ></script>
         <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ReservationSearch.js" ></script>
         <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/DisplayNames.js" ></script>
+        <script type="text/javascript" src= "https://jazzliveaarau.ch/Reservation/scripts/ControlModalPopup.js" ></script>
 
         <noscript>
             Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
@@ -298,7 +299,7 @@
 
 
 
-    <body style= "background-color:#dfe0e1" onload="MainAddReservation('Salmen')" scrolling="auto">
+    <body style= "background-color:#dfe0e1" onload="mainSearchReservation('Salmen')" scrolling="auto">
         <script>
             // XML file defining the layout of the concert premises
             // This global variable was previously defined in the file ReservationSalmen.js
@@ -309,9 +310,6 @@
         <table><tbody>
             <tr><td>
                 <div id="id_reservation_search_seats">Section (division) search seats </div>
-            </td></tr>
-            <tr><td>
-                <div id="id_reservation_select_concert">Section (division) select event </div>
             </td></tr>
             <tr><td>
                 <p id="id_reservation_show_concert_date_band"  align="center" style="font-family: Arial; font:bold; font-size:22pt; height:40px; width:900px;  color:red; background-color: black; margin-bottom:0px;  border: 0px none black; padding:0px;">Paragraph display event</p>
