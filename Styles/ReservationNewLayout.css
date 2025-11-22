@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-11-20
+File: ReservationNewLayout.css Date: 2025-11-22
 
 Author: Gunnar Liden
 
@@ -48,11 +48,11 @@ label
 
 .cl_div_layout_main_dir
 {
-    border-bottom: dashed 3px blue;
+    /* border-bottom: dashed 3px blue; */
     padding-bottom: 5px;
     padding-left: 5%;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     clear: both;
 }
 
@@ -173,7 +173,7 @@ label
 {
     /* border-bottom: dashed 3px blue; */
     padding-bottom: 5px;
-    padding-left: 5%;
+    padding-left: 2%;
     margin-top: 5px;
     min-height: 20px;
     overflow: hidden;  
@@ -182,9 +182,33 @@ label
 
 .cl_div_show_layout_button
 {
-    margin-left: 3%;
-    margin-right: 3%;
-    width: 90%;
+    margin-left: 1px;
+    margin-right: 0px;
+    width: 24%;
+    float: left;
+}
+
+.cl_div_reservation_admin_button
+{
+    margin-left: 1px;
+    margin-right: 0px;
+    width: 24%;
+    float: left;
+}
+
+.cl_div_reservation_search_button
+{
+    margin-left: 1px;
+    margin-right: 0px;
+    width: 24%;
+    float: left;
+}
+
+.cl_div_reservation_make_button
+{
+    margin-left: 1px;
+    margin-right: px;
+    width: 24%;
     float: left;
 }
 

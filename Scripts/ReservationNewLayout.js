@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-20
+// Date: 2025-11-21
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -25,6 +25,10 @@
 
 // Main directory 
 var g_layout_main_dir_text_box = null;
+
+// Created new layout main directory name always ReservationLayout
+// After creation the new layout must be copied or moved with an FTP application
+var g_main_directory_new_layout = 'ReservationLayout';
 
 // Result directory where the generated HTML files and other files shall be stored
 var g_layout_server_dir_text_box = null;
@@ -63,6 +67,15 @@ var g_copy_dir_files_button = null;
 
 // Button for opening application 'Reservation Show Layout'
 var g_show_layout_button = null;
+
+// Button for opening application 'Reservation Admin'
+var g_reservation_admin_button = null;
+
+// Button for opening application 'Reservation Search'
+var g_reservation_search_button = null;
+
+// Button for opening application 'Reservation Make'
+var g_reservation_make_button = null;
 
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
@@ -111,8 +124,8 @@ function initReservationNewLayout()
 // Set the controls
 function setNewLayoutControls(i_new_season_data)
 {
-    g_layout_main_dir_text_box.setValue(i_new_season_data.getMainDir());  
-
+    // g_layout_main_dir_text_box.setValue(i_new_season_data.getMainDir());  
+    
     g_layout_server_dir_text_box.setValue(i_new_season_data.getResultDir()); 
 
     g_xml_filename_text_box.setValue( i_new_season_data.getResultDir() + '.xml'); 
@@ -124,8 +137,9 @@ function setNewLayoutControls(i_new_season_data)
 // Sets the layout XML global variables g_layout_xml_filename and g_layout_xml_server_dir
 function setGlobalLayoutXmlVariablesFromControls()
 {
-    g_layout_target_main_dir = g_layout_main_dir_text_box.getValue();
-
+    // g_layout_target_main_dir = g_layout_main_dir_text_box.getValue();
+    g_layout_target_main_dir = g_main_directory_new_layout;
+   
     g_layout_target_result_dir =  g_layout_server_dir_text_box.getValue();
 
     g_layout_xml_filename = g_layout_target_result_dir + '.xml';
@@ -151,17 +165,61 @@ function getUtilFilesPhpDir()
 // Returns the absolute URL to the created HTML file ShowLayout.htm
 function getAbsUrlApplicationShowLayout()
 {
-    var ret_show_layout_url = 'https://jazzliveaarau.ch/';
+    var ret_show_layout_url = getAbsUrlApplicationReservationStart();
 
-    ret_show_layout_url = ret_show_layout_url + g_layout_target_main_dir;
-
-    ret_show_layout_url = ret_show_layout_url + '/' + g_layout_target_result_dir;
-
-     ret_show_layout_url = ret_show_layout_url + '/' + 'ShowLayout.htm';
+     ret_show_layout_url = ret_show_layout_url + 'ShowLayout.htm';
 
      return ret_show_layout_url;
 
 } // getAbsUrlApplicationShowLayout
+
+// Returns the absolute URL to the created HTML file AddReservation.htm
+function getAbsUrlApplicationReservationAdmin()
+{
+    var ret_admin_url = getAbsUrlApplicationReservationStart();
+
+     ret_admin_url = ret_admin_url +  'AddReservation.htm';
+
+     return ret_admin_url;
+
+} // getAbsUrlApplicationReservationAdmin
+
+// Returns the absolute URL to the created HTML file AddReservation.htm
+function getAbsUrlApplicationReservationSearch()
+{
+    var ret_admin_url = getAbsUrlApplicationReservationStart();
+
+     ret_admin_url = ret_admin_url + 'SearchReservation.htm';
+
+     return ret_admin_url;
+
+} // getAbsUrlApplicationReservationSearch
+
+// Returns the absolute URL to the created HTML file MakeReservation.htm
+function getAbsUrlApplicationReservationMake()
+{
+    var ret_admin_url = getAbsUrlApplicationReservationStart();
+
+     ret_admin_url = ret_admin_url + 'MakeReservation.htm';
+
+     // TODO add query string for concert one
+
+     return ret_admin_url;
+
+} // getAbsUrlApplicationReservationMake
+
+// Returns the start string for the absolute URL to the applicaions
+function getAbsUrlApplicationReservationStart()
+{
+    var ret_start_url = 'https://jazzliveaarau.ch/';
+
+    ret_start_url = ret_start_url + g_layout_target_main_dir;
+
+    ret_start_url = ret_start_url + '/' + g_layout_target_result_dir + '/';
+
+     return ret_start_url;
+
+} // getAbsUrlApplicationReservationMake
 
 // Returns the abs URL to the uploaded layout XML file
 function getAbsUrlToLayoutXmlFile()
@@ -495,6 +553,33 @@ function execShowLayout()
 
 } // execShowLayout
 
+// Open 'Reservation Admin' application
+function execReservationAdmin()
+{
+   var admin_url = getAbsUrlApplicationReservationAdmin();
+
+    window.open(admin_url,'_blank').focus();
+
+} // execReservationAdmin
+
+// Open 'Reservation Search' application
+function execReservationSearch()
+{
+   var admin_url = getAbsUrlApplicationReservationSearch();
+
+    window.open(admin_url,'_blank').focus();
+
+} // execReservationSearch
+
+// Open 'Reservation Make' application
+function execReservationMake()
+{
+   var admin_url = getAbsUrlApplicationReservationMake();
+
+    window.open(admin_url,'_blank').focus();
+
+} // execReservationMake
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -526,6 +611,27 @@ function onClickshowLayoutButton()
 	execShowLayout();
 
 }// onClickshowLayoutButton
+
+// User clicked the opening application 'Reservation Admin'
+function onClickcreateReservationAdminButton()
+{
+	execReservationAdmin();
+
+}// onClickcreateReservationAdminButton
+
+// User clicked the opening application 'Reservation Search'
+function onClickCreateReservationSearchButton()
+{
+	execReservationSearch();
+
+}// onClickCreateReservationSearchButton^
+
+// User clicked the opening application 'Reservation Make'
+function onClickCreateReservationMakeButton()
+{
+	execReservationMake();
+
+}// onClickCreateReservationMakeButton
 
 // User clicked the upload layout XML file button
 function onClickUploadXmlFileButton()
@@ -640,7 +746,8 @@ function getNewSeasonDataInput()
 {
     var ret_new_season_data = new NewSeasonData();
 
-    ret_new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+    // ret_new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+    ret_new_season_data.setMainDir(g_main_directory_new_layout);
 
     ret_new_season_data.setResultDir(g_layout_server_dir_text_box.getValue());
 
@@ -654,7 +761,8 @@ function setNewSeasonLocalStorageData()
 {
     var new_season_data = new NewSeasonData();
 
-    new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+    //new_season_data.setMainDir(g_layout_main_dir_text_box.getValue());
+    new_season_data.setMainDir(g_main_directory_new_layout);
 
     new_season_data.setResultDir(g_layout_server_dir_text_box.getValue());
 
@@ -675,7 +783,7 @@ function createReservationNewLayoutControls()
 {
     createTextBoxXmlFilename();
 
-    createTextBoxMainDirectory();
+    //TODO Remove createTextBoxMainDirectory();
 
     createTextBoxResultDirectory();
 
@@ -687,6 +795,12 @@ function createReservationNewLayoutControls()
 
     showLayoutButton();
 
+    createReservationAdminButton();
+
+    createReservationSearchButton();
+
+    createReservationMakeButton();
+
     createUploadXmlButton();
 
     createDownloadXmlButton();
@@ -695,10 +809,10 @@ function createReservationNewLayoutControls()
 
 } // createReservationNewSeasonControls
 
-// Create the text box for the test or relase directory
+// Create the text box for the test or relase directory TODO Remove
 function createTextBoxMainDirectory()
 {
-    g_layout_main_dir_text_box = new JazzTextBox("id_season_main_dir", 'id_div_layout_main_dir');
+    g_layout_main_dir_text_box = new JazzTextBox("id_layout_main_dir", 'id_div_layout_main_dir');
 
     g_layout_main_dir_text_box.setLabelText("1. ReservationLayout / Reservation");
 
@@ -717,9 +831,9 @@ function createTextBoxMainDirectory()
 // Create the text box for the result server directory where generated files shall be stored
 function createTextBoxResultDirectory()
 {
-    g_layout_server_dir_text_box = new JazzTextBox("id_season_result_dir", 'id_div_layout_result_dir');
+    g_layout_server_dir_text_box = new JazzTextBox("id_layout_result_dir", 'id_div_layout_result_dir');
 
-    g_layout_server_dir_text_box.setLabelText("2. Ordner für Konzertsaal-Sitzplan");
+    g_layout_server_dir_text_box.setLabelText("1. Ordner für Konzertsaal-Sitzplan");
 
     g_layout_server_dir_text_box.setLabelTextPositionAbove();
 
@@ -729,7 +843,7 @@ function createTextBoxResultDirectory()
 
     g_layout_server_dir_text_box.setOninputFunctionName("onInputResultDirectoryName");
 
-    g_layout_server_dir_text_box.setTitle("Schritt 2: Name des Server-Ordners für den neuen Konzertsaal.");
+    g_layout_server_dir_text_box.setTitle("Schritt 1: Name des Server-Ordners für den neuen Konzertsaal.");
 
 } // createTextBoxResultDirectory
 
@@ -740,13 +854,13 @@ function createCopyDirFilesButton()
 
     g_copy_dir_files_button.setOnclickFunctionName("onClickCopyDirFilesButton");
 
-    g_copy_dir_files_button.setCaption('3. Initialisierung des Layouts');
+    g_copy_dir_files_button.setCaption('2. Initialisierung des Layouts');
 
     g_copy_dir_files_button.setLabelText("");
 
     g_copy_dir_files_button.setWidth("250px");
 
-    g_copy_dir_files_button.setTitle('Schritt 3: Ordner kreieren und Dateien für das Layout kopieren');
+    g_copy_dir_files_button.setTitle('Schritt 2: Ordner kreieren und Dateien für das Layout kopieren');
 
 } // createCopyDirFilesButton
 
@@ -797,13 +911,13 @@ function createLayoutFileslButton()
 
     g_create_layout_files_button.setOnclickFunctionName("onClickCreateLayoutFilesButton");
 
-    g_create_layout_files_button.setCaption('5. Dateien des Layouts generieren');
+    g_create_layout_files_button.setCaption('4. Dateien des Layouts generieren');
 
     g_create_layout_files_button.setLabelText("");
 
     g_create_layout_files_button.setWidth("250px");
 
-    g_create_layout_files_button.setTitle('Schritt 5: Alle Dateien für das neue Layout generieren');
+    g_create_layout_files_button.setTitle('Schritt 4: Alle Dateien für das neue Layout generieren');
 
 } // createLayoutFileslButton
 
@@ -815,15 +929,74 @@ function showLayoutButton()
 
     g_show_layout_button.setOnclickFunctionName("onClickshowLayoutButton");
 
-    g_show_layout_button.setCaption('6. Show Layout');
+    g_show_layout_button.setCaption('Layout');
 
-    g_show_layout_button.setLabelText("");
+    g_show_layout_button.setLabelText("5. Test");
 
-    g_show_layout_button.setWidth("250px");
+    g_show_layout_button.setLabelTextPositionAbove();
 
-    g_show_layout_button.setTitle('Schritt 6: Mit Applikation Reservation Show Layout testen');
+    g_show_layout_button.setWidth("60px");
+
+    g_show_layout_button.setTitle('Schritt 5: Teste machen');
 
 } // showLayoutButton
+
+// Creates the button opening application 'Reservation Admin'
+function createReservationAdminButton()
+{
+    g_reservation_admin_button = new JazzButton('id_reservation_admin_button', 'id_div_reservation_admin_button');
+
+    g_reservation_admin_button.setOnclickFunctionName("onClickcreateReservationAdminButton");
+
+    g_reservation_admin_button.setCaption('Admin');
+
+    g_reservation_admin_button.setLabelText("_");
+
+    g_reservation_admin_button.setLabelTextPositionAbove();
+
+    g_reservation_admin_button.setWidth("60px");
+
+    g_reservation_admin_button.setTitle('Schritt 5: Teste machen');
+
+} // createReservationAdminButton
+
+// Creates the button opening application 'Reservation Search'
+function createReservationSearchButton()
+{
+    g_reservation_search_button = new JazzButton('id_reservation_search_button', 'id_div_reservation_search_button');
+
+    g_reservation_search_button.setOnclickFunctionName("onClickCreateReservationSearchButton");
+
+    g_reservation_search_button.setCaption('Suche');
+
+    g_reservation_search_button.setLabelText("_");
+
+    g_reservation_search_button.setLabelTextPositionAbove();
+
+    g_reservation_search_button.setWidth("60px");
+
+    g_reservation_search_button.setTitle('_');
+
+} // createReservationSearchButton
+
+// Creates the button opening application 'Reservation Make'
+function createReservationMakeButton()
+{
+    g_reservation_make_button = new JazzButton('id_reservation_make_button', 'id_div_reservation_make_button');
+
+    g_reservation_make_button.setOnclickFunctionName("onClickCreateReservationMakeButton");
+
+    g_reservation_make_button.setCaption('Make');
+
+    g_reservation_make_button.setLabelText("_");
+
+    g_reservation_make_button.setLabelTextPositionAbove();
+
+    g_reservation_make_button.setWidth("60px");
+
+    g_reservation_make_button.setTitle('_');
+
+} // createReservationMakeButton
 
 // Creates the upload layout XML file button
 function createUploadXmlButton()
@@ -832,13 +1005,13 @@ function createUploadXmlButton()
 
     g_upload_xml_button.setOnclickFunctionName("onClickUploadXmlFileButton");
 
-    g_upload_xml_button.setCaption('4. Upload');
+    g_upload_xml_button.setCaption('3. Upload');
 
     g_upload_xml_button.setLabelText("");
 
     g_upload_xml_button.setWidth("76px");
 
-    g_upload_xml_button.setTitle('Scritt 4: Layout XML Datei hochladen. Die Datei definiert das Lokal');
+    g_upload_xml_button.setTitle('Scritt 3: Layout XML Datei hochladen. Die Datei definiert das Lokal');
 
 } // createUploadXmlButton
 
