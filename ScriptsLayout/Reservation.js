@@ -1,3 +1,8 @@
+// File: ScriptsLayout/Reservation.js
+// Date: 2025-11-23
+// Author: Gunnar Lidén
+
+
 // File: Reservation\scripts\Reservation.js
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -11,13 +16,16 @@ var g_url_file_concert_reservation_xml_name_start = "Reservation_";
 // The XML file JazzProgramm_aktuelle_saison.xml is also in this directory
 var g_url_file_concert_reservation_xml_directory = "SaisonXML/";
 
+// The subdirectory for the event program XML file
+var g_xml_event_program_subdirectory = "SaisonXML";
+
 // The name of the current concert reservations XML file
 var g_url_file_concert_reservation_xml_name = "Undefined";
 
-// A copy of the jazz program for the current season, e.g. JazzProgramm_2018_2019.xml
-// Dates and band names are retrieved from this file when new new reservation XML 
-// files are created
-var g_url_file_jazz_program_current_season = "JazzProgramm_aktuelle_saison.xml";
+// Name of the XML file that defines events like for instance concerts
+// The file is created with the application 'Reservation Layout' which
+// takes a JAZZ live AARAU season program XML file as input
+var g_url_xml_file_event_program = "EventProgram.xml";
 
 // The maximum number of reservations
 var g_maximum_number_reservations = -12345;
@@ -42,7 +50,7 @@ var g_session_storage_reservation_email = "reservation_email_str";
 var g_session_storage_reservation_remark = "reservation_remark_str";
 var g_session_storage_requested_concert_number = "reservation_requested_concert_number";
 
-// XML object season program
+// XML object event program
 var g_season_program_xml = null;
 
 // XML HTTP object layout
@@ -155,20 +163,56 @@ function MainAddReservation(i_add_to_xml_file_name)
 	
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;
    
-    setEventFunctions(); // ReservationSalmenEvents.js
+    setEventFunctions(); // These functions are defined in file AddReservation.htm
 	
-    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml);	
+    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainAddReservationAfterLoadLayoutXml);	
   
-    loadSeasonProgramAndReservationXMLDocs(i_add_to_xml_file_name);
-	
-	removeElement(g_id_button_event_list); // New QQQQQQQ	
+	// removeElement(g_id_button_event_list); // New QQQQQQQ	
 	
 } // MainAddReservation
 
+// Callback after creation of the layout XML object
+function MainAddReservationAfterLoadLayoutXml()
+{
+    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
+        g_url_xml_file_event_program, MainAddReservationAfterLoadEventProgramXml);
+
+} // MainAddReservationAfterLoadLayoutXml
+
+// Callback after creation of the season program XML object
+function MainAddReservationAfterLoadEventProgramXml()
+{
+    alert("MainAddReservationAfterLoadEventProgramXml");
+
+     var url_file_reservation_concert_xml = getNextConcertReservationXmlFileName("Salmen");
+
+	loadReservationXMLDoc(url_file_reservation_concert_xml) ;
+
+    if ("false" == g_for_web_page_search)
+    {		  
+        addAndSetConcertsDropDown();
+        
+        addSearchInputFieldAndClearButton();
+    }
+    else if ("true" == g_for_web_page_search)
+    {		  
+        addSearchInputFieldAndClearButton();
+    }
+	
+	removeElement(g_id_button_event_list); // New QQQQQQQ	
+
+} // MainAddReservationAfterLoadLayoutXml
+
+
+/*
+
+*/
 
 // Main function for requesting a reservation
 function MainRequestReservation(i_add_to_xml_file_name)
 {  
+    alert("MainRequestReservation This fuction is no longer used");
+
     g_user_is_concert_visitor = "true";
 	
 	g_user_request_with_email = "true";
@@ -274,6 +318,39 @@ function setSeasonConcertArrays()
         return;
     }
 
+    var b_only_coming = false;
+    var event_name_array = g_season_program_xml.getEventNameArray(b_only_coming);
+
+    var date_format = 'swiss';
+    var event_date_array = g_season_program_xml.getEventDateArray(b_only_coming, date_format);
+
+     g_season_concerts_date_band_array = [];
+
+     g_season_concert_number_array= [];
+
+    for (var index_event = 0; index_event < event_name_array.length; index_event++)
+    {
+        var date_band_name = event_date_array[index_event] + ' ' + event_name_array[index_event];
+
+        g_season_concerts_date_band_array[index_concert] = date_band_name;
+
+        g_season_concert_number_array[index_concert] = index_event + 1;
+    }
+
+    var next_event_number_int = g_season_program_xml.getEventNumberForNextEvent();
+
+    if (next_event_number_int >= 1)
+    {
+        g_season_next_concert_number = next_event_number_int.toString();
+    }
+    else
+    {
+        alert(g_error_next_season_passed);
+        g_season_next_concert_number = '1';
+    }	
+
+    /* QQQQQQQQ
+
 	g_season_next_concert_number = getConcertNumberForNextConcert();
     var season_next_concert_number_int = parseInt(g_season_next_concert_number);
     if (season_next_concert_number_int < 0)
@@ -282,10 +359,10 @@ function setSeasonConcertArrays()
         g_season_next_concert_number = '12';
     }	
 
-    var year_array = getDateArray(1);
-    var month_array = getDateArray(2);
-    var day_array = getDateArray(3);
-    var band_array = getDateArray(4);
+    var year_array = getEventDateArray(1);
+    var month_array = getEventDateArray(2);
+    var day_array = getEventDateArray(3);
+    var band_array = getEvenDateArray(4);
 	
     for (index_concert = 0;	index_concert <year_array.length; index_concert++)
     {
@@ -294,6 +371,7 @@ function setSeasonConcertArrays()
         g_season_concerts_date_band_array[index_concert] = date_band_name;
         g_season_concert_number_array[index_concert] = index_concert + 1;
     }
+         QQQQQQQQ */
 	
 } // setSeasonConcertArrays
 
@@ -310,10 +388,12 @@ function setConcertDropDownArrays(i_user_is_concert_visitor)
         alert("onloadStartReservation Arrays g_season_concerts_date_band_array and/or g_season_concert_number_array not set");
         return;	
     }
+
+     var next_event_number_int = g_season_program_xml.getEventNumberForNextEvent();
 	
-    if (parseInt(g_season_next_concert_number) <= 0 || parseInt(g_season_next_concert_number) > g_season_concerts_date_band_array.length)
+    if (next_event_number_int <= 0 || next_event_number_int > g_season_concerts_date_band_array.length)
     {
-        alert("onloadStartReservation Next concert number is not 1, 2, ..., 12 g_season_next_concert_number= " + g_season_next_concert_number.toString());
+        alert("onloadStartReservation Next concert number is not 1, 2, ..., 12 g_season_next_concert_number= " + next_event_number_int.toString());
         return;	
     }
 
@@ -322,7 +402,7 @@ function setConcertDropDownArrays(i_user_is_concert_visitor)
     for (index_concert=0; index_concert<g_season_concerts_date_band_array.length; index_concert++)
     {
         var concert_number_int = parseInt(g_season_concert_number_array[index_concert]);
-	    if (parseInt(g_season_next_concert_number) <= concert_number_int || "false" == i_user_is_concert_visitor)
+	    if (next_event_number_int <= concert_number_int || "false" == i_user_is_concert_visitor)
         {
 			g_drop_down_date_band_array[index_drop_down] = g_season_concerts_date_band_array[index_concert];
 			g_drop_down_concert_number_array[index_drop_down] = g_season_concert_number_array[index_concert];
@@ -530,7 +610,7 @@ function loadCreateLayoutXMLDoc(i_url_file_layout_xml)
 // After loading and setting g_layout_xml the function initMaxNumberSeatReservations is called.
 // This function sets the global variable g_maximum_number_reservations based on the XML 
 // element MaxReservationsProcent in the XML layout file (LayoutSalmen.xml). 
-function loadLayoutXMLDocSetMaxNumberSeatReservations(i_url_file_layout_xml) 
+function loadLayoutXMLDocSetMaxNumberSeatReservations(i_url_file_layout_xml, i_callback_function_name) 
 {
   // Request a server object for the XML file
   g_layout_xmlhttp = new XMLHttpRequest();
@@ -544,6 +624,8 @@ function loadLayoutXMLDocSetMaxNumberSeatReservations(i_url_file_layout_xml)
 		g_layout_xml = g_layout_xmlhttp.responseXML;
 		
 		initMaxNumberSeatReservations(); // Set the maximum number of seat reservations;
+
+        i_callback_function_name();
     }
     else if (g_layout_xmlhttp.readyState == 4 && g_layout_xmlhttp.status == 404) 
 	{
@@ -647,7 +729,7 @@ function allAvailableSeatsAreReserved()
 // Construct file name and load the reservations XML object, i.e. set g_reservations_xml and
 // update the SVG image with the made reservations and set the concert title.
 // Input data: Add string for the file name and concert number. 
-// The XML season program (g_url_file_jazz_program_current_season.xml) must first be loaded
+// The XML event program EventProgram.xml (g_url_xml_file_event_program) must first be loaded
 // and the global variable g_season_program_xml be set. Dates for the concerts are necessary
 // in order to be able to find the next concert.
 // 1. Construct the full file name (URL) for the XML season program
@@ -660,9 +742,11 @@ function allAvailableSeatsAreReserved()
 //    concert title is set on the SVG image. 
 function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_number)
 {
+     alert("constructNameLoadReservationXMLDoc i_add_to_xml_file_name=" + i_add_to_xml_file_name + 
+              " i_concert_number= " + i_concert_number.toString());
 	
 	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-                                   g_url_file_jazz_program_current_season;
+                                   g_url_xml_file_event_program;
 								   
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name; 
 	
@@ -705,8 +789,10 @@ function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_nu
 // Load season program XML and call function that creates reservation XML files
 function loadSeasonProgramXMLDoc(i_start_part_dir_name_xml) 
 {
+    alert("loadSeasonProgramXMLDoc i_start_part_dir_name_xml=" + i_start_part_dir_name_xml);
+
 	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-                                   g_url_file_jazz_program_current_season;
+                                   g_url_xml_file_event_program;
 	
     var season_program_xmlhttp = new XMLHttpRequest();
   
@@ -739,8 +825,10 @@ function loadSeasonProgramXMLDoc(i_start_part_dir_name_xml)
 //   2.4 Set the dropdown element to next concert (g_season_next_concert_number)
 function loadSeasonProgramAndReservationXMLDocs(i_add_to_xml_file_name) 
 {
+    alert("loadSeasonProgramAndReservationXMLDocs ");
+
 	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-                                   g_url_file_jazz_program_current_season;
+                                   g_url_xml_file_event_program;
 								   
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;
 	
@@ -807,7 +895,7 @@ function loadSeasonProgramXMLDocSetConcertArraysAddConcertsDropdown()
 	g_user_is_concert_visitor = "true";
 	
 	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-                                   g_url_file_jazz_program_current_season;
+                                   g_url_xml_file_event_program;
 	
     var season_program_xmlhttp = new XMLHttpRequest();
   

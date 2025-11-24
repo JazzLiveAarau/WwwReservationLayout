@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2025-11-20
+// Date: 2025-11-22
 // Authors: Gunnar Lidén
 
 // Content
@@ -959,6 +959,10 @@ class LayoutScript
         ret_path_file_array.push('Libs/ReservationStrings.js');
 
         ret_path_file_array.push('Libs/ReservationXmlTags.js');
+
+        ret_path_file_array.push('Libs/EventProgramXml.js');
+
+        ret_path_file_array.push('Libs/UtilDate_20250330.js');
 
         ret_path_file_array.push('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
 

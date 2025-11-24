@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-04-21
+// Date: 2025-11-24
 // Author: Gunnar Lidén
 
 
@@ -562,14 +562,23 @@ class EventProgramXml
 
             var event_day = this.getDay(event_number);
 
-            var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+             if (i_b_only_coming)
+            {
+                var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
 
-            if (i_b_only_coming && !b_date_passed)
+                if (!b_date_passed)
+                {
+                    ret_name_array[index_name] = event_name;
+
+                    index_name = index_name + 1;
+                }
+            }
+            else
             {
                 ret_name_array[index_name] = event_name;
 
                 index_name = index_name + 1;
-            }
+            }  
 
         } // event_number
 
@@ -579,6 +588,7 @@ class EventProgramXml
 
     // Returns the start program event number for functions 
     // getEventNameArray and getEventDateArray
+    // TODO This function is almost the same as getEventNumberForNextEvent. Remove one
     getDateNameEventArrayStartNumber(i_b_only_coming)
     {
         var ret_start_number = 0;
@@ -658,20 +668,60 @@ class EventProgramXml
                 return ret_date_array;
             }
 
-            var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+            if (i_b_only_coming)
+            {
+                var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
 
-            if (i_b_only_coming && !b_date_passed)
+                if (!b_date_passed)
+                {
+                    ret_date_array[index_date] = event_date;
+
+                    index_date = index_date + 1;
+                }
+            }
+            else
             {
                 ret_date_array[index_date] = event_date;
 
                 index_date = index_date + 1;
-            }
+            } 
             
         } // event_number
 
         return ret_date_array;
 
     } // getEventDateArray
+
+    // Returns the event number for the next event
+    // TODO Make this function so it does not assume that the events are ordered by date
+    // TODO This function is almost the same as getDateNameEventArrayStartNumber. Remove one
+    getEventNumberForNextEvent()
+    {
+        var ret_event_number = 0;
+
+        var n_events = this.getNumberOfEvents();
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+            var event_year = this.getYear(event_number);
+
+            var event_month = this.getMonth(event_number);
+
+            var event_day = this.getDay(event_number);
+
+             var b_date_passed = UtilDate.DateIsPassed(event_year, event_month, event_day);
+
+            if (false == b_date_passed)
+            {
+                ret_event_number = event_number;
+                break;
+            }
+
+        } // event_number
+
+        return ret_event_number;
+
+    } // getEventNumberForNextEvent
 
     // Returns the reservation event XML file name
     getXmlEventProgramFileName()

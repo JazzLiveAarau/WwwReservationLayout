@@ -1,5 +1,6 @@
-// File: Reservation\scripts\ReservationStrings.js
-
+// File: ScriptsLayout/ReservationStrings.js
+// Date: 2025-11-23
+// Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Titles & Messages /////////////////////////////////////////
@@ -77,7 +78,7 @@ param_names[17]= "g_error_opening_window";  param_values[17] = "";
 
 var g_error_next_season_passed = "Keine nächste Saison XML Datei existiert. " + "\n" + 
                                  "Bitte neue Reservationsdateien generieren!"+ "\n" + 
-								 "(Konzert 12 wird angezeigt)";
+								 "(Konzert 1 wird angezeigt)";
 param_names[18]= "g_error_next_season_passed";  param_values[18] = "";
 								 
 var g_error_send_confirmation_mail = "Fehler: Keine Reservation wurde gemacht. \nE-Mail mit Bestätigung konnte nicht gesendet werden. \nBitte E-Mail-Adresse überprüfen!";	

@@ -1,4 +1,6 @@
-// File: Reservation\scripts\ReservationFiles.js
+// File: ScriptsLayout/ReservationFiles.js
+// Date: 2025-11-23
+// Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
 
@@ -1413,7 +1415,8 @@ function getNextConcertReservationXmlFileName(i_add_to_xml_file_name)
 {
 	ret_file_name = "";
 
-    var n_concerts = getNumberOfSeasonConcerts();
+    //QQQQ var n_concerts = getNumberOfSeasonConcerts();
+    var n_concerts = g_season_program_xml.getNumberOfEvents();
 	
     // Construct the start part of the name for the output XML files
     var start_part_dir_name_xml = startPartFileNames(i_add_to_xml_file_name);	
@@ -1436,7 +1439,8 @@ function constructXmlFileName(i_start_part_dir_name_xml, i_concert_number)
 {
     var ret_file_name = "";
 
-    var n_concerts = getNumberOfSeasonConcerts();
+    //QQ var n_concerts = getNumberOfSeasonConcerts();
+    var n_concerts =  g_season_program_xml.getNumberOfEvents();
 	
 	var concert_number_int = parseInt(i_concert_number);
 	if (concert_number_int <= 0 || concert_number_int > n_concerts)
@@ -1483,9 +1487,9 @@ function getConcertNumberForNextConcert()
 {
 	var ret_concert_number = -1;
 	
-	var year_array = getDateArray(1);
-	var month_array = getDateArray(2);
-	var day_array = getDateArray(3);
+	var year_array = getEventDateArray(1);
+	var month_array = getEventDateArray(2);
+	var day_array = getEventDateArray(3);
 	
 	for (index_concert=0; index_concert<year_array.length; index_concert++)
 	{
@@ -1503,10 +1507,68 @@ function getConcertNumberForNextConcert()
 	
 } // getConcertNumberForNextConcert
 
+// Returns the year (i_case=1), month (i_case=2) day (i_case=3) or band (i_case=4)
+function getEventDateArray(i_case)
+{
+	var ret_array = new Array();
+	
+	if (null == g_season_program_xml)
+	{
+		alert("getEventDateArray g_season_program_xml is null");
+				
+		return ret_array;
+	}
+
+    var n_events = g_season_program_xml.getNumberOfEvents();
+
+    for (var event_number = 1; event_number <= n_events; event_number++)
+    {
+        var event_year = g_season_program_xml.getYear(event_number);
+
+        var event_month = g_season_program_xml.getMonth(event_number);
+
+        var event_day = g_season_program_xml.getDay(event_number);
+
+        var event_name = g_season_program_xml.getEventName(event_number);
+
+        var index_concert = event_number - 1;
+
+		if (1 == i_case)
+		{
+			ret_array[index_concert] = event_year;
+		}
+		else if (2 == i_case)
+		{
+			ret_array[index_concert] = event_month;
+		}
+		else if (3 == i_case)
+		{
+			ret_array[index_concert] = event_day;
+		}
+		else if (4 == i_case)
+		{
+			ret_array[index_concert] = event_name;
+		}		
+		else
+		{
+		    alert("getEventDateArray i_case not 1, 2, 3 or 4");
+				
+		    return ret_array;			
+		}
+
+    }
+
+    return ret_array;
+
+} // getEventDateArray
+
 
 // Returns the year (i_case=1), month (i_case=2) day (i_case=3) or band (i_case=4)
+// TODO Remove this file 20251123
 function getDateArray(i_case)
 {
+    alert("getDateArray This function shall no longer be used");
+
 	var ret_array = new Array();
 	
 	if (null == g_season_program_xml)
@@ -1591,8 +1653,11 @@ function DateIsPassed(i_concert_year, i_concert_month, i_concert_day)
 
 // Returns the number of concerts
 // 20230926
+// TODO 20251123 Remove this function
 function getNumberOfSeasonConcerts()
 {
+    alert("getNumberOfSeasonConcerts This function shall no longer be used");
+
 	if (null == g_season_program_xml)
 	{
 		alert("getNumberOfConcerts Season program XML object g_season_program_xml is null");

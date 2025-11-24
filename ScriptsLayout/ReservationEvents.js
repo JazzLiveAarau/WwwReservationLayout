@@ -1,11 +1,14 @@
-﻿// File: Reservation\scripts\ReservationEvents.js
+﻿// File: ScriptsLayout/ReservationEvents.js
+// Date: 2025-11-22
+// Author: Gunnar Lidén
+
 // All buttons and their events are defined in this file
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
+/* QQQQQQQQQQQQQQQQQQQQQ
 // Wall thickness in pixel
 var g_wall_thickness_pixel = parseInt(g_wall_thickness*g_scale_dimension);
 
@@ -23,6 +26,7 @@ var g_text_y_delta_pixel = g_wall_thickness_pixel - 15;
 // Microsoft Explorer and Microsoft Edge require that width and height are defined
 // Every width must be calculated and set 
 var g_text_image_height = '26'; // g_button_height_pixel - 3;
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////

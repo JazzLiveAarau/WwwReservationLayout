@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-21
+// Date: 2025-11-22
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -349,30 +349,40 @@ function execCopyDirFiles()
     target_files_array.push(images_layout + 'jazz_live_aarau_sponsor_logos.png');
     origin_files_array.push(images_layout + 'jazz_live_aarau_text_logo.png');
     target_files_array.push(images_layout + 'jazz_live_aarau_text_logo.png');
+  
 
-    var scripts_origin = 'ScriptsLayout/';
+    var layout_scripts_origin = 'ScriptsLayout/';
     var scripts_target = 'Libs/';
 
-    origin_files_array.push(scripts_origin + 'CoronaForm.js');
+    origin_files_array.push(layout_scripts_origin + 'CoronaForm.js');
     target_files_array.push(scripts_target + 'CoronaForm.js');
-    origin_files_array.push(scripts_origin + 'DisplayNames.js');
+    origin_files_array.push(layout_scripts_origin + 'DisplayNames.js');
     target_files_array.push(scripts_target + 'DisplayNames.js');
-    origin_files_array.push(scripts_origin + 'Reservation.js');
+    origin_files_array.push(layout_scripts_origin + 'Reservation.js');
     target_files_array.push(scripts_target + 'Reservation.js');
-    origin_files_array.push(scripts_origin + 'ReservationConcerts.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationConcerts.js');
     target_files_array.push(scripts_target + 'ReservationConcerts.js');
-    origin_files_array.push(scripts_origin + 'ReservationEmail.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationEmail.js');
     target_files_array.push(scripts_target + 'ReservationEmail.js');
-    origin_files_array.push(scripts_origin + 'ReservationEvents.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationEvents.js');
     target_files_array.push(scripts_target + 'ReservationEvents.js');
-    origin_files_array.push(scripts_origin + 'ReservationFiles.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationFiles.js');
     target_files_array.push(scripts_target + 'ReservationFiles.js');
-    origin_files_array.push(scripts_origin + 'ReservationSearch.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationSearch.js');
     target_files_array.push(scripts_target + 'ReservationSearch.js');
-    origin_files_array.push(scripts_origin + 'ReservationStrings.js');
+    origin_files_array.push(layout_scripts_origin + 'ReservationStrings.js');
     target_files_array.push(scripts_target + 'ReservationStrings.js');
+    origin_files_array.push(layout_scripts_origin + 'UtilDate_20250330.js');
+    target_files_array.push(scripts_target + 'UtilDate_20250330.js');
+
+    var scripts_origin = 'Scripts/'; // Please note not in directory ScriptsLayout
+    //scripts_target = 'Libs/';
+
     origin_files_array.push(scripts_origin + 'ReservationXmlTags.js');
     target_files_array.push(scripts_target + 'ReservationXmlTags.js');
+
+    origin_files_array.push(scripts_origin + 'EventProgramXml.js');
+    target_files_array.push(scripts_target + 'EventProgramXml.js');
 
     var php_origin = 'PhpLayout/';
     var php_target = 'Php/';
