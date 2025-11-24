@@ -79,6 +79,7 @@ var g_for_web_page_search = "false";
 // This is for the concerts dropdown. Not a very nice solution ...
 var g_add_to_xml_file_name_for_drop_down = "undefined";
 
+// TODO Remove g_user_request_with_email Email request no longer used
 // Flag telling if the user will send a reservation email or directly make a reservation
 // (The flag g_user_is_concert_visitor is true)
 var g_user_request_with_email = "true";
@@ -203,11 +204,7 @@ function MainAddReservationAfterLoadEventProgramXml()
 
 } // MainAddReservationAfterLoadLayoutXml
 
-
-/*
-
-*/
-
+/* QQQQQQQQQQQQQQQ Remove this function
 // Main function for requesting a reservation
 function MainRequestReservation(i_add_to_xml_file_name)
 {  
@@ -226,6 +223,7 @@ function MainRequestReservation(i_add_to_xml_file_name)
     loadSeasonProgramAndReservationXMLDocs(i_add_to_xml_file_name);
 	
 } // MainRequestReservation
+ QQQQQQQQQQQQQQQ Remove this function */
 
 // Main (onload) function for making a reservation by anybody (i.e. not only by an administrator)
 // This web page is opened from StartReservation.htm, i.e. the page where the user inputs 

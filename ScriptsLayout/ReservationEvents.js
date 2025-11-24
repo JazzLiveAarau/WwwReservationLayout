@@ -1,5 +1,5 @@
 ﻿// File: ScriptsLayout/ReservationEvents.js
-// Date: 2025-11-22
+// Date: 2025-11-24
 // Author: Gunnar Lidén
 
 // All buttons and their events are defined in this file
@@ -97,6 +97,7 @@ function addButtonSendEmail()
 
 // width="168px"
 // User clicked button (rectangle) send a reservation request or make a reservation
+// TODO Remove g_user_request_with_email and change function name. Email request no longer used
 function mouseDownSendEmailOrMakeReservation(  )
 {
     if (g_user_is_concert_visitor != "true")

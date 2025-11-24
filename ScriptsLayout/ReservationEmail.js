@@ -1,5 +1,5 @@
 // File: Reservation\scripts\ReservationEmail.js
-
+// TODO Remove this file Email request for reservation no longer
 // Open the page send reservation
 function openPageSendReservation()
 {

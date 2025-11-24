@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-22
+// Date: 2025-11-24
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -362,8 +362,8 @@ function execCopyDirFiles()
     target_files_array.push(scripts_target + 'Reservation.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationConcerts.js');
     target_files_array.push(scripts_target + 'ReservationConcerts.js');
-    origin_files_array.push(layout_scripts_origin + 'ReservationEmail.js');
-    target_files_array.push(scripts_target + 'ReservationEmail.js');
+    //QQ No longer used origin_files_array.push(layout_scripts_origin + 'ReservationEmail.js');
+    //QQ No longer used target_files_array.push(scripts_target + 'ReservationEmail.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationEvents.js');
     target_files_array.push(scripts_target + 'ReservationEvents.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationFiles.js');
@@ -374,6 +374,8 @@ function execCopyDirFiles()
     target_files_array.push(scripts_target + 'ReservationStrings.js');
     origin_files_array.push(layout_scripts_origin + 'UtilDate_20250330.js');
     target_files_array.push(scripts_target + 'UtilDate_20250330.js');
+    origin_files_array.push(layout_scripts_origin + 'UtilPayment_20240205.js');
+    target_files_array.push(scripts_target + 'UtilPayment_20240205.js');
 
     var scripts_origin = 'Scripts/'; // Please note not in directory ScriptsLayout
     //scripts_target = 'Libs/';
@@ -389,8 +391,8 @@ function execCopyDirFiles()
 
     origin_files_array.push(php_origin + 'SendEmail.php');
     target_files_array.push(php_target + 'SendEmail.php');
-    origin_files_array.push(php_origin + 'SaveXmlExit.php');
-    target_files_array.push(php_target + 'SaveXmlExit.php');
+    //QQ Not used origin_files_array.push(php_origin + 'SaveXmlExit.php');
+    //QQ Not used target_files_array.push(php_target + 'SaveXmlExit.php');
     origin_files_array.push(php_origin + 'SaveXml.php');
     target_files_array.push(php_target + 'SaveXml.php');
 

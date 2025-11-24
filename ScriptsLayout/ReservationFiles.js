@@ -376,7 +376,7 @@ function sendEmailWithJQueryPostFunction()
 	}	
 
     $.post
-      ("SendEmail.php", 
+      ("Php/SendEmail.php", 
         {
             a_subject: email_subject,
             a_msg: email_message,
