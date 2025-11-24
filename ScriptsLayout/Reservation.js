@@ -541,13 +541,14 @@ function removeElementsForSearchPage()
 } // removeElementsForSearchPage
 
 // Replace the image (caption) for the button print reservation cards
+// TODO 20251124 This button image shall also be defined in the Layout XML file
 function replaceImagePrintReservationsToDisplayNames()
 {
     var id_image = 'id_text_image_reservation_print';
 
     var el_image = document.getElementById(id_image);
 
-    el_image.setAttribute('href', 'text_reservation_display.png');
+    el_image.setAttribute('href', 'ImagesApp/text_reservation_display.png');
 
 } // replaceImagePrintReservationsToDisplayNames
 

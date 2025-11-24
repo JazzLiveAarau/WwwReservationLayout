@@ -940,6 +940,8 @@ class LayoutScript
     {
         var ret_path_file_array = [];
 
+        ret_path_file_array.push('Libs/ControlModalPopup.js');
+
         ret_path_file_array.push('Libs/CoronaForm.js');
 
         ret_path_file_array.push('Libs/DisplayNames.js');

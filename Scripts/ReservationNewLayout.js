@@ -372,6 +372,8 @@ function execCopyDirFiles()
     target_files_array.push(scripts_target + 'ReservationSearch.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationStrings.js');
     target_files_array.push(scripts_target + 'ReservationStrings.js');
+    origin_files_array.push(layout_scripts_origin + 'ControlModalPopup.js');
+    target_files_array.push(scripts_target + 'ControlModalPopup.js');
     origin_files_array.push(layout_scripts_origin + 'UtilDate_20250330.js');
     target_files_array.push(scripts_target + 'UtilDate_20250330.js');
     origin_files_array.push(layout_scripts_origin + 'UtilPayment_20240205.js');
