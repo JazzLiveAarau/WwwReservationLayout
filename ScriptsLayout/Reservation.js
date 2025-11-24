@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-11-23
+// Date: 2025-11-24
 // Author: Gunnar Lidén
 
 
@@ -78,6 +78,10 @@ var g_for_web_page_search = "false";
 // Part of XML reservation file name (Salmen or Test)
 // This is for the concerts dropdown. Not a very nice solution ...
 var g_add_to_xml_file_name_for_drop_down = "undefined";
+
+// Global variables for the make reservation initialzation
+var g_add_to_xml_file_name_make_reservation = 'Undefined';
+var g_requested_concert_number_make_reservaion = 'Undefined';
 
 // TODO Remove g_user_request_with_email Email request no longer used
 // Flag telling if the user will send a reservation email or directly make a reservation
@@ -246,6 +250,8 @@ function MainRequestReservation(i_add_to_xml_file_name)
 //    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
 function MainMakeReservation()
 { 
+    alert("MainMakeReservation Enter");
+
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;
     var reservation_email = window.passed_data_reservation_email;
@@ -261,6 +267,9 @@ function MainMakeReservation()
         reservation_remark = sessionStorage.getItem(g_session_storage_reservation_remark);
 		requested_concert_number = sessionStorage.getItem(g_session_storage_requested_concert_number);
 	}
+
+    g_add_to_xml_file_name_make_reservation = add_to_xml_file_name;
+    g_requested_concert_number_make_reservaion = requested_concert_number;
 	
     setNameEmailRemarkGlobalVariables(reservation_name, reservation_email, reservation_remark);	
 	
@@ -268,13 +277,28 @@ function MainMakeReservation()
 	
 	g_user_request_with_email = "false";
    
-    setEventFunctions(); // ReservationSalmenEvents.js
+    setEventFunctions(); // These functions are defined in the file MakeReservation.htm
 	
-    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml);
+    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainMakeReservationAfterLoadLayoutXml);	
  
-    constructNameLoadReservationXMLDoc(add_to_xml_file_name, requested_concert_number);
+    //QQQ constructNameLoadReservationXMLDoc(add_to_xml_file_name, requested_concert_number);
 
 } // MainMakeReservation
+
+// Callback function after loading the layout xml file
+function MainMakeReservationAfterLoadLayoutXml()
+{
+    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
+        g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
+
+} // MainMakeReservationAfterLoadLayoutXml
+
+// Callback function after loading the event progran file
+function MainMakeReservationAfterLoadEventProgramXml()
+{
+    constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
+
+} // MainMakeReservationAfterLoadEventProgramXml
 
 // Set concerts dropdown 
 // Note that the function is used for two web pages: StartReservation.htm and AddReservation.htm

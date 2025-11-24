@@ -590,7 +590,37 @@ function execReservationMake()
 {
    var admin_url = getAbsUrlApplicationReservationMake();
 
-    window.open(admin_url,'_blank').focus();
+   var add_to_xml_file_name = 'Salmen';
+
+    var form_name = 'Tester neues Layout';
+
+    var form_email = 'gunnar.liden@viewsoncad.ch';
+
+    var form_remark = 'Test von Applikation MakeReservation.htm';
+
+    var requested_concert_number = '1';
+
+    var session_storage_add_to_xml_file_name = "add_to_xml_file_name_str";
+    var session_storage_reservation_name = "reservation_name_str";
+    var session_storage_reservation_email = "reservation_email_str";
+    var session_storage_reservation_remark = "reservation_remark_str";
+    var session_storage_requested_concert_number = "reservation_requested_concert_number";
+
+	// Save it also as session data that can be used by Internet Explorer and Microsoft Edge
+	sessionStorage.setItem(session_storage_add_to_xml_file_name, add_to_xml_file_name);	
+	sessionStorage.setItem(session_storage_reservation_name, form_name);
+	sessionStorage.setItem(session_storage_reservation_email, form_email);
+	sessionStorage.setItem(session_storage_reservation_remark, form_remark);
+    sessionStorage.setItem(session_storage_requested_concert_number, requested_concert_number);
+
+    var make_window = window.open(admin_url);
+
+    // Pass the data to the opened window
+	make_window.passed_data_add_to_xml_file_name = add_to_xml_file_name;
+    make_window.passed_data_reservation_name = form_name;
+    make_window.passed_data_reservation_email = form_email;
+    make_window.passed_data_reservation_remark = form_remark;
+    make_window.passed_data_requested_concert_number = requested_concert_number;
 
 } // execReservationMake
 
