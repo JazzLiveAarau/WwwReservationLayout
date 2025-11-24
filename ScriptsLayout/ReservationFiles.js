@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-11-23
+// Date: 2025-11-24
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
@@ -257,16 +257,20 @@ function saveXmlFileWithJQueryPostFunction()
 {
 	// The name of the XML file
     var xml_file_name = g_url_file_concert_reservation_xml_name;
+
+    // URL for the XML -file shall be with respect to the PHP file that
+    // is in the Php subdirectory, i.e. one step up and the down to SaisonXML
+    var xml_file_name_rel_php = '../' + xml_file_name;
 	
 	// Get the content of the XML file from the reservations XML object
     var xml_string = xmlDocumentToString();		
 
     // Refer to SaveXml.php for a description of this jQuery library function
     $.post
-      ("SaveXml.php",
+      ("Php/SaveXml.php",
         {
           xml_content: xml_string,
-          file_name: xml_file_name
+          file_name: xml_file_name_rel_php
         },
         function(data_save,status_save)
 		{
@@ -1434,7 +1438,7 @@ function getNextConcertReservationXmlFileName(i_add_to_xml_file_name)
 	
 } // getNextConcertReservationXmlFileName
 
-// Constructs and returns the XML file for a given start part and the concert number
+// Constructs and returns the event reservation XML file for a given start part and the concert number
 function constructXmlFileName(i_start_part_dir_name_xml, i_concert_number)
 {
     var ret_file_name = "";

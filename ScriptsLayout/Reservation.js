@@ -332,9 +332,9 @@ function setSeasonConcertArrays()
     {
         var date_band_name = event_date_array[index_event] + ' ' + event_name_array[index_event];
 
-        g_season_concerts_date_band_array[index_concert] = date_band_name;
+        g_season_concerts_date_band_array[index_event] = date_band_name;
 
-        g_season_concert_number_array[index_concert] = index_event + 1;
+        g_season_concert_number_array[index_event] = index_event + 1;
     }
 
     var next_event_number_int = g_season_program_xml.getEventNumberForNextEvent();
@@ -729,26 +729,37 @@ function allAvailableSeatsAreReserved()
 // Construct file name and load the reservations XML object, i.e. set g_reservations_xml and
 // update the SVG image with the made reservations and set the concert title.
 // Input data: Add string for the file name and concert number. 
-// The XML event program EventProgram.xml (g_url_xml_file_event_program) must first be loaded
-// and the global variable g_season_program_xml be set. Dates for the concerts are necessary
-// in order to be able to find the next concert.
-// 1. Construct the full file name (URL) for the XML season program
-// 2. Load the XML season program and set the global variable g_season_program_xml
-// 3. Construct the name of the XML reservation file.
+// 1. Construct the name of the XML reservation file.
 //    If the next concert is requested (concert number is 0): Call getNextConcertReservationXmlFileName
 //    Else (concert number is 1, 2, ... or 12): Call constructConcertReservationXmlFileName 
-// 4. Load the reservations XML object and set g_reservations_xml. Call of loadReservationXMLDoc.
+// 2. Load the reservations XML object and set g_reservations_xml. Call of loadReservationXMLDoc.
 //    Also the reservations are set by this function (reserved circles are made red) and the 
 //    concert title is set on the SVG image. 
 function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_number)
 {
-     alert("constructNameLoadReservationXMLDoc i_add_to_xml_file_name=" + i_add_to_xml_file_name + 
-              " i_concert_number= " + i_concert_number.toString());
+     //alert("constructNameLoadReservationXMLDoc i_add_to_xml_file_name=" + i_add_to_xml_file_name + 
+     //         " i_concert_number= " + i_concert_number.toString());
 	
-	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-                                   g_url_xml_file_event_program;
+	//QQQvar season_program_file_name = g_url_file_concert_reservation_xml_directory + 
+    //QQQ                               g_url_xml_file_event_program;
 								   
-    g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name; 
+    g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name; // TODO Where is it used?
+
+    var url_file_reservation_concert_xml = "";
+    if ("0" == i_concert_number)
+    {
+        url_file_reservation_concert_xml = 
+        getNextConcertReservationXmlFileName(i_add_to_xml_file_name); // ReservationFiles.js
+    }
+    else
+    {
+        url_file_reservation_concert_xml = 
+        constructConcertReservationXmlFileName(i_add_to_xml_file_name, i_concert_number); // ReservationFiles.js		
+    }
+
+    loadReservationXMLDoc(url_file_reservation_concert_xml);
+
+    /*QQQQQQQQQQQQ Event program already loaded
 	
     var season_program_xmlhttp = new XMLHttpRequest();
   
@@ -782,6 +793,7 @@ function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_nu
 	// season_program_xmlhttp.open('GET', season_program_file_name +'?_=' + new Date().getTime());
 	season_program_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
     season_program_xmlhttp.send();	
+    QQQQQQQQQQQQ Event program already loaded */
 	
 	
 } // constructNameLoadReservationXMLDoc
