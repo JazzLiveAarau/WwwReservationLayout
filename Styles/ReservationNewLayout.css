@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-11-22
+File: ReservationNewLayout.css Date: 2025-11-24
 
 Author: Gunnar Liden
 
@@ -169,7 +169,7 @@ label
     float: left;
 }
 
-.cl_div_show_layout_row
+.cl_div_test_apps_row
 {
     /* border-bottom: dashed 3px blue; */
     padding-bottom: 5px;
@@ -179,10 +179,20 @@ label
     overflow: hidden;  
     clear: both;   
 }
+.cl_div_test_apps_row_tw
+{
+    /* border-bottom: dashed 3px blue; */
+    padding-bottom: 5px;
+    padding-left: 2%;
+    margin-top: 1px;
+    min-height: 10px;
+    overflow: hidden;  
+    clear: both;   
+}
 
 .cl_div_show_layout_button
 {
-    margin-left: 1px;
+    margin-left: 15px;
     margin-right: 0px;
     width: 24%;
     float: left;
@@ -190,27 +200,52 @@ label
 
 .cl_div_reservation_admin_button
 {
-    margin-left: 1px;
+    margin-left: 28px;
     margin-right: 0px;
+    margin-top: 19px;
     width: 24%;
     float: left;
 }
 
 .cl_div_reservation_search_button
 {
-    margin-left: 1px;
+    margin-left: 28px;
     margin-right: 0px;
+    margin-top: 19px;
     width: 24%;
     float: left;
 }
 
 .cl_div_reservation_make_button
 {
+    /* border: solid 1px red; */
     margin-left: 1px;
-    margin-right: px;
-    width: 24%;
-    float: left;
+    margin-right: 5px;
+    width: 31%;
+    float: right;
+    overflow: hidden;  
 }
+
+.cl_div_layout_event_number
+{
+    /* border: solid 1px red; */
+    margin-left: 5px;
+    margin-top: 10px;
+    width: 8%;
+    float: left;
+    overflow: hidden;  
+}
+
+.cl_div_layout_email
+{
+    /* border: solid 1px red; */
+    margin-left: 5px;
+    margin-top: 10px;
+    width: 53%;
+    float: left;
+    overflow: hidden;  
+}
+
 
 .cl_div_message_row /* TODO Remove ?? */
 {

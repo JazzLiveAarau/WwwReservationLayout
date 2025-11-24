@@ -77,6 +77,12 @@ var g_reservation_search_button = null;
 // Button for opening application 'Reservation Make'
 var g_reservation_make_button = null;
 
+// Event number text box
+var g_layout_event_number_text_box = null;
+
+// Email address text box
+var g_layout_email_text_box = null;
+
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
 
@@ -594,11 +600,11 @@ function execReservationMake()
 
     var form_name = 'Tester neues Layout';
 
-    var form_email = 'gunnar.liden@viewsoncad.ch';
+    var form_email = g_layout_event_number_text_box.getValue();
 
     var form_remark = 'Test von Applikation MakeReservation.htm';
 
-    var requested_concert_number = '1';
+    var requested_concert_number = g_layout_event_number_text_box.getValue();
 
     var session_storage_add_to_xml_file_name = "add_to_xml_file_name_str";
     var session_storage_reservation_name = "reservation_name_str";
@@ -615,12 +621,14 @@ function execReservationMake()
 
     var make_window = window.open(admin_url);
 
+    /* Does not work
     // Pass the data to the opened window
 	make_window.passed_data_add_to_xml_file_name = add_to_xml_file_name;
     make_window.passed_data_reservation_name = form_name;
     make_window.passed_data_reservation_email = form_email;
     make_window.passed_data_reservation_remark = form_remark;
     make_window.passed_data_requested_concert_number = requested_concert_number;
+    */
 
 } // execReservationMake
 
@@ -851,6 +859,10 @@ function createReservationNewLayoutControls()
 
     createUploadXmlControl();
 
+    createTextBoxEventNumber();
+
+    createTextBoxEmail();
+
 } // createReservationNewSeasonControls
 
 // Create the text box for the test or relase directory TODO Remove
@@ -981,7 +993,7 @@ function showLayoutButton()
 
     g_show_layout_button.setWidth("60px");
 
-    g_show_layout_button.setTitle('Schritt 5: Teste machen');
+    g_show_layout_button.setTitle('Test von Applikation Reservation Tischplan zeigen');
 
 } // showLayoutButton
 
@@ -994,13 +1006,13 @@ function createReservationAdminButton()
 
     g_reservation_admin_button.setCaption('Admin');
 
-    g_reservation_admin_button.setLabelText("_");
+    // g_reservation_admin_button.setLabelText("_");
 
-    g_reservation_admin_button.setLabelTextPositionAbove();
+    // g_reservation_admin_button.setLabelTextPositionAbove();
 
     g_reservation_admin_button.setWidth("60px");
 
-    g_reservation_admin_button.setTitle('Schritt 5: Teste machen');
+    g_reservation_admin_button.setTitle('Test von Applikation Reservation Admin');
 
 } // createReservationAdminButton
 
@@ -1013,13 +1025,13 @@ function createReservationSearchButton()
 
     g_reservation_search_button.setCaption('Suche');
 
-    g_reservation_search_button.setLabelText("_");
+    //g_reservation_search_button.setLabelText("_");
 
-    g_reservation_search_button.setLabelTextPositionAbove();
+    //g_reservation_search_button.setLabelTextPositionAbove();
 
     g_reservation_search_button.setWidth("60px");
 
-    g_reservation_search_button.setTitle('_');
+    g_reservation_search_button.setTitle('Test von Applikation Reservation Suchen');
 
 } // createReservationSearchButton
 
@@ -1030,15 +1042,13 @@ function createReservationMakeButton()
 
     g_reservation_make_button.setOnclickFunctionName("onClickCreateReservationMakeButton");
 
-    g_reservation_make_button.setCaption('Make');
-
-    g_reservation_make_button.setLabelText("_");
+    g_reservation_make_button.setCaption('Homepage');
 
     g_reservation_make_button.setLabelTextPositionAbove();
 
-    g_reservation_make_button.setWidth("60px");
+    g_reservation_make_button.setWidth("80px");
 
-    g_reservation_make_button.setTitle('_');
+    g_reservation_make_button.setTitle('Test von Reservation von der Homepage');
 
 } // createReservationMakeButton
 
@@ -1092,6 +1102,42 @@ function createUploadXmlControl()
     g_xml_upload.hideUploadDiv(true);
 
 } // createUploadXmlControl
+
+// Create event number text box
+function createTextBoxEventNumber()
+{
+    g_layout_event_number_text_box = new JazzTextBox("id_layout_event_number", 'id_div_layout_event_number');
+
+    //g_layout_event_number_text_box.setLabelText("Nr");
+
+    //g_layout_event_number_text_box.setLabelTextPositionLeft();
+
+    g_layout_event_number_text_box.setSize("1");
+	
+	g_layout_event_number_text_box.setValue("1");
+
+    g_layout_event_number_text_box.setReadOnlyFlag(false);
+
+    g_layout_event_number_text_box.setTitle("Konzert Nummer eingeben (1, 2, 3, ...");
+
+} // createTextBoxEventNumber
+
+// Create email address text box
+function createTextBoxEmail()
+{
+    g_layout_email_text_box = new JazzTextBox("id_layout_email", 'id_div_layout_email');
+
+    g_layout_email_text_box.setSize("16");
+	
+	g_layout_email_text_box.setValue("");
+
+    g_layout_email_text_box.setPlaceholderText("E-Mail Adresse");
+
+    g_layout_email_text_box.setReadOnlyFlag(false);
+
+    g_layout_email_text_box.setTitle("Adresse für die E-Mail-Bestätigung");
+
+} // createTextBoxEmail
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create Controls /////////////////////////////////////////////
