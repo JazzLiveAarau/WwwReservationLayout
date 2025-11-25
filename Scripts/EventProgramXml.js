@@ -176,6 +176,13 @@ class EventProgramXml
        
    } // getMaxReservations
 
+   // Returns the maximum reservations percentage as integer
+   getMaxReservationsInt(i_event_number)
+   {
+        return parseInt(this.getMaxReservations(i_event_number));
+
+   } // getMaxReservationsInt
+
    // Returns the reservation confirmation email subject
    getEmailSubject(i_event_number)
    {
@@ -190,12 +197,35 @@ class EventProgramXml
        
    } // getEmailContent
 
-   // Returns the flag telling if the seats shall be displayed in the reservation confirmation email
+   // Returns the flag (TRUE or FALSE) telling if the seats shall be displayed in the reservation confirmation email
    getEmailSeats(i_event_number)
    {
        return this.getEventNodeValue(this.m_tags.getEmailSeats(), i_event_number);
        
    } // getEmailSeats
+
+   // Returns the flag (bool true or false) telling if the seats shall be displayed in the reservation confirmation email
+   getEmailSeatsBoolean(i_event_number)
+   {
+        var b_seats_str = this.getEmailSeats(i_event_number);
+
+        if ("TRUE" == b_seats_str || "true" == b_seats_str || "True" == b_seats_str)
+        {
+            return true;
+        }
+        else if ("FALSE" == b_seats_str || "false" == b_seats_str || "False" == b_seats_str)
+        {
+            return false;
+        }
+        else
+        {
+            alert("EventProgramXml.getEmailSeatsBoolean Flag string value is not TRUE or FALSE. Value= " + b_seats_str +
+                ". Boolean true is returned");
+
+            return true;
+        }
+
+   } // getEmailSeatsBoolean
 
    // Returns the payment method e.g. TWINT
    getPayMethod(i_event_number)
@@ -331,7 +361,25 @@ class EventProgramXml
      {
          return this.setEventNodeValue(this.m_tags.getMaxReservations(), i_event_number, i_node_value);
          
-     } // setMaxReservations	
+     } // setMaxReservations
+
+     // Set the maximum reservations percentage as integer
+     setMaxReservationsInt(i_event_number, i_percent)
+     {
+        var percent_int = parseInt(i_percent);
+
+        if (percent_int > 0 && percent_int <= 100)
+        {
+            var percent_str = percent_int.toString();
+
+            this.setMaxReservations(i_event_number, percent_str);
+        }
+        else
+        {
+            alert("EventProgramXml.setMaxReservationsInt Not allowed max reservation percentage alue= " + i_percent);
+        }
+     
+     } // setMaxReservationsInt
 
      // Set the reservation confirmation email subject
      setEmailSubject(i_event_number, i_node_value)
@@ -352,7 +400,21 @@ class EventProgramXml
      {
          return this.setEventNodeValue(this.m_tags.getEmailSeats(), i_event_number, i_node_value);
          
-     } // setEmailSeats		
+     } // setEmailSeats	
+     
+     // Sets the flag to TRUE telling that the seats shall be displayed in the reservation confirmation email
+     setEmailSeatsToTrue(i_event_number)
+     {
+        this.setEmailSeats(i_event_number, "TRUE");
+
+     } // setEmailSeatsToTrue
+
+     // Sets the flag to FALSE telling that the seats shall not be displayed in the reservation confirmation email
+     setEmailSeatsToFalse(i_event_number)
+     {
+        this.setEmailSeats(i_event_number, "FALSE");
+
+     } // setEmailSeatsToFalse
 
      // Set the payment method e.g. TWINT
      setPayMethod(i_event_number, i_node_value)
