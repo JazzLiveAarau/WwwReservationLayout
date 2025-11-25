@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-11-24
+// Date: 2025-11-25
 // Author: Gunnar Lidén
 
 
@@ -168,6 +168,43 @@ class EventProgramXml
        return this.getEventNodeValue(this.m_tags.getInstructions(), i_event_number);
        
    } // getInstructions
+
+   // Returns the maximum reservations percentage as string
+   getMaxReservations(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getMaxReservations(), i_event_number);
+       
+   } // getMaxReservations
+
+   // Returns the reservation confirmation email subject
+   getEmailSubject(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getEmailSubject(), i_event_number);
+       
+   } // getEmailSubject
+
+   // Returns the reservation confirmation email subject
+   getEmailContent(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getEmailContent(), i_event_number);
+       
+   } // getEmailContent
+
+   // Returns the flag telling if the seats shall be displayed in the reservation confirmation email
+   getEmailSeats(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getEmailSeats(), i_event_number);
+       
+   } // getEmailSeats
+
+   // Returns the payment method e.g. TWINT
+   getPayMethod(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getPayMethod(), i_event_number);
+       
+   } // getPayMethod
+   
+   
    
     ///////////////////////////////////////////////////////////////////////////
     /////// End Get event Functions ////////(//////////////////////////////////
@@ -282,12 +319,47 @@ class EventProgramXml
          
      } // setPrices
 
-     // Set the URL to the reservation subdirectory
+     // Set the event instructions text
      setInstructions(i_event_number, i_node_value)
      {
          return this.setEventNodeValue(this.m_tags.getInstructions(), i_event_number, i_node_value);
          
      } // setInstructions
+
+     // Set the maximum reservations percentage as string
+     setMaxReservations(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getMaxReservations(), i_event_number, i_node_value);
+         
+     } // setMaxReservations	
+
+     // Set the reservation confirmation email subject
+     setEmailSubject(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEmailSubject(), i_event_number, i_node_value);
+         
+     } // setEmailSubject	
+
+     // Set the reservation confirmation email content
+     setEmailContent(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEmailContent(), i_event_number, i_node_value);
+         
+     } // setEmailContent	
+
+     // Set the flag telling if the seats shall be displayed in the reservation confirmation email
+     setEmailSeats(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEmailSeats(), i_event_number, i_node_value);
+         
+     } // setEmailSeats		
+
+     // Set the payment method e.g. TWINT
+     setPayMethod(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getPayMethod(), i_event_number, i_node_value);
+         
+     } // setPayMethod	
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Set Event Data //////////////////////////////
@@ -373,6 +445,31 @@ class EventProgramXml
         var instructions_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         instructions_node.appendChild(instructions_text);
         new_event.appendChild(instructions_node);
+
+        var max_reservations_node = this.getXmlObject().createElement(this.m_tags.getMaxReservations());
+        var max_reservations_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        max_reservations_node.appendChild(max_reservations_text);
+        new_event.appendChild(max_reservations_node);
+
+        var email_subject_node = this.getXmlObject().createElement(this.m_tags.getEmailSubject());
+        var email_subject_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        email_subject_node.appendChild(email_subject_text);
+        new_event.appendChild(email_subject_node);
+
+        var email_content_node = this.getXmlObject().createElement(this.m_tags.getEmailContent());
+        var email_content_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        email_content_node.appendChild(email_content_text);
+        new_event.appendChild(email_content_node);
+
+        var email_seats_node = this.getXmlObject().createElement(this.m_tags.getEmailSeats());
+        var email_seats_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        email_seats_node.appendChild(email_seats_text);
+        new_event.appendChild(email_seats_node);
+
+        var pay_method_node = this.getXmlObject().createElement(this.m_tags.getPayMethod());
+        var pay_method_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        pay_method_node.appendChild(pay_method_text);
+        new_event.appendChild(pay_method_node);
 
         this.getXmlObject().documentElement.appendChild(new_event);	
 
@@ -861,6 +958,11 @@ class EventProgramTags
         this.m_tag_url_reservation_dir = "UrlReservationDir";
         this.m_tag_prices = "Prices";
         this.m_tag_instructions = "Instructions";
+        this.m_tag_max_reservations = "MaxReservations";
+        this.m_tag_email_subject = "EmailSubject";
+        this.m_tag_email_content = "EmailContent";
+        this.m_tag_email_seats = "EmailSeats";
+        this.m_tag_pay_method = "PayMethod";
     }
 
     getEvent(){return this.m_tag_event;} 
@@ -878,5 +980,10 @@ class EventProgramTags
     getUrlReservationDir(){return this.m_tag_url_reservation_dir;}
     getPrices(){return this.m_tag_prices;}
     getInstructions(){return this.m_tag_instructions;}
+    getMaxReservations(){return this.m_tag_max_reservations;}
+    getEmailSubject(){return this.m_tag_email_subject;}
+    getEmailContent(){return this.m_tag_email_content;}
+    getEmailSeats(){return this.m_tag_email_seats;}
+    getPayMethod(){return this.m_tag_pay_method;}
 
 } // EventProgramTags
