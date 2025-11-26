@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-06-02
+// Date: 2025-11-26
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -138,6 +138,16 @@ class SeasonToEventProgramXml
 
             g_new_season_files_data.m_event_xml.setInstructions(n_events, SeasonToEventProgramXml.instructions());
 
+            g_new_season_files_data.m_event_xml.setMaxReservations(n_events, "100");
+
+             g_new_season_files_data.m_event_xml.setEmailSubject(n_events, SeasonToEventProgramXml.emailSubject());
+
+             g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailContent());
+
+             g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
+
+             g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethod());
+
         } // concert_number
 
         SeasonToEventProgramXml.modifyEventStrings();
@@ -259,6 +269,59 @@ class SeasonToEventProgramXml
                     'Fr. 15.- SchülerInnen/StudentInnen (mit Legi, Ausweis)  \n'  ;
         
     } // prices
+
+    // Returns a default text as subject for the reservation confirmation email
+    static emailSubject()
+    {
+        var ret_subject = "";
+
+        ret_subject += "JAZZ live AARAU Reservationbestaetigung";
+
+
+        return ret_subject;
+
+    } // emailSubject
+
+    // Returns a default text as content for the reservation confirmation email
+    static emailContent()
+    {
+        var ret_content = "";
+        ret_content += "<font size=3 face='Arial'>";
+        ret_content += "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
+        ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
+        ret_content += "<p>";
+        ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
+        ret_content += "Die gewünschten Plätze sind für Sie bereitgestellt und sollten<br>";
+        ret_content += "spätestens 10 Minuten vor Konzertbeginn eingenommen werden.<br>";
+        ret_content += "Wir wünschen Ihnen bereits jetzt ein unvergessliches Konzerterlebnis.<br>";
+        ret_content += "Herzlich<br>";
+        ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
+        ret_content += "</p>";
+        ret_content += "</font>";
+
+        return ret_content;
+
+    } // emailContent
+
+    // Returns the default payment method text 
+    static payMethod()
+    {
+       var ret_pay = "";
+        ret_pay += "<font size=3 face='Arial'>";
+
+        ret_pay = "<h3>Eintritt mit TWINT zahlen</h3>";
+        ret_pay = "<p>";
+        ret_pay = "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
+        ret_pay = "Der reguläre Eintritt beträgt Fr. 25.-, Supporter bezahlen Fr. 15. <br>";
+        ret_pay = "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
+        ret_pay = "Heller, Telefonnummer +41 79 368 56 93. <br>";
+        ret_pay = "</p>";
+        ret_pay += "</font>";
+
+        return ret_pay;
+
+
+    } // payMethod
 
 } // SeasonToEventProgramXml
 
