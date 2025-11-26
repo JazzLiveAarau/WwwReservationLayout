@@ -309,17 +309,16 @@ class SeasonToEventProgramXml
        var ret_pay = "";
         ret_pay += "<font size=3 face='Arial'>";
 
-        ret_pay = "<h3>Eintritt mit TWINT zahlen</h3>";
-        ret_pay = "<p>";
-        ret_pay = "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
-        ret_pay = "Der reguläre Eintritt beträgt Fr. 25.-, Supporter bezahlen Fr. 15. <br>";
-        ret_pay = "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
-        ret_pay = "Heller, Telefonnummer +41 79 368 56 93. <br>";
-        ret_pay = "</p>";
+        ret_pay += "<h3>Eintritt mit TWINT zahlen</h3>";
+        ret_pay += "<p>";
+        ret_pay += "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
+        ret_pay += "Der reguläre Eintritt beträgt Fr. 25.-, Supporter bezahlen Fr. 15. <br>";
+        ret_pay += "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
+        ret_pay += "Heller, Telefonnummer +41 79 368 56 93. <br>";
+        ret_pay += "</p>";
         ret_pay += "</font>";
 
         return ret_pay;
-
 
     } // payMethod
 

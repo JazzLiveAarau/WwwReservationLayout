@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-11-24
+// Date: 2025-11-26
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
@@ -304,6 +304,21 @@ function sendEmailWithJQueryPostFunction()
 	{
 		return true;
 	}
+
+    if (g_current_event_number <= 0 || null == g_season_program_xml )
+    {
+        alert("sendEmailWithJQueryPostFunction Error g_current_event_number= " + g_current_event_number.toString());
+
+        return;
+    }
+
+    var email_subject_xml = g_season_program_xml.getEmailSubject(g_current_event_number);
+
+    var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
+
+    var email_b_seats =  g_season_program_xml.getEmailSeatsBoolean(g_current_event_number);
+
+    var email_pay_method_xml =  g_season_program_xml.getPayMethod(g_current_event_number);
 	
     var concert_title =  getConcertTitleText();	  
 	var selected_seats_str = getSelectedSeats();	
@@ -321,6 +336,8 @@ function sendEmailWithJQueryPostFunction()
 	{
         email_subject = g_confirmation_email_subject + concert_title;
 	}
+
+
     
     var email_message = "";
     email_message = email_message + g_confirmation_email_html_font_start;

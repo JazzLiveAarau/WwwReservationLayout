@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-11-24
+// Date: 2025-11-26
 // Author: Gunnar Lidén
 
 
@@ -52,6 +52,9 @@ var g_session_storage_requested_concert_number = "reservation_requested_concert_
 
 // XML object event program
 var g_season_program_xml = null;
+
+// Current event number
+var g_current_event_number = -12345;
 
 // XML HTTP object layout
 var g_layout_xmlhttp = null;
@@ -270,6 +273,7 @@ function MainMakeReservation()
 
     g_add_to_xml_file_name_make_reservation = add_to_xml_file_name;
     g_requested_concert_number_make_reservaion = requested_concert_number;
+    g_current_event_number = g_requested_concert_number_make_reservaion;
 	
     setNameEmailRemarkGlobalVariables(reservation_name, reservation_email, reservation_remark);	
 	
@@ -296,6 +300,8 @@ function MainMakeReservationAfterLoadLayoutXml()
 // Callback function after loading the event progran file
 function MainMakeReservationAfterLoadEventProgramXml()
 {
+    g_current_event_number = g_requested_concert_number_make_reservaion;
+
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
 
 } // MainMakeReservationAfterLoadEventProgramXml
@@ -364,6 +370,8 @@ function setSeasonConcertArrays()
     if (next_event_number_int >= 1)
     {
         g_season_next_concert_number = next_event_number_int.toString();
+
+        g_current_event_number = g_season_next_concert_number;
     }
     else
     {
@@ -480,6 +488,8 @@ function eventSelectConcertDropDown()
 	}
 	
     var new_value_concert_number = dropdown_element.value;
+
+    g_current_event_number = new_value_concert_number;
 
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_for_drop_down, new_value_concert_number);
 	
