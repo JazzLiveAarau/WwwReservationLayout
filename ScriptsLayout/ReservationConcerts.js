@@ -1,4 +1,6 @@
-// File: Reservation\scripts\ReservationConcerts.js
+// File: ScriptsLayout/ReservationConcerts.js
+// Date: 2025-11-26
+// Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Init Selections ///////////////////////////////////////////
@@ -629,24 +631,35 @@ function getSelectedSeats()
 	}
 	
 	var ret_string = "";
-	
-	for (index_out=0; index_out < found_tables.length; index_out++)
+
+	var email_b_seats =  g_season_program_xml.getEmailSeatsBoolean(g_current_event_number);
+
+	if (email_b_seats)
 	{
-	   var current_table = found_tables[index_out];
+		for (index_out=0; index_out < found_tables.length; index_out++)
+		{
+		var current_table = found_tables[index_out];
+			
+		ret_string = ret_string + "Tisch " + current_table + ": Platz ";
 		
-       ret_string = ret_string + "Tisch " + current_table + ": Platz ";
-	   
-	   for (index_all=0; index_all<g_all_selected_tables.length; index_all++)
-	   {
-		   if (g_all_selected_tables[index_all] == current_table)
-		   {
-			   ret_string = ret_string + " " + g_all_selected_seats[index_all];
-		   }
-	   }
-	   
-	   ret_string = ret_string + "<br>";
+		for (index_all=0; index_all<g_all_selected_tables.length; index_all++)
+		{
+			if (g_all_selected_tables[index_all] == current_table)
+			{
+				ret_string = ret_string + " " + g_all_selected_seats[index_all];
+			}
+		}
+		
+		ret_string = ret_string + "<br>";
+		}
+	}
+	else
+	{
+		ret_string = ret_string + "Sitzplätze können nicht reserviert werden";
+		ret_string = ret_string + "<br>";
 	}
 	
+
 	ret_string = ret_string + "Anzahl Plätze: " + g_all_selected_tables.length + "<br>";
 	
 	return ret_string;

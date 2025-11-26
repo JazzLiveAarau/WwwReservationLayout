@@ -334,7 +334,8 @@ function sendEmailWithJQueryPostFunction()
 	}
 	else
 	{
-        email_subject = g_confirmation_email_subject + concert_title;
+        //QQ email_subject = g_confirmation_email_subject + concert_title;
+        email_subject = email_subject_xml + concert_title;
 	}
 
 
@@ -360,6 +361,8 @@ function sendEmailWithJQueryPostFunction()
     email_message = email_message + g_list_text_band + concert_title + g_list_new_line;
     email_message = email_message + g_list_text_seats + selected_seats_str;
     email_message = email_message + g_list_new_line;
+
+    /*QQQQQQQ
     email_message = email_message + g_confirmation_email_html_dear_sirs;
     email_message = email_message + g_confirmation_email_html_row_1;
     email_message = email_message + g_confirmation_email_html_row_2;
@@ -370,6 +373,10 @@ function sendEmailWithJQueryPostFunction()
     email_message = email_message + g_list_new_line;
     email_message = email_message + g_confirmation_email_html_end_paragraph;
     email_message = email_message + g_confirmation_email_html_font_end;	
+    QQQQQ*/
+
+    email_message = email_message + email_content_xml;
+   
 
     //20240205 email_message = email_message + getCoronaTwintString();
 

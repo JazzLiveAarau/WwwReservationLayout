@@ -142,9 +142,20 @@ class SeasonToEventProgramXml
 
              g_new_season_files_data.m_event_xml.setEmailSubject(n_events, SeasonToEventProgramXml.emailSubject());
 
-             g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailContent());
+             var index_jam = concert_name.indexOf("Jam Session");
 
-             g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
+             if (index_jam >= 0)
+             {
+                g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailJamSessionContent());
+
+                g_new_season_files_data.m_event_xml.setEmailSeatsToFalse(n_events);
+             }
+             else
+             {
+                g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailContent());
+
+                g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
+             }
 
              g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethod());
 
@@ -282,18 +293,25 @@ class SeasonToEventProgramXml
 
     } // emailSubject
 
+    // Header for the content
+    static emailHeader()
+    {
+        return "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
+    }
+
     // Returns a default text as content for the reservation confirmation email
     static emailContent()
     {
         var ret_content = "";
         ret_content += "<font size=3 face='Arial'>";
-        ret_content += "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
         ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
         ret_content += "<p>";
         ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
         ret_content += "Die gewünschten Plätze sind für Sie bereitgestellt und sollten<br>";
         ret_content += "spätestens 10 Minuten vor Konzertbeginn eingenommen werden.<br>";
+        ret_content += "<br>";
         ret_content += "Wir wünschen Ihnen bereits jetzt ein unvergessliches Konzerterlebnis.<br>";
+        ret_content += "<br><br>";
         ret_content += "Herzlich<br>";
         ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
         ret_content += "</p>";
@@ -302,6 +320,27 @@ class SeasonToEventProgramXml
         return ret_content;
 
     } // emailContent
+
+    // Returns a default text as content for the reservation confirmation email
+    static emailJamSessionContent()
+    {
+        var ret_content = "";
+        ret_content += "<font size=3 face='Arial'>";
+        ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
+        ret_content += "<p>";
+        ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
+        ret_content += "Keine Stühle können für diese Jam Session reserviert werden. <br>";
+        ret_content += "Es gibt einige Stühle aber .....<br>";
+        ret_content += "<br>";
+        ret_content += "Wir wünschen Ihnen herzlich willkommen zu diesem Jubiläumsfest.<br>";
+        ret_content += "<br><br>";
+        ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
+        ret_content += "</p>";
+        ret_content += "</font>";
+
+        return ret_content;
+
+    } // emailJamSessionContent
 
     // Returns the default payment method text 
     static payMethod()
