@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-11-25
+// Date: 2025-11-26
 // Author: Gunnar Lidén
 
 
@@ -190,7 +190,14 @@ class EventProgramXml
        
    } // getEmailSubject
 
-   // Returns the reservation confirmation email subject
+   // Returns the reservation confirmation email header for the content
+   getEmailHeader(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getEmailHeader(), i_event_number);
+       
+   } // getEmailHeader
+
+   // Returns the reservation confirmation email content
    getEmailContent(i_event_number)
    {
        return this.getEventNodeValue(this.m_tags.getEmailContent(), i_event_number);
@@ -388,6 +395,13 @@ class EventProgramXml
          
      } // setEmailSubject	
 
+     // Set the reservation confirmation email header for the content
+     setEmailHeader(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getEmailHeader(), i_event_number, i_node_value);
+         
+     } // setEmailHeader	
+
      // Set the reservation confirmation email content
      setEmailContent(i_event_number, i_node_value)
      {
@@ -517,6 +531,11 @@ class EventProgramXml
         var email_subject_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         email_subject_node.appendChild(email_subject_text);
         new_event.appendChild(email_subject_node);
+
+        var email_header_node = this.getXmlObject().createElement(this.m_tags.getEmailHeader());
+        var email_header_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        email_header_node.appendChild(email_header_text);
+        new_event.appendChild(email_header_node);
 
         var email_content_node = this.getXmlObject().createElement(this.m_tags.getEmailContent());
         var email_content_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
@@ -1022,6 +1041,7 @@ class EventProgramTags
         this.m_tag_instructions = "Instructions";
         this.m_tag_max_reservations = "MaxReservations";
         this.m_tag_email_subject = "EmailSubject";
+        this.m_tag_email_header = "EmailHeader";
         this.m_tag_email_content = "EmailContent";
         this.m_tag_email_seats = "EmailSeats";
         this.m_tag_pay_method = "PayMethod";
@@ -1044,6 +1064,7 @@ class EventProgramTags
     getInstructions(){return this.m_tag_instructions;}
     getMaxReservations(){return this.m_tag_max_reservations;}
     getEmailSubject(){return this.m_tag_email_subject;}
+    getEmailHeader(){return this.m_tag_email_header;}
     getEmailContent(){return this.m_tag_email_content;}
     getEmailSeats(){return this.m_tag_email_seats;}
     getPayMethod(){return this.m_tag_pay_method;}

@@ -314,6 +314,8 @@ function sendEmailWithJQueryPostFunction()
 
     var email_subject_xml = g_season_program_xml.getEmailSubject(g_current_event_number);
 
+    var email_header_xml =  g_season_program_xml.getEmailHeader(g_current_event_number);
+
     var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
 
     var email_b_seats =  g_season_program_xml.getEmailSeatsBoolean(g_current_event_number);
@@ -348,7 +350,9 @@ function sendEmailWithJQueryPostFunction()
 	}
 	else
 	{
-        email_message = email_message + g_confirmation_email_html_title;
+        //QQQ email_message = email_message + g_confirmation_email_html_title;
+
+        email_message = email_message + email_header_xml;
 	}
 
     email_message = email_message + g_confirmation_email_html_start_paragraph;

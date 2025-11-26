@@ -142,6 +142,8 @@ class SeasonToEventProgramXml
 
              g_new_season_files_data.m_event_xml.setEmailSubject(n_events, SeasonToEventProgramXml.emailSubject());
 
+             g_new_season_files_data.m_event_xml.setEmailHeader(n_events, SeasonToEventProgramXml.emailHeader());
+
              var index_jam = concert_name.indexOf("Jam Session");
 
              if (index_jam >= 0)
@@ -296,7 +298,7 @@ class SeasonToEventProgramXml
     // Header for the content
     static emailHeader()
     {
-        return "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
+        return "<h1>JAZZ <i>live</i> AARAU Reservationsbestätigung</h1>";
     }
 
     // Returns a default text as content for the reservation confirmation email
