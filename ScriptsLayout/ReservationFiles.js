@@ -384,7 +384,18 @@ function sendEmailWithJQueryPostFunction()
 
     //20240205 email_message = email_message + getCoronaTwintString();
 
-    email_message = email_message + UtilPayment.twintAdmissionFeeString('730px');
+    var index_jam = concert_title.indexOf("Jam Session");
+
+    if (index_jam >= 0)
+    {
+        email_message = email_message + email_pay_method_xml;
+    }
+    else
+    {
+        email_message = email_message + UtilPayment.twintAdmissionFeeString('730px');
+    }
+
+    
 
     // var n_rows = getCoronaNumberReservedSeats();
     // var concert_date = getCoronaDate();

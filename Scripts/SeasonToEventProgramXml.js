@@ -151,15 +151,19 @@ class SeasonToEventProgramXml
                 g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailJamSessionContent());
 
                 g_new_season_files_data.m_event_xml.setEmailSeatsToFalse(n_events);
+
+                 g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethodJamSession());
              }
              else
              {
                 g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailContent());
 
                 g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
+
+                 g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethod());
              }
 
-             g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethod());
+        
 
         } // concert_number
 
@@ -362,6 +366,25 @@ class SeasonToEventProgramXml
         return ret_pay;
 
     } // payMethod
+
+    // Returns the default payment method text 
+    static payMethodJamSession()
+    {
+       var ret_pay = "";
+        ret_pay += "<font size=3 face='Arial'>";
+
+        ret_pay += "<h3>Eintritt mit TWINT zahlen</h3>";
+        ret_pay += "<p>";
+        ret_pay += "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
+        ret_pay += "Der Jam Session Eintritt beträgt Fr. 35.-.<br>";
+        ret_pay += "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
+        ret_pay += "Heller, Telefonnummer +41 79 368 56 93. <br>";
+        ret_pay += "</p>";
+        ret_pay += "</font>";
+
+        return ret_pay;
+
+    } // payMethodJamSession
 
 } // SeasonToEventProgramXml
 
