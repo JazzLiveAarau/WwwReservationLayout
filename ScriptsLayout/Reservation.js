@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-11-26
+// Date: 2025-11-27
 // Author: Gunnar Lidén
 
 
@@ -190,7 +190,7 @@ function MainAddReservationAfterLoadLayoutXml()
 // Callback after creation of the season program XML object
 function MainAddReservationAfterLoadEventProgramXml()
 {
-    alert("MainAddReservationAfterLoadEventProgramXml");
+    // alert("MainAddReservationAfterLoadEventProgramXml");
 
      var url_file_reservation_concert_xml = getNextConcertReservationXmlFileName("Salmen");
 
@@ -253,7 +253,7 @@ function MainRequestReservation(i_add_to_xml_file_name)
 //    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
 function MainMakeReservation()
 { 
-    alert("MainMakeReservation Enter");
+    // alert("MainMakeReservation Enter");
 
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;
@@ -870,7 +870,7 @@ function loadSeasonProgramXMLDoc(i_start_part_dir_name_xml)
 //   2.4 Set the dropdown element to next concert (g_season_next_concert_number)
 function loadSeasonProgramAndReservationXMLDocs(i_add_to_xml_file_name) 
 {
-    alert("loadSeasonProgramAndReservationXMLDocs ");
+    // alert("loadSeasonProgramAndReservationXMLDocs ");
 
 	var season_program_file_name = g_url_file_concert_reservation_xml_directory + 
                                    g_url_xml_file_event_program;
