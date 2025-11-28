@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-11-26
+// Date: 2025-11-28
 // Author: Gunnar Lidén
 
 
@@ -566,6 +566,13 @@ class EventProgramXml
         var ret_data = '';
         
         if (!this.checkEventProgramXml()){ return ret_data; }
+
+        if (null == i_event_number)
+        {
+            alert("EventProgramXml getEventNodeValue Input event number is null");
+
+            return "";
+        }
 
         var n_records = this.getNumberOfEvents();
         

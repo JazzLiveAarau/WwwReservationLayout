@@ -392,30 +392,6 @@ function setSeasonConcertArrays()
 
     console.log("setSeasonConcertArrays Current event number is set. g_current_event_number= " 
                     + g_current_event_number.toString());
-
-    /* QQQQQQQQ
-
-	g_season_next_concert_number = getConcertNumberForNextConcert();
-    var season_next_concert_number_int = parseInt(g_season_next_concert_number);
-    if (season_next_concert_number_int < 0)
-    {
-        alert(g_error_next_season_passed);
-        g_season_next_concert_number = '12';
-    }	
-
-    var year_array = getEventDateArray(1);
-    var month_array = getEventDateArray(2);
-    var day_array = getEventDateArray(3);
-    var band_array = getEvenDateArray(4);
-	
-    for (index_concert = 0;	index_concert <year_array.length; index_concert++)
-    {
-        var date_band_name = day_array[index_concert] + '/' + month_array[index_concert] + ' ' + year_array[index_concert] + ' ' + band_array[index_concert];
-		
-        g_season_concerts_date_band_array[index_concert] = date_band_name;
-        g_season_concert_number_array[index_concert] = index_concert + 1;
-    }
-         QQQQQQQQ */
 	
 } // setSeasonConcertArrays
 
@@ -1296,16 +1272,28 @@ function initMaxNumberSeatReservations()
 		
 } // initMaxNumberSeatReservations
 
+// Sets the global variable g_maximum_number_reservations for the current event
+// The value is retrieved from the evant program XML (g_season_program_xml)
 function setMaxNumberSeatReservations()
 {
-    console.log("setMaxNumberSeatReservations Enter");
-
     if (null == g_season_program_xml || g_current_event_number <= 0)
     {
         alert("setMaxNumberSeatReservations g_season_program_xml is null or unvalid g_current_event_number= " + g_current_event_number.toString());
 
         return;
     }
+
+    var max_n_seats_procent = g_season_program_xml.getMaxReservations(g_current_event_number);
+
+	var max_n_seats_procent_float = parseFloat(max_n_seats_procent)/100.0;
+	
+	var total_number_seats = totalNumberSeats();
+	
+	var total_number_seats_float = parseFloat(total_number_seats);
+	
+    g_maximum_number_reservations = parseInt(max_n_seats_procent_float*total_number_seats_float);
+
+    console.log("setMaxNumberSeatReservations g_maximum_number_reservations= " + g_maximum_number_reservations.toString());
 
 } // setMaxNumberSeatReservations
 
