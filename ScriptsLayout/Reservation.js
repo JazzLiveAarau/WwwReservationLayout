@@ -194,43 +194,41 @@ function MainAddReservationAfterLoadEventProgramXml()
 
      var url_file_reservation_concert_xml = getNextConcertReservationXmlFileName("Salmen");
 
+     //QQconsole.log("MainAddReservationAfterLoadEventProgramXml 1. g_current_event_number= " + g_current_event_number);
+
 	loadReservationXMLDoc(url_file_reservation_concert_xml) ;
 
     if ("false" == g_for_web_page_search)
     {		  
         addAndSetConcertsDropDown();
+
+        //QQ console.log("MainAddReservationAfterLoadEventProgramXml 2. g_current_event_number= " + g_current_event_number);
         
         addSearchInputFieldAndClearButton();
     }
     else if ("true" == g_for_web_page_search)
     {		  
+        g_current_event_number = g_season_program_xml.getEventNumberForNextEvent();
+
+        if (g_current_event_number <= 0)
+        {
+            alert("MainAddReservationAfterLoadEventProgramXml Case Search. g_current_event_number <=0");
+
+            g_current_event_number = 1;
+        }
+
+        setMaxNumberSeatReservations();
+
         addSearchInputFieldAndClearButton();
     }
 	
 	removeElement(g_id_button_event_list); // New QQQQQQQ	
 
-} // MainAddReservationAfterLoadLayoutXml
+    console.log("MainAddReservationAfterLoadEventProgramXml 3. g_current_event_number= " + g_current_event_number);
 
-/* QQQQQQQQQQQQQQQ Remove this function
-// Main function for requesting a reservation
-function MainRequestReservation(i_add_to_xml_file_name)
-{  
-    alert("MainRequestReservation This fuction is no longer used");
+    setMaxNumberSeatReservations();
 
-    g_user_is_concert_visitor = "true";
-	
-	g_user_request_with_email = "true";
-	
-    g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;	
-   
-    setEventFunctions(); // ReservationSalmenEvents.js
-	
-    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml);
-  
-    loadSeasonProgramAndReservationXMLDocs(i_add_to_xml_file_name);
-	
-} // MainRequestReservation
- QQQQQQQQQQQQQQQ Remove this function */
+} // MainAddReservationAfterLoadEventProgramXml
 
 // Main (onload) function for making a reservation by anybody (i.e. not only by an administrator)
 // This web page is opened from StartReservation.htm, i.e. the page where the user inputs 
@@ -274,6 +272,9 @@ function MainMakeReservation()
     g_add_to_xml_file_name_make_reservation = add_to_xml_file_name;
     g_requested_concert_number_make_reservaion = requested_concert_number;
     g_current_event_number = g_requested_concert_number_make_reservaion;
+
+    console.log("MainMakeReservation Current event number is set. g_current_event_number= " 
+                    + g_current_event_number.toString());
 	
     setNameEmailRemarkGlobalVariables(reservation_name, reservation_email, reservation_remark);	
 	
@@ -302,6 +303,11 @@ function MainMakeReservationAfterLoadEventProgramXml()
 {
     g_current_event_number = g_requested_concert_number_make_reservaion;
 
+    console.log("MainMakeReservationAfterLoadEventProgramXml Current event number is set. g_current_event_number= " 
+                    + g_current_event_number.toString());
+
+    setMaxNumberSeatReservations();
+
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
 
 } // MainMakeReservationAfterLoadEventProgramXml
@@ -318,8 +324,12 @@ function MainMakeReservationAfterLoadEventProgramXml()
 function setConcertsDropDown(i_id_div_element)
 {
     setSeasonConcertArrays();
+
+    console.log("setConcertsDropDown 1. g_current_event_number= " + g_current_event_number);
 	
     setConcertDropDownArrays(g_user_is_concert_visitor);
+
+    console.log("setConcertsDropDown 2. g_current_event_number= " + g_current_event_number);
    
     var dropdown_html = getConcertsDropDownHtml();
 	
@@ -371,13 +381,17 @@ function setSeasonConcertArrays()
     {
         g_season_next_concert_number = next_event_number_int.toString();
 
-        g_current_event_number = g_season_next_concert_number;
+        g_current_event_number = next_event_number_int;
     }
     else
     {
         alert(g_error_next_season_passed);
         g_season_next_concert_number = '1';
+        g_current_event_number = 1;
     }	
+
+    console.log("setSeasonConcertArrays Current event number is set. g_current_event_number= " 
+                    + g_current_event_number.toString());
 
     /* QQQQQQQQ
 
@@ -426,6 +440,11 @@ function setConcertDropDownArrays(i_user_is_concert_visitor)
         alert("onloadStartReservation Next concert number is not 1, 2, ..., 12 g_season_next_concert_number= " + next_event_number_int.toString());
         return;	
     }
+
+    g_current_event_number = next_event_number_int;
+
+    console.log("setConcertDropDownArrays Current event number is set. g_current_event_number= " 
+                    + g_current_event_number.toString());
 
 	var index_drop_down = 0;
 	
@@ -1263,6 +1282,8 @@ function checkSelectionSetReservations()
 // element MaxReservationsProcent in the XML layout file (LayoutSalmen.xml). 
 function initMaxNumberSeatReservations()
 {
+    console.log("initMaxNumberSeatReservations Enter");
+
     var max_n_seats_procent = g_layout_xml.getElementsByTagName(g_tag_max_n_seats_procent)[0].childNodes[0].nodeValue;
 	
 	var max_n_seats_procent_float = parseFloat(max_n_seats_procent)/100.0;
@@ -1274,6 +1295,19 @@ function initMaxNumberSeatReservations()
     g_maximum_number_reservations = parseInt(max_n_seats_procent_float*total_number_seats_float);
 		
 } // initMaxNumberSeatReservations
+
+function setMaxNumberSeatReservations()
+{
+    console.log("setMaxNumberSeatReservations Enter");
+
+    if (null == g_season_program_xml || g_current_event_number <= 0)
+    {
+        alert("setMaxNumberSeatReservations g_season_program_xml is null or unvalid g_current_event_number= " + g_current_event_number.toString());
+
+        return;
+    }
+
+} // setMaxNumberSeatReservations
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Init Functions //////////////////////////////////////////////
