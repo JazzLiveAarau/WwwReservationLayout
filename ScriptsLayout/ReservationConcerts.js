@@ -16,6 +16,8 @@ function initSelectSeatsForReservation(i_reservation_name, i_reservation_email, 
 	if (i_reservation_email.length > 0)
 	{
 		g_current_reservation_email = i_reservation_email;
+
+		console.log("initSelectSeatsForReservation g_current_reservation_email= " + g_current_reservation_email);
 	}
 
 	g_current_reservation_remark = g_reservations_not_yet_set_value;
@@ -76,8 +78,12 @@ function setTextForSaveReservationButton(i_number_selected)
 		return;
 	}	
 
-    var text_image_save_reservation = g_layout_xml.getElementsByTagName(g_tag_text_image_save_reservation)[0].childNodes[0].nodeValue;	
-    var text_image_save_reservation_white = g_layout_xml.getElementsByTagName(g_tag_text_image_save_reservation_white)[0].childNodes[0].nodeValue;	
+    //QQQvar text_image_save_reservation = g_layout_xml.getElementsByTagName(g_tag_text_image_save_reservation)[0].childNodes[0].nodeValue;	
+    //QQ var text_image_save_reservation_white = g_layout_xml.getElementsByTagName(g_tag_text_image_save_reservation_white)[0].childNodes[0].nodeValue;	
+
+	var text_image_save_reservation = 'ImagesApp/text_save_reservation.png';
+
+	var text_image_save_reservation_white = 'ImagesApp/text_save_reservation_white.png';
 	
 	if (g_current_reservation_name.length > 0)
 	{
@@ -116,6 +122,8 @@ function setNameEmailRemarkGlobalVariables(i_reservation_name, i_reservation_ema
 	if (i_reservation_email.length > 0)
 	{
 		g_current_reservation_email = i_reservation_email;
+
+		console.log("setNameEmailRemarkGlobalVariables g_current_reservation_email= " + g_current_reservation_email);
 	}
 
 	g_current_reservation_remark = g_reservations_not_yet_set_value;

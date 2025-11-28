@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationStrings.js
-// Date: 2025-11-23
+// Date: 2025-11-28
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -125,33 +125,33 @@ var g_list_text_seats = "Plätze: ";
 param_names[37]= "g_list_text_seats";  param_values[37] = "";
 
 // HTML texts for reservation confirmation mail
-var g_confirmation_email_subject = "JAZZ live AARAU Reservationbestaetigung ";
+var g_confirmation_email_subject = "No longer used !!!!!!!!! JAZZ live AARAU Reservationbestaetigung ";
 param_names[38]= "g_confirmation_email_subject";  param_values[38] = "";
 // https://www.the-art-of-web.com/javascript/escape/
 // ä %C3%A4 Does not work TODO
-var g_confirmation_email_html_font_start = "<font size=3 face='Arial'>";
+var g_confirmation_email_html_font_start = "No longer used !!!!!!!!! <font size=3 face='Arial'>";
 param_names[39]= "g_confirmation_email_html_font_start";  param_values[39] = "";
 var g_confirmation_email_html_title = "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
 param_names[40]= "g_confirmation_email_html_title";  param_values[40] = "";
-var g_confirmation_email_html_dear_sirs = "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
+var g_confirmation_email_html_dear_sirs = "No longer used !!!!!!!!! <b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
 param_names[41]= "g_confirmation_email_html_dear_sirs";  param_values[41] = "";
-var g_confirmation_email_html_start_paragraph = "<p>";
+var g_confirmation_email_html_start_paragraph = "No longer used !!!!!!!!! <p>";
 param_names[42]= "g_confirmation_email_html_start_paragraph";  param_values[42] = "";
-var g_confirmation_email_html_row_1 = "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>"
+var g_confirmation_email_html_row_1 = "No longer used !!!!!!!!! Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>"
 param_names[43]= "g_confirmation_email_html_row_1";  param_values[43] = "";
-var g_confirmation_email_html_row_2 = "Die gewünschten Plätze sind für Sie bereitgestellt und sollten<br>"
+var g_confirmation_email_html_row_2 = "No longer used !!!!!!!!! Die gewünschten Plätze sind für Sie bereitgestellt und sollten<br>"
 param_names[44]= "g_confirmation_email_html_row_2";  param_values[44] = "";
-var g_confirmation_email_html_row_3 = "spätestens 10 Minuten vor Konzertbeginn eingenommen werden.<br>"
+var g_confirmation_email_html_row_3 = "No longer used !!!!!!!!! spätestens 10 Minuten vor Konzertbeginn eingenommen werden.<br>"
 param_names[45]= "g_confirmation_email_html_row_3";  param_values[45] = "";
-var g_confirmation_email_html_row_4 = "Wir wünschen Ihnen bereits jetzt ein unvergessliches Konzerterlebnis.<br>"
+var g_confirmation_email_html_row_4 = "No longer used !!!!!!!!! Wir wünschen Ihnen bereits jetzt ein unvergessliches Konzerterlebnis.<br>"
 param_names[46]= "g_confirmation_email_html_row_4";  param_values[46] = "";
-var g_confirmation_email_html_greetings = "Herzlich<br>";
+var g_confirmation_email_html_greetings = "No longer used !!!!!!!!! Herzlich<br>";
 param_names[47]= "g_confirmation_email_html_greetings";  param_values[47] = "";
-var g_confirmation_email_html_signature = "<b>JAZZ <i>live</i> AARAU</b><br>";
+var g_confirmation_email_html_signature = "No longer used !!!!!!!!! <b>JAZZ <i>live</i> AARAU</b><br>";
 param_names[48]= "g_confirmation_email_html_signature";  param_values[48] = "";
-var g_confirmation_email_html_end_paragraph = "</p>";
+var g_confirmation_email_html_end_paragraph = "No longer used !!!!!!!!! </p>";
 param_names[49]= "g_confirmation_email_html_end_paragraph";  param_values[49] = "";
-var g_confirmation_email_html_font_end = "</font>";
+var g_confirmation_email_html_font_end = "No longer used !!!!!!!!! </font>";
 param_names[50]= "g_confirmation_email_html_font_end";  param_values[50] = "";
 
 // Texts for reservation selection

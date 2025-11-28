@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-24
+// Date: 2025-11-28
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -600,7 +600,7 @@ function execReservationMake()
 
     var form_name = 'Tester neues Layout';
 
-    var form_email = g_layout_event_number_text_box.getValue();
+    var form_email = g_layout_email_text_box.getValue();
 
     var form_remark = 'Test von Applikation MakeReservation.htm';
 

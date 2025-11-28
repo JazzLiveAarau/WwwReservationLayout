@@ -290,6 +290,121 @@ function saveXmlFileWithJQueryPostFunction()
 	
 } // saveXmlFileWithJQueryPostFunction
 
+// Functions for the reservation confirmation email
+class ConfirmationEmail
+{
+    // Returns the subject for the mail
+    static subject()
+    {
+        if (!ConfirmationEmail.checkInputGlobalParameters()) return "";
+
+        var email_subject_xml = g_season_program_xml.getEmailSubject(g_current_event_number);
+
+         var concert_title =  getConcertTitleText();
+
+         return email_subject_xml + ' ' + concert_title;
+
+    } // subject
+
+    // Returns the email message
+    static message()
+    {
+        var email_header_xml =  g_season_program_xml.getEmailHeader(g_current_event_number);
+
+        var data_str = ConfirmationEmail.data();
+
+        var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
+
+        var email_pay_method_xml =  g_season_program_xml.getPayMethod(g_current_event_number);
+
+        var concert_title =  getConcertTitleText();	  // Temporarely
+
+        var index_jam = concert_title.indexOf("Jam Session");   // Temporarely
+
+        var pay_method = "";
+
+        if (index_jam >= 0)
+        {
+           pay_method = email_pay_method_xml;
+        }
+        else
+        {
+           pay_method = UtilPayment.twintAdmissionFeeString('730px');
+        }
+
+        return email_header_xml + data_str + email_content_xml + pay_method;
+
+    } // message
+
+    // Returns the registered reservation data
+    static data()
+    {
+        var data_str = '';
+
+        var concert_title =  getConcertTitleText();	  
+        var selected_seats_str = getSelectedSeats();	
+
+        ConfirmationEmail.fontStart();
+
+        data_str += g_list_text_reservation_name + g_current_reservation_name + ConfirmationEmail.newLine();
+
+        data_str += g_list_text_reservation_email + g_current_reservation_email + ConfirmationEmail.newLine();
+
+        if (g_current_reservation_remark != "" && g_current_reservation_remark != g_reservations_not_yet_set_value)
+        {
+            data_str += g_list_text_reservation_remark + g_current_reservation_remark + ConfirmationEmail.newLine();
+        }
+
+        data_str += g_list_text_band + concert_title + ConfirmationEmail.newLine();
+
+        data_str += g_list_text_seats + selected_seats_str + ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.fontEnd();
+
+        return data_str;
+
+    } // data
+
+
+    // Returns font start
+    static fontStart()
+    {
+        return "<font size=3 face='Arial'>";
+    } // fontStart
+
+    // Returns font end
+    static fontEnd()
+    {
+         return "</font>";
+
+    } // fontEnd
+
+    // Returns new line
+    static newLine()
+    {
+        return "<br>";
+    } // newLine
+
+    // Returns true if g_current_event_number and g_season_program_xml not are defined
+    static checkInputGlobalParameters()
+    {
+        if (g_current_event_number <= 0 || null == g_season_program_xml )
+        {
+            alert("ConfirmationEmail.checkInputGlobalParameters Error g_current_event_number= " + g_current_event_number.toString());
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    } // checkInputGlobalParameters
+
+} // ConfirmationEmail
+
 // Send reservation confirmation email with the JQuery function "post"
 // The function returns false for failure
 // 1. Return if resrevation email is undefined.
@@ -305,114 +420,11 @@ function sendEmailWithJQueryPostFunction()
 		return true;
 	}
 
-    if (g_current_event_number <= 0 || null == g_season_program_xml )
-    {
-        alert("sendEmailWithJQueryPostFunction Error g_current_event_number= " + g_current_event_number.toString());
+    var email_subject = ConfirmationEmail.subject();
 
-        return;
-    }
-
-    var email_subject_xml = g_season_program_xml.getEmailSubject(g_current_event_number);
-
-    var email_header_xml =  g_season_program_xml.getEmailHeader(g_current_event_number);
-
-    var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
-
-    var email_b_seats =  g_season_program_xml.getEmailSeatsBoolean(g_current_event_number);
-
-    var email_pay_method_xml =  g_season_program_xml.getPayMethod(g_current_event_number);
+     var email_message = ConfirmationEmail.message();
 	
-    var concert_title =  getConcertTitleText();	  
-	var selected_seats_str = getSelectedSeats();	
-    var reservation_name = g_current_reservation_name;
-    var reservation_email = g_current_reservation_email;
-    var reservation_remark = g_current_reservation_remark;
-	
-    // In SendEmail.php defined: var from_address = "reservation@jazzliveaaru.ch";
-    var email_subject = "";
-    if (g_add_to_xml_file_name_for_drop_down == "Test")
-	{
-        email_subject = g_confirmation_email_subject_test + concert_title;
-	}
-	else
-	{
-        //QQ email_subject = g_confirmation_email_subject + concert_title;
-        email_subject = email_subject_xml + concert_title;
-	}
-
-
-    
-    var email_message = "";
-    email_message = email_message + g_confirmation_email_html_font_start;
-    if (g_add_to_xml_file_name_for_drop_down == "Test")
-	{
-        email_message = email_message + g_confirmation_email_html_title_test;		
-	}
-	else
-	{
-        //QQQ email_message = email_message + g_confirmation_email_html_title;
-
-        email_message = email_message + email_header_xml;
-	}
-
-    email_message = email_message + g_confirmation_email_html_start_paragraph;
-    email_message = email_message + g_list_text_reservation_name + reservation_name + g_list_new_line;
-    email_message = email_message + g_list_text_reservation_email + reservation_email + g_list_new_line;
-    if (reservation_remark != "" && reservation_remark != g_reservations_not_yet_set_value)
-    {
-        email_message = email_message + g_list_text_reservation_remark + reservation_remark + g_list_new_line;
-    }
-    email_message = email_message + g_list_text_band + concert_title + g_list_new_line;
-    email_message = email_message + g_list_text_seats + selected_seats_str;
-    email_message = email_message + g_list_new_line;
-
-    /*QQQQQQQ
-    email_message = email_message + g_confirmation_email_html_dear_sirs;
-    email_message = email_message + g_confirmation_email_html_row_1;
-    email_message = email_message + g_confirmation_email_html_row_2;
-    email_message = email_message + g_confirmation_email_html_row_3 + g_list_new_line;
-    email_message = email_message + g_confirmation_email_html_row_4+ g_list_new_line;
-    email_message = email_message + g_confirmation_email_html_greetings;
-    email_message = email_message + g_confirmation_email_html_signature;
-    email_message = email_message + g_list_new_line;
-    email_message = email_message + g_confirmation_email_html_end_paragraph;
-    email_message = email_message + g_confirmation_email_html_font_end;	
-    QQQQQ*/
-
-    email_message = email_message + email_content_xml;
-   
-
-    //20240205 email_message = email_message + getCoronaTwintString();
-
-    var index_jam = concert_title.indexOf("Jam Session");
-
-    if (index_jam >= 0)
-    {
-        email_message = email_message + email_pay_method_xml;
-    }
-    else
-    {
-        email_message = email_message + UtilPayment.twintAdmissionFeeString('730px');
-    }
-
-    
-
-    // var n_rows = getCoronaNumberReservedSeats();
-    // var concert_date = getCoronaDate();
-    // var concert_time = getCoronaTime();
-    // var reserved_tables = getCoronaTables();
-
-    // 2021-09-20 email_message = email_message + getCoronaFormString(n_rows, concert_date, concert_time, reserved_tables);
-	
-    var bcc_email_address = "";
-    if (g_add_to_xml_file_name_for_drop_down == "Test")
-	{
-        bcc_email_address = g_bcc_email_address_test;
-	}
-	else
-	{
-         bcc_email_address = g_bcc_email_address;
-	}	
+    var bcc_email_address = g_bcc_email_address;
 
     $.post
       ("Php/SendEmail.php", 
@@ -473,45 +485,6 @@ function sendEmailWithJQueryPostFunction()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create XML File /////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Create XML File Exit Application ///No longer used ////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// The function navigates to a new window , saves (replaces) the whole XML file. 
-// Please note that it is not possible to pass a string to PHP if the string
-// contains new lines, i.e. escape characters like \n.
-/*QQ No longer used. saveXmlFileExit can be removed
-function saveXmlFileExit()
-{
-	// Do nothing if it is the case request reservation with an email
-    if (g_user_is_concert_visitor == "true")
-        return;
-	
-	// The name of the XML file
-    var xml_file_name = g_url_file_concert_reservation_xml_name;
-	
-	// Get the content of the XML file from the reservations XML object
-    var xml_string = xmlDocumentToString();	
-	
-	// Get the URL for this web page. 
-	// Not yet used, but could be used to open a new window ..
-	// But the browser temporary file need also to be deleted
-    var script_variable_location_ref = window.location.href;	
-	
-    // Pass the JavaScript data to to PHP data of web page SaveXmlExit.php
-	// (Note that window.location.assign does not work with parameters)
- 	window.location.href = "SaveXmlExit.php" + 
-	"?xml_content=" + xml_string + 
-	"&file_name=" + xml_file_name +
-	"&loc_ref=" + script_variable_location_ref;	
-	
-} // saveXmlFileExit
-QQ*/
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Create XML File Exit Application ////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 

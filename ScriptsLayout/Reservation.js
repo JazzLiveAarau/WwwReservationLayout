@@ -1293,6 +1293,8 @@ function setConcertTitleText()
 	
 	element_text.textContent = concert_text;
 
+    // console.log("setConcertTitleText concert_text= " + concert_text);
+
 } // setConcertTitleText
 
 // Get concert text
@@ -1306,6 +1308,8 @@ function getConcertTitleText()
     concert_band_name = replaceInvalidEmailCharacters(concert_band_name);
 
     var concert_text = concert_day + "/" + concert_month + " " + concert_year + " " + concert_band_name;	
+
+    console.log("getConcertTitleText concert_text= " + concert_text);
 	
 	return concert_text;
 	
