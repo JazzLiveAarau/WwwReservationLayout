@@ -170,27 +170,11 @@ function MainAddReservation(i_add_to_xml_file_name)
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;
    
     setEventFunctions(); // These functions are defined in file AddReservation.htm
-	
-    //QQ loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainAddReservationAfterLoadLayoutXml);	
-  
-	// removeElement(g_id_button_event_list); // New QQQQQQQ	
-
-    //QQ MainAddReservationAfterLoadLayoutXml();
 
    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
         g_url_xml_file_event_program, MainAddReservationAfterLoadEventProgramXml);
 	
 } // MainAddReservation
-
-/*QQQQQ
-// Callback after creation of the layout XML object
-function MainAddReservationAfterLoadLayoutXml()
-{
-    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
-        g_url_xml_file_event_program, MainAddReservationAfterLoadEventProgramXml);
-
-} // MainAddReservationAfterLoadLayoutXml
- QQQQ */
 
 // Callback after creation of the season program XML object
 function MainAddReservationAfterLoadEventProgramXml()
@@ -201,15 +185,11 @@ function MainAddReservationAfterLoadEventProgramXml()
 
      var url_file_reservation_concert_xml = getNextConcertReservationXmlFileName("Salmen");
 
-     //QQconsole.log("MainAddReservationAfterLoadEventProgramXml 1. g_current_event_number= " + g_current_event_number);
-
 	loadReservationXMLDoc(url_file_reservation_concert_xml) ;
 
     if ("false" == g_for_web_page_search)
     {		  
         addAndSetConcertsDropDown();
-
-        //QQ console.log("MainAddReservationAfterLoadEventProgramXml 2. g_current_event_number= " + g_current_event_number);
         
         addSearchInputFieldAndClearButton();
     }
@@ -285,27 +265,11 @@ function MainMakeReservation()
 	g_user_request_with_email = "false";
    
     setEventFunctions(); // These functions are defined in the file MakeReservation.htm
-	
-    //QQ loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainMakeReservationAfterLoadLayoutXml);	
- 
-    //QQQ constructNameLoadReservationXMLDoc(add_to_xml_file_name, requested_concert_number);
-
-    //QQQQQ MainMakeReservationAfterLoadLayoutXml();
 
     g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
         g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
 
 } // MainMakeReservation
-
-/* QQQQQQQQ
-// Callback function after loading the layout xml file
-function MainMakeReservationAfterLoadLayoutXml()
-{
-    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
-        g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
-
-} // MainMakeReservationAfterLoadLayoutXml
- QQQQQ*/
 
 // Callback function after loading the event progran file
 // 1. Set the maximum number of seats that can be reserved
@@ -509,34 +473,6 @@ function eventSelectConcertDropDown()
 	
 } // eventSelectConcertDropDown
 
-/* QQQQQ
-// Main start function for making a reservation. 
-// This function is called in StartReservation.htm
-// 1. Set reservation name, email, remark and requested concert number and open the web 
-//    page MakeReservation.htm. Call of setNameEmailRemarkFromFormOpenMakeReservation()
-//    
-//    
-function mainStartReservation(i_add_to_xml_file_name)
-{  	
-    g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;
-	
-	setNameEmailRemarkFromFormOpenMakeReservation(i_add_to_xml_file_name); // ReservationEvents.js
-
-} // mainStartReservation
-
-
-// Main function for the creation of the Layout
-// This function shall be the onload function in CreateSalmenLayout.htm
-// 1. Call of loadCreateLayoutXMLDoc that calls loadCreateLayoutXMLDoc
-function MainCreate(i_user_is_concert_visitor)
-{  
-  g_user_is_concert_visitor = i_user_is_concert_visitor;
-  
-  loadCreateLayoutXMLDoc(g_url_file_layout_xml);
-  
-} // MainCreate
- QQQ*/
-
 // Show the layout of the premises
 function mainShowLayout()
 {
@@ -605,92 +541,6 @@ function replaceImagePrintReservationsToDisplayNames()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Load Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-/* QQQQQQQQQQQQQQQQQQ
-
-// Load layout XML. Create the SVG elements and display the layout. 
-// Call of createLayout.
-function loadCreateLayoutXMLDoc(i_url_file_layout_xml) 
-{
-  // Request a server object for the XML file
-  g_layout_xmlhttp = new XMLHttpRequest();
-  
-  // Event function: The server will return state and status 
-  // from object functions open and send.
-  g_layout_xmlhttp.onreadystatechange = function() 
-  {
-    // This statement will be called four times, i.e. "ready state" changes four times
-    // Value	State	Description
-    // 0	UNSENT	Client has been created. open() not called yet.
-    // 1	OPENED	open() has been called.
-    // 2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
-    // 3	LOADING	Downloading; responseText holds partial data.
-    // 4	DONE	The operation is complete.
-	// status
-	// * UNSENT 0
-    // * OPENED 0
-    // * LOADING 200
-    // * DONE 200
-    if (g_layout_xmlhttp.readyState == 4 && g_layout_xmlhttp.status == 200) 
-	{
-		g_layout_xml = g_layout_xmlhttp.responseXML;
-		
-		createLayout(g_layout_xml);
-    }
-    else if (g_layout_xmlhttp.readyState == 4 && g_layout_xmlhttp.status == 404) 
-	{
-      alert("Error 404: File " + i_url_file_layout_xml + " not found" );
-    }	
-  };
-  
-  // Open the file
-  g_layout_xmlhttp.open("GET", i_url_file_layout_xml, true);
-  
-  // g_layout_xmlhttp.open('GET', season_program_file_name +'?_=' + new Date().getTime());
-  g_layout_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
-	
-  g_layout_xmlhttp.send();	
-
-} // loadCreateLayoutXMLDoc
-
-
-// Load the layout XML object (g_layout_xml) and set the maximum number of seat reservations.  
-// After loading and setting g_layout_xml the function initMaxNumberSeatReservations is called.
-// This function sets the global variable g_maximum_number_reservations based on the XML 
-// element MaxReservationsProcent in the XML layout file (LayoutSalmen.xml). 
-function loadLayoutXMLDocSetMaxNumberSeatReservations(i_url_file_layout_xml, i_callback_function_name) 
-{
-  // Request a server object for the XML file
-  g_layout_xmlhttp = new XMLHttpRequest();
-  
-  // Event function: The server will return state and status 
-  // from object functions open and send.
-  g_layout_xmlhttp.onreadystatechange = function() 
-  {
-    if (g_layout_xmlhttp.readyState == 4 && g_layout_xmlhttp.status == 200) 
-	{
-		g_layout_xml = g_layout_xmlhttp.responseXML;
-		
-		initMaxNumberSeatReservations(); // Set the maximum number of seat reservations;
-
-        i_callback_function_name();
-    }
-    else if (g_layout_xmlhttp.readyState == 4 && g_layout_xmlhttp.status == 404) 
-	{
-      alert("Error 404: File " + i_url_file_layout_xml + " not found" );
-    }	
-  };
-  
-  // Open the file
-  g_layout_xmlhttp.open("GET", i_url_file_layout_xml, true);
-  
-  // g_layout_xmlhttp.open('GET', season_program_file_name +'?_=' + new Date().getTime());
-  g_layout_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
-	
-  g_layout_xmlhttp.send();	
-
-} // loadLayoutXMLDocSetMaxNumberSeatReservations
-
-QQQQQQQQQQQQQQQQQQ */
 
 
 // Load the reservation concert XML. Input data is the reservation XML file name 
@@ -785,13 +635,7 @@ function allAvailableSeatsAreReserved()
 //    Also the reservations are set by this function (reserved circles are made red) and the 
 //    concert title is set on the SVG image. 
 function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_number)
-{
-     //alert("constructNameLoadReservationXMLDoc i_add_to_xml_file_name=" + i_add_to_xml_file_name + 
-     //         " i_concert_number= " + i_concert_number.toString());
-	
-	//QQQvar season_program_file_name = g_url_file_concert_reservation_xml_directory + 
-    //QQQ                               g_url_xml_file_event_program;
-								   
+{							   
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name; // TODO Where is it used?
 
     var url_file_reservation_concert_xml = "";
@@ -807,43 +651,6 @@ function constructNameLoadReservationXMLDoc(i_add_to_xml_file_name, i_concert_nu
     }
 
     loadReservationXMLDoc(url_file_reservation_concert_xml);
-
-    /*QQQQQQQQQQQQ Event program already loaded
-	
-    var season_program_xmlhttp = new XMLHttpRequest();
-  
-    // Event handle function
-    season_program_xmlhttp.onreadystatechange = function() 
-    {
-      if (season_program_xmlhttp.readyState == 4 && season_program_xmlhttp.status == 200) 
-      {
-          g_season_program_xml = season_program_xmlhttp.responseXML;
-	  
-          var url_file_reservation_concert_xml = "";
-          if ("0" == i_concert_number)
-	      {
-		     url_file_reservation_concert_xml = 
-		        getNextConcertReservationXmlFileName(i_add_to_xml_file_name); // ReservationFiles.js
-          }
-	      else
-          {
-             url_file_reservation_concert_xml = 
-		        constructConcertReservationXmlFileName(i_add_to_xml_file_name, i_concert_number); // ReservationFiles.js		
-          }
-	
-          loadReservationXMLDoc(url_file_reservation_concert_xml);
-		  
-      } // Season program object loaded
-	
-    };
-
-	// https://stackoverflow.com/questions/22356025/force-cache-control-no-cache-in-chrome-via-xmlhttprequest-on-f5-reload
-    season_program_xmlhttp.open("GET", season_program_file_name , true);
-	// season_program_xmlhttp.open('GET', season_program_file_name +'?_=' + new Date().getTime());
-	season_program_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
-    season_program_xmlhttp.send();	
-    QQQQQQQQQQQQ Event program already loaded */
-	
 	
 } // constructNameLoadReservationXMLDoc
 
@@ -1510,48 +1317,12 @@ function setTextForEmailSendButton(i_number_selected)
     setImageAndTitleForReserveButton(i_number_selected);
 
 
-    /*QQQQ
-    // Return if email button not is defined.
-	if (g_user_is_concert_visitor == "false")
-		return;
-	
-	if (g_layout_xml == null)
-	{
-		alert("setTextForEmailSendButton Xml object g_layout_xml is null");
-		return;
-	}
+    /*
 	
    var text_image_reserve_select_undef = g_layout_xml.getElementsByTagName(g_tag_text_image_reserve_select_undef)[0].childNodes[0].nodeValue;
    var text_image_select_seats = g_layout_xml.getElementsByTagName(g_tag_text_image_select_seats)[0].childNodes[0].nodeValue;
    var text_image_reserve_seats = g_layout_xml.getElementsByTagName(g_tag_text_image_reserve_seats)[0].childNodes[0].nodeValue;
-
-	
-	var element_text_image = document.getElementById("text_image_send_email");
-	if (null == element_text_image)
-	{
-		alert("setTextForEmailSendButton Element text is null");
-		return;
-	}
-	
-	if (i_number_selected == 0)
-	{
-		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_select_seats);
-		element_text_image.innerHTML =  '<title>' + g_title_text_image_select_seats + '</title>';
-	}
-	else
-	{
-		if (g_user_request_with_email == "true")
-		{
-			element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_select_undef); // TODO
-            element_text_image.innerHTML = '<title>' + g_title_text_image_select_seats+ '</title>';
-		}
-		else
-		{
-			element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_seats);
-            element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
-		}
-	}
-    QQQQQQQ */
+     */
 
 } // setTextForEmailSendButton
 
