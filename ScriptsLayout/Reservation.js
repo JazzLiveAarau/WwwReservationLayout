@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-11-27
+// Date: 2025-11-28
 // Author: Gunnar Lidén
 
 
@@ -163,8 +163,6 @@ var g_color_seat_circle = "black";
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Main function for adding a reservation
-// The input string have been added to XML file names by function MainCreateXml. 
-// Pleasee refer to this function for a description of the use of the string
 function MainAddReservation(i_add_to_xml_file_name)
 {  
     g_user_is_concert_visitor = "false";
@@ -173,12 +171,18 @@ function MainAddReservation(i_add_to_xml_file_name)
    
     setEventFunctions(); // These functions are defined in file AddReservation.htm
 	
-    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainAddReservationAfterLoadLayoutXml);	
+    //QQ loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainAddReservationAfterLoadLayoutXml);	
   
 	// removeElement(g_id_button_event_list); // New QQQQQQQ	
+
+    //QQ MainAddReservationAfterLoadLayoutXml();
+
+   g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
+        g_url_xml_file_event_program, MainAddReservationAfterLoadEventProgramXml);
 	
 } // MainAddReservation
 
+/*QQQQQ
 // Callback after creation of the layout XML object
 function MainAddReservationAfterLoadLayoutXml()
 {
@@ -186,11 +190,14 @@ function MainAddReservationAfterLoadLayoutXml()
         g_url_xml_file_event_program, MainAddReservationAfterLoadEventProgramXml);
 
 } // MainAddReservationAfterLoadLayoutXml
+ QQQQ */
 
 // Callback after creation of the season program XML object
 function MainAddReservationAfterLoadEventProgramXml()
 {
     // alert("MainAddReservationAfterLoadEventProgramXml");
+
+    console.log("MainAddReservationAfterLoadEventProgramXml Enter");
 
      var url_file_reservation_concert_xml = getNextConcertReservationXmlFileName("Salmen");
 
@@ -231,24 +238,19 @@ function MainAddReservationAfterLoadEventProgramXml()
 } // MainAddReservationAfterLoadEventProgramXml
 
 // Main (onload) function for making a reservation by anybody (i.e. not only by an administrator)
-// This web page is opened from StartReservation.htm, i.e. the page where the user inputs 
-// name, email, remark and the requested concert number. Please refer to the function
-// setNameEmailRemarkFromFormOpenMakeReservation
-// After load of Layout XML object and the XML reservation object for the requested concert number
+// This web page is opened from MakeReservation.htm, i.e. the page where the user inputs 
+// name, email, remark and the requested concert number on the homepage or from EventReservation.htm
+// After load of the XML reservation object for the requested concert number
 // the event functions EventMouseDownConcertVisitor and mouseDownSaveReservation (saveSelectedReservations)
-// handles the input from the user, i.e. the selection of seats and save of reservation.
+// handles the input from the user, i.e. the selection of seats and the saving of reservation.
 // 1. Get the passed data from StartReservation.htm, i.e. member variables of the web page
 //    Passing of data with member variables often fail for Internet Explorer and Microsoft Edge
 //    For this case sessionStorage data is used.
 // 2. Set name, email and remark as global variables. Call of setNameEmailRemarkGlobalVariables
 // 3. Set flags that the user is a concert visitor (and not an administrator)
 // 4. Set the event functions for the circles on the SVG image. Call of setEventFunctions.
-// 5. Load the layout XML file (LayoutSalmen.xml) and set the maximum number of reservations
-//    Call of loadLayoutXMLDocSetMaxNumberSeatReservations (g_maximum_number_reservations)
-// 6. Construct the name of the XML reservation file for the requested concert number
-//    (e.g. Reservation_Salmen_09.xml in folder SaisonXML) and load this file, i.e.
-//    set global parameter g_season_program_xml. Call of constructNameLoadReservationXMLDoc. 
-//    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
+// 5. Load the event program XML file (g_season_program_xml).
+//    Afteloading call function MainMakeReservationAfterLoadEventProgramXml
 function MainMakeReservation()
 { 
     // alert("MainMakeReservation Enter");
@@ -284,12 +286,18 @@ function MainMakeReservation()
    
     setEventFunctions(); // These functions are defined in the file MakeReservation.htm
 	
-    loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainMakeReservationAfterLoadLayoutXml);	
+    //QQ loadLayoutXMLDocSetMaxNumberSeatReservations(g_url_file_layout_xml, MainMakeReservationAfterLoadLayoutXml);	
  
     //QQQ constructNameLoadReservationXMLDoc(add_to_xml_file_name, requested_concert_number);
 
+    //QQQQQ MainMakeReservationAfterLoadLayoutXml();
+
+    g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
+        g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
+
 } // MainMakeReservation
 
+/* QQQQQQQQ
 // Callback function after loading the layout xml file
 function MainMakeReservationAfterLoadLayoutXml()
 {
@@ -297,8 +305,15 @@ function MainMakeReservationAfterLoadLayoutXml()
         g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
 
 } // MainMakeReservationAfterLoadLayoutXml
+ QQQQQ*/
 
 // Callback function after loading the event progran file
+// 1. Set the maximum number of seats that can be reserved
+//    Call of setMaxNumberSeatReservations
+// 2. Construct the name of the XML reservation file for the requested concert number
+//    (e.g. Reservation_Salmen_09.xml in folder SaisonXML) and load this file, i.e.
+//    set global parameter g_season_program_xml. Call of constructNameLoadReservationXMLDoc. 
+//    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
 function MainMakeReservationAfterLoadEventProgramXml()
 {
     g_current_event_number = g_requested_concert_number_make_reservaion;
@@ -494,7 +509,7 @@ function eventSelectConcertDropDown()
 	
 } // eventSelectConcertDropDown
 
-
+/* QQQQQ
 // Main start function for making a reservation. 
 // This function is called in StartReservation.htm
 // 1. Set reservation name, email, remark and requested concert number and open the web 
@@ -509,6 +524,7 @@ function mainStartReservation(i_add_to_xml_file_name)
 
 } // mainStartReservation
 
+
 // Main function for the creation of the Layout
 // This function shall be the onload function in CreateSalmenLayout.htm
 // 1. Call of loadCreateLayoutXMLDoc that calls loadCreateLayoutXMLDoc
@@ -519,6 +535,7 @@ function MainCreate(i_user_is_concert_visitor)
   loadCreateLayoutXMLDoc(g_url_file_layout_xml);
   
 } // MainCreate
+ QQQ*/
 
 // Show the layout of the premises
 function mainShowLayout()
@@ -588,6 +605,7 @@ function replaceImagePrintReservationsToDisplayNames()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Load Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+/* QQQQQQQQQQQQQQQQQQ
 
 // Load layout XML. Create the SVG elements and display the layout. 
 // Call of createLayout.
@@ -634,6 +652,7 @@ function loadCreateLayoutXMLDoc(i_url_file_layout_xml)
 
 } // loadCreateLayoutXMLDoc
 
+
 // Load the layout XML object (g_layout_xml) and set the maximum number of seat reservations.  
 // After loading and setting g_layout_xml the function initMaxNumberSeatReservations is called.
 // This function sets the global variable g_maximum_number_reservations based on the XML 
@@ -670,6 +689,8 @@ function loadLayoutXMLDocSetMaxNumberSeatReservations(i_url_file_layout_xml, i_c
   g_layout_xmlhttp.send();	
 
 } // loadLayoutXMLDocSetMaxNumberSeatReservations
+
+QQQQQQQQQQQQQQQQQQ */
 
 
 // Load the reservation concert XML. Input data is the reservation XML file name 
@@ -1486,6 +1507,10 @@ function getConcertTitleText()
 // Set text for the email send button
 function setTextForEmailSendButton(i_number_selected)
 {
+    setImageAndTitleForReserveButton(i_number_selected);
+
+
+    /*QQQQ
     // Return if email button not is defined.
 	if (g_user_is_concert_visitor == "false")
 		return;
@@ -1526,8 +1551,47 @@ function setTextForEmailSendButton(i_number_selected)
             element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
 		}
 	}
+    QQQQQQQ */
 
 } // setTextForEmailSendButton
+
+// Set text image and titke (tool tip) for the reservation button
+// Input i_number_selected is the number of selected seats
+function setImageAndTitleForReserveButton(i_number_selected)
+{
+    // Return if email button not is defined.
+	if (g_user_is_concert_visitor == "false")
+		return;
+
+	var element_text_image = document.getElementById("text_image_send_email");
+
+	if (null == element_text_image)
+	{
+		alert("showAndSetTitleForReserveButton Element text is null");
+
+		return;
+
+
+	}
+    var text_image_select_seats = 'ImagesApp/text_select_seats.png';
+
+    var text_image_reserve_seats = 'ImagesApp/text_reserve_seats.png';
+
+    if (i_number_selected == 0)
+    {
+        // console.log("showAndSetTitleForReserveButton i_number_selected = 0");
+
+		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_select_seats);
+		element_text_image.innerHTML =  '<title>' + g_title_text_image_select_seats + '</title>';
+    }
+    else
+    {
+        // console.log("showAndSetTitleForReserveButton i_number_selected= " + i_number_selected.toString());
+		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_seats);
+        element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
+    }
+
+} // setImageAndTitleForReserveButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Layout Functions ////////////////////////////////////////////
