@@ -318,7 +318,10 @@ class ConfirmationEmail
     {
         var data_str = '';
 
-        var concert_title =  getConcertTitleText();	  
+        //QQQ var concert_title =  getConcertTitleText();	  
+
+        var event_xml = g_season_program_xml.getEventName(g_current_event_number);
+
         var selected_seats_str = getSelectedSeats();	
 
         var place_xml = g_season_program_xml.getPlace(g_current_event_number);
@@ -338,7 +341,9 @@ class ConfirmationEmail
             data_str += ConfirmationEmail.dataRemark() + g_current_reservation_remark + ConfirmationEmail.newLine();
         }
 
-        data_str += ConfirmationEmail.dataEventName() + concert_title + ConfirmationEmail.newLine();
+        data_str += ConfirmationEmail.dataEventName() + event_xml + ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.dataDate() + ConfirmationEmail.date() + ConfirmationEmail.newLine();
 
         data_str += ConfirmationEmail.dataSeats() + selected_seats_str + ConfirmationEmail.newLine();
 
@@ -358,6 +363,42 @@ class ConfirmationEmail
 
     } // data
 
+    // Returns the date and the time for the event
+    static date()
+    {
+        var year_xml = g_season_program_xml.getYear(g_current_event_number);
+
+        var month_xml = g_season_program_xml.getMonth(g_current_event_number);
+
+        var date_xml = g_season_program_xml.getDay(g_current_event_number);
+
+        var event_date = UtilDate.getSwissDateString(year_xml, month_xml, date_xml);
+
+        var start_hour_xml = g_season_program_xml.getStartHour(g_current_event_number);
+
+        var end_hour_xml = g_season_program_xml.getEndHour(g_current_event_number);
+
+        var start_minute_xml = g_season_program_xml.getStartMinute(g_current_event_number);
+
+        if (start_minute_xml.length == 1)
+        {
+            start_minute_xml = '0' + start_minute_xml;
+        }
+
+         var end_minute_xml = g_season_program_xml.getEndMinute(g_current_event_number);
+
+        if (end_minute_xml.length == 1)
+        {
+            end_minute_xml = '0' + end_minute_xml;
+        }
+
+        var event_time = start_hour_xml + ':' + start_minute_xml + ' - ' + 
+                         end_hour_xml  +  ':' + end_minute_xml;
+
+        return event_date + ' ' + event_time;
+        
+    } // date
+
     // Returns the prices
     static prices()
     {
@@ -375,6 +416,11 @@ class ConfirmationEmail
          return '<i>' + instructions_xml + '</i>';
 
     }
+    static dataDate()
+    {
+        return 'Datum: ';
+
+    } // dataDate
 
     static dataPrice()
     {
