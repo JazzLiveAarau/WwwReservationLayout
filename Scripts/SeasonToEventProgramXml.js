@@ -82,6 +82,7 @@ class SeasonToEventProgramXml
     {
         var n_concerts = g_new_season_files_data.m_season_xml.getNumberOfConcerts();
 
+
         for (var concert_number = 1; concert_number <= n_concerts; concert_number++)
         {
             var concert_year = g_new_season_files_data.m_season_xml.getYear(concert_number);
@@ -99,6 +100,9 @@ class SeasonToEventProgramXml
             var concert_end_minute = g_new_season_files_data.m_season_xml.getEndMinute(concert_number);
 
             var concert_place = g_new_season_files_data.m_season_xml.getPlace(concert_number);
+
+            var event_address = g_new_season_files_data.m_season_xml.getStreet(concert_number) + ', ' +
+                                g_new_season_files_data.m_season_xml.getCity(concert_number);
 
             var concert_cancelled = g_new_season_files_data.m_season_xml.getCancelled(concert_number);
 
@@ -126,7 +130,7 @@ class SeasonToEventProgramXml
 
             g_new_season_files_data.m_event_xml.setPlace(n_events, concert_place);
 
-            g_new_season_files_data.m_event_xml.setAddress(n_events, SeasonToEventProgramXml.address());
+            g_new_season_files_data.m_event_xml.setAddress(n_events, event_address);
 
             g_new_season_files_data.m_event_xml.setCancelled(n_events, concert_cancelled);
 
@@ -280,13 +284,6 @@ class SeasonToEventProgramXml
         return 'Spätesten 10 Minuten vor Konzertbeginn sollten die Plätze eingenommen werden';
 
     } // instructions
-
-    // Returns the address to the event place
-    static address()
-    {
-        return 'Metzgergasse 8, 5000 Aarau';
-
-    } // address
 
     // Returns prices
     // (Text is not in any XML file. Not on the homepage! Only in the printed season program)

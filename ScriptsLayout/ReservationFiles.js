@@ -100,12 +100,6 @@ function startPartFileNames(i_add_to_xml_file_name)
 function getXmlContentAllFiles(i_start_part_dir_name_xml, i_concert_nodes)
 {
     var ret_xml_content_for_all_files = "";
-	
-	//20230926 if (i_concert_nodes.length != 12)
-	//20230926{
-    //20230926	alert("getXmlContentAllFiles: Number of concert nodes is not 12");
-    //20230926	return ret_xml_content_for_all_files;
-    //20230926}
 
     var n_concerts = i_concert_nodes.length;
 	
@@ -315,8 +309,6 @@ class ConfirmationEmail
 
         var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
 
-        var email_pay_method_xml =  g_season_program_xml.getPayMethod(g_current_event_number);
-
         return email_header_xml + data_str + email_content_xml + ConfirmationEmail.payMethod();
 
     } // message
@@ -329,22 +321,34 @@ class ConfirmationEmail
         var concert_title =  getConcertTitleText();	  
         var selected_seats_str = getSelectedSeats();	
 
+        var place_xml = g_season_program_xml.getPlace(g_current_event_number);
+
+        var address_xml = g_season_program_xml.getAddress(g_current_event_number);
+
         data_str += ConfirmationEmail.formDataStart();
 
         data_str += ConfirmationEmail.fontStart();
 
-        data_str += g_list_text_reservation_name + g_current_reservation_name + ConfirmationEmail.newLine();
+        data_str += ConfirmationEmail.dataName() + g_current_reservation_name + ConfirmationEmail.newLine();
 
-        data_str += g_list_text_reservation_email + g_current_reservation_email + ConfirmationEmail.newLine();
+        data_str += ConfirmationEmail.dataEmail() + g_current_reservation_email + ConfirmationEmail.newLine();
 
         if (g_current_reservation_remark != "" && g_current_reservation_remark != g_reservations_not_yet_set_value)
         {
-            data_str += g_list_text_reservation_remark + g_current_reservation_remark + ConfirmationEmail.newLine();
+            data_str += ConfirmationEmail.dataRemark() + g_current_reservation_remark + ConfirmationEmail.newLine();
         }
 
-        data_str += g_list_text_band + concert_title + ConfirmationEmail.newLine();
+        data_str += ConfirmationEmail.dataEventName() + concert_title + ConfirmationEmail.newLine();
 
-        data_str += g_list_text_seats + selected_seats_str;
+        data_str += ConfirmationEmail.dataSeats() + selected_seats_str + ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.dataPlace() + place_xml + ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.dataAddress() + address_xml + ConfirmationEmail.newLine();
+
+        data_str += ConfirmationEmail.dataPrice() + ConfirmationEmail.prices() + ConfirmationEmail.newLine();
+
+        data_str +=  ConfirmationEmail.instructions() ;
 
         data_str += ConfirmationEmail.fontEnd();
 
@@ -353,6 +357,72 @@ class ConfirmationEmail
         return data_str;
 
     } // data
+
+    // Returns the prices
+    static prices()
+    {
+        var prices_xml = g_season_program_xml.getPrices(g_current_event_number);
+
+        return ConfirmationEmail.newLine() + prices_xml;
+
+    } // Prices
+
+    // Returns the statistic
+    static instructions()
+    {
+         var instructions_xml = g_season_program_xml.getInstructions(g_current_event_number); 
+
+         return '<i>' + instructions_xml + '</i>';
+
+    }
+
+    static dataPrice()
+    {
+        return 'Eintritt: ';
+
+    } // dataPrice
+
+    static dataPlace()
+    {
+        return 'Lokal: ';
+
+    } // dataPlace
+
+    static dataAddress()
+    {
+        return 'Adresse: ';
+
+    } // dataAddress
+
+    static dataSeats()
+    {
+        return 'Plätze: ';
+
+    } // dataSeats
+
+    static dataName()
+    {
+        return 'Name: ';
+
+    } // dataName
+
+    static dataEmail()
+    {
+        return 'E-Mail: ';
+
+    } // dataEmail
+
+    static dataRemark()
+    {
+        return 'Bemerkung: ';
+
+    } // dataRemark
+
+    static dataEventName()
+    {
+        return 'Band: ';
+
+    } // dataEventName
 
     // Returns the pay method text
     static payMethod()

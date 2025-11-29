@@ -121,7 +121,7 @@ var g_list_text_reservation_remark = "Bemerkung: ";
 param_names[35]= "g_list_text_reservation_remark";  param_values[35] = "";
 var g_liste_text_number_seats = "Anzahl Plätze: ";
 param_names[36]= "g_liste_text_number_seats";  param_values[36] = "";
-var g_list_text_seats = "Plätze: ";
+var g_list_text_seats = "No longer used !!!!!!!!!  Plätze: ";
 param_names[37]= "g_list_text_seats";  param_values[37] = "";
 
 // HTML texts for reservation confirmation mail

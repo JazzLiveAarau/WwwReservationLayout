@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationConcerts.js
-// Date: 2025-11-26
+// Date: 2025-11-29
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -668,7 +668,7 @@ function getSelectedSeats()
 	}
 	
 
-	ret_string = ret_string + "Anzahl Plätze: " + g_all_selected_tables.length + "<br>";
+	ret_string = ret_string + "Anzahl Plätze: " + g_all_selected_tables.length;
 	
 	return ret_string;
 	
