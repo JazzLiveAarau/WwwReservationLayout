@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-11-26
+// Date: 2025-11-29
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
@@ -317,22 +317,7 @@ class ConfirmationEmail
 
         var email_pay_method_xml =  g_season_program_xml.getPayMethod(g_current_event_number);
 
-        var concert_title =  getConcertTitleText();	  // Temporarely
-
-        var index_jam = concert_title.indexOf("Jam Session");   // Temporarely
-
-        var pay_method = "";
-
-        if (index_jam >= 0)
-        {
-           pay_method = email_pay_method_xml;
-        }
-        else
-        {
-           pay_method = UtilPayment.twintAdmissionFeeString('730px');
-        }
-
-        return email_header_xml + data_str + email_content_xml + pay_method;
+        return email_header_xml + data_str + email_content_xml + ConfirmationEmail.payMethod();
 
     } // message
 
@@ -344,7 +329,9 @@ class ConfirmationEmail
         var concert_title =  getConcertTitleText();	  
         var selected_seats_str = getSelectedSeats();	
 
-        ConfirmationEmail.fontStart();
+        data_str += ConfirmationEmail.formDataStart();
+
+        data_str += ConfirmationEmail.fontStart();
 
         data_str += g_list_text_reservation_name + g_current_reservation_name + ConfirmationEmail.newLine();
 
@@ -357,16 +344,97 @@ class ConfirmationEmail
 
         data_str += g_list_text_band + concert_title + ConfirmationEmail.newLine();
 
-        data_str += g_list_text_seats + selected_seats_str + ConfirmationEmail.newLine();
-
-        data_str += ConfirmationEmail.newLine();
+        data_str += g_list_text_seats + selected_seats_str;
 
         data_str += ConfirmationEmail.fontEnd();
+
+        data_str += ConfirmationEmail.formEnd();
 
         return data_str;
 
     } // data
 
+    // Returns the pay method text
+    static payMethod()
+    {
+        var pay_str = '';
+
+        var pay_method_xml = g_season_program_xml.getPayMethod(g_current_event_number);
+
+         pay_str += ConfirmationEmail.formStart();
+
+         pay_str += pay_method_xml;
+
+         pay_str += ConfirmationEmail.formEnd();
+
+        return pay_str;
+
+    } // payMethod
+
+    // Returns form div (box) start for pay method and prices
+    static formStart()
+    {
+        var form_str = '';
+
+        form_str += '<div style="';
+
+        form_str += ' margin:5px;';
+
+        form_str += ' width:730px;';
+
+        form_str += ' border: 1px solid blue;';
+
+        form_str += ' padding-left:15px;';
+
+        form_str += ' padding-right:15px;';
+
+        form_str += ' padding-top:5px;';
+
+        form_str += ' padding-bottom:5px;';
+
+        form_str += '" >';
+
+        return form_str;
+
+    } // formStart
+
+   // Returns form div (box) start for reservation data
+    static formDataStart()
+    {
+        var form_str = '';
+
+        form_str += '<div style="';
+
+        form_str += ' margin-top:10px;';
+
+        form_str += ' margin-bottom:30px;';
+
+        form_str += ' margin-left:40px;';
+
+        form_str += ' width:430px;';
+
+        form_str += ' border: 2px solid black;';
+
+        form_str += ' padding-left:15px;';
+
+        form_str += ' padding-right:15px;';
+
+        form_str += ' padding-top:5px;';
+
+        form_str += ' padding-bottom:5px;';
+
+        form_str += '" >';
+
+        return form_str;
+
+    } // formDataStart   
+
+    // Returns div end
+    static formEnd()
+    {
+        return '</div>';
+
+    } // formEnd
 
     // Returns font start
     static fontStart()
