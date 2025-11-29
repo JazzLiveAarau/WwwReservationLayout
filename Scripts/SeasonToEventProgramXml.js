@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-11-26
+// Date: 2025-11-29
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -126,6 +126,8 @@ class SeasonToEventProgramXml
 
             g_new_season_files_data.m_event_xml.setPlace(n_events, concert_place);
 
+            g_new_season_files_data.m_event_xml.setAddress(n_events, SeasonToEventProgramXml.address());
+
             g_new_season_files_data.m_event_xml.setCancelled(n_events, concert_cancelled);
 
             g_new_season_files_data.m_event_xml.setEventName(n_events, concert_name);
@@ -133,8 +135,6 @@ class SeasonToEventProgramXml
             g_new_season_files_data.m_event_xml.setShortText(n_events, concert_text);
 
             g_new_season_files_data.m_event_xml.setUrlReservationDir(n_events, g_new_season_files_data.m_abs_result_dir_url);
-
-            g_new_season_files_data.m_event_xml.setPrices(n_events, SeasonToEventProgramXml.prices());
 
             g_new_season_files_data.m_event_xml.setInstructions(n_events, SeasonToEventProgramXml.instructions());
 
@@ -148,6 +148,8 @@ class SeasonToEventProgramXml
 
              if (index_jam >= 0)
              {
+                g_new_season_files_data.m_event_xml.setPrices(n_events, SeasonToEventProgramXml.pricesJamSession());
+
                 g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailJamSessionContent());
 
                 g_new_season_files_data.m_event_xml.setEmailSeatsToFalse(n_events);
@@ -156,6 +158,8 @@ class SeasonToEventProgramXml
              }
              else
              {
+                g_new_season_files_data.m_event_xml.setPrices(n_events, SeasonToEventProgramXml.prices());
+
                 g_new_season_files_data.m_event_xml.setEmailContent(n_events, SeasonToEventProgramXml.emailContent());
 
                 g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
@@ -273,19 +277,31 @@ class SeasonToEventProgramXml
     // (extracted from Application.xml for the reervation confirmation email)
     static instructions()
     {
-        return 'Bitte beachten, dass reservierte Plätze 10 Minuten vor Konzertbeginn eingenommen ' + 
-                'werden müssen, sonst werden sie freigegeben.';
+        return 'Spätesten 10 Minuten vor Konzertbeginn sollten die Plätze eingenommen werden';
 
     } // instructions
+
+    // Returns the address to the event place
+    static address()
+    {
+        return 'Metzgergasse 8, 5000 Aarau';
+
+    } // address
 
     // Returns prices
     // (Text is not in any XML file. Not on the homepage! Only in the printed season program)
     static prices()
     {
-        return 'Eintritt \n' + 'Fr. 25.- Erwachsene \n'   + 'Fr. 15.- Supporter \n'  + 
-                    'Fr. 15.- SchülerInnen/StudentInnen (mit Legi, Ausweis)  \n'  ;
+        return 'Fr. 25.- Erwachsene <br>'   + 'Fr. 15.- Supporter <br>'  + 
+                    'Fr. 15.- SchülerInnen/StudentInnen (mit Legi, Ausweis)'  ;
         
     } // prices
+
+    static pricesJamSession()
+    {
+        return 'Fr. 35.- (Willkommengetränk inkludiert)' ;
+        
+    } // pricesJamSession
 
     // Returns a default text as subject for the reservation confirmation email
     static emailSubject()
@@ -302,7 +318,7 @@ class SeasonToEventProgramXml
     // Header for the content
     static emailHeader()
     {
-        return "<h1>JAZZ <i>live</i> AARAU Reservationsbestätigung</h1>";
+        return "<h2>JAZZ <i>live</i> AARAU Reservationsbestätigung</h2>";
     }
 
     // Returns a default text as content for the reservation confirmation email
@@ -313,8 +329,7 @@ class SeasonToEventProgramXml
         ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
         ret_content += "<p>";
         ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
-        ret_content += "Die gewünschten Plätze sind für Sie bereitgestellt und sollten<br>";
-        ret_content += "spätestens 10 Minuten vor Konzertbeginn eingenommen werden.<br>";
+        ret_content += "Die gewünschten Plätze sind für Sie bereitgestellt.<br>";
         ret_content += "<br>";
         ret_content += "Wir wünschen Ihnen bereits jetzt ein unvergessliches Konzerterlebnis.<br>";
         ret_content += "<br><br>";
@@ -340,6 +355,7 @@ class SeasonToEventProgramXml
         ret_content += "<br>";
         ret_content += "Wir wünschen Ihnen herzlich willkommen zu diesem Jubiläumsfest.<br>";
         ret_content += "<br><br>";
+        ret_content += "Herzlich<br>";
         ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
         ret_content += "</p>";
         ret_content += "</font>";

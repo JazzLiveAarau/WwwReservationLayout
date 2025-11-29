@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-11-28
+// Date: 2025-11-29
 // Author: Gunnar Lidén
 
 
@@ -102,6 +102,13 @@ class EventProgramXml
        return this.getEventNodeValue(this.m_tags.getPlace(), i_event_number);
        
    } // getPlace 
+
+   // Returns the address for the event place
+   getAddress(i_event_number)
+   {
+       return this.getEventNodeValue(this.m_tags.getAddress(), i_event_number);
+       
+   } // getAddress
 
    // Returns the event cancelled flag
    // DO NOT CALL THIS FUNCTION DIRECTLY. ALWAYS CALL eventIsCancelled
@@ -307,6 +314,13 @@ class EventProgramXml
          
      } // setPlace
 
+     // Set the address for the event place
+     setAddress(i_event_number, i_node_value)
+     {
+         return this.setEventNodeValue(this.m_tags.getAddress(), i_event_number, i_node_value);
+         
+     } // setAddress	
+
      // Set the event cancelled flag
      setCancelled(i_event_number, i_node_value)
      {
@@ -491,6 +505,11 @@ class EventProgramXml
         var place_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         place_node.appendChild(place_text);
         new_event.appendChild(place_node);
+
+        var address_node = this.getXmlObject().createElement(this.m_tags.getAddress());
+        var address_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        address_node.appendChild(address_text);
+        new_event.appendChild(address_node);
 
         var cancelled_node = this.getXmlObject().createElement(this.m_tags.getCancelled());
         var cancelled_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
@@ -1040,6 +1059,7 @@ class EventProgramTags
         this.m_tag_end_hour = "TimeEndHour";
         this.m_tag_end_minute = "TimeEndMinute";
         this.m_tag_place = "Place";
+        this.m_tag_address = "Address";
         this.m_tag_event_cancelled = "EventCancelled";
         this.m_tag_event_name = "EventName";
         this.m_tag_short_text = "ShortText";
@@ -1063,6 +1083,7 @@ class EventProgramTags
     getEndHour(){return this.m_tag_end_hour;} 
     getEndMinute(){return this.m_tag_end_minute;} 
     getPlace(){return this.m_tag_place;} 
+    getAddress(){return this.m_tag_address;}
     getCancelled(){return this.m_tag_event_cancelled;}
     getEventName(){return this.m_tag_event_name;} 
     getShortText(){return this.m_tag_short_text;}
