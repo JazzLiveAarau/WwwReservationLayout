@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-11-31
+// Date: 2025-12-01
 // Author: Gunnar Lidén
 
 // Inhalt

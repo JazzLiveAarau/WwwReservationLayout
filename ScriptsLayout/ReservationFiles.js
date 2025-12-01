@@ -1,9 +1,8 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-11-31
+// Date: 2025-12-01
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
-
 // TODO 20240205 At the end of the season this version of the file should be used
 
 var g_do_not_copy_confirmation_mail_to_reservation = true;
