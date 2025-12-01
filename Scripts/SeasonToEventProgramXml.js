@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-11-29
+// Date: 2025-11-31
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -140,7 +140,7 @@ class SeasonToEventProgramXml
 
             g_new_season_files_data.m_event_xml.setUrlReservationDir(n_events, g_new_season_files_data.m_abs_result_dir_url);
 
-            g_new_season_files_data.m_event_xml.setInstructions(n_events, SeasonToEventProgramXml.instructions());
+            
 
             g_new_season_files_data.m_event_xml.setMaxReservations(n_events, "100");
 
@@ -159,6 +159,8 @@ class SeasonToEventProgramXml
                 g_new_season_files_data.m_event_xml.setEmailSeatsToFalse(n_events);
 
                  g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethodJamSession());
+
+                 g_new_season_files_data.m_event_xml.setInstructions(n_events, SeasonToEventProgramXml.instructionsJamSession());
              }
              else
              {
@@ -169,6 +171,8 @@ class SeasonToEventProgramXml
                 g_new_season_files_data.m_event_xml.setEmailSeatsToTrue(n_events);
 
                  g_new_season_files_data.m_event_xml.setPayMethod(n_events, SeasonToEventProgramXml.payMethod());
+
+                 g_new_season_files_data.m_event_xml.setInstructions(n_events, SeasonToEventProgramXml.instructions());
              }
 
         
@@ -281,22 +285,27 @@ class SeasonToEventProgramXml
     // (extracted from Application.xml for the reervation confirmation email)
     static instructions()
     {
-        return 'Spätesten 10 Minuten vor Konzertbeginn sollten die Plätze eingenommen werden';
+        return 'Spätestens 10 Minuten vor Konzertbeginn sollten die reservierten Plätze eingenommen werden';
 
     } // instructions
+
+    static instructionsJamSession()
+    {
+        return '';
+
+    } // instructionsJamSession
 
     // Returns prices
     // (Text is not in any XML file. Not on the homepage! Only in the printed season program)
     static prices()
     {
-        return 'Fr. 25.- Erwachsene <br>'   + 'Fr. 15.- Supporter <br>'  + 
-                    'Fr. 15.- SchülerInnen/StudentInnen (mit Legi, Ausweis)'  ;
+        return 'Erwachsene Fr. 25.- '   + 'Supporter Fr. 15.-';
         
     } // prices
 
     static pricesJamSession()
     {
-        return 'Fr. 35.- (Willkommengetränk inkludiert)' ;
+        return 'Fr. 35.- oder Kollekte (inklusive Willkommensgetränk)' ;
         
     } // pricesJamSession
 
@@ -366,13 +375,12 @@ class SeasonToEventProgramXml
     {
        var ret_pay = "";
         ret_pay += "<font size=3 face='Arial'>";
-
         ret_pay += "<h3>Eintritt mit TWINT zahlen</h3>";
         ret_pay += "<p>";
-        ret_pay += "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
-        ret_pay += "Der reguläre Eintritt beträgt Fr. 25.-, Supporter bezahlen Fr. 15. <br>";
-        ret_pay += "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
-        ret_pay += "Heller, Telefonnummer +41 79 368 56 93. <br>";
+        ret_pay += "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. <br>";
+        ret_pay += "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. <br>";
+        ret_pay += "Empfänger: Hanni Heller <br>";
+        ret_pay += "Telefonnummer: <b><i>+41 79 368 56 93</i></b><br>";
         ret_pay += "</p>";
         ret_pay += "</font>";
 
@@ -385,13 +393,12 @@ class SeasonToEventProgramXml
     {
        var ret_pay = "";
         ret_pay += "<font size=3 face='Arial'>";
-
-        ret_pay += "<h3>Eintritt mit TWINT zahlen</h3>";
+        ret_pay += "<h3>Kollekte mit TWINT zahlen</h3>";
         ret_pay += "<p>";
-        ret_pay += "Eintritte können mit TWINT im Voraus oder im Konzertsaal bezahlt werden. ";
-        ret_pay += "Der Jam Session Eintritt beträgt Fr. 35.-.<br>";
-        ret_pay += "Bitte geben Sie Ihren Namen und das Konzertdatum bei der Bezahlung an. Empfänger ist Hanni ";
-        ret_pay += "Heller, Telefonnummer +41 79 368 56 93. <br>";
+        ret_pay += "Kollekte können gerne mit TWINT im Voraus gegeben werden. <br>";
+        ret_pay += "Bitte geben Sie Ihren Namen und 'Jam Session' bei der Bezahlung an.<br>";
+        ret_pay += "Empfänger: Hanni Heller <br>";
+        ret_pay += "Telefonnummer: <b><i>+41 79 368 56 93</i><br>";
         ret_pay += "</p>";
         ret_pay += "</font>";
 

@@ -1,10 +1,12 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-11-29
+// Date: 2025-11-31
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
 
 // TODO 20240205 At the end of the season this version of the file should be used
+
+var g_do_not_copy_confirmation_mail_to_reservation = true;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create New Season XML files ///////////////////////////////
@@ -305,20 +307,33 @@ class ConfirmationEmail
     {
         var email_header_xml =  g_season_program_xml.getEmailHeader(g_current_event_number);
 
-        var data_str = ConfirmationEmail.data();
-
-        var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
-
-        return email_header_xml + data_str + email_content_xml + ConfirmationEmail.payMethod();
+        return ConfirmationEmail.header() + ConfirmationEmail.data() + ConfirmationEmail.content() + ConfirmationEmail.payMethod();
 
     } // message
+
+    // Reurns the email header
+    static header()
+    {
+         var email_header_xml =  g_season_program_xml.getEmailHeader(g_current_event_number);
+
+         return ConfirmationEmail.formContentStart() + email_header_xml + ConfirmationEmail.formEnd();
+
+    } // header
+
+
+    // Reurns the email content
+    static content()
+    {
+         var email_content_xml =  g_season_program_xml.getEmailContent(g_current_event_number);
+
+         return ConfirmationEmail.formContentStart() + email_content_xml + ConfirmationEmail.formEnd();
+
+    } // content
 
     // Returns the registered reservation data
     static data()
     {
         var data_str = '';
-
-        //QQQ var concert_title =  getConcertTitleText();	  
 
         var event_xml = g_season_program_xml.getEventName(g_current_event_number);
 
@@ -404,7 +419,7 @@ class ConfirmationEmail
     {
         var prices_xml = g_season_program_xml.getPrices(g_current_event_number);
 
-        return ConfirmationEmail.newLine() + prices_xml;
+        return prices_xml;
 
     } // Prices
 
@@ -477,7 +492,7 @@ class ConfirmationEmail
 
         var pay_method_xml = g_season_program_xml.getPayMethod(g_current_event_number);
 
-         pay_str += ConfirmationEmail.formStart();
+         pay_str += ConfirmationEmail.formPayStart();
 
          pay_str += pay_method_xml;
 
@@ -487,8 +502,8 @@ class ConfirmationEmail
 
     } // payMethod
 
-    // Returns form div (box) start for pay method and prices
-    static formStart()
+    // Returns form div (box) start for pay method
+    static formPayStart()
     {
         var form_str = '';
 
@@ -496,7 +511,7 @@ class ConfirmationEmail
 
         form_str += ' margin:5px;';
 
-        form_str += ' width:730px;';
+        form_str += ' width:600px;';
 
         form_str += ' border: 1px solid blue;';
 
@@ -512,7 +527,34 @@ class ConfirmationEmail
 
         return form_str;
 
-    } // formStart
+    } // formPayStart
+
+    // Returns form div (box) start for pay method 
+    static formContentStart()
+    {
+        var form_str = '';
+
+        form_str += '<div style="';
+
+        form_str += ' margin:5px;';
+
+        form_str += ' margin-left:10px;';
+
+        form_str += ' width:730px;';
+
+        form_str += ' padding-left:15px;';
+
+        form_str += ' padding-right:15px;';
+
+        form_str += ' padding-top:5px;';
+
+        form_str += ' padding-bottom:5px;';
+
+        form_str += '" >';
+
+        return form_str;
+
+    } // formContentStart
 
    // Returns form div (box) start for reservation data
     static formDataStart()
@@ -525,7 +567,7 @@ class ConfirmationEmail
 
         form_str += ' margin-bottom:30px;';
 
-        form_str += ' margin-left:40px;';
+        form_str += ' margin-left:20px;';
 
         form_str += ' width:430px;';
 
@@ -606,9 +648,18 @@ function sendEmailWithJQueryPostFunction()
 
     var email_subject = ConfirmationEmail.subject();
 
-     var email_message = ConfirmationEmail.message();
+    var email_message = ConfirmationEmail.message();
 	
     var bcc_email_address = g_bcc_email_address;
+
+     if (g_do_not_copy_confirmation_mail_to_reservation)
+     {
+        bcc_email_address = '';
+
+        alert("sendEmailWithJQueryPostFunction Confirmation mail will not be copied to reservation@jazzliveaarau.ch"
+              
+        + " g_do_not_copy_confirmation_mail_to_reservation= " + g_do_not_copy_confirmation_mail_to_reservation.toString());
+     }
 
     $.post
       ("Php/SendEmail.php", 
