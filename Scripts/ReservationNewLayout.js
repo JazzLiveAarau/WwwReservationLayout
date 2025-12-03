@@ -384,6 +384,31 @@ function execCopyDirFiles()
     origin_files_array.push(layout_scripts_origin + 'UtilPayment_20240205.js');
     target_files_array.push(scripts_target + 'UtilPayment_20240205.js');
 
+    var event_scripts_origin = 'ScriptsEvent/';
+
+    origin_files_array.push(event_scripts_origin + 'DefaultText.js');
+    target_files_array.push(scripts_target + 'DefaultText.js');
+    origin_files_array.push(event_scripts_origin + 'EventProgramDropdown.js');
+    target_files_array.push(scripts_target + 'EventProgramDropdown.js');
+    origin_files_array.push(event_scripts_origin + 'InputEventReservation.js');
+    target_files_array.push(scripts_target + 'InputEventReservation.js');
+    origin_files_array.push(event_scripts_origin + 'InputEventReservationIdElement.js');
+    target_files_array.push(scripts_target + 'InputEventReservationIdElement.js');
+    origin_files_array.push(event_scripts_origin + 'InputEventReservationStyle.js');
+    target_files_array.push(scripts_target + 'InputEventReservationStyle.js');
+    origin_files_array.push(event_scripts_origin + 'InputEventReservationText.js');
+    target_files_array.push(scripts_target + 'InputEventReservationText.js');
+    origin_files_array.push(event_scripts_origin + 'ReservationData.js');
+    target_files_array.push(scripts_target + 'ReservationData.js');
+    origin_files_array.push(event_scripts_origin + 'ReservationDataText.js');
+    target_files_array.push(scripts_target + 'ReservationDataText.js');
+    origin_files_array.push(event_scripts_origin + 'ReservationOpen.js');
+    target_files_array.push(scripts_target + 'ReservationOpen.js');
+    origin_files_array.push(event_scripts_origin + 'ReservationStorage.js');
+    target_files_array.push(scripts_target + 'ReservationStorage.js');
+    origin_files_array.push(event_scripts_origin + 'UtilUrl.js'); // Check if these class already is defined
+    target_files_array.push(scripts_target + 'UtilUrl.js');
+
     var scripts_origin = 'Scripts/'; // Please note not in directory ScriptsLayout
     //scripts_target = 'Libs/';
 
