@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-12-01
+// Date: 2025-12-03
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -356,8 +356,7 @@ class SeasonToEventProgramXml
         ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
         ret_content += "<p>";
         ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
-        ret_content += "Keine Stühle können für diese Jam Session reserviert werden. <br>";
-        ret_content += "Es gibt einige Stühle aber .....<br>";
+        ret_content += "Für diese Jam Session gibt es wenige Stühle, wir können dafür aber keine Reservation entgegen nehmen.  <br>";
         ret_content += "<br>";
         ret_content += "Wir wünschen Ihnen herzlich willkommen zu diesem Jubiläumsfest.<br>";
         ret_content += "<br><br>";
