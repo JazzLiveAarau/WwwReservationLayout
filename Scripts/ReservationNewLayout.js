@@ -77,12 +77,6 @@ var g_reservation_search_button = null;
 // Button for opening application 'Reservation Make'
 var g_reservation_make_button = null;
 
-// Event number text box
-var g_layout_event_number_text_box = null;
-
-// Email address text box
-var g_layout_email_text_box = null;
-
 // The object of class ControUploadFile for the upload of the XML file 
 var g_xml_upload = null;
 
@@ -214,6 +208,17 @@ function getAbsUrlApplicationReservationMake()
 
 } // getAbsUrlApplicationReservationMake
 
+// Returns the absolute URL to the created HTML file EventReservation.htm
+function getAbsUrlApplicationReservationEvent()
+{
+    var ret_event_url = getAbsUrlApplicationReservationStart();
+
+     ret_event_url = ret_event_url + 'EventReservation.htm';
+
+     return ret_event_url;
+
+} // getAbsUrlApplicationReservationEvent
+
 // Returns the start string for the absolute URL to the applicaions
 function getAbsUrlApplicationReservationStart()
 {
@@ -225,7 +230,7 @@ function getAbsUrlApplicationReservationStart()
 
      return ret_start_url;
 
-} // getAbsUrlApplicationReservationMake
+} // getAbsUrlApplicationReservationStart
 
 // Returns the abs URL to the uploaded layout XML file
 function getAbsUrlToLayoutXmlFile()
@@ -263,8 +268,6 @@ function execCopyDirFiles()
     var domain_url = 'https://jazzliveaarau.ch/';
 
     var origin_url = 'ReservationLayout/';
-
-    //QQ var util_files_php_dir = domain_url + origin_url + 'Php/';
 
     var util_files_php_dir = getUtilFilesPhpDir();
 
@@ -360,16 +363,12 @@ function execCopyDirFiles()
     var layout_scripts_origin = 'ScriptsLayout/';
     var scripts_target = 'Libs/';
 
-    //QQ No longer used origin_files_array.push(layout_scripts_origin + 'CoronaForm.js');
-    //QQ No longer used target_files_array.push(scripts_target + 'CoronaForm.js');
     origin_files_array.push(layout_scripts_origin + 'DisplayNames.js');
     target_files_array.push(scripts_target + 'DisplayNames.js');
     origin_files_array.push(layout_scripts_origin + 'Reservation.js');
     target_files_array.push(scripts_target + 'Reservation.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationConcerts.js');
     target_files_array.push(scripts_target + 'ReservationConcerts.js');
-    //QQ No longer used origin_files_array.push(layout_scripts_origin + 'ReservationEmail.js');
-    //QQ No longer used target_files_array.push(scripts_target + 'ReservationEmail.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationEvents.js');
     target_files_array.push(scripts_target + 'ReservationEvents.js');
     origin_files_array.push(layout_scripts_origin + 'ReservationFiles.js');
@@ -399,8 +398,6 @@ function execCopyDirFiles()
 
     origin_files_array.push(php_origin + 'SendEmail.php');
     target_files_array.push(php_target + 'SendEmail.php');
-    //QQ Not used origin_files_array.push(php_origin + 'SaveXmlExit.php');
-    //QQ Not used target_files_array.push(php_target + 'SaveXmlExit.php');
     origin_files_array.push(php_origin + 'SaveXml.php');
     target_files_array.push(php_target + 'SaveXml.php');
 
@@ -591,46 +588,14 @@ function execReservationSearch()
 
 } // execReservationSearch
 
-// Open 'Reservation Make' application
-function execReservationMake()
+// Open the 'Reservation Event' application
+function execReservationEvent()
 {
-   var admin_url = getAbsUrlApplicationReservationMake();
+    var event_url = getAbsUrlApplicationReservationEvent();
 
-   var add_to_xml_file_name = 'Salmen';
+     window.open(event_url,'_blank').focus();
 
-    var form_name = 'Tester neues Layout';
-
-    var form_email = g_layout_email_text_box.getValue();
-
-    var form_remark = 'Test von Applikation MakeReservation.htm';
-
-    var requested_concert_number = g_layout_event_number_text_box.getValue();
-
-    var session_storage_add_to_xml_file_name = "add_to_xml_file_name_str";
-    var session_storage_reservation_name = "reservation_name_str";
-    var session_storage_reservation_email = "reservation_email_str";
-    var session_storage_reservation_remark = "reservation_remark_str";
-    var session_storage_requested_concert_number = "reservation_requested_concert_number";
-
-	// Save it also as session data that can be used by Internet Explorer and Microsoft Edge
-	sessionStorage.setItem(session_storage_add_to_xml_file_name, add_to_xml_file_name);	
-	sessionStorage.setItem(session_storage_reservation_name, form_name);
-	sessionStorage.setItem(session_storage_reservation_email, form_email);
-	sessionStorage.setItem(session_storage_reservation_remark, form_remark);
-    sessionStorage.setItem(session_storage_requested_concert_number, requested_concert_number);
-
-    var make_window = window.open(admin_url);
-
-    /* Does not work
-    // Pass the data to the opened window
-	make_window.passed_data_add_to_xml_file_name = add_to_xml_file_name;
-    make_window.passed_data_reservation_name = form_name;
-    make_window.passed_data_reservation_email = form_email;
-    make_window.passed_data_reservation_remark = form_remark;
-    make_window.passed_data_requested_concert_number = requested_concert_number;
-    */
-
-} // execReservationMake
+} // execReservationEvent
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -681,7 +646,9 @@ function onClickCreateReservationSearchButton()
 // User clicked the opening application 'Reservation Make'
 function onClickCreateReservationMakeButton()
 {
-	execReservationMake();
+	// execReservationMake();
+
+    execReservationEvent();
 
 }// onClickCreateReservationMakeButton
 
@@ -698,8 +665,6 @@ function onClickDownloadXmlFileButton()
     var url_xml = getAbsUrlToLayoutXmlFile();
 
     window.open(url_xml,'_blank').focus();
-
-	//QQalert("onClickDownloadXmlFileButton " + url_xml);
 
 }// onClickDownloadXmlFileButton
 
@@ -858,10 +823,6 @@ function createReservationNewLayoutControls()
     createDownloadXmlButton();
 
     createUploadXmlControl();
-
-    createTextBoxEventNumber();
-
-    createTextBoxEmail();
 
 } // createReservationNewSeasonControls
 
@@ -1042,13 +1003,13 @@ function createReservationMakeButton()
 
     g_reservation_make_button.setOnclickFunctionName("onClickCreateReservationMakeButton");
 
-    g_reservation_make_button.setCaption('Homepage');
+    g_reservation_make_button.setCaption('Make');
 
     g_reservation_make_button.setLabelTextPositionAbove();
 
-    g_reservation_make_button.setWidth("80px");
+    g_reservation_make_button.setWidth("60px");
 
-    g_reservation_make_button.setTitle('Test von Reservation von der Homepage');
+    g_reservation_make_button.setTitle('Test simuliert eine Reservation von der Homepage Applikation, d.h. MakeReservation.htm is called');
 
 } // createReservationMakeButton
 
@@ -1103,42 +1064,6 @@ function createUploadXmlControl()
 
 } // createUploadXmlControl
 
-// Create event number text box
-function createTextBoxEventNumber()
-{
-    g_layout_event_number_text_box = new JazzTextBox("id_layout_event_number", 'id_div_layout_event_number');
-
-    //g_layout_event_number_text_box.setLabelText("Nr");
-
-    //g_layout_event_number_text_box.setLabelTextPositionLeft();
-
-    g_layout_event_number_text_box.setSize("1");
-	
-	g_layout_event_number_text_box.setValue("1");
-
-    g_layout_event_number_text_box.setReadOnlyFlag(false);
-
-    g_layout_event_number_text_box.setTitle("Konzert Nummer eingeben (1, 2, 3, ...");
-
-} // createTextBoxEventNumber
-
-// Create email address text box
-function createTextBoxEmail()
-{
-    g_layout_email_text_box = new JazzTextBox("id_layout_email", 'id_div_layout_email');
-
-    g_layout_email_text_box.setSize("16");
-	
-	g_layout_email_text_box.setValue("");
-
-    g_layout_email_text_box.setPlaceholderText("E-Mail Adresse");
-
-    g_layout_email_text_box.setReadOnlyFlag(false);
-
-    g_layout_email_text_box.setTitle("Adresse für die E-Mail-Bestätigung");
-
-} // createTextBoxEmail
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create Controls /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1159,7 +1084,7 @@ function debugReservationNewLayout(i_msg_str)
 // Displays the input string in the debugger Console TODO Should not be called in UtilFiles
 function debugReservationLayout(i_msg_str)
 {
-    // Tempoprary QQQ console.log(i_msg_str);
+    // Tempoprary  console.log(i_msg_str);
 
     // UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
 

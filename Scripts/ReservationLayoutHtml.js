@@ -1369,9 +1369,9 @@ class LayoutScript
 
             main_str = main_str + LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();
 
-            main_str = main_str + LayoutHtml.tab(4) + 'var subdir_xml = "../XmlTestData";' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(4) + 'var subdir_xml = "./SaisonXML";' + LayoutHtml.endRow();
 
-            main_str = main_str + LayoutHtml.tab(4) + 'var event_program_file_name = "EventProgramSample.xml";' + LayoutHtml.endRow();
+            main_str = main_str + LayoutHtml.tab(4) + 'var event_program_file_name = "EventProgram.xml";' + LayoutHtml.endRow();
 
             main_str = main_str + LayoutHtml.tab(4) + 'g_event_program_xml = new EventProgramXml(subdir_xml, event_program_file_name, callbackAfterLoadingEventProgram);' + LayoutHtml.endRow();
             

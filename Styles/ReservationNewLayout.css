@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-11-24
+File: ReservationNewLayout.css Date: 2025-12-03
 
 Author: Gunnar Liden
 
@@ -192,7 +192,7 @@ label
 
 .cl_div_show_layout_button
 {
-    margin-left: 15px;
+    margin-left: 2px;
     margin-right: 0px;
     width: 24%;
     float: left;
@@ -200,7 +200,7 @@ label
 
 .cl_div_reservation_admin_button
 {
-    margin-left: 28px;
+    margin-left: 2px;
     margin-right: 0px;
     margin-top: 19px;
     width: 24%;
@@ -209,7 +209,7 @@ label
 
 .cl_div_reservation_search_button
 {
-    margin-left: 28px;
+    margin-left: 2px;
     margin-right: 0px;
     margin-top: 19px;
     width: 24%;
@@ -219,41 +219,12 @@ label
 .cl_div_reservation_make_button
 {
     /* border: solid 1px red; */
-    margin-left: 1px;
-    margin-right: 5px;
-    width: 31%;
-    float: right;
-    overflow: hidden;  
-}
-
-.cl_div_layout_event_number
-{
-    /* border: solid 1px red; */
-    margin-left: 5px;
-    margin-top: 10px;
-    width: 8%;
+    margin-left: 2px;
+    margin-right: 0px;
+    margin-top: 19px;
+    width: 24%;
     float: left;
     overflow: hidden;  
-}
-
-.cl_div_layout_email
-{
-    /* border: solid 1px red; */
-    margin-left: 5px;
-    margin-top: 10px;
-    width: 53%;
-    float: left;
-    overflow: hidden;  
-}
-
-
-.cl_div_message_row /* TODO Remove ?? */
-{
-    /* border: solid 1px green; */
-    margin-left: 3%;
-    margin-top: 15px;
-    min-height: 20px;
-    clear: both;   
 }
 
 /* For some <button> elements */
