@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-11-28
+// Date: 2025-12-03
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -360,8 +360,8 @@ function execCopyDirFiles()
     var layout_scripts_origin = 'ScriptsLayout/';
     var scripts_target = 'Libs/';
 
-    origin_files_array.push(layout_scripts_origin + 'CoronaForm.js');
-    target_files_array.push(scripts_target + 'CoronaForm.js');
+    //QQ No longer used origin_files_array.push(layout_scripts_origin + 'CoronaForm.js');
+    //QQ No longer used target_files_array.push(scripts_target + 'CoronaForm.js');
     origin_files_array.push(layout_scripts_origin + 'DisplayNames.js');
     target_files_array.push(scripts_target + 'DisplayNames.js');
     origin_files_array.push(layout_scripts_origin + 'Reservation.js');
