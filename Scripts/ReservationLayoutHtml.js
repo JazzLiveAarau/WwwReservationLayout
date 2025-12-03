@@ -819,6 +819,9 @@ class LayoutScript
         }
         else if (this.m_layout_file_case == 'EventReservation')
         {
+            path_file_array = this.getPathFileArrayEventReservation();
+
+            /*QQQQQQ
             path_file_array[ 0] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservation.js';
             path_file_array[ 1] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationIdElement.js';
             path_file_array[ 2] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/InputEventReservationStyle.js';
@@ -833,6 +836,7 @@ class LayoutScript
             path_file_array[11] = 'https://jazzliveaarau.ch/ReservationLayout/Scripts/Reservation/ReservationDataText.js';
             path_file_array[12] = 'https://jazzliveaarau.ch/JazzScripts/Utils_20241111.js';
             path_file_array[13] = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+            QQQQQ */
         }
         else
         {
@@ -894,6 +898,47 @@ class LayoutScript
         return ret_path_file_array;
 
     } // getPathFileArrayMakeAndAddReservation
+
+    // Returns the path file array for the case EventReservation
+    getPathFileArrayEventReservation()
+    {
+        var ret_path_file_array = [];
+
+        ret_path_file_array.push('Libs/InputEventReservation.js');
+
+        ret_path_file_array.push('Libs/InputEventReservationIdElement.js');
+
+        ret_path_file_array.push('Libs/InputEventReservationStyle.js');
+
+        ret_path_file_array.push('Libs/InputEventReservationText.js');
+
+        ret_path_file_array.push('Libs/EventProgramDropdown.js');
+
+        ret_path_file_array.push('Libs/EventProgramXml.js');
+
+        ret_path_file_array.push('Libs/ReservationData.js');
+
+        ret_path_file_array.push('Libs/ReservationStorage.js');
+
+        ret_path_file_array.push('Libs/ReservationOpen.js');
+
+        ret_path_file_array.push('Libs/UtilUrl.js');
+
+        ret_path_file_array.push('Libs/DefaultText.js');
+
+        ret_path_file_array.push('Libs/ReservationDataText.js');
+
+        ret_path_file_array.push('Libs/UtilDate_20250330.js');
+
+        ret_path_file_array.push('Libs/UtilServer_20250102.js');
+
+        ret_path_file_array.push('Libs/UtilString_20240106.js');
+
+        ret_path_file_array.push('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+
+        return ret_path_file_array;
+
+    } // getPathFileArrayEventReservation
 
     // Returns the path file array for the cases PrintResrvation and ListReservation
     getPathFileArrayPrintListReservation()
