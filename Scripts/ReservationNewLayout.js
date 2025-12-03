@@ -406,8 +406,6 @@ function execCopyDirFiles()
     target_files_array.push(scripts_target + 'ReservationOpen.js');
     origin_files_array.push(event_scripts_origin + 'ReservationStorage.js');
     target_files_array.push(scripts_target + 'ReservationStorage.js');
-    origin_files_array.push(event_scripts_origin + 'UtilUrl.js'); // Check if these class already is defined
-    target_files_array.push(scripts_target + 'UtilUrl.js');
     origin_files_array.push(event_scripts_origin + 'UtilServer_20250102.js');
     target_files_array.push(scripts_target + 'UtilServer_20250102.js');
     origin_files_array.push(event_scripts_origin + 'UtilString_20240106.js');
@@ -421,6 +419,9 @@ function execCopyDirFiles()
 
     origin_files_array.push(scripts_origin + 'EventProgramXml.js');
     target_files_array.push(scripts_target + 'EventProgramXml.js');
+
+    origin_files_array.push(scripts_origin + 'UtilUrl.js'); 
+    target_files_array.push(scripts_target + 'UtilUrl.js');
 
     var php_origin = 'PhpLayout/';
     var php_target = 'Php/';
