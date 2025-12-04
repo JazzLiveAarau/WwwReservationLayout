@@ -885,7 +885,7 @@ class LayoutScript
 
         ret_path_file_array.push('Libs/ReservationStrings.js');
 
-        ret_path_file_array.push('Libs/ReservationXmlTags.js');
+        ret_path_file_array.push('Libs/ReservationEventXml.js');
 
         ret_path_file_array.push('Libs/EventProgramXml.js');
 
