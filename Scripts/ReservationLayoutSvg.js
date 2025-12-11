@@ -1,5 +1,5 @@
 // File: ReservationLayoutSvg.js
-// Date: 2025-11-09
+// Date: 2025-12-11
 // Authors: Gunnar Lidén
 
 // Content
@@ -35,7 +35,7 @@ class LayoutSvg
        // Style for the SVH element
        // 20251109 this.m_style_block_svg =  ' ' + 'style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0);margin-top:0px; padding:0px" ';
        // It is obviously not possible to change stroke for <text> inside <svg> element 
-       this.m_style_block_svg =  ' ' + 'style="fill:rgb(255,255,255);stroke-width;margin-top:0px; padding:0px" ';
+       this.m_style_block_svg =  ' ' + 'style="fill:rgb(255,255,255);margin-top:0px; padding:0px" ';
 
        // All SVG code from this class
        this.m_svg_code = '';    
