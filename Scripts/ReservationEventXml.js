@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2025-12-04
+// Date: 2025-12-12
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -38,23 +38,27 @@ class ReservationEventXml
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
     // i_subdir_xm: The subdirctory for the event XML file
-    // i_name_add_str: String to add to name of the XML event file. Empty string is allowed
+    // i_event_reg_number: Event registration number REG_xyz (a string)
     // i_event_number: Event number that will used for the name of the event XML file
     // i_b_new_file: Flag telling if the event XML file shall be created
-    constructor(i_subdir_xml, i_name_add_str, i_event_number, i_b_new_file, i_callback_function_name) 
+    constructor(i_subdir_xml, i_event_reg_number, i_event_number, i_b_new_file, i_callback_function_name) 
     {
         // Member variables
         // ================
 
         // The subdirectory for the event XML file, e.g. SaisonXml
+        // TODO Should be the absolute URL to the subdirectory
         this.m_subdir_xml = i_subdir_xml;
 
         // String to add to name of the XML event file, e.g. Salmen
         // Empty string is allowed
-        this.m_name_add_str = i_name_add_str;
+        this.m_name_add_str = "Salmen"; // TODO Remove
+
+        // Event registration number REG_xyz (a string)
+        this.m_event_reg_number = i_event_reg_number;
 
         // Event (e.g concert) number
-        this.m_event_number = i_event_number;
+        this.m_event_number = i_event_number; // TODO Remove
 
         // Flag telling if the event XML file shall be created
         this.m_b_new_file = i_b_new_file;
@@ -1078,6 +1082,20 @@ class ReservationEventXml
     // Returns the reservation event XML file name
     getXmlEventFileName()
     {
+        var start_name = 'Event_';
+
+        var event_reg_number = this.m_event_reg_number;
+
+        var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
+
+        return ret_str;
+
+    } // getXmlEventFileName
+
+    // Returns the reservation event XML file name
+    // TODO Remove function later
+    getXmlEventFileNameOld()
+    {
         var start_name = 'Reservation';
 
         var add_str = '';
@@ -1100,7 +1118,7 @@ class ReservationEventXml
 
         return ret_str;
 
-    } // getXmlEventFileName
+    } // getXmlEventFileNameOld
 
     // Check that the layout program XML object is set
     checkEventXml()

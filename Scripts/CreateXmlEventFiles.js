@@ -1,5 +1,5 @@
 // File: CreateXmlEventFiles.js
-// Date: 2025-06-02
+// Date: 2025-12-12
 // Authors: Gunnar Lidén
 
 // Content
@@ -81,12 +81,14 @@ class CreateXmlEventFiles
             callback_function_name = CreateXmlEventFiles.setEventXmlObjects;
         }
 
-        var file_name_add_str = g_new_season_files_data.m_file_name_add_str;
+        //QQ var file_name_add_str = g_new_season_files_data.m_file_name_add_str;
+
+        var event_reg_number = g_new_season_files_data.m_event_xml.getRegNumber(event_number);
 
         var subdir_event_xml_files = g_new_season_files_data.m_event_files_sub_dir;
 
         g_new_season_files_data.m_event_xml_array[g_new_season_files_data.m_event_object_index] = 
-            new ReservationEventXml(subdir_event_xml_files, file_name_add_str, event_number, b_new_file, callback_function_name);
+            new ReservationEventXml(subdir_event_xml_files, event_reg_number, event_number, b_new_file, callback_function_name);
 
     } // createObjectRecursively
 
