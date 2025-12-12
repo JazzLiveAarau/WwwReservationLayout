@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-11-29
+// Date: 2025-12-12
 // Author: Gunnar Lidén
 
 
@@ -46,84 +46,91 @@ class EventProgramXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Get Event Functions ////////(//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+   
+    // Returns the registration number
+    getRegNumber(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getRegNumber(), i_event_number);
+        
+    } // getRegNumber
 
-   // Returns the Event day
-   getDay(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getDay(), i_event_number);
-       
-   } // getDay
+    // Returns the event day
+    getDay(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getDay(), i_event_number);
+        
+    } // getDay
 
-   // Returns the Event month
-   getMonth(i_event_number) 
-   {
-       return this.getEventNodeValue(this.m_tags.getMonth(), i_event_number);
-       
-   } // getMonth
+    // Returns the event month
+    getMonth(i_event_number) 
+    {
+        return this.getEventNodeValue(this.m_tags.getMonth(), i_event_number);
+        
+    } // getMonth
 
-   // Returns the Event year
-   getYear(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getYear(), i_event_number);
-       
-   } // getYear
+    // Returns the event year
+    getYear(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getYear(), i_event_number);
+        
+    } // getYear
 
-   // Returns the event start hour
-   getStartHour(i_event_number) 
-   {
-       return this.getEventNodeValue(this.m_tags.getStartHour(), i_event_number);
-       
-   } // getStartHour
+    // Returns the event start hour
+    getStartHour(i_event_number) 
+    {
+        return this.getEventNodeValue(this.m_tags.getStartHour(), i_event_number);
+        
+    } // getStartHour
 
-   // Returns the event start minute
-   getStartMinute(i_event_number) 
-   {
-       return this.getEventNodeValue(this.m_tags.getStartMinute(), i_event_number);
-       
-   } // getStartMinute
+    // Returns the event start minute
+    getStartMinute(i_event_number) 
+    {
+        return this.getEventNodeValue(this.m_tags.getStartMinute(), i_event_number);
+        
+    } // getStartMinute
 
-   // Returns the event end hour
-   getEndHour(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEndHour(), i_event_number);
-       
-   } // getEndHour
- 
-   // Returns the event end minute
-   getEndMinute(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEndMinute(), i_event_number);
-       
-   } // getEndMinute 
+    // Returns the event end hour
+    getEndHour(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEndHour(), i_event_number);
+        
+    } // getEndHour
 
-   // Returns the event place
-   getPlace(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getPlace(), i_event_number);
-       
-   } // getPlace 
+    // Returns the event end minute
+    getEndMinute(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEndMinute(), i_event_number);
+        
+    } // getEndMinute 
 
-   // Returns the address for the event place
-   getAddress(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getAddress(), i_event_number);
-       
-   } // getAddress
+    // Returns the event place
+    getPlace(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getPlace(), i_event_number);
+        
+    } // getPlace 
 
-   // Returns the event cancelled flag
-   // DO NOT CALL THIS FUNCTION DIRECTLY. ALWAYS CALL eventIsCancelled
-   // For older seasonprograms the tag is not defined in the XML files 
-   getCancelled(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getCancelled(), i_event_number);
-       
-   } // getCancelled 
+    // Returns the address for the event place
+    getAddress(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getAddress(), i_event_number);
+        
+    } // getAddress
 
-   // Returns true if the event was cancelled
-   // Please note that for older seasonprograms the cancelled event tag 
-   // is not defined in the XML season program files 
-   eventIsCancelled(i_event_number)
-   {
+    // Returns the event cancelled flag
+    // DO NOT CALL THIS FUNCTION DIRECTLY. ALWAYS CALL eventIsCancelled
+    // For older seasonprograms the tag is not defined in the XML files 
+    getCancelled(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getCancelled(), i_event_number);
+        
+    } // getCancelled 
+
+    // Returns true if the event was cancelled
+    // Please note that for older seasonprograms the cancelled event tag 
+    // is not defined in the XML season program files 
+    eventIsCancelled(i_event_number)
+    {
         var ret_value = false;
 
         var event_cancelled_str = this.getEventCancelled(i_event_number);
@@ -139,21 +146,21 @@ class EventProgramXml
 
     return ret_value;
 
-   } // eventIsCancelled
+    } // eventIsCancelled
 
-   // Returns the event name
+    // Returns the event name
     getEventName(i_event_number)
     {
         return this.getEventNodeValue(this.m_tags.getEventName(), i_event_number);
         
     } // getEventName
 
-   // Returns the event short text
-   getShortText(i_event_number) 
-   {
-       return this.getEventNodeValue(this.m_tags.getShortText(), i_event_number);
-       
-   } // getShortText
+    // Returns the event short text
+    getShortText(i_event_number) 
+    {
+        return this.getEventNodeValue(this.m_tags.getShortText(), i_event_number);
+        
+    } // getShortText
 
     // Returns the URL to the reservation subdirectory
     getUrlReservationDir(i_event_number)
@@ -162,65 +169,65 @@ class EventProgramXml
         
     } // getUrlReservationDir
 
-   // Returns the event prices text
-   getPrices(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getPrices(), i_event_number);
-       
-   } // getPrices
+    // Returns the event prices text
+    getPrices(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getPrices(), i_event_number);
+        
+    } // getPrices
 
-   // Returns the event instructions text
-   getInstructions(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getInstructions(), i_event_number);
-       
-   } // getInstructions
+    // Returns the event instructions text
+    getInstructions(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getInstructions(), i_event_number);
+        
+    } // getInstructions
 
-   // Returns the maximum reservations percentage as string
-   getMaxReservations(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getMaxReservations(), i_event_number);
-       
-   } // getMaxReservations
+    // Returns the maximum reservations percentage as string
+    getMaxReservations(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getMaxReservations(), i_event_number);
+        
+    } // getMaxReservations
 
-   // Returns the maximum reservations percentage as integer
-   getMaxReservationsInt(i_event_number)
-   {
+    // Returns the maximum reservations percentage as integer
+    getMaxReservationsInt(i_event_number)
+    {
         return parseInt(this.getMaxReservations(i_event_number));
 
-   } // getMaxReservationsInt
+    } // getMaxReservationsInt
 
-   // Returns the reservation confirmation email subject
-   getEmailSubject(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEmailSubject(), i_event_number);
-       
-   } // getEmailSubject
+    // Returns the reservation confirmation email subject
+    getEmailSubject(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEmailSubject(), i_event_number);
+        
+    } // getEmailSubject
 
-   // Returns the reservation confirmation email header for the content
-   getEmailHeader(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEmailHeader(), i_event_number);
-       
-   } // getEmailHeader
+    // Returns the reservation confirmation email header for the content
+    getEmailHeader(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEmailHeader(), i_event_number);
+        
+    } // getEmailHeader
 
-   // Returns the reservation confirmation email content
-   getEmailContent(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEmailContent(), i_event_number);
-       
-   } // getEmailContent
+    // Returns the reservation confirmation email content
+    getEmailContent(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEmailContent(), i_event_number);
+        
+    } // getEmailContent
 
-   // Returns the flag (TRUE or FALSE) telling if the seats shall be displayed in the reservation confirmation email
-   getEmailSeats(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getEmailSeats(), i_event_number);
-       
-   } // getEmailSeats
+    // Returns the flag (TRUE or FALSE) telling if the seats shall be displayed in the reservation confirmation email
+    getEmailSeats(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getEmailSeats(), i_event_number);
+        
+    } // getEmailSeats
 
-   // Returns the flag (bool true or false) telling if the seats shall be displayed in the reservation confirmation email
-   getEmailSeatsBoolean(i_event_number)
-   {
+    // Returns the flag (bool true or false) telling if the seats shall be displayed in the reservation confirmation email
+    getEmailSeatsBoolean(i_event_number)
+    {
         var b_seats_str = this.getEmailSeats(i_event_number);
 
         if ("TRUE" == b_seats_str || "true" == b_seats_str || "True" == b_seats_str)
@@ -239,16 +246,14 @@ class EventProgramXml
             return true;
         }
 
-   } // getEmailSeatsBoolean
+    } // getEmailSeatsBoolean
 
-   // Returns the payment method e.g. TWINT
-   getPayMethod(i_event_number)
-   {
-       return this.getEventNodeValue(this.m_tags.getPayMethod(), i_event_number);
-       
-   } // getPayMethod
-   
-   
+    // Returns the payment method e.g. TWINT
+    getPayMethod(i_event_number)
+    {
+        return this.getEventNodeValue(this.m_tags.getPayMethod(), i_event_number);
+        
+    } // getPayMethod
    
     ///////////////////////////////////////////////////////////////////////////
     /////// End Get event Functions ////////(//////////////////////////////////
@@ -258,73 +263,95 @@ class EventProgramXml
     ///////////////////////// Start Set Event Data ////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-     // Set the Event day
+    // Set the registration number. Only the integer number is input. String 'REG_' is added
+    setRegNumber(i_event_number, i_reg_number_int)
+    {
+        if (null == i_reg_number_int || i_reg_number_int <= 0)
+        {
+            alert("EventProgramXml.setRegNumber Input registration number is null or not positive integer");
+
+            return;
+        }
+
+        var reg_number_str = 'REG_' + i_reg_number_int.toString();
+
+        if (!this.checkNewRegNumber(reg_number_str))
+        {
+            alert("EventProgramXml.setRegNumber Registration number already exists. Registration number= " + reg_number_str);
+            return;
+        }
+
+        this.setEventNodeValue(this.m_tags.getRegNumber(), i_event_number, reg_number_str);
+        
+    } // setRegNumber
+
+    // Set the event day
     setDay(i_event_number, i_node_value)
     {
-        return this.setEventNodeValue(this.m_tags.getDay(), i_event_number, i_node_value);
+        this.setEventNodeValue(this.m_tags.getDay(), i_event_number, i_node_value);
         
     } // setDay
 
-     // Set the Event month
+     // Set the event month
      setMonth(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getMonth(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getMonth(), i_event_number, i_node_value);
          
      } // setMonth
 
-     // Set the Event year
+     // Set the event year
      setYear(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getYear(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getYear(), i_event_number, i_node_value);
          
      } // setYear
 
      // Set the event start hour
      setStartHour(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getStartHour(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getStartHour(), i_event_number, i_node_value);
          
      } // setStartHour
 
      // Set the event start minute
      setStartMinute(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getStartMinute(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getStartMinute(), i_event_number, i_node_value);
          
      } // setStartMinute
 
      // Set the event end hour
      setEndHour(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEndHour(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEndHour(), i_event_number, i_node_value);
          
      } // setEndHour
 
      // Set the event end minute
      setEndMinute(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEndMinute(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEndMinute(), i_event_number, i_node_value);
          
      } // setEndMinute
 
      // Set the event place
      setPlace(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getPlace(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getPlace(), i_event_number, i_node_value);
          
      } // setPlace
 
      // Set the address for the event place
      setAddress(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getAddress(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getAddress(), i_event_number, i_node_value);
          
      } // setAddress	
 
      // Set the event cancelled flag
      setCancelled(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getCancelled(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getCancelled(), i_event_number, i_node_value);
          
      } // setCancelled
 
@@ -345,42 +372,42 @@ class EventProgramXml
      // Set the event name
      setEventName(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEventName(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEventName(), i_event_number, i_node_value);
          
      } // setEventName
 
      // Set the event short text
      setShortText(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getShortText(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getShortText(), i_event_number, i_node_value);
          
      } // setShortText
 
      // Set the URL to the reservation subdirectory
      setUrlReservationDir(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getUrlReservationDir(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getUrlReservationDir(), i_event_number, i_node_value);
          
      } // setUrlReservationDir
 
      // Set the URL to the reservation subdirectory
      setPrices(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getPrices(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getPrices(), i_event_number, i_node_value);
          
      } // setPrices
 
      // Set the event instructions text
      setInstructions(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getInstructions(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getInstructions(), i_event_number, i_node_value);
          
      } // setInstructions
 
      // Set the maximum reservations percentage as string
      setMaxReservations(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getMaxReservations(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getMaxReservations(), i_event_number, i_node_value);
          
      } // setMaxReservations
 
@@ -405,28 +432,28 @@ class EventProgramXml
      // Set the reservation confirmation email subject
      setEmailSubject(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEmailSubject(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEmailSubject(), i_event_number, i_node_value);
          
      } // setEmailSubject	
 
      // Set the reservation confirmation email header for the content
      setEmailHeader(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEmailHeader(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEmailHeader(), i_event_number, i_node_value);
          
      } // setEmailHeader	
 
      // Set the reservation confirmation email content
      setEmailContent(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEmailContent(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEmailContent(), i_event_number, i_node_value);
          
      } // setEmailContent	
 
      // Set the flag telling if the seats shall be displayed in the reservation confirmation email
      setEmailSeats(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getEmailSeats(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getEmailSeats(), i_event_number, i_node_value);
          
      } // setEmailSeats	
      
@@ -447,7 +474,7 @@ class EventProgramXml
      // Set the payment method e.g. TWINT
      setPayMethod(i_event_number, i_node_value)
      {
-         return this.setEventNodeValue(this.m_tags.getPayMethod(), i_event_number, i_node_value);
+         this.setEventNodeValue(this.m_tags.getPayMethod(), i_event_number, i_node_value);
          
      } // setPayMethod	
 
@@ -465,6 +492,11 @@ class EventProgramXml
     appendEventNode()
     {
         var new_event = this.getXmlObject().createElement(this.m_tags.getEvent());
+
+        var reg_number_node = this.getXmlObject().createElement(this.m_tags.getRegNumber());
+        var reg_number_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        reg_number_node.appendChild(reg_number_text);
+        new_event.appendChild(reg_number_node);
 
         var year_node = this.getXmlObject().createElement(this.m_tags.getYear());
         var year_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
@@ -526,11 +558,6 @@ class EventProgramXml
         text_node.appendChild(short_text);
         new_event.appendChild(text_node);
 
-        var url_node = this.getXmlObject().createElement(this.m_tags.getUrlReservationDir());
-        var url_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
-        url_node.appendChild(url_text);
-        new_event.appendChild(url_node);
-
         var prices_node = this.getXmlObject().createElement(this.m_tags.getPrices());
         var prices_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         prices_node.appendChild(prices_text);
@@ -541,6 +568,16 @@ class EventProgramXml
         instructions_node.appendChild(instructions_text);
         new_event.appendChild(instructions_node);
 
+        var pay_method_node = this.getXmlObject().createElement(this.m_tags.getPayMethod());
+        var pay_method_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        pay_method_node.appendChild(pay_method_text);
+        new_event.appendChild(pay_method_node);
+
+        var url_node = this.getXmlObject().createElement(this.m_tags.getUrlReservationDir());
+        var url_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        url_node.appendChild(url_text);
+        new_event.appendChild(url_node);
+    
         var max_reservations_node = this.getXmlObject().createElement(this.m_tags.getMaxReservations());
         var max_reservations_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         max_reservations_node.appendChild(max_reservations_text);
@@ -565,11 +602,6 @@ class EventProgramXml
         var email_seats_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         email_seats_node.appendChild(email_seats_text);
         new_event.appendChild(email_seats_node);
-
-        var pay_method_node = this.getXmlObject().createElement(this.m_tags.getPayMethod());
-        var pay_method_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
-        pay_method_node.appendChild(pay_method_text);
-        new_event.appendChild(pay_method_node);
 
         this.getXmlObject().documentElement.appendChild(new_event);	
 
@@ -745,6 +777,56 @@ class EventProgramXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Returns the event number for a given registration number
+    getEventNumberForRegNumber(i_reg_number)
+    {
+        var ret_event_number = 0;
+
+        var n_events = this.getNumberOfEvents();
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {   
+            var event_reg_number = this.getRegNumber(event_number);
+
+            if (i_reg_number == event_reg_number)
+            {   
+                ret_event_number = event_number;
+
+                break;
+            }
+
+        } // event_number
+
+        return ret_event_number;
+
+    } // getEventNumberForRegNumber
+
+    // Returns false if registration number already exists
+    checkNewRegNumber(i_reg_number_str)
+    {
+        var n_events = this.getNumberOfEvents();
+
+        if (0 == n_events  )
+        {
+            // No events defined => registration number is new
+            return true;
+        }
+
+        for (var event_number = 1; event_number <= n_events; event_number++)
+        {
+            var event_reg_number = this.getRegNumber(event_number);
+
+            if (i_reg_number_str == event_reg_number)
+            {
+                return false;
+            }
+
+        } // event_number
+
+        return true;
+
+    } // checkNewRegNumber
 
     // Returns an array of event names
     // i_b_only_coming: Only coming events if true
@@ -1051,6 +1133,7 @@ class EventProgramTags
     constructor() 
     {
         this.m_tag_event = "Event";
+        this.m_tag_reg_number = "RegNumber";
         this.m_tag_day = "Day";
         this.m_tag_month = "Month";
         this.m_tag_year = "Year";
@@ -1075,6 +1158,7 @@ class EventProgramTags
     }
 
     getEvent(){return this.m_tag_event;} 
+    getRegNumber(){return this.m_tag_reg_number;}
     getDay(){return this.m_tag_day;}
     getMonth(){return this.m_tag_month;} 
     getYear(){return this.m_tag_year;} 

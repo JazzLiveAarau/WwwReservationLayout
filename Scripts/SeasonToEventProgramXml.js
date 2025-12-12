@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-12-03
+// Date: 2025-12-12
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -82,9 +82,16 @@ class SeasonToEventProgramXml
     {
         var n_concerts = g_new_season_files_data.m_season_xml.getNumberOfConcerts();
 
+        // TODO : Get the previous highest registration number from the reservation server directory
+        // For the time being, we start from a fixed number
+        var previous_number_registered_events = 340;
+
+        var reg_number_int = previous_number_registered_events;
 
         for (var concert_number = 1; concert_number <= n_concerts; concert_number++)
         {
+            reg_number_int += 1;
+
             var concert_year = g_new_season_files_data.m_season_xml.getYear(concert_number);
 
             var concert_month = g_new_season_files_data.m_season_xml.getMonth(concert_number);
@@ -113,6 +120,8 @@ class SeasonToEventProgramXml
             g_new_season_files_data.m_event_xml.appendEventNode();
 
             var n_events = g_new_season_files_data.m_event_xml.getNumberOfEvents();
+
+            g_new_season_files_data.m_event_xml.setRegNumber(n_events, reg_number_int);
 
             g_new_season_files_data.m_event_xml.setYear(n_events, concert_year);
 
