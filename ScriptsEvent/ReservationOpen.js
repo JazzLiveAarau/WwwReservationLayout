@@ -2,7 +2,7 @@
 // PROJECT ReservationSystem WHERE THE DEVELOPMENT WILL CONTINUE  
 
 // File: ReservationOpen.js
-// Date: 2025-01-13
+// Date: 2025-12-15
 // Author: Gunnar Lidén
 
 // Class handling the opening of another window and passing data to and retrieving 
@@ -84,6 +84,8 @@ class ReservationOpen
  
         if (UtilUrl.execApplicationOnServer())
         {
+            ReservationOpen.passAsSessionStorageData(this.m_reservation_data);
+
             var make_window = open(url_web_page);
 	
             ReservationOpen.passDataToOpenedWindow(make_window, this.m_reservation_data);
@@ -106,6 +108,22 @@ class ReservationOpen
 
     } // passDataToOpenedWindow
 
+    // Pass the reservation data as session storage data
+    static passAsSessionStorageData(i_reservation_data)
+    {
+        var pass_data = new PassReservationData();
+
+        pass_data.setName(i_reservation_data.getName());
+        pass_data.setEmail(i_reservation_data.getEmail());
+        pass_data.setRemark(i_reservation_data.getRemark());
+        pass_data.setEventNumber(i_reservation_data.getEventNumber());
+
+        // TODO Set the registered (unique) event number defined in en the event program XML file
+        pass_data.setRegEventNumber("");
+
+        PassReservation.set(pass_data);
+
+    } // passAsSessionStorageData
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Open Functions ////////////////////////////////////////////////

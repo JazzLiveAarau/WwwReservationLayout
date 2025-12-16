@@ -233,7 +233,7 @@ function MainAddReservationAfterLoadEventProgramXml()
 //    Afteloading call function MainMakeReservationAfterLoadEventProgramXml
 function MainMakeReservation()
 { 
-    // alert("MainMakeReservation Enter");
+    console.log("MainMakeReservation Enter");
 
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;
@@ -244,12 +244,21 @@ function MainMakeReservation()
     // For Internet Explorer and Microsoft Edge. The passing of data sometimes fails in these browsers 	
 	if (null == add_to_xml_file_name || null == reservation_name || null == reservation_email || null == reservation_remark || null == requested_concert_number)
 	{
-		add_to_xml_file_name = sessionStorage.getItem(g_session_storage_add_to_xml_file_name);
+        console.log("MainMakeReservation Passed data from sessionStorage"); 
+
+		//QQ add_to_xml_file_name = sessionStorage.getItem(g_session_storage_add_to_xml_file_name);
+        add_to_xml_file_name = "Salmen"; // TODO Remove
         reservation_name = sessionStorage.getItem(g_session_storage_reservation_name);
+        console.log("MainMakeReservation reservation_name= " + reservation_name); 
         reservation_email = sessionStorage.getItem(g_session_storage_reservation_email);
+        console.log("MainMakeReservation reservation_email= " + reservation_email); 
         reservation_remark = sessionStorage.getItem(g_session_storage_reservation_remark);
+        console.log("MainMakeReservation reservation_remark= " + reservation_remark); 
 		requested_concert_number = sessionStorage.getItem(g_session_storage_requested_concert_number);
+        console.log("MainMakeReservation requested_concert_number= " + requested_concert_number); 
 	}
+
+    console.log("MainMakeReservation Passed data is retrieved"); 
 
     g_add_to_xml_file_name_make_reservation = add_to_xml_file_name;
     g_requested_concert_number_make_reservaion = requested_concert_number;
