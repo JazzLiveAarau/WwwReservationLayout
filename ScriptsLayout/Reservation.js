@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-11-28
+// Date: 2025-12-17
 // Author: Gunnar Lidén
 
 
@@ -234,6 +234,10 @@ function MainAddReservationAfterLoadEventProgramXml()
 function MainMakeReservation()
 { 
     console.log("MainMakeReservation Enter");
+
+    g_make_reservation_data = new MakeReservationData(g_url_file_concert_reservation_xml_directory, g_url_xml_file_event_program);
+
+    MakeReservation.init();
 
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;

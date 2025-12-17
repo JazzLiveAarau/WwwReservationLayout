@@ -136,13 +136,15 @@ class MakeReservation
     // 2. Create the event program XML object. Callback function is getPassedData
     static init()
     {
-        if (!g_main_make_data_object.checkInput)
+        console.log("MakeReservation.init Enter");
+
+        if (!g_make_reservation_data.checkInput)
         {
             return;
         }
 
-        g_main_make_data_object.m_season_program_xml = new EventProgramXml(g_main_make_data_object.m_url_xml_directory, 
-            g_main_make_data_object.m_event_program_file_name_xml, MakeReservation.getPassedData);
+        g_make_reservation_data.m_season_program_xml = new EventProgramXml(g_make_reservation_data.m_url_xml_directory, 
+            g_make_reservation_data.m_event_program_file_name_xml, MakeReservation.getPassedData);
 
     } // init
 
@@ -153,21 +155,24 @@ class MakeReservation
     // 3. Load the reservation XML file for the current event. Call of loadReservationXml
     static getPassedData()
     {
-        g_main_make_data_object.m_name = sessionStorage.getItem(g_session_storage_reservation_name);
-        g_main_make_data_object.m_email = sessionStorage.getItem(g_session_storage_reservation_email);
-        g_main_make_data_object.m_remark = sessionStorage.getItem(g_session_storage_reservation_remark);
-		g_main_make_data_object.m_current_event_number = parseInt(sessionStorage.getItem(g_session_storage_requested_concert_number));
+        console.log("MakeReservation.getPassedData Enter");
 
-        var n_events = g_main_make_data_object.m_season_program_xml.getNumberOfEvents();
+        g_make_reservation_data.m_name = sessionStorage.getItem(g_session_storage_reservation_name);
+        g_make_reservation_data.m_email = sessionStorage.getItem(g_session_storage_reservation_email);
+        g_make_reservation_data.m_remark = sessionStorage.getItem(g_session_storage_reservation_remark);
+		g_make_reservation_data.m_current_event_number = parseInt(sessionStorage.getItem(g_session_storage_requested_concert_number));
 
-        if (g_main_make_data_object.m_current_event_number < 1 || g_main_make_data_object.m_current_event_number > n_events)
+        var n_events = g_make_reservation_data.m_season_program_xml.getNumberOfEvents();
+
+        if (g_make_reservation_data.m_current_event_number < 1 || g_make_reservation_data.m_current_event_number > n_events)
         {
             alert("MakeReservation.getPassedData Error. m_current_event_number is not between 1 and " + n_events.toString() +
-                            " m_current_event_number= "  + g_main_make_data_object.m_current_event_number.toString() );
+                            " m_current_event_number= "  + g_make_reservation_data.m_current_event_number.toString() );
             return;
         }
 
-        this.m_event_reg_number = g_main_make_data_object.m_season_program_xml.getEventRegisteredNumber(this.m_current_event_number);
+        g_make_reservation_data.m_event_reg_number = g_make_reservation_data.m_season_program_xml.getRegNumber(g_make_reservation_data.m_current_event_number);
+
 
         MakeReservation.loadReservationXml()
       
@@ -176,9 +181,12 @@ class MakeReservation
     // Load the reservation XML file for the current event
     static loadReservationXml()
     {
+        console.log("MakeReservation.loadReservationXml Enter");
 
-        g_main_make_data_object.m_reservation_xml = new ReservationEventXml(g_main_make_data_object.m_url_xml_directory, g_main_make_data_object.m_event_reg_number, 
-            g_main_make_data_object.m_current_event_number, b_new_file=false, MakeReservation.afterLoadReservationXml);
+        var b_new_file =false
+
+        g_make_reservation_data.m_reservation_xml = new ReservationEventXml(g_make_reservation_data.m_url_xml_directory, g_make_reservation_data.m_event_reg_number, 
+            g_make_reservation_data.m_current_event_number, b_new_file, MakeReservation.afterLoadReservationXml);
 
     } // loadReservationXml
 
