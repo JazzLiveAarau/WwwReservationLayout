@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2025-12-16
+// Date: 2025-12-17
 // Authors: Gunnar Lidén
 
 // Content
@@ -444,9 +444,9 @@ class LayoutBody
         {
             xml_str = xml_str + LayoutHtml.tab(3) + '// XML file defining the layout of the concert premises' + LayoutHtml.endRow();
 
-            xml_str = xml_str + LayoutHtml.tab(3) + '// This global variable was previously defined in the file ReservationSalmen.js' + LayoutHtml.endRow();
+            //QQ xml_str = xml_str + LayoutHtml.tab(3) + '// This global variable was previously defined in the file ReservationSalmen.js' + LayoutHtml.endRow();
     
-            xml_str = xml_str + LayoutHtml.tab(3) + '// This file ReservationSalmen.js is no longer included in the <head> section' + LayoutHtml.endRow();
+            //QQ xml_str = xml_str + LayoutHtml.tab(3) + '// This file ReservationSalmen.js is no longer included in the <head> section' + LayoutHtml.endRow();
         }
 
         xml_str = xml_str + LayoutHtml.tab(3) + 'g_url_file_layout_xml = "XML/' + this.m_output_dir + '.xml";' + LayoutHtml.endRow();
@@ -747,7 +747,7 @@ class LayoutScript
 
     } // constructor
 
-    // Create (construct) the HTML code for the bpdy section <head>
+    // Create (construct) the HTML code for the body section <head>
     execute()
     {
         this.m_html_script_code = '';
@@ -759,6 +759,8 @@ class LayoutScript
         this.m_html_script_code = this.m_html_script_code + this.noScript();
 
         this.m_html_script_code = this.m_html_script_code + this.setEventFunctions();
+
+        this.m_html_script_code = this.m_html_script_code + this.setTotalAvailableNumberOfSeats();
 
         this.m_html_script_code = this.m_html_script_code + this.mainFunction();
 
@@ -1225,6 +1227,34 @@ class LayoutScript
         return functions_str;
 
     } // setMouseDownMouseOver
+
+    // Returns a string defining a JavaScript function that returns the total number of available seats
+    setTotalAvailableNumberOfSeats()
+    {
+        var ret_total_str = '';
+
+        if (this.m_layout_file_case == 'MakeReservation' || this.m_layout_file_case == 'AddReservation' || this.m_layout_file_case == 'SearchReservation')
+        {
+            var seat_data_array =  getAllTablesSeatDataArray(this.m_layout_xml);
+
+            var n_seats = seat_data_array.length;
+
+            ret_total_str += LayoutHtml.tab(2) + '<script>' + LayoutHtml.endRow();  
+
+            ret_total_str += LayoutHtml.tab(3) + 'function getTotalNumberOfAvailableSeats()' + LayoutHtml.endRow();  
+
+            ret_total_str += LayoutHtml.tab(3) + '{' + LayoutHtml.endRow();  
+
+            ret_total_str += LayoutHtml.tab(4) + 'return ' + n_seats.toString() + ';' + LayoutHtml.endRow();  
+
+            ret_total_str += LayoutHtml.tab(3) + '}' + LayoutHtml.endRow();  
+
+            ret_total_str += LayoutHtml.tab(2) + '</script>' + LayoutHtml.endRow();  
+        }
+
+        return ret_total_str;
+
+    } // setTotalAvailableNumberOfSeats
 
     tempMainComments()
     {

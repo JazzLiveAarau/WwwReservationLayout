@@ -1,5 +1,5 @@
 // File: ScriptsLayout/MakeReservation.js
-// Date: 2025-12-16
+// Date: 2025-12-17
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,9 @@ class MakeReservation
 {
     // Initialization function
     // 1. Check the input data. Call of checkInput
-    // 2. Create the event program XML object. Callback function is getPassedData
+    // 2. Set (define/activate)the event functions. Call of setEventFunctions
+    //    These event functions are defined in the HTML file MakeReservation.htm
+    // 3. Create the event program XML object. Callback function is getPassedData
     static init()
     {
         console.log("MakeReservation.init Enter");
@@ -142,6 +144,8 @@ class MakeReservation
         {
             return;
         }
+
+        setEventFunctions();
 
         g_make_reservation_data.m_season_program_xml = new EventProgramXml(g_make_reservation_data.m_url_xml_directory, 
             g_make_reservation_data.m_event_program_file_name_xml, MakeReservation.getPassedData);
