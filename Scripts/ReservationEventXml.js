@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2025-12-12
+// Date: 2025-12-19
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -1078,6 +1078,46 @@ class ReservationEventXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Get an array of HTML identities for the reserved seats
+    // The identity is table number + underscore + seat character, e.g. "12_A" 
+    // Please note that the both are allowed to be a number or a character
+    getArraySeatCircleIds()
+    {
+        var ret_id_array = new Array(); 
+        
+        var index_add = 0;
+        
+        var number_reservations = this.getNumberOfReservations();
+
+        if (number_reservations == 0)
+        {
+            return ret_id_array;
+        }
+
+        for (var reservation_number=1; reservation_number<=number_reservations; reservation_number++)
+        {
+            var number_reserved_seats = this.getNumberOfSeats(reservation_number);
+
+            for (var reserved_seat_number=1; reserved_seat_number<=number_reserved_seats; reserved_seat_number++)
+            {
+                var table_number = this.getTableNumber(reservation_number, reserved_seat_number);
+
+                var seat_character = this.getSeatChar(reservation_number, reserved_seat_number);
+
+                var seat_id = table_number.toString() + '_' + seat_character.toString();
+
+                ret_id_array[index_add] = seat_id;
+
+                index_add = index_add + 1;
+
+            } // reserved_seat_number
+            
+        } // reservation_number
+
+        return ret_id_array;
+
+    } // getArraySeatCircleIds
 
     // Returns the reservation event XML file name
     getXmlEventFileName()

@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-12-17
+// Date: 2025-12-18
 // Author: Gunnar Lidén
 
 
@@ -28,6 +28,7 @@ var g_url_file_concert_reservation_xml_name = "Undefined";
 var g_url_xml_file_event_program = "EventProgram.xml";
 
 // The maximum number of reservations
+// TODO Remove 
 var g_maximum_number_reservations = -12345;
 
 // Array of selected tables
@@ -239,6 +240,7 @@ function MainMakeReservation()
 
     MakeReservation.init();
 
+    /* QQQQQQQQQ 
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;
     var reservation_email = window.passed_data_reservation_email;
@@ -281,6 +283,8 @@ function MainMakeReservation()
 
     g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
         g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
+
+    QQQ*/
 
 } // MainMakeReservation
 

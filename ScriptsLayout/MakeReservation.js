@@ -54,6 +54,14 @@ class MakeReservationData
         // XML object reservation for the current event
         this.m_reservation_xml = null;
 
+        // The maximum number of seat reservations that is allowed
+        // Max percentage is defined in the season XML file
+        // Available number of seats is defined in application HTML 
+        // files like for instance MakeReservation.htm
+        // The function calculating this value is the function 
+        // defined in the CommonReservation class
+        this.m_max_allowed_seat_reservations = -12345;
+
     } // constructor
 
     // Check the input data
@@ -177,6 +185,9 @@ class MakeReservation
 
         g_make_reservation_data.m_event_reg_number = g_make_reservation_data.m_season_program_xml.getRegNumber(g_make_reservation_data.m_current_event_number);
 
+         var max_percentage = g_make_reservation_data.m_season_program_xml.getMaxReservations(g_make_reservation_data.m_current_event_number);
+
+          g_make_reservation_data.m_max_allowed_seat_reservations = CommonReservation.getMaxAllowedNumberOfSeatReservations(max_percentage);
 
         MakeReservation.loadReservationXml()
       
@@ -190,17 +201,169 @@ class MakeReservation
         var b_new_file =false
 
         g_make_reservation_data.m_reservation_xml = new ReservationEventXml(g_make_reservation_data.m_url_xml_directory, g_make_reservation_data.m_event_reg_number, 
-            g_make_reservation_data.m_current_event_number, b_new_file, MakeReservation.afterLoadReservationXml);
+            g_make_reservation_data.m_current_event_number, b_new_file, MakeReservation.setControls);
 
     } // loadReservationXml
 
-    static afterLoadReservationXml()
+    // Set the controls after loading the reservation XML file
+    static setControls()
     {
-        console.log("MakeReservation.afterLoadReservationXml Reservation XML file loaded");
+        console.log("MakeReservation.setControls After loading reservation XML file");
 
-    }   // afterLoadReservationXml
+        CommonReservation.resetReservedProperties();
+
+        CommonReservation.setReservedProperties(g_make_reservation_data.m_reservation_xml);
+		  
+        CommonReservation.setEventTitleText(g_make_reservation_data.m_season_program_xml, g_make_reservation_data.m_current_event_number);
+
+    }   // setControls
 
 } // MakeReservation
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Common Reservation ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Common class for reservation applications
+class CommonReservation
+{
+
+    // Reset all seats to free seats, i.e. set the seat free color
+    static resetReservedProperties()
+    {
+        var circle_nodes = document.getElementsByTagName("circle");
+        
+        for (var index_cir=0; index_cir<circle_nodes.length; index_cir++)
+        {
+            var element_circle = circle_nodes[index_cir];
+            if (element_circle != null)
+            {
+                element_circle.style["fill"] = CommonReservation.colorFreeSeat();
+            }		
+        }
+            
+    } // resetReservedProperties
+
+    // Set the reserved seats color property to reserved color
+    // i_reservations_xml: Instance of the class ReservationEventXml
+    static setReservedProperties(i_reservations_xml)
+    {
+        if (null == i_reservations_xml)
+        {
+            alert("CommonReservation.setReservedProperties: Concert reservation XML object is null");
+
+            return;
+        }
+        
+        var total_number_reservations = i_reservations_xml.getNumberOfReservations();
+        if (0 == total_number_reservations)
+        {
+            return;
+        }
+
+        var id_cir_array = i_reservations_xml.getArraySeatCircleIds();
+
+        var number_seats = 	id_cir_array.length;
+
+        for (var seat_number=1; seat_number<=number_seats; seat_number++)
+        {
+            var cir_id = id_cir_array[seat_number-1];
+            
+            var element_circle = document.getElementById(cir_id);
+            if (element_circle != null)
+            {
+                element_circle.style["fill"] = CommonReservation.colorReservedSeat();
+            }
+        }
+        
+    } // setReservedProperties
+
+    // Set the event title text for the current event
+    // i_season_program_xml: Instance of the class EventProgramXml
+    // i_event_number: Event number (integer)
+    static setEventTitleText(i_season_program_xml, i_event_number)
+    {
+        var event_text = CommonReservation.getEventTitleText(i_season_program_xml, i_event_number);
+
+        var element_text = document.getElementById(g_id_reservation_show_concert_date_band);
+        if (null == element_text)
+        {
+            alert("CommonReservation.setEventTitleText Element text is null");
+
+            return;
+        }
+        
+        element_text.textContent = event_text;
+
+        console.log("CommonReservation.setEventTitleText event_title= " + event_text);
+
+    } // setEventTitleText
+
+    // Returns the event title text for the current event
+    // i_season_program_xml: Instance of the class EventProgramXml
+    // i_event_number: Event number (integer)
+    static getEventTitleText(i_season_program_xml, i_event_number)
+    {
+        var event_day = i_season_program_xml.getDay(i_event_number);
+        var event_month = i_season_program_xml.getMonth(i_event_number);
+        var event_year = i_season_program_xml.getYear(i_event_number);
+        var event_name = i_season_program_xml.getEventName(i_event_number);
+
+        var ret_title = event_day.toString() + '/' + event_month.toString() + '-' + event_year.toString() + ' ' + event_name;
+
+        return ret_title;
+       
+    } // getEventTitleText
+
+    // Returns the color for a free seat
+    static colorFreeSeat()
+    {
+        return 'white';
+
+    } // colorFreeSeat
+
+    // Returns the color for a reserved seat
+    static colorReservedSeat()
+    {
+        return 'red';
+
+    } // colorReservedSeat
+
+    // Returns the maximum allowed number of seat reservations
+    // i_percentage: Percentage of the total number of available seats
+    // 1. Get the total number of available seats. Call of getTotalNumberOfAvailableSeats
+    //    This function is defined in HTML applications file like for instance MakeReservation.htm
+    static getMaxAllowedNumberOfSeatReservations(i_percentage)
+    {
+         var total_number_seats = getTotalNumberOfAvailableSeats();
+
+        if (i_percentage < 0 || i_percentage > 100)
+        {
+            alert("CommonReservation.getMaxAllowedNumberOfSeatReservations Error. i_percentage is less than zero or greater than 100. i_percentage= " 
+                + i_percentage.toString());
+            
+            return total_number_seats;
+        }
+
+        var max_n_seats_procent_float = parseFloat(i_percentage)/100.0;
+
+        var total_number_seats_float = parseFloat(total_number_seats);
+
+        var ret_maximum_number_reservations = parseInt(max_n_seats_procent_float*total_number_seats_float);     
+
+        console.log("CommonReservation.getMaxAllowedNumberOfSeatReservations ret_maximum_number_reservations= " + ret_maximum_number_reservations.toString());
+        
+        return ret_maximum_number_reservations;
+
+    } // setMaxNumberSeatReservations()
+
+
+} // CommonReservation
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Common Reservation //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Pass Data /////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationConcerts.js
-// Date: 2025-11-29
+// Date: 2025-12-17
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -786,6 +786,7 @@ function setSelectedProperties()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Returns the total number of available seats of the premises
+// TODO Remove this function
 function totalNumberSeats()
 {
 	var ret_number_seats = 0;
