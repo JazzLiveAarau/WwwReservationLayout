@@ -9,6 +9,13 @@
 // Instance of the class MakeReservationData
 var g_make_reservation_data = null;
 
+// Array of selected tables
+var g_all_selected_tables = null;
+
+// Array of selected seats
+var g_all_selected_seats = null;
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -59,7 +66,7 @@ class MakeReservationData
         // Available number of seats is defined in application HTML 
         // files like for instance MakeReservation.htm
         // The function calculating this value is the function 
-        // defined in the CommonReservation class
+        // defined in the CommonReserve class
         this.m_max_allowed_seat_reservations = -12345;
 
     } // constructor
@@ -143,6 +150,7 @@ class MakeReservation
     // 1. Check the input data. Call of checkInput
     // 2. Set (define/activate)the event functions. Call of setEventFunctions
     //    These event functions are defined in the HTML file MakeReservation.htm
+    // 3. Initialize the selection arrays. Call of CommonReserve.initSelectArrays
     // 3. Create the event program XML object. Callback function is getPassedData
     static init()
     {
@@ -152,6 +160,8 @@ class MakeReservation
         {
             return;
         }
+
+        CommonReserve.initSelectArrays();
 
         setEventFunctions();
 
@@ -187,7 +197,7 @@ class MakeReservation
 
          var max_percentage = g_make_reservation_data.m_season_program_xml.getMaxReservations(g_make_reservation_data.m_current_event_number);
 
-          g_make_reservation_data.m_max_allowed_seat_reservations = CommonReservation.getMaxAllowedNumberOfSeatReservations(max_percentage);
+          g_make_reservation_data.m_max_allowed_seat_reservations = CommonReserve.getMaxAllowedNumberOfSeatReservations(max_percentage);
 
         MakeReservation.loadReservationXml()
       
@@ -210,11 +220,13 @@ class MakeReservation
     {
         console.log("MakeReservation.setControls After loading reservation XML file");
 
-        CommonReservation.resetReservedProperties();
+        CommonReserve.resetReservedProperties();
 
-        CommonReservation.setReservedProperties(g_make_reservation_data.m_reservation_xml);
+        CommonReserve.setReservedProperties(g_make_reservation_data.m_reservation_xml);
 		  
-        CommonReservation.setEventTitleText(g_make_reservation_data.m_season_program_xml, g_make_reservation_data.m_current_event_number);
+        CommonReserve.setEventTitleText(g_make_reservation_data.m_season_program_xml, g_make_reservation_data.m_current_event_number);
+
+        CommonReserve.setCapReservationButton(0);
 
     }   // setControls
 
@@ -224,9 +236,16 @@ class MakeReservation
 ///////////////////////// Start Common Reservation ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Common class for reservation applications
-class CommonReservation
+// Common class for the reservation applications
+class CommonReserve
 {
+    // Initialize the selected tables and seats arrays
+    static initSelectArrays()
+    {
+        g_all_selected_tables = new Array();
+        g_all_selected_seats = new Array();
+        
+    } // initSelectArrays
 
     // Reset all seats to free seats, i.e. set the seat free color
     static resetReservedProperties()
@@ -238,7 +257,7 @@ class CommonReservation
             var element_circle = circle_nodes[index_cir];
             if (element_circle != null)
             {
-                element_circle.style["fill"] = CommonReservation.colorFreeSeat();
+                element_circle.style["fill"] = CommonReserve.colorFreeSeat();
             }		
         }
             
@@ -250,7 +269,7 @@ class CommonReservation
     {
         if (null == i_reservations_xml)
         {
-            alert("CommonReservation.setReservedProperties: Concert reservation XML object is null");
+            alert("CommonReserve.setReservedProperties: Concert reservation XML object is null");
 
             return;
         }
@@ -272,7 +291,7 @@ class CommonReservation
             var element_circle = document.getElementById(cir_id);
             if (element_circle != null)
             {
-                element_circle.style["fill"] = CommonReservation.colorReservedSeat();
+                element_circle.style["fill"] = CommonReserve.colorReservedSeat();
             }
         }
         
@@ -283,21 +302,58 @@ class CommonReservation
     // i_event_number: Event number (integer)
     static setEventTitleText(i_season_program_xml, i_event_number)
     {
-        var event_text = CommonReservation.getEventTitleText(i_season_program_xml, i_event_number);
+        var event_text = CommonReserve.getEventTitleText(i_season_program_xml, i_event_number);
 
         var element_text = document.getElementById(g_id_reservation_show_concert_date_band);
         if (null == element_text)
         {
-            alert("CommonReservation.setEventTitleText Element text is null");
+            alert("CommonReserve.setEventTitleText Element text is null");
 
             return;
         }
         
         element_text.textContent = event_text;
 
-        console.log("CommonReservation.setEventTitleText event_title= " + event_text);
+        console.log("CommonReserve.setEventTitleText event_title= " + event_text);
 
     } // setEventTitleText
+
+    // Set the caption of the reservation button depending on the number of selected seats
+    // i_number_selected: Number of selected seats (integer)
+    static setCapReservationButton(i_number_selected)
+    {
+        // Return if button not is defined. TODO Check if nessesary/used
+        if (g_user_is_concert_visitor == "false")
+            return;
+
+        var element_text_image = document.getElementById("text_image_send_email");
+        if (null == element_text_image)
+        {
+            alert("CommonReserve.setCapReservationButton Button element_text_image is null"); 
+            
+            return;
+        }
+
+        var text_image_select_seats = 'ImagesApp/text_select_seats.png';
+
+        var text_image_reserve_seats = 'ImagesApp/text_reserve_seats.png';
+
+        if (i_number_selected == 0)
+        {
+            console.log("CommonReserve.setCapReservationButton i_number_selected = 0");
+
+            element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_select_seats);
+            element_text_image.innerHTML =  '<title>' + g_title_text_image_select_seats + '</title>';
+        }
+        else
+        {
+            console.log("CommonReserve.setCapReservationButton i_number_selected= " + i_number_selected.toString());
+
+            element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_seats);
+            element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
+        }
+
+    } // setCapReservationButton
 
     // Returns the event title text for the current event
     // i_season_program_xml: Instance of the class EventProgramXml
@@ -339,7 +395,7 @@ class CommonReservation
 
         if (i_percentage < 0 || i_percentage > 100)
         {
-            alert("CommonReservation.getMaxAllowedNumberOfSeatReservations Error. i_percentage is less than zero or greater than 100. i_percentage= " 
+            alert("CommonReserve.getMaxAllowedNumberOfSeatReservations Error. i_percentage is less than zero or greater than 100. i_percentage= " 
                 + i_percentage.toString());
             
             return total_number_seats;
@@ -351,15 +407,14 @@ class CommonReservation
 
         var ret_maximum_number_reservations = parseInt(max_n_seats_procent_float*total_number_seats_float);     
 
-        console.log("CommonReservation.getMaxAllowedNumberOfSeatReservations ret_maximum_number_reservations= " + ret_maximum_number_reservations.toString());
+        console.log("CommonReserve.getMaxAllowedNumberOfSeatReservations ret_maximum_number_reservations= " + ret_maximum_number_reservations.toString());
         
         return ret_maximum_number_reservations;
 
     } // setMaxNumberSeatReservations()
 
 
-} // CommonReservation
-
+} // CommonReserve
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Common Reservation //////////////////////////////////////////

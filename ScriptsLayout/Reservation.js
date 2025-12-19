@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-12-18
+// Date: 2025-12-19
 // Author: Gunnar Lidén
 
 
@@ -30,12 +30,6 @@ var g_url_xml_file_event_program = "EventProgram.xml";
 // The maximum number of reservations
 // TODO Remove 
 var g_maximum_number_reservations = -12345;
-
-// Array of selected tables
-var g_all_selected_tables = null;
-
-// Array of selected seats
-var g_all_selected_seats = null;
 
 // Modal popup window. Instance of ReservationModalPopup
 var g_modal_popup_window = null;
@@ -295,6 +289,7 @@ function MainMakeReservation()
 //    (e.g. Reservation_Salmen_09.xml in folder SaisonXML) and load this file, i.e.
 //    set global parameter g_season_program_xml. Call of constructNameLoadReservationXMLDoc. 
 //    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
+/*QQQQQQQ
 function MainMakeReservationAfterLoadEventProgramXml()
 {
     g_current_event_number = g_requested_concert_number_make_reservaion;
@@ -307,6 +302,7 @@ function MainMakeReservationAfterLoadEventProgramXml()
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
 
 } // MainMakeReservationAfterLoadEventProgramXml
+ QQQQQQQ*/
 
 // Set concerts dropdown 
 // Note that the function is used for two web pages: StartReservation.htm and AddReservation.htm
@@ -1150,6 +1146,7 @@ function setMaxNumberSeatReservations()
 ///////////////////////// Start Layout Functions //////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+/* QQQQQQQQQQQQQQQQQQQ
 // Creates the layout as SVG elements for the premises
 // The input flag defines if it is for request (true) or reservation (false) HML file
 // Circles and rectangles/texts (buttons) with even functions calls are added 
@@ -1331,6 +1328,8 @@ function getConcertTitleText()
 	return concert_text;
 	
 } // getConcertTitleText
+
+QQQQQQQQQQQQQQQQQQ */
 
 // Set text for the email send button
 function setTextForEmailSendButton(i_number_selected)
