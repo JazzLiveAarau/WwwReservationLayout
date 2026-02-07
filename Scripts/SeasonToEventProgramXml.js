@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2025-12-12
+// Date: 2026-02-01
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -314,7 +314,7 @@ class SeasonToEventProgramXml
 
     static pricesJamSession()
     {
-        return 'Fr. 35.- oder Kollekte (inklusive Willkommensgetränk)' ;
+        return 'Fr. 35.- inklusive Apéro' ;
         
     } // pricesJamSession
 
@@ -401,9 +401,9 @@ class SeasonToEventProgramXml
     {
        var ret_pay = "";
         ret_pay += "<font size=3 face='Arial'>";
-        ret_pay += "<h3>Kollekte mit TWINT zahlen</h3>";
+        ret_pay += "<h3>Eintritte mit TWINT zahlen</h3>";
         ret_pay += "<p>";
-        ret_pay += "Kollekte können gerne mit TWINT im Voraus gegeben werden. <br>";
+        ret_pay += "Eintritte können gerne mit TWINT im Voraus bezahlt werden. <br>";
         ret_pay += "Bitte geben Sie Ihren Namen und 'Jam Session' bei der Bezahlung an.<br>";
         ret_pay += "Empfänger: Hanni Heller <br>";
         ret_pay += "Telefonnummer: <b><i>+41 79 368 56 93</i><br>";

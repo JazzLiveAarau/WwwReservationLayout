@@ -500,6 +500,526 @@ function getNumberOfAdditionalSeatsThatCanBeSelected()
 ///////////////////////// Start Selection functions ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Functions handling the selection of reservedseats
+class SelectedSeats
+{
+	constructor(i_reservation_xml, i_event_program_xml, i_current_event_number, i_max_allowed_seat_reservations)
+	{
+
+        // XML object reservation for the current event
+        this.m_reservation_xml = i_reservation_xml;
+
+		// Instance of EventProgramXml
+		this.m_event_program_xml = i_event_program_xml;
+
+		// Current event number
+		this.m_current_event_number = i_current_event_number;
+
+		this.m_max_allowed_seat_reservations = i_max_allowed_seat_reservations;
+
+		// Array of selected tables/rows
+ 		this.m_all_selected_tables = null;
+
+		// Array of selected seats
+		this.m_all_selected_seats = null;
+
+		this.check();
+	}
+
+	// Check if selections still are free or if somebody else has taken any of the seats
+	// An alert (user message) string will be returned if selected seats have been removed. 
+	// This function assumes that the reservations XML object has been reloaded. 
+	// The intended use of this function is that it is called after each selection of a new seat,
+	// and directly prior to adding the selected seats to the reservation XML object and saving
+	// the corresponding reservation XML file (e.g. .xml) on the server. Doing this will hopefully
+	// make it impossible that two or more users at the same time saves the  reservation XML file,
+	// i.e. that a checkout function like for the applications Admin and Adressen.
+	// 1. Get seat reservation arrays. Calls of getArrayReservationData
+	// 2. Get selected arrays. Call of getArraySelectedTables and getArraySelectedSeats
+	// 3. Loop over the arrays. Add to arrays selected_seats_to_remove and selected_tables_to_remove
+	// 4. Remove selected seats from selecion arrays (and make circles green). 
+	// 5. Set reservations. Call of setReservedProperties (and make reserved circles red)
+	checkIfSelectionsStillAreFree()
+	{
+		var ret_str = "";
+
+		var reservation_seat_array = this.m_reservation_xml.getReservationAndSeatDataArray();
+		
+		var number_reserved_seats = reservation_seat_array.length;	
+		
+		if (0 == number_reserved_seats)
+		{
+			// There is nothing to check
+			return ret_str;			
+		}
+
+		var selected_tables = this.getArraySelectedTables();	
+
+		var selected_seats = this. getArraySelectedSeats();
+
+		if (selected_tables == null || selected_seats == null)
+		{
+			alert("SelectedSeats.checkIfSelectionsStillAreFree selected_tables and/or selected_seats is null");
+
+			return ret_str;	
+		}
+
+		if (selected_tables.length == 0 || selected_seats.length == 0)
+		{
+			// alert("SelectedSeats checkIfSelectionsStillAreFree selected_tables and/or selected_seats length is zero (0)");
+
+			return ret_str;	
+		}
+
+		var selected_seats_to_remove = new Array();
+		var selected_tables_to_remove = new Array();
+		var selected_names_to_remove = new Array();
+
+		var index_to_be_removed = 0;
+		
+		var number_selected_seats = selected_tables.length;
+		
+		for (var index_select=0; index_select < number_selected_seats; index_select++)
+		{
+			var current_selected_table = selected_tables[index_select];
+
+			var current_selected_seat = selected_seats[index_select];
+
+			for (var index_reserved=0; index_reserved < number_reserved_seats; index_reserved++)
+			{
+				var current_reservation_seat_data = reservation_seat_array[index_reserved];
+
+				var current_reserved_table = current_reservation_seat_data.m_row_or_table_number;
+				var current_reserved_seat = current_reservation_seat_data.m_seat_character_or_number;
+				var current_reserved_name = current_reservation_seat_data.m_name;
+				
+				if (current_selected_table == current_reserved_table && current_selected_seat == current_reserved_seat)
+				{
+					selected_tables_to_remove[index_to_be_removed] = current_selected_table;
+					selected_seats_to_remove[index_to_be_removed] = current_selected_seat;
+					selected_names_to_remove[index_to_be_removed] = current_reserved_name;
+
+					index_to_be_removed = index_to_be_removed + 1;
+				}
+				/*			
+				else if (index_select > 1 && 2 == index_reserved) // Only for testing QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+				{
+					selected_tables_to_remove[index_to_be_removed] = current_selected_table;
+					selected_seats_to_remove[index_to_be_removed] = current_selected_seat;
+					selected_names_to_remove[index_to_be_removed] = current_reserved_name;
+					index_to_be_removed = index_to_be_removed + 1;
+				}					
+				*/
+				
+			} // index_reserved
+			
+		} // index_select
+		
+		var number_seats_to_remove = selected_tables_to_remove.length;
+		
+		var removed_seats_str = "";
+		for (var index_remove = 0; 	index_remove < number_seats_to_remove; index_remove++)
+		{
+			var current_remove_table = selected_tables_to_remove[index_remove];
+			var current_remove_seat = selected_seats_to_remove[index_remove];		
+			var current_remove_name = selected_names_to_remove[index_remove];	
+
+			this.removeFromSelectArrays(current_remove_table, current_remove_seat);
+			
+			removed_seats_str = removed_seats_str + g_title_table + current_remove_table + g_title_seat + current_remove_seat;
+
+			if (index_remove + 1 == number_seats_to_remove)
+			{
+				//removed_seats_str = removed_seats_str + " (Reserviert von " + current_remove_name + " , nur als Debug)";
+				removed_seats_str = removed_seats_str;
+			}
+		}
+
+		CommonReserve.setReservedProperties(); // TODO First reset?
+
+		if (number_seats_to_remove > 0)
+		{
+			// Alert message string
+			ret_str = g_selection_by_somebody_else_reserved + removed_seats_str + "\n" + g_selection_select_new_seats;	
+		}
+		
+		return ret_str;	
+		
+	} // checkIfSelectionsStillAreFree
+
+	// Returns the number of seats that are free to be selected
+	// The maximum number of seats holds the data object parameter m_max_allowed_seat_reservations
+	// Please note that other persons may have made reservations in the meantime. For this
+	// case might the function return a negative number. The function should for this case
+	// remove selection or ....
+	getNumberOfAdditionalSeatsThatCanBeSelected()
+	{
+		var ret_n_number = -12345;
+		
+		var total_number_reserved_seats = this.m_reservation_xml.totalNumberReservedSeats();
+		
+		var selected_seats = this.getArraySelectedSeats();
+		
+		var total_number_reserved_and_selected_seats = total_number_reserved_seats + selected_seats.length;
+		
+		ret_n_number = this.m_max_allowed_seat_reservations - total_number_reserved_and_selected_seats;
+
+		console.log("SelectedSeats.getNumberOfAdditionalSeatsThatCanBeSelected ret_n_number= " + ret_n_number.toString());
+
+		return ret_n_number;
+		
+	} // getNumberOfAdditionalSeatsThatCanBeSelected
+
+	// Checks that required parameters are not null and event number is greater than zero
+	check()
+	{
+		var ret_b_check = true;
+
+		if (this.m_reservation_xml == null || this.m_event_program_xml == null || this.m_current_event_number == null || 
+		    this.m_max_allowed_seat_reservations == null)
+		{
+			alert("SelectedSeats.check One or more input parameters are null");
+
+			ret_b_check = false;
+		}
+
+		if (this.m_current_event_number <= 0)
+		{
+			alert("SelectedSeats.check Number is not greater than zero m_current_event_number= " + this.m_current_event_number);
+
+			ret_b_check = false;
+		}
+
+		if (this.m_max_allowed_seat_reservations <= 1)
+		{
+			alert("SelectedSeats.check Number is not greater than one m_max_allowed_seat_reservations= " + this.m_max_allowed_seat_reservations);
+
+			ret_b_check = false;
+		}
+
+		if (ret_b_check)
+		{
+			console.log("SelectedSeats.check All input parameters are OK");
+		}
+		else
+		{
+			console.log("SelectedSeats.check One or more input parameters are NOT OK");
+		}
+
+		return ret_b_check;
+
+	} // check
+
+	// Initialize selection arrays
+	init()
+	{
+		this.m_all_selected_tables = new Array();
+
+		this.m_all_selected_seats = new Array();
+	}
+
+	// Get array of selected tables/rows
+	getArraySelectedTables()
+	{
+		return g_all_selected_tables;
+		
+	} // getArraySelectedTables
+
+	// Get array of selected seats
+	getArraySelectedSeats()
+	{
+		return g_all_selected_seats;
+		
+	} // getArraySelectedSeats
+
+	// Add seat and corresponding table to the arrays
+	addToSelectArrays(i_table_number, i_seat_char)
+	{
+		var index_add = g_all_selected_seats.length;
+		
+		this.m_all_selected_tables[index_add] = i_table_number;
+		
+		this.m_all_selected_seats[index_add] = i_seat_char;
+		
+		CommonReserve.setSelectedProperties();
+
+		console.log("SelectedSeats.addToSelectArrays Added i_table_number= " + i_table_number + " i_seat_char= " + i_seat_char);
+		
+	} // addToSelectArrays
+
+	// Remove seat and corresponding table from the arrays
+	removeFromSelectArrays(i_table_number, i_seat_char)
+	{
+		var input_selected_tables = new Array();
+		var input_selected_seats = new Array();
+		
+		var in_number = g_all_selected_tables.length;
+		
+		for (var index_in = 0; index_in < in_number; index_in++)
+		{
+			input_selected_tables[index_in] = this.m_all_selected_tables[index_in];
+			input_selected_seats[index_in] = this.m_all_selected_seats[index_in];
+		}
+		
+		this.m_all_selected_tables.length = 0;
+		this.m_all_selected_seats.length = 0;
+		
+		debug_removed = 0;
+		
+		index_add = 0;
+		
+		var out_number = input_selected_tables.length;
+		
+		for (var index_out = 0; index_out < out_number; index_out++)
+		{
+			if (i_table_number == input_selected_tables[index_out] && i_seat_char == input_selected_seats[index_out])
+			{
+				debug_removed = debug_removed + 1;
+			}
+			else
+			{
+				this.m_all_selected_tables[index_add] = input_selected_tables[index_out];
+				this.m_all_selected_seats[index_add] = input_selected_seats[index_out];
+				
+				index_add = index_add + 1;
+			}
+			
+		} // index_out
+		
+		if (debug_removed != 1)
+		{
+			alert("SelectSeats.removeFromSelectArrays Not in select arrays i_table_number= " + i_table_number + " i_seat_char= " + i_seat_char);
+		}
+		
+		var element_circle = document.getElementById(circleId(i_table_number, i_seat_char));
+		if (element_circle != null)
+		{
+			element_circle.style["fill"] = CommonReserve.colorFreeSeat();
+		}		
+		
+		var number_selected = 	this.m_all_selected_tables.length;
+
+		if (g_user_is_concert_visitor == "true")
+		{
+			//QQ setTextForEmailSendButton(number_selected);
+			CommonReserve.setCapReservationButton(number_selected);
+		}
+		else
+		{
+			//QQ setTextForSaveReservationButton(number_selected);
+			CommonReserve.setCapForSaveReservationButton(number_selected);
+		}
+
+		console.log("SelectedSeats.removeFromSelectArrays Removed i_table_number= " + i_table_number + " i_seat_char= " + i_seat_char);
+		
+	} // removeFromSelectArrays
+
+	// Returns true if seat is selected
+	// Input i_table_number: Table or row number
+	//	     i_seat_char: Seat character or number
+	seatIsSelected(i_table_number, i_seat_char)
+	{
+		var ret_seat_is_selected = "false";
+		
+		var number_selected = 	this.m_all_selected_tables.length;
+
+		for (var index_selected = 0; index_selected < number_selected; index_selected++)
+		{
+			var selected_number = this.m_all_selected_tables[index_selected];
+			var selected_character = this.m_all_selected_seats[index_selected];
+			
+			if (selected_number == i_table_number && selected_character == i_seat_char)
+			{
+				ret_seat_is_selected = "true";
+			}
+			
+		}
+
+		console.log("SelectedSeats.seatIsSelected i_table_number= " + i_table_number + " i_seat_char= " + i_seat_char + 
+					" ret_seat_is_selected= " + ret_seat_is_selected);
+
+		return ret_seat_is_selected;
+		
+	} // seatIsSelected
+
+	// Returns true if one or more seats have been selected
+	seatsAreSelected()
+	{
+		var number_selected = 	this.m_all_selected_tables.length;
+		
+		if (number_selected > 0)
+		{
+			return "true";
+		}
+		else
+		{
+			return "false";
+		}
+		
+	} // seatsAreSelected
+
+	// Returns the selected seats as a string
+	getSelectedSeats()
+	{
+		var found_tables = getTableArrayFromSelectArray();
+		if (0 == found_tables.length)
+		{
+			return;
+		}
+		
+		var ret_string = "";
+
+		var email_b_seats =  this.m_event_program_xml.getEmailSeatsBoolean(this.m_current_event_number);
+
+		if (email_b_seats)
+		{
+			for (var index_out=0; index_out < found_tables.length; index_out++)
+			{
+			var current_table = found_tables[index_out];
+				
+			ret_string = ret_string + "Tisch " + current_table + ": Platz ";
+			
+			for (index_all=0; index_all<g_all_selected_tables.length; index_all++)
+			{
+				if (this.m_all_selected_tables[index_all] == current_table)
+				{
+					ret_string = ret_string + " " + this.m_all_selected_seats[index_all];
+				}
+			}
+			
+			ret_string = ret_string + "<br>";
+			}
+		}
+		else
+		{
+			ret_string = ret_string + "Sitzplätze können nicht reserviert werden";
+			ret_string = ret_string + "<br>";
+		}
+		
+
+		ret_string = ret_string + "Anzahl Plätze: " + g_all_selected_tables.length;
+
+		console.log("SelectedSeats.getSelectedSeats ret_string= " + ret_string);
+		
+		return ret_string;
+		
+	} // getSelectedSeats
+
+	// Returns the seats for a given table number (name)
+	getSeatsForGivenTable(i_table_number)
+	{
+		var ret_seats_array = new Array();
+		
+		var index_add = 0;
+		
+		for (var index_all=0; index_all<this,m_all_selected_tables.length; index_all++)
+		{
+			if (this.m_all_selected_tables[index_all] == i_table_number)
+			{
+				ret_seats_array[index_add] = this.m_all_selected_seats[index_all];
+
+				index_add = index_add + 1;
+			}
+		}	
+
+		console.log("SelectedSeats.getSeatsForGivenTable i_table_number= " + i_table_number +
+					" ret_seats_array= " + ret_seats_array.toString());
+		
+		return ret_seats_array;
+		
+	} // getSeatsForGivenTable
+
+	getTableArrayFromSelectArray()
+	{
+		var found_tables = new Array();
+		
+		var number_selected = 	this.m_all_selected_tables.length;
+		if (0 == number_selected)
+		{
+			alert("getTableArrayFromSelectArray: No seats are selected");
+			return found_tables;
+		}
+		
+		
+		for (var index_selected = 0; index_selected < number_selected; index_selected++)
+		{
+			var current_number = this.m_all_selected_tables[index_selected];
+			
+			var table_found = "false";
+			
+			for (var index_found=0; index_found<found_tables.length; index_found++)
+			{
+				if (found_tables[index_found] == current_number)
+				{
+					table_found = "true";
+				}
+				
+			}
+			
+			if (table_found == "false")
+			{
+				var index_add = found_tables.length;
+				
+				found_tables[index_add] = current_number;
+			}
+				
+		}		
+
+		console.log("SelectedSeats.getTableArrayFromSelectArray found_tables= " + found_tables.toString());
+		
+		return found_tables;
+		
+	} // getTableArrayFromSelectArray
+
+	// Get number of tables in the select array
+	getNumberOfTablesInSelectArray()
+	{
+		var ret_number = 0;
+		
+		var table_array = this.getTableArrayFromSelectArray();
+		
+		ret_number = table_array.length;
+
+		console.log("SelectedSeats.getNumberOfTablesInSelectArray ret_number= " + ret_number.toString());
+		
+		return ret_number;
+		
+	} // getNumberOfTablesInSelectArray
+
+	// Set selected properties
+	setSelectedProperties()
+	{
+		var number_selected = 	this._all_selected_tables.length;
+		
+		if (g_user_is_concert_visitor == "true")
+		{
+			//QQ setTextForEmailSendButton(number_selected);
+			CommonReserve.setCapReservationButton(number_selected);
+		}
+		else
+		{
+			//QQ setTextForSaveReservationButton(number_selected);
+			CommonReserve.setCapForSaveReservationButton(number_selected);
+		}
+		
+		for (var index_selected = 0; index_selected < number_selected; index_selected++)
+		{
+			var selected_number = g_all_selected_tables[index_selected];
+			var selected_character = g_all_selected_seats[index_selected];
+			
+			var element_circle = document.getElementById(circleId(selected_number, selected_character));
+			if (element_circle != null)
+			{
+				element_circle.style["fill"] = "yellow"; // TODO CommonReserve.colorYellow();
+			}		
+		}
+
+		console.log("SelectedSeats.setSelectedProperties Exit");
+		
+	} // setSelectedProperties
+
+} // SelectedSeats
+
 
 // Get array of selected tables
 function getArraySelectedTables()
@@ -524,7 +1044,7 @@ function addToSelectArrays(i_table_number, i_seat_char)
 	
 	g_all_selected_seats[index_add] = i_seat_char;
 	
-	setSelectedProperties();
+	this.setSelectedProperties();
 	
 } // addToSelectArrays
 

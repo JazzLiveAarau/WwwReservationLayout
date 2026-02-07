@@ -1,5 +1,5 @@
 // File: ScriptsLayout/MakeReservation.js
-// Date: 2025-12-17
+// Date: 2025-12-19
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,9 @@ class MakeReservationData
 
         // XML object reservation for the current event
         this.m_reservation_xml = null;
+
+        // Instance if the class SelectSeats
+        this.m_select_seats_obj = null;
 
         // The maximum number of seat reservations that is allowed
         // Max percentage is defined in the season XML file
@@ -150,7 +153,6 @@ class MakeReservation
     // 1. Check the input data. Call of checkInput
     // 2. Set (define/activate)the event functions. Call of setEventFunctions
     //    These event functions are defined in the HTML file MakeReservation.htm
-    // 3. Initialize the selection arrays. Call of CommonReserve.initSelectArrays
     // 3. Create the event program XML object. Callback function is getPassedData
     static init()
     {
@@ -160,8 +162,6 @@ class MakeReservation
         {
             return;
         }
-
-        CommonReserve.initSelectArrays();
 
         setEventFunctions();
 
@@ -174,7 +174,9 @@ class MakeReservation
     // 1. Get name, email, remark and requested event number from sessionStorage
     // 2. Get the registered event number for the requested event number
     //    Call of EventProgramXml.getEventRegisteredNumber
-    // 3. Load the reservation XML file for the current event. Call of loadReservationXml
+    // 3. Initialize the selection arrays. Create the instance of the class SelectSeats
+    //    Call of SelectSeats.init
+    // 4. Load the reservation XML file for the current event. Call of loadReservationXml
     static getPassedData()
     {
         console.log("MakeReservation.getPassedData Enter");
@@ -197,7 +199,12 @@ class MakeReservation
 
          var max_percentage = g_make_reservation_data.m_season_program_xml.getMaxReservations(g_make_reservation_data.m_current_event_number);
 
-          g_make_reservation_data.m_max_allowed_seat_reservations = CommonReserve.getMaxAllowedNumberOfSeatReservations(max_percentage);
+        g_make_reservation_data.m_max_allowed_seat_reservations = CommonReserve.getMaxAllowedNumberOfSeatReservations(max_percentage);
+
+        g_make_reservation_data.m_select_seats_obj = new SelectSeats(g_make_reservation_data.m_reservation_xml, g_make_reservation_data.m_season_program_xml, 
+                                g_make_reservation_data.m_current_event_number, g_make_reservation_data.m_max_allowed_seat_reservations);
+
+        g_make_reservation_data.m_select_seats_obj.init();
 
         MakeReservation.loadReservationXml()
       
@@ -239,13 +246,6 @@ class MakeReservation
 // Common class for the reservation applications
 class CommonReserve
 {
-    // Initialize the selected tables and seats arrays
-    static initSelectArrays()
-    {
-        g_all_selected_tables = new Array();
-        g_all_selected_seats = new Array();
-        
-    } // initSelectArrays
 
     // Reset all seats to free seats, i.e. set the seat free color
     static resetReservedProperties()
@@ -354,6 +354,45 @@ class CommonReserve
         }
 
     } // setCapReservationButton
+
+    // Set the caption of the ....
+    static setCapForSaveReservationButton(i_number_selected)
+    {
+        // Return if not the add reservation case
+        if (g_user_is_concert_visitor == "true")
+        {
+            return;
+        }
+        
+        var element_text_image = document.getElementById("id_image_save_reservation_text");
+        if (null == element_text_image)
+        {
+            alert("CommonReserve.setCapForSaveReservationButton Element text image is null");
+            return;
+        }	
+
+        var text_image_save_reservation = 'ImagesApp/text_save_reservation.png';
+
+        var text_image_save_reservation_white = 'ImagesApp/text_save_reservation_white.png';
+        
+        if (g_current_reservation_name.length > 0)
+        {
+            // setButtonText("text_save_reservation", g_save_reservation_text);
+            
+            element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_save_reservation);
+            
+            setButtonColor("button_save_reservation", g_active_mode_color);		// TODO 
+        }
+        else
+        {
+            // setButtonText("text_save_reservation", "");
+            
+            element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_save_reservation_white);
+            
+            setButtonColor("button_save_reservation", g_color_white);		// TODO
+        }
+	
+    } // setCapForSaveReservationButton
 
     // Returns the event title text for the current event
     // i_season_program_xml: Instance of the class EventProgramXml

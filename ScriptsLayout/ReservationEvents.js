@@ -1140,6 +1140,128 @@ function mouseDownCreateEventList(  )
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+class MouseEvent
+{
+    constructor(i_user_is_concert_visitor, i_select_seats_obj, i_reservation_xml)
+    {     
+        // Flag that tells if the user is concert visitor or administrator
+        this.m_user_is_concert_visitor = i_user_is_concert_visitor;  
+
+        // Instance of the SelectSeats class
+        this.m_select_seats_obj = i_select_seats_obj;
+
+        // Instance of the ReservationEventXml class for the current event
+        this.m_reservation_xml = i_reservation_xml;
+
+        this.check();
+
+    } // constructor
+
+    check()
+    {
+        var ret_b_check = true;
+
+        if (this.m_select_seats_obj == null || this.m_user_is_concert_visitor == null || this.m_reservation_xml == null)
+        {
+            alert("MouseEvent.check m_select_seats_obj and/or m_user_is_concert_visitor and/or m_reservation_xml is null");
+
+            ret_b_check = false;
+        }
+
+        if (this.m_user_is_concert_visitor != "true" && this.m_user_is_concert_visitor != "false")
+        {
+            alert("MouseEvent.check m_user_is_concert_visitor has illegal value= " + this.m_user_is_concert_visitor);
+
+            ret_b_check = false;		
+        } 
+
+        return ret_b_check;
+
+    } // check
+
+    // Event: User clicked a seat circle
+    // i_table_number: Table/row number
+    // i_seat_char: Seat character/number
+    down(i_table_number, i_seat_char)
+    {
+        if (this.m_user_is_concert_visitor == "true")
+        {
+            this.downConcertVisitor(i_table_number, i_seat_char);
+        }
+        else
+        {
+            EventMouseDownAdministrator(i_table_number, i_seat_char);
+        }
+
+    } // EventMouseDown
+
+    // Event: The user that clicked the circle is concert visitor 
+    // 1. Seat will be added to the arrays g_all_selected_tables and g_all_selected_seats 
+    //    if the seat is free. Call of addToSelectArrays. For the case that the user re-selects
+    //    a selected seat it will be removed from the arrays. Call of removeFromSelectArrays.
+    //    If the user selects a reserved seat there will be a pop-up error message
+    // 2. The selected seats will be compared with the current (latest saved) reserved seats.
+    //    The XML reservations file will be reloaded. If there are seats that somebody else
+    //    else has reserved, the user will get a pop-up message telling that replacement seats
+    //    must be selected. For this case the color of the seat circles will change from yellow
+    //    to red. Call of function reloadXmlReservationCheckSelectionSetReservations().
+    //    Please note this function not is called for the case "Request seats with an email"
+
+    downConcertVisitor(i_table_number, i_seat_char)
+    {
+        var number_of_seats_that_can_be_selected = this.m_select_seats_obj.getNumberOfAdditionalSeatsThatCanBeSelected();
+
+        if ( number_of_seats_that_can_be_selected < 0)
+        {
+            alert(g_error_max_number_seat_reservations_exceeded);
+            return;		
+        }
+        else if ( number_of_seats_that_can_be_selected == 0)
+        {
+            alert(g_msg_last_seat_that_can_be_reserved);
+        }
+        
+        var total_number_reserved_seats = this.m_reservation_xml.totalNumberReservedSeats();
+        
+        var total_number_seats = getTotalNumberOfAvailableSeats(); // Defined in the HTML application file
+        
+        // Actually already checked ...
+        if (total_number_reserved_seats > this.m_select_seats_obj.m_max_allowed_seat_reservations)
+        {
+            // Was requested not to show this number: var remaining_seats = total_number_seats - total_number_reserved_seats;
+            alert(g_error_max_number_seat_reservations_exceeded);
+            return;
+        }	
+        
+        var seat_free = this.m_select_seats_obj.seatIsFree(i_table_number, i_seat_char);
+        
+        if ("false" == seat_free)
+        {
+            alert(g_msg_select_reservation_table + i_table_number + g_msg_select_reservation_seat + i_seat_char + g_msg_select_already_reservation);
+            return;
+        }
+        
+        var seat_selected = this.m_select_seats_obj.seatIsSelected(i_table_number, i_seat_char);
+        
+        if ("false" == seat_selected)
+        {
+            this.m_select_seats_obj.addToSelectArrays(i_table_number, i_seat_char); 
+        }
+        else if ("true" == seat_selected)
+        {
+            this.m_select_seats_obj.removeFromSelectArrays(i_table_number, i_seat_char); 
+        }	
+        
+        reloadXmlReservationCheckSelectionSetReservations();  // Reservation.js TODO
+
+        var callback_function_name = ""
+
+        this.m_reservation_xml.loadOneXmlFile(this.m_reservation_xml, this.m_reservation_xml.getXmlEventFileName(), callback_function_name);
+        
+    } // downConcertVisitor
+
+} // MouseEvent
+
 // Event: User clicked the circle
 function EventMouseDown(i_table_number, i_seat_char)
 {

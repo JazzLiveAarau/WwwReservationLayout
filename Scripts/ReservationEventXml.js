@@ -1023,6 +1023,24 @@ class ReservationEventXml
 
     } // getNumberOfSeatNames
 
+    // Returns the total number of reserved seats for all reservations
+    totalNumberReservedSeats()
+    {
+        var n_reservations = this.getNumberOfReservations();
+
+        var total_n_seats = 0;
+
+        for (var reservation_number=1; reservation_number<=n_reservations; reservation_number++)
+        {
+            var n_seats = this.getNumberOfSeats(reservation_number);
+
+            total_n_seats = total_n_seats + n_seats;
+        }
+
+        return total_n_seats;
+        
+    } // totalNumberReservedSeats
+
 	///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Number Records  /////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -1078,6 +1096,64 @@ class ReservationEventXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    getReservationAndSeatDataArray()
+    {
+        var ret_data_array = new Array();  
+
+        var number_reservations = this.getNumberOfReservations();
+
+        if (number_reservations == 0)
+        {
+            return ret_data_array;
+        }   
+
+        for (var reservation_number=1; reservation_number<=number_reservations; reservation_number++)
+        {
+            var number_reserved_seats = this.getNumberOfSeats(reservation_number);  
+
+            var reservation_name = this.getName(reservation_number);
+            var reservation_email = this.getEmail(reservation_number);
+            var reservation_remark = this.getRemark(reservation_number);
+            var reservation_password = this.getPassword(reservation_number);
+            var reservation_reg_number = ""; // TODO
+
+            for (var reserved_seat_number=1; reserved_seat_number<=number_reserved_seats; reserved_seat_number++)
+            {
+                var table_number = this.getTableNumber(reservation_number, reserved_seat_number);       
+                var seat_character = this.getSeatChar(reservation_number, reserved_seat_number);
+                var seat_name = this.getSeatName(reserved_seat_number);
+
+                var reservation_and_seat_data = new ReservationAndSeatData();
+
+                reservation_and_seat_data.m_reg_event_number = reservation_number;
+
+                reservation_and_seat_data.m_password = reservation_password;
+
+                reservation_and_seat_data.m_name = reservation_name;
+
+                reservation_and_seat_data.m_email = reservation_email;
+
+                reservation_and_seat_data.m_remark = reservation_remark;
+
+                reservation_and_seat_data.m_row_or_table_number = table_number;
+
+                reservation_and_seat_data.m_seat_character_or_number = seat_character;
+
+                reservation_and_seat_data.m_seat_name = seat_name;
+
+                reservation_and_seat_data.m_reg_event_number = reservation_reg_number;
+
+
+                ret_data_array.push(reservation_and_seat_data);
+
+            } // reserved_seat_number
+            
+        } // reservation_number
+
+        return ret_data_array;
+
+    } // getReservationAndSeatDataArray
 
     // Get an array of HTML identities for the reserved seats
     // The identity is table number + underscore + seat character, e.g. "12_A" 
@@ -1449,12 +1525,12 @@ class ReservationSeatData
         this.m_seat_character_or_number = "";
 
         // Array of seat names
-        this.m_seat_name_array = [];
+        this.m_seat_name_array = []; // TODO There is only one name
 
     } // constructor
 
     // Returns the number of seats
-    getNumberOfSeatNames()
+    getNumberOfSeatNames() // TODO There is only one name
     {
         return this.m_seat_name_array.length;
 
@@ -1488,7 +1564,7 @@ class ReservationSeatData
 
     } // setSeatCharacterNumber
 
-    // Returns the seat name array
+    // Returns the seat name array  // TODO There is only one name
     getSeatNameArray()
     {
         return this.m_seat_name_array;
@@ -1496,10 +1572,48 @@ class ReservationSeatData
     } // getSeatNameArray
 
     // Sets the seat name array
-    setSeatNameArray(i_seat_name_array)
+    setSeatNameArray(i_seat_name_array) // TODO There is only one name
     {
         this.m_seat_name_array = i_seat_name_array;
 
     } // setSeatNameArray
 
 } // ReservationSeatData
+
+// Holds reservation and seat data
+class ReservationAndSeatData
+{
+    constructor()
+    {
+        // Event number.
+        // This number is a reference to events defined
+        // in the event program XML file (EventProgramXml)
+        this.m_event_number = "";
+
+        // Event registration number (unique) in the event program XML file (EventProgramXml).
+        this.m_reg_event_number = "";
+
+        // Edit reservation password
+        this.m_password = "";
+
+        // Name of the person that made the reservation
+        this.m_name = "";
+
+        // Reservation email
+        this.m_email = "";
+
+        // Reservation remark
+        this.m_remark = "";
+
+        // Reservation table number or row number
+        this.m_row_or_table_number = "";
+
+        // Seat character or number
+        this.m_seat_character_or_number = "";
+
+        // Seat person name
+        this.m_seat_name = ""; 
+
+    } // constructor
+
+} // ReservationAndSeatData
