@@ -364,6 +364,28 @@ class SeasonToEventProgramXml
         ret_content += "<font size=3 face='Arial'>";
         ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
         ret_content += "<p>";
+        ret_content += "Ihre Anmeldung zur Jam Session ist bei uns eingetroffen, besten Dank.<br>";
+        ret_content += "";
+        ret_content += "<br>";
+        ret_content += "Wir wünschen Ihnen herzlich willkommen zu diesem Jubiläumsfest.<br>";
+        ret_content += "<br><br>";
+        ret_content += "Herzlich<br>";
+        ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
+        ret_content += "</p>";
+        ret_content += "</font>";
+
+        return ret_content;
+
+    } // emailJamSessionContent
+
+/* 20260222
+    // Returns a default text as content for the reservation confirmation email
+    static emailJamSessionContent()
+    {
+        var ret_content = "";
+        ret_content += "<font size=3 face='Arial'>";
+        ret_content += "<b>Liebe Konzertbesucherin, lieber Konzertbesucher</b><br><br>";
+        ret_content += "<p>";
         ret_content += "Ihre Reservation ist bei uns eingetroffen, besten Dank.<br>";
         ret_content += "Für diese Jam Session gibt es wenige Stühle, wir können dafür aber keine Reservation entgegen nehmen.  <br>";
         ret_content += "<br>";
@@ -377,6 +399,11 @@ class SeasonToEventProgramXml
         return ret_content;
 
     } // emailJamSessionContent
+20260222 */
+
+    // Aufgrund einer angepassten Jubiläumstischordnung können 
+    // für diese Jam Session ausnahmsweise keine konkreten Sitzplätze gewählt werden. 
+    // Die Reservation ist ausschliesslich Eintrittsgarantie.
 
     // Returns the default payment method text 
     static payMethod()
