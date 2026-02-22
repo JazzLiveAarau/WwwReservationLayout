@@ -367,7 +367,7 @@ class SeasonToEventProgramXml
         ret_content += "Ihre Anmeldung zur Jam Session ist bei uns eingetroffen, besten Dank.<br>";
         ret_content += "";
         ret_content += "<br>";
-        ret_content += "Wir wünschen Ihnen herzlich willkommen zu diesem Jubiläumsfest.<br>";
+        ret_content += "Wir heissen Sie herzlich willkommen zu diesem Jubiläumsfest.<br>";
         ret_content += "<br><br>";
         ret_content += "Herzlich<br>";
         ret_content += "<b>JAZZ <i>live</i> AARAU</b><br></br>";
