@@ -1198,13 +1198,20 @@ class ReservationEventXml
     // Returns the reservation event XML file name
     getXmlEventFileName()
     {
-        var start_name = 'Event_';
+        if (this.m_event_reg_number == 'old')
+        {
+            return this.getXmlEventFileNameOld();
+        }
+        else
+        {
+            var start_name = 'Event_';
 
-        var event_reg_number = this.m_event_reg_number;
+            var event_reg_number = this.m_event_reg_number;
 
-        var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
+            var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
 
-        return ret_str;
+            return ret_str;
+        }
 
     } // getXmlEventFileName
 
