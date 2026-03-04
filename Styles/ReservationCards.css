@@ -1,5 +1,5 @@
 /* 
-File: ReservationCards.css Date: 2026-03-02
+File: ReservationCards.css Date: 2026-03-03
 
 Author: Gunnar Liden
 
@@ -21,7 +21,7 @@ Defines all style classes for the application reservation cards layout
     margin-top: 20px;
     margin-left: 20px;
     overflow: hidden; 
-    min-height: 270px;
+    min-height: 170px;
 }
 
 

@@ -369,7 +369,8 @@ FodyWeavers.xsd
 /Spagi_Jam_Session_V2/
 
 # XML test data for unit tests
-/XmlTestData/SaisonXml/
+/XmlTestData/SaisonXml_Names/
+/XmlTestData/SaisonXml_Tickets/
 
 # FTP configuration files
 # ftp-sync.json

@@ -41,25 +41,24 @@ var g_reservation_concert_xml = null;
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Initialization
-// 1. If local storage not is set (after delete browser cache) set empty strings
-//    Call of NewSeasonStorage.initLocal
-// 2. Create the controls for this application
+// 1. Create the controls for this application
 //    Call of createReservationCardsControls
-// 3. Set the controls with data from local storage
-//    Call of NewSeasonStorage.getLocal and setNewSeasonControls
 function initReservationCards()
 {
     debugReservationCards('initReservationCards Enter');
 
     createReservationCardsControls();
 
-    setReservationCardsControls();
-
 } // initReservationCards
 
 function execCreateNameCards()
 {
     debugReservationCards('execCreateNameCards Enter');
+
+    if (!setReservationCardsControls('name_cards')) 
+    {
+        return;
+    }
 
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
@@ -87,7 +86,9 @@ function afterLoadingOfNameCardsXmlData()
 {
     debugReservationCards('afterLoadingOfNameCardsXmlData Enter');
 
-   var name_cards = new NameCards(g_reservation_concert_xml);
+    var card_case  = 'name_cards';
+
+   var name_cards = new NameCards(g_reservation_concert_xml, card_case);
 
 } // afterLoadingOfNameCardsXmlData
 
@@ -95,7 +96,34 @@ function execCreateTicketCards()
 {
     debugReservationCards('execCreateTicketCards Enter');   
 
+    if (!setReservationCardsControls('ticket_cards')) 
+    {
+        return;
+    }
+
+    var subdir_xml = g_xml_data_dir;
+
+    var event_reg_number = "old"; // Old names for the XML reservation data files
+
+    var event_number =  1;
+
+    var b_new_file = false;
+
+    var callback_function_name = afterLoadingOfTicketCardsXmlData;
+
+    g_reservation_concert_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
 } // execCreateTicketCards
+
+function afterLoadingOfTicketCardsXmlData()
+{
+    debugReservationCards('afterLoadingOfTicketCardsXmlData Enter');
+
+   var card_case  = 'ticket_cards';
+
+   var ticket_cards = new NameCards(g_reservation_concert_xml, card_case);
+
+} // afterLoadingOfTicketCardsXmlData
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -107,9 +135,11 @@ function execCreateTicketCards()
 
 class NameCards
 {
-    constructor(i_reservation_concert_xml)
+    constructor(i_reservation_concert_xml, i_card_case)
     {
         this.m_reservation_concert_xml = i_reservation_concert_xml;
+
+        this.m_card_case = i_card_case;
 
         this.m_seat_data_array = null;
 
@@ -135,6 +165,8 @@ class NameCards
         // Instance of the class HtmlTableCards
         this.m_html_table_cards = null;
 
+        this.checkCase();
+
         this.setReservationAndSeatDataArray();
 
         this.setArrays();
@@ -144,6 +176,33 @@ class NameCards
         this.openTab();
 
     } // constructor
+
+    checkCase()
+    {
+        if (undefined == this.m_card_case  || this.m_card_case == "")
+        {
+            this.m_card_case = 'name_cards';
+
+            alert('NameCards checkCase Undefined card case: Changed to' + this.m_card_case);
+        }
+
+
+        if (this.m_card_case == 'name_cards')
+        {
+            // TODO
+
+        } // name_cards
+        else if (this.m_card_case == 'ticket_cards')
+        {
+            // TODO
+
+        } // ticket_cards
+        else
+        {
+            console.log('NameCards Unknown card case: ' + this.m_card_case);
+        }
+
+    } // checkCase
 
     // Sets the reservation and seat data array with data from the reservation concert XML file
     setReservationAndSeatDataArray()
@@ -220,7 +279,7 @@ class NameCards
 
         var row_one_str = "JAZZ <i>live</i> AARAU";
 
-        this.m_html_table_cards = new HtmlTableCards(card_width, card_height, row_one_str, this.m_names_array, 
+        this.m_html_table_cards = new HtmlTableCards(this.m_card_case, card_width, card_height, row_one_str, this.m_names_array, 
                                         this.m_dates_array, this.m_event_name_array);
 
     } // createObjects
@@ -291,8 +350,10 @@ class NameCards
 
 class HtmlTableCards
 {
-    constructor(i_card_width, i_card_height, i_row_one_str, i_row_two_array, i_row_three_left_array, i_row_three_right_array)
+    constructor(i_card_case, i_card_width, i_card_height, i_row_one_str, i_row_two_array, i_row_three_left_array, i_row_three_right_array)
     {
+        this.m_card_case = i_card_case;
+
         this.m_card_width = i_card_width;
 
         this.m_card_height = i_card_height;
@@ -379,20 +440,24 @@ class HtmlTableCards
 
                 var current_index = index_row*this.m_number_columns + index_column;
 
-                if (current_index < this.m_row_two_array.length)
+                if (this.m_card_case == 'name_cards')
                 {
-                    table_html_str += this.addRowTwo(this.m_row_two_array[current_index]);
-
-                    table_html_str += this.addRowThree(this.m_row_three_left_array[current_index], this.m_row_three_right_array[current_index]);
+                    table_html_str += this.getHtmlCaseName(current_index);
+                }
+                else if (this.m_card_case == 'ticket_cards')
+                {
+                    table_html_str += this.getHtmlCaseTicket(current_index);
                 }
                 else                
                 {
-                    table_html_str += this.addRowTwo("&nbsp;");
+                    console.log('HtmlTableCards.getHtmlString Unknown card case: ' + this.m_card_case);
 
-                    // TODOtable_html_str += this.addRowThree("&nbsp;", "&nbsp;");
+                    table_html_str += this.getHtmlCaseName(current_index);
 
-                    table_html_str += this.addRowThree(this.m_row_three_left_array[1], this.m_row_three_right_array[1]);
-                }
+                    alert('HtmlTableCards.getHtmlString Unknown card case: ' + this.m_card_case + ' Defaulting to name_cards');
+
+                    this.m_card_case = 'name_cards';
+                }   
 
                 table_html_str += this.addEndColumn();
             }
@@ -421,6 +486,43 @@ class HtmlTableCards
         return table_html_str;
 
     } // getHtmlString
+
+    // Returns the HTML string for the name card in the case of name cards
+    getHtmlCaseName(i_current_index)
+    {
+        var ret_name_str = "";
+
+        if (i_current_index < this.m_row_two_array.length)
+        {
+            ret_name_str += this.addRowTwo(this.m_row_two_array[i_current_index]);
+
+            ret_name_str += this.addRowThree(this.m_row_three_left_array[i_current_index], this.m_row_three_right_array[i_current_index]);
+        }
+        else                
+        {
+            ret_name_str += this.addRowTwo("&nbsp;");
+
+            // TODO ret_name_str += this.addRowThree("&nbsp;", "&nbsp;");
+
+            ret_name_str += this.addRowThree(this.m_row_three_left_array[1], this.m_row_three_right_array[1]);
+        }
+
+        return ret_name_str;
+
+    } // getHtmlCaseName
+
+    // Returns the HTML string for the name card in the case of ticket cards
+    getHtmlCaseTicket(i_current_index)
+    {
+        var ret_name_str = "";
+
+         ret_name_str += this.addRowTwo(this.m_row_three_right_array[1]); // Event name
+
+         ret_name_str += this.addRowThree(this.m_row_three_left_array[1], "Fr. 35.-"); // Date and empty right part
+
+        return ret_name_str;
+
+    } // getHtmlCaseTicket
 
     // Returns start table
     addStartTable()
@@ -511,6 +613,7 @@ class HtmlTableCards
 ///////////////////////// Start Style Cards ///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Class for the styling of the name cards
 class StyleCards
 {
     constructor(i_card_width, i_card_height, i_font_size_club, i_font_size_name, i_font_size_seat, i_font_size_date, i_font_size_event)
@@ -681,6 +784,8 @@ class StyleCards
         name_str += "color: black; " + StyleCards.lineBreak();
 
         name_str += "height:48%; " + StyleCards.lineBreak();
+
+        name_str += "padding-top: 3%; " + StyleCards.lineBreak();
 
         if (this.m_b_div_border)
         {
@@ -938,7 +1043,21 @@ function createReservationCardsControls()
 
     createTicketCardsButton();
 
+    hideTextBoxes();
+
 } // createReservationCardsControls
+
+// Hide textboxes since they not yet are used/needed
+function hideTextBoxes()
+{
+    var data_dir_el = document.getElementById('id_div_xml_data_dir');
+
+    var result_dir_el = document.getElementById('id_div_cards_result_dir');
+
+    data_dir_el.style.display = 'none';
+
+    result_dir_el.style.display = 'none';
+}
 
 // Create the text box for the organisation directory
 function createTextBoxXmlDataDirectory()
@@ -1016,18 +1135,49 @@ function createTicketCardsButton()
 ///////////////////////// Start Set Controls //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-function setReservationCardsControls()
+function setReservationCardsControls(i_card_case)
 {
-    if (ReservationEventXml.execApplicationOnServer())
+    if(i_card_case == undefined)
     {
-        g_xml_data_dir = '/XmlTestData/SaisonXML/';
+        console.log('setReservationCardsControls called with undefined card case');
+
+        return false;
     }
+
+    if (i_card_case == 'name_cards')
+    {
+        if (ReservationEventXml.execApplicationOnServer())
+        {
+            g_xml_data_dir = '/XmlTestData/SaisonXML_Names/';
+        }
+        else
+        {
+            g_xml_data_dir = '../Reservation/Spagi_76_Chairs_V_1/SaisonXML/';
+        }
+
+    } // name_cards
+    else if (i_card_case == 'ticket_cards')
+    {
+        if (ReservationEventXml.execApplicationOnServer())
+        {
+            g_xml_data_dir = '/XmlTestData/SaisonXML_Tickets/';
+        }
+        else
+        {
+            g_xml_data_dir = '../Reservation/Spagi_Jam_Session_V2/SaisonXML/';
+        }
+
+    } // ticket_cards
     else
     {
-        g_xml_data_dir = '../Reservation/Spagi_76_Chairs_V_1/SaisonXML/';
+        console.log('setReservationCardsControls unknown card case: ' + i_card_case);
+
+        return false;
     }
 
     g_xml_data_dir_text_box.setValue(g_xml_data_dir);
+
+    return true;
 
 } // setReservationCardsControls
 
