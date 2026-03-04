@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2025-12-19
+// Date: 2026-03-03
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -1097,7 +1097,11 @@ class ReservationEventXml
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    getReservationAndSeatDataArray()
+    // Returns an array of ReservationAndSeatData objects for all reservations and reserved seats
+    // i_b_old_xml: If true, the returned data array does not include seat names and 
+    // reservation passwordswhile tags are undeined in the old XML file.
+    // The parameter is optional. If not set the value is set to false
+    getReservationAndSeatDataArray(i_b_old_xml)
     {
         var ret_data_array = new Array();  
 
@@ -1108,6 +1112,32 @@ class ReservationEventXml
             return ret_data_array;
         }   
 
+        var b_old_xml = null;
+
+        if (i_b_old_xml == null || i_b_old_xml == undefined)
+        {
+            b_old_xml = false;
+        }
+        else
+        {
+            b_old_xml = i_b_old_xml;
+        }
+
+        var event_number = "";
+
+        if (!b_old_xml)
+        {
+            event_number = this.getEventNumber();
+        }
+
+        var event_year = this.getYear();
+
+        var event_month = this.getMonth();  
+
+        var event_day = this.getDay();
+
+        var event_name = this.getEventName();
+
         for (var reservation_number=1; reservation_number<=number_reservations; reservation_number++)
         {
             var number_reserved_seats = this.getNumberOfSeats(reservation_number);  
@@ -1115,16 +1145,37 @@ class ReservationEventXml
             var reservation_name = this.getName(reservation_number);
             var reservation_email = this.getEmail(reservation_number);
             var reservation_remark = this.getRemark(reservation_number);
-            var reservation_password = this.getPassword(reservation_number);
+
+            var reservation_password = "";
+            if (!b_old_xml)
+            {
+                reservation_password = this.getPassword(reservation_number);
+            }
+
             var reservation_reg_number = ""; // TODO
 
             for (var reserved_seat_number=1; reserved_seat_number<=number_reserved_seats; reserved_seat_number++)
             {
                 var table_number = this.getTableNumber(reservation_number, reserved_seat_number);       
                 var seat_character = this.getSeatChar(reservation_number, reserved_seat_number);
-                var seat_name = this.getSeatName(reserved_seat_number);
+
+                var seat_name = "";
+                if (!b_old_xml)
+                {
+                     seat_name = this.getSeatName(reserved_seat_number);
+                }
 
                 var reservation_and_seat_data = new ReservationAndSeatData();
+
+                reservation_and_seat_data.m_event_number = event_number;
+
+                reservation_and_seat_data.m_event_year = event_year;
+
+                reservation_and_seat_data.m_event_month = event_month;
+
+                reservation_and_seat_data.m_event_day = event_day;
+
+                reservation_and_seat_data.m_event_name = event_name;
 
                 reservation_and_seat_data.m_reg_event_number = reservation_number;
 
@@ -1596,6 +1647,14 @@ class ReservationAndSeatData
         // This number is a reference to events defined
         // in the event program XML file (EventProgramXml)
         this.m_event_number = "";
+
+        this.m_event_year = "";
+
+        this.m_event_month = "";
+
+        this.m_event_day = "";
+
+        this.m_event_name = "";
 
         // Event registration number (unique) in the event program XML file (EventProgramXml).
         this.m_reg_event_number = "";
