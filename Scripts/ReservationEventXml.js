@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2026-03-03
+// Date: 2026-03-04
 // Author: Gunnar Lidén
 
 // TODO Implement Seat name <SN> and test of password <P> TODO 
@@ -1321,11 +1321,11 @@ class ReservationEventXml
 
         if (index_url >= 0) 
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
 
     } // execApplicationOnServer    

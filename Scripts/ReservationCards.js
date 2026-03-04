@@ -1,11 +1,11 @@
 // File: ReservationCards.js
-// Date: 2026-03-03
+// Date: 2026-03-04
 // Author: Gunnar Lidén
 
 // Inhalt
 // =============
 //
-// Main functions for the application reservation cards
+// Main functions for the application reservation cards (badges)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
@@ -998,13 +998,13 @@ function createTicketCardsButton()
 
     g_create_ticket_cards_button.setOnclickFunctionName("onClickOfTicketCardsButton");
 
-    g_create_ticket_cards_button.setCaption('Eintrittskarten generieren');
+    g_create_ticket_cards_button.setCaption('Eintrittsbadges generieren');
 
     g_create_ticket_cards_button.setLabelText("");
 
     g_create_ticket_cards_button.setWidth("245px");
 
-    g_create_ticket_cards_button.setTitle('Eintrittskarten generieren und speichern');
+    g_create_ticket_cards_button.setTitle('Eintrittsbadges generieren und speichern');
 
 } // createTicketCardsButton
 
@@ -1018,7 +1018,7 @@ function createTicketCardsButton()
 
 function setReservationCardsControls()
 {
-    if (ReservationEventXml.execApplicationOnServer)
+    if (ReservationEventXml.execApplicationOnServer())
     {
         g_xml_data_dir = '/XmlTestData/SaisonXML/';
     }
