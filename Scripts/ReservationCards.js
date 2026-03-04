@@ -133,6 +133,9 @@ function afterLoadingOfTicketCardsXmlData()
 ///////////////////////// Start Name Cards ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Class for the name cards and ticket cards
+// i_reservation_concert_xml: Instance of the class ReservationEventXml
+// i_card_case: String with the card case. Values: 'name_cards' and 'ticket_cards'
 class NameCards
 {
     constructor(i_reservation_concert_xml, i_card_case)
@@ -177,6 +180,7 @@ class NameCards
 
     } // constructor
 
+    // Checks the card case and sets default values if needed
     checkCase()
     {
         if (undefined == this.m_card_case  || this.m_card_case == "")
@@ -259,6 +263,7 @@ class NameCards
 
     } // setArrays
 
+    // Creates the objects for the styling (StyleCards) and the HTML tables for the name cards (HtmlTableCards)
     createObjects()
     {
         var card_width = "75mm";
@@ -284,6 +289,8 @@ class NameCards
 
     } // createObjects
 
+    // Returns the HTML string for the name cards that will be the content of a Blob object
+    // for the opening of a new tab with the name cards
     getHtmlString()
     {
         var html_str = "";
@@ -325,6 +332,7 @@ class NameCards
 
     } // meta
 
+    // Opens a new tab with the name or ticket cards. The content of the new tab is a Blob object 
     openTab()
     {
         var content = this.getHtmlString();
@@ -348,6 +356,7 @@ class NameCards
 ///////////////////////// Start Html Table ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Class that creates the HTML table string for the name cards and ticket cards
 class HtmlTableCards
 {
     constructor(i_card_case, i_card_width, i_card_height, i_row_one_str, i_row_two_array, i_row_three_left_array, i_row_three_right_array)
@@ -667,6 +676,8 @@ class StyleCards
 
     } // init
 
+    // Returns the HTML string for the style of the name cards that will be 
+    // included in the head section of the name cards HTML file
     styleHtmlString()
     {
         var html_str = "<style>"+ StyleCards.lineBreak();
@@ -701,11 +712,13 @@ class StyleCards
 
     } // styleHtmlString
 
+    // Returns a line break string for the HTML code
     static lineBreak()
     {
         return "\n";
     }
 
+    // Returns the HTML string for the media print style for the name cards
     mediaPrint()
     {
         var media_print_str = "@media print " + StyleCards.lineBreak();
@@ -878,6 +891,8 @@ class StyleCards
 
     } // rowThreeRight
 
+    // Style for the table seat <div> that normally is the seat character or number 
+    // and the row or table number
     tableSeat()
     {
         var table_seat_str = ".cl_table_seat " + StyleCards.lineBreak();
@@ -900,6 +915,7 @@ class StyleCards
 
     } // tableSeat
 
+    // Style for the HTML tables that contain the name cards
     tableStyle()
     {
         var table_style_str = ".cl_table " + StyleCards.lineBreak();
@@ -918,6 +934,7 @@ class StyleCards
 
     } // tableStyle
 
+    //
     nameSeat()
     {
         var name_seat_str = ".cl_r_name_seat " + StyleCards.lineBreak();
@@ -942,6 +959,7 @@ class StyleCards
 
     } // nameSeat
 
+    // Style for the date <div>. Normally the date of the event for row three left.
      dateEvent()
      {
         var date_event_str = ".cl_date_event " + StyleCards.lineBreak();
@@ -965,6 +983,7 @@ class StyleCards
 
         } // dateEvent
 
+        // Style for the card <div> for the event name that normally is a band name
         event()
         {
             var event_str = ".cl_event " + StyleCards.lineBreak();
@@ -986,6 +1005,7 @@ class StyleCards
 
         } // event
 
+        // Style that defines that a <div> shall have no boorder.
         noBorder()
         {
             var no_border_str = ".cl_no_border " + StyleCards.lineBreak();
@@ -1011,6 +1031,7 @@ class StyleCards
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// User clicked the create name cards button
 function onClickOfNameCardsButton()
 {
     debugReservationCards('onClickOfNameCardsButton Enter');
@@ -1135,6 +1156,7 @@ function createTicketCardsButton()
 ///////////////////////// Start Set Controls //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Sets the controls for the name cards and ticket cards according to the card case
 function setReservationCardsControls(i_card_case)
 {
     if(i_card_case == undefined)
