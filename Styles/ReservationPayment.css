@@ -1,0 +1,142 @@
+/* 
+File: ReservationPayment.css Date: 2026-03-08
+
+Author: Gunnar Liden
+
+General information
+====================
+
+Defines all style classes for the application reservation payment layout
+
+*/
+
+/* The whole page */
+.cl_div_payment_page
+{
+    border: solid 2px blue;
+    font-family: 'Arial';
+    font-size: 15px;
+    font-weight: bold;
+    width: 265px;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden; 
+    min-height: 170px;
+}
+
+
+/* Text logo <div> element */
+.cl_div_payment_text_logo
+{
+    /* border: solid 2px yellow; */
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;   
+    width: 100%;
+}
+
+.cl_div_dropdown_concert
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+.cl_div_search_string
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+.cl_div_dropdown_result
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+.cl_div_selected_reservation
+{
+     /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+.cl_div_payment_string
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+/* The remark <div> element */
+.cl_div_remark_string
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+/* The remark <div> element */
+.cl_div_save_reservation_button
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+/* The remark <div> element */
+.cl_div_list_payments_button    
+{
+    /* border: solid 2px red; */
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden;
+    clear: both;
+}
+
+/* For some <button> elements */
+button
+{
+    border: solid 2px black;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 95%;
+}

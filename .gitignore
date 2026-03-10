@@ -371,6 +371,7 @@ FodyWeavers.xsd
 # XML test data for unit tests
 /XmlTestData/SaisonXml_Names/
 /XmlTestData/SaisonXml_Tickets/
+/XmlTestData/SaisonXml_New/
 
 # FTP configuration files
 # ftp-sync.json
