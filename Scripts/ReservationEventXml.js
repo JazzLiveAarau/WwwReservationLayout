@@ -41,7 +41,7 @@ class ReservationEventXml
 {
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
-    // i_subdir_xm: The subdirctory for the event XML file
+    // i_subdir_xm: The subdirctory for the event XML file. Full relative URL, e.g. /ReservationLayout/Jubilee/SaisonXML/
     // i_event_reg_number: Event registration number REG_xyz (a string)
     // i_event_number: Event number that will used for the name of the event XML file
     // i_b_new_file: Flag telling if the event XML file shall be created
@@ -88,7 +88,7 @@ class ReservationEventXml
     {
         if (!this.m_b_new_file)
         {
-            this.loadOneXmlFile(this, this.getXmlEventFileName(), this.m_callback_function_name);
+            this.loadOneXmlFile(this, this.getXmlEventFileNameAbsolutePath(), this.m_callback_function_name);
         }
         else
         {
@@ -124,13 +124,11 @@ class ReservationEventXml
 
         this.setXmlObject(xml_object);
 
-        var file_name = this.getXmlEventFileName();
+        // TODO Not yet tested for the generation of new season files
 
-        var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
+        var file_name_full_path = this.getXmlEventFileNameAbsolutePath();
 
-        var file_name_full_path = reservation_layout_full_path + file_name;
-
-        // debugReservationLayout('file_name_full_path= ' + file_name_full_path);
+        console.log('createNewObjectSaveFile file_name_full_path= ' + file_name_full_path);
 
         UtilServer.saveCallback(file_name_full_path, content_string, this.m_callback_function_name);
 
@@ -139,11 +137,9 @@ class ReservationEventXml
     // Save object as XML file
     saveFile(i_callback_after_save_function_name)
     {
-        var file_name = this.getXmlEventFileName();
+        var file_name_full_path = this.getXmlEventFileNameAbsolutePath();
 
-        var reservation_layout_full_path = 'https://jazzliveaarau.ch/ReservationLayout/'; 
-
-        var file_name_full_path = reservation_layout_full_path + file_name;
+        console.log('saveFile file_name_full_path= ' + file_name_full_path);
 
         var pretty_print = new PrettyPrintXml(this.getXmlObject());
 
@@ -1410,7 +1406,7 @@ class ReservationEventXml
     } // getArraySeatCircleIds
 
     // Returns the reservation event XML file name
-    getXmlEventFileName()
+    getXmlEventFileNameAbsolutePath()
     {
         if (this.m_event_reg_number == 'old')
         {
@@ -1424,10 +1420,21 @@ class ReservationEventXml
 
             var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
 
+            var first_characterpath = ret_str.charAt(0);
+
+            if ('/' != first_characterpath)
+            {
+                ret_str = '/' + ret_str;
+            }
+
+            ret_str = window.location.origin + ret_str;
+
+            // console.log("ReservationEventXml.getXmlEventFileNameAbsolutePath ret_str: " + ret_str);
+
             return ret_str;
         }
 
-    } // getXmlEventFileName
+    } // getXmlEventFileNameAbsolutePath
 
     // Returns the reservation event XML file name
     // TODO Remove function later
@@ -1452,6 +1459,8 @@ class ReservationEventXml
         number_str = '_' + number_str;
 
         var ret_str = this.m_subdir_xml + start_name + add_str + number_str + '.xml';
+
+        console.log("ReservationEventXml.getXmlEventFileNameOld Note OLD name ret_str: " + ret_str);
 
         return ret_str;
 
@@ -1484,11 +1493,11 @@ class ReservationEventXml
 
         if (index_url >= 0) 
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
 
     } // execApplicationOnServer    

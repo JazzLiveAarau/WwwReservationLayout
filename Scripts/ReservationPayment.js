@@ -1,5 +1,5 @@
 // File: ReservationPayment.js
-// Date: 2026-03-10
+// Date: 2026-03-12
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -94,6 +94,12 @@ function afterLoadXmlFiles()
 
 } // afterLoadXmlFiles
 
+function callbackAfterInit()
+{
+    debugReservationPayment('callbackAfterInit Enter');
+
+} // callbackAfterInit
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +151,7 @@ function eventSelectConcertDropDown()
 
 function concertOneOldDirectory()
 {
-    if (ReservationEventXml.execApplicationOnServer())
+    if (!ReservationEventXml.execApplicationOnServer())
     {
         g_xml_active_old_dir = '/XmlTestData/SaisonXML_Names/';
     }
@@ -157,7 +163,7 @@ function concertOneOldDirectory()
 
 function concertTwoOldDirectory()
 {
-    if (ReservationEventXml.execApplicationOnServer())      
+    if (!ReservationEventXml.execApplicationOnServer())      
 
     {
         g_xml_active_old_dir = '/XmlTestData/SaisonXML_Tickets/';
@@ -165,6 +171,8 @@ function concertTwoOldDirectory()
     else
     {
         g_xml_active_old_dir = '../Reservation/Spagi_Jam_Session_V2/SaisonXML/';
+
+        // /www/Reservation/Spagi_Jam_Session_V2/SaisonXML
     }
 
 } // concertTwoOldDirectory
@@ -172,14 +180,14 @@ function concertTwoOldDirectory()
 // The new XML files for the reservation data have a different format 
 function concertNewDirectory()
 {
-    if (ReservationEventXml.execApplicationOnServer())      
+    if (!ReservationEventXml.execApplicationOnServer())      
 
     {
         g_xml_active_new_dir = '/XmlTestData/SaisonXML_New/';
     }
     else
     {
-        g_xml_active_new_dir = './Jubilee/SaisonXML/';
+        g_xml_active_new_dir = '/ReservationLayout/Jubilee/SaisonXML/';
     }
 
 } // concertNewDirectory
@@ -236,7 +244,7 @@ function addNewRecordsToXmlNewFiles()
 
                 var record_old_xml = old_xml.getReservationData(record_number, b_old_xml);
 
-                appendInNewXmlFileIfNotExisting(record_old_xml, new_xml, old_xml);
+                appendRecordsToNewXmlFileIfNotExisting(record_old_xml, new_xml, old_xml);
             }
         }
         else
@@ -259,11 +267,32 @@ function addNewRecordsToXmlNewFiles()
     var n_jam_session_new = g_jam_session_new_xml.getNumberOfReservations();
     debugReservationPayment('addNewRecordsToXmlNewFiles Number of reservations in jam session new XML: ' + n_jam_session_new);
 
+
+    if(ReservationEventXml.execApplicationOnServer())
+    {
+
+        g_jubilee_new_xml.saveFile(xmlJubileeFileSavedCallback);
+    }
+    else
+    {
+        alert('Record appended to new XML file. Save is not possible for Live Server.');
+    }
+
+
 } // addNewRecordsToXmlNewFiles
 
-function appendInNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file, i_xml_old_file)
+function xmlJubileeFileSavedCallback()
 {
-    // debugReservationPayment('appendInNewXmlFileIfNotExisting Enter');
+    debugReservationPayment('xmlJubileeFileSavedCallback Enter');
+
+    g_jam_session_new_xml.saveFile(callbackAfterInit);
+
+} // xmlJubileeFileSavedCallback
+
+
+function appendRecordsToNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file, i_xml_old_file)
+{
+    // debugReservationPayment('appendRecordsToNewXmlFileIfNotExisting Enter');
 
     var b_old_xml = false;
 
@@ -276,14 +305,15 @@ function appendInNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file, i_xml
         i_xml_new_file.appendReservationData(number_records_new_xml + 1, i_xml_old_record);
 
     }
-
+    
     //number_records_new_xml = i_xml_new_file.getNumberOfReservations();
 
     //var number_records_old_xml = i_xml_old_file.getNumberOfReservations();
 
-    //debugReservationPayment('appendInNewXmlFileIfNotExisting number_records_new_xml: ' + number_records_new_xml + ' number_records_old_xml: ' + number_records_old_xml);
+    //debugReservationPayment('appendRecordsToNewXmlFileIfNotExisting number_records_new_xml: ' + number_records_new_xml + ' number_records_old_xml: ' + number_records_old_xml);
 
-} // appendInNewXmlFileIfNotExisting
+} // appendRecordsToNewXmlFileIfNotExisting
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Addd Rocords To Xml New Files ///////////////////////////////
@@ -348,7 +378,7 @@ function updateNewXmlFiles()
 
 function updateOneNewXmlFile(i_xml_new_record, i_xml_new_file, i_xml_old_file)
 {
-    debugReservationPayment('updateOneNewXmlFile Enter');
+    // debugReservationPayment('updateOneNewXmlFile Enter');
 
     var b_old_xml = true;
     
@@ -365,7 +395,7 @@ function updateOneNewXmlFile(i_xml_new_record, i_xml_new_file, i_xml_old_file)
 
 function updateOneNewXmlRecord(i_xml_new_record, i_xml_old_record)
 {
-    debugReservationPayment('updateOneNewXmlRecord Enter');
+    // debugReservationPayment('updateOneNewXmlRecord Enter');
 
 } // updateOneNewXmlRecord
 
@@ -397,12 +427,13 @@ function checkInputXmlFiles()
 // Loads the XML files for the reservation data
 function loadXmlFiles()
 {
-    debugReservationPayment('loadXmlFiles Enter');
-
+   
     concertOneOldDirectory();
 
     // subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name
     var subdir_xml = g_xml_active_old_dir;
+
+    debugReservationPayment('loadXmlFiles subdir_xml= ' + subdir_xml);
 
     var event_reg_number = "old"; // Old names for the XML reservation data files
 
@@ -424,6 +455,8 @@ function afterLoadJubileeOld()
     concertTwoOldDirectory();
 
    var subdir_xml = g_xml_active_old_dir;
+
+   debugReservationPayment('afterLoadJubileeOld subdir_xml= ' + subdir_xml);
 
     var event_reg_number = "old"; // Old names for the XML reservation data files
 
@@ -449,6 +482,8 @@ function afterLoadJamSessionOld()
 
    var subdir_xml = g_xml_active_new_dir;
 
+   debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
     var event_reg_number = "REG_353";
 
     var event_number =  1;
@@ -467,6 +502,8 @@ function afterLoadNewOne()
     debugReservationPayment('afterLoadNewOne Enter');
 
    var subdir_xml = g_xml_active_new_dir;
+
+   debugReservationPayment('afterLoadNewOne subdir_xml= ' + subdir_xml);
 
     var event_reg_number = "REG_354";
 
