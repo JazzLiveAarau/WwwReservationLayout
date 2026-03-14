@@ -3,7 +3,7 @@
 
 
 // File: UtilFiles.js
-// Date: 2025-01-19
+// Date: 2026-03-14
 // Author: Gunnar Lidén
 
 // File content
@@ -89,7 +89,7 @@ class UtilFiles
     //        Call of UtilFilesData.handlePostErrorResult(ReturnDataPhp).
     static dirFileAnyCase(i_util_files_data)
     {
-        debugReservationLayout('UtilFiles.dirFileAnyCase Enter');
+        // debugReservationLayout('UtilFiles.dirFileAnyCase Enter');
 
         var abs_util_files_data = UtilFiles.allFilesDirectoriesToAbsoluteUrl(i_util_files_data);
 
@@ -128,7 +128,7 @@ class UtilFiles
             {   
                 if (status_post == "success")
                 {
-                    debugReservationLayout('UtilFiles.dirFileAnyCase TRUE');
+                    // debugReservationLayout('UtilFiles.dirFileAnyCase TRUE');
 
                     var ret_util_files_data = i_util_files_data;
 
@@ -138,7 +138,7 @@ class UtilFiles
                 }
                 else
                 {
-                    debugReservationLayout('UtilFiles.dirFileAnyCase FALSE');
+                    // debugReservationLayout('UtilFiles.dirFileAnyCase FALSE');
 
                     // setResultPostData(i_result_post_data)
 
@@ -814,7 +814,7 @@ class UtilFilesData
     {
       var data_post = i_util_files_data.getResultPostData();
 
-      debugReservationLayout('UtilFilesData.handlePostResult data_post= ' + data_post);
+      // debugReservationLayout('UtilFilesData.handlePostResult data_post= ' + data_post);
 
       var index_true = data_post.indexOf(this.m_message_true);
 
@@ -836,7 +836,7 @@ class UtilFilesData
       {
           if (this.m_error_callback_function_name != null)
           {
-              debugReservationLayout('UtilFilesData.handlePostResult Result Error');
+              // debugReservationLayout('UtilFilesData.handlePostResult Result Error');
 
               this.m_error_callback_function_name(data_post);
           }
@@ -868,14 +868,14 @@ class UtilFilesData
     {
         var data_post = i_util_files_data.getResultPostData();
 
-        debugReservationLayout('UtilFilesData.handlePostResultTrue data_post= ' + data_post);
+        // debugReservationLayout('UtilFilesData.handlePostResultTrue data_post= ' + data_post);
 
-        this.debugCallbackFunctionArray('handlePostResultTrue');
+        // this.debugCallbackFunctionArray('handlePostResultTrue');
 
         if (this.m_callback_function_array != null)
         {
-            debugReservationLayout('UtilFilesData.handlePostResultTrue Call m_callback_function_array for index ' 
-                                + this.m_callback_function_array_index.toString());
+            // debugReservationLayout('UtilFilesData.handlePostResultTrue Call m_callback_function_array for index ' 
+            //                     + this.m_callback_function_array_index.toString());
 
             var ret_util_files_data = i_util_files_data;
 
@@ -887,7 +887,7 @@ class UtilFilesData
         }    
         else if (this.m_callback_function_name != null || this.m_callback_function_name.length > 0)
         {
-            debugReservationLayout('UtilFilesData.handlePostResultTrue Result TRUE: m_callback_function_name');
+            // debugReservationLayout('UtilFilesData.handlePostResultTrue Result TRUE: m_callback_function_name');
 
             this.m_callback_function_name();
         }
@@ -951,7 +951,7 @@ class UtilFilesData
 	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseFileExists(i_input_file_name, i_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
-        debugReservationLayout('UtilFilesData.setDataExecCaseFileExists Enter');
+        // debugReservationLayout('UtilFilesData.setDataExecCaseFileExists Enter');
 
         this.init();
 
@@ -1123,7 +1123,7 @@ class UtilFilesData
 	// i_error_callback_function_name: Callback function FALSE / Failed
     setDataExecCaseCopyFile(i_input_file_name, i_output_file_name, i_path_php_dir, i_callback_function_name, i_error_callback_function_name)
     {
-        debugReservationLayout('UtilFilesData.setDataExecCaseCopyFile Enter');
+        // debugReservationLayout('UtilFilesData.setDataExecCaseCopyFile Enter');
 
         this.init();
 

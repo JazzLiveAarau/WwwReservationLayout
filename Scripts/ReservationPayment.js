@@ -114,27 +114,138 @@ function inputConvertedXmlFilesAreSaved()
 {
     debugReservationPayment('inputConvertedXmlFilesAreSaved Enter');
 
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Output_1.xml';
+
+    var absolute_file_name = input_dir_name + input_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseFileExists(absolute_file_name, relative_path_php_dir, 
+            outputXmlFilesExist, copyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
 } // inputConvertedXmlFilesAreSaved
 
-/* No longer used
-// This function is called after the XML files have been loaded
-function afterLoadXmlFiles()
+function outputXmlFilesExist( )
 {
-    debugReservationPayment('afterLoadXmlFiles Enter'); 
+    debugReservationPayment('outputXmlFilesExist Enter');
 
-    updateNewXmlFiles();
+} // outputXmlFilesExist
 
-} // afterLoadXmlFiles
-
-function callbackAfterInit()
-{
-    debugReservationPayment('callbackAfterInit Enter');
-
-} // callbackAfterInit
- no longer used */
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy To Output File ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyFromInputToOutputXmlFiles()
+{
+    debugReservationPayment('copyFromInputToOutputXmlFiles Enter');
+
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Input_1.xml';
+
+    var absolute_input_file_name = input_dir_name + input_file_name;
+
+    var output_file_name = 'Event_Output_1.xml';
+
+    var absolute_output_file_name = input_dir_name + output_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseCopyFile(absolute_input_file_name, absolute_output_file_name, relative_path_php_dir, 
+            outputXmlOneCopied, failureCopyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+
+    // setDataExecCaseCopyFile(input_file_name, i_output_file_name, i_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+
+} // copyFromInputToOutputXmlFiles
+
+function outputXmlOneCopied()
+{
+    debugReservationPayment('outputXmlOneCopied Enter');
+
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Input_2.xml';
+
+    var absolute_input_file_name = input_dir_name + input_file_name;
+
+    var output_file_name = 'Event_Output_2.xml';
+
+    var absolute_output_file_name = input_dir_name + output_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseCopyFile(absolute_input_file_name, absolute_output_file_name, relative_path_php_dir, 
+            outputXmlTwoCopied, failureCopyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // outputXmlOneCopied
+
+function outputXmlTwoCopied()
+{
+    debugReservationPayment('outputXmlTwoCopied Enter');
+
+} // outputXmlTwoCopied
+
+
+function failureCopyFromInputToOutputXmlFiles()
+{
+    debugReservationPayment('failureCopyFromInputToOutputXmlFiles Enter');
+
+    alert('Copy from input to output XML file failed.');
+
+} // failureCopyFromInputToOutputXmlFiles
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy To Output File /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy Reservation Data /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyReservationData(i_input_xml, i_output_xml)
+{
+    debugReservationPayment('copyReservationData Enter');
+
+    var b_input_xml = true;
+
+    var n_old_xml = i_input_xml.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_old_xml; record_number++)
+    {
+
+        var record_input_xml = i_input_xml.getReservationData(record_number, b_input_xml);
+
+        var number_records_output_xml = i_output_xml.getNumberOfReservations();
+
+        i_output_xml.appendReservationData(number_records_output_xml + 1, record_input_xml);
+    }
+
+} // copyReservationData
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy Reservation Data ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////

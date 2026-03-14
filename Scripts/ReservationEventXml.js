@@ -1580,6 +1580,24 @@ class ReservationEventXml
 
     } // getXmlEventFileNameAbsolutePath
 
+    // Returns the reservation event XML directory name with absolute path
+    getXmlEventDirectoryNameAbsolutePath()
+    {
+        var ret_str = this.m_subdir_xml;
+
+        var first_characterpath = ret_str.charAt(0);
+
+        if ('/' != first_characterpath)
+        {
+            ret_str = '/' + ret_str;
+        }
+
+        ret_str = window.location.origin + ret_str;
+
+        return ret_str;
+
+    } // getXmlEventDirectoryNameAbsolutePath
+
     // Returns the reservation event XML file name
     // TODO Remove function later
     getXmlEventFileNameOld()
