@@ -1,8 +1,6 @@
 // File: ReservationEventXml.js
-// Date: 2026-03-10
+// Date: 2026-03-13
 // Author: Gunnar Lidén
-
-// TODO Implement Seat name <SN> and test of password <P> TODO 
 
 // File content
 // =============
@@ -541,19 +539,56 @@ class ReservationEventXml
 
     } // appendOneSeatNode  
 
-    // Append one seat bane node: Seat name <SN>
-    // i_seat_node: Reservation node <S>
-    appendOneSeatNameNode(i_seat_node)
-    {
-        var seat_name_node = this.getXmlObject().createElement(this.m_tags.getSeatName());
-        var seat_name_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
-        seat_name_node.appendChild(seat_name_text);
-        i_seat_node.appendChild(seat_name_node);
-
-    } // appendOneSeatNode  
-
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////// End Append Nodes  ///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Delete Nodes  /////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Delete one reservation node for a given reservation number
+    deleteOneRecord(i_reservation_number)
+    {
+        if (!this.checkReservationNumber(i_reservation_number)) { return; }
+
+        var reservation_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getReservation());
+
+        var reservation_node = reservation_nodes[i_reservation_number-1];
+
+        reservation_node.parentNode.removeChild(reservation_node);
+
+    } // deleteOneRecord
+
+    // Delete one seat node for a given reservation number and seat number
+    deleteOneSeatRecord(i_reservation_number, i_seat_number)
+    {
+        if (!this.checkSeatNumber(i_reservation_number, i_seat_number)) { return; }
+
+        var n_seats = this.getNumberOfSeats(i_reservation_number);
+
+        if (n_seats == 1 || i_seat_number > n_seats )
+        {
+            alert("ReservationEventXml.deleteOneSeatRecord Deletion of seat record is not possible. Number of seats " 
+                + i_reservation_number + " is " + n_seats.toString() + ". Seat number to delete is " + i_seat_number.toString());
+
+            return;
+        }
+
+        var reservation_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getReservation());
+
+        //var reservation_node = reservation_nodes[i_reservation_number-1];
+
+        var seat_nodes = reservation_nodes[i_reservation_number-1].getElementsByTagName(this.m_tags.getSeat());
+
+        var seat_node = seat_nodes[i_seat_number-1];
+
+        seat_node.parentNode.removeChild(seat_node);
+
+    } // deleteOneSeatRecord
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Delete Nodes  ///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1042,7 +1077,9 @@ class ReservationEventXml
         {
             var reservation_data = this.getReservationData(reservation_number, b_old_xml);
 
-            if (this.equalRecords(i_reservation_data, reservation_data, b_old_xml))
+            var equal_records_result_obj = this.equalRecords(i_reservation_data, reservation_data, b_old_xml);
+
+            if (equal_records_result_obj.getBool())
             {
                 ret_exists = true;
 
@@ -1062,7 +1099,7 @@ class ReservationEventXml
     // because they are not included in the old XML layout
     equalRecords(i_reservation_data_1, i_reservation_data_2, i_b_old_xml)
     {
-        var ret_equal = false;
+        var ret_equal_result_obj = new EqualRecordsResult();
 
         var b_old_xml = this.boolOldXml(i_b_old_xml);
 
@@ -1070,66 +1107,173 @@ class ReservationEventXml
         {
             alert("ReservationEventXml.equalRecords Input reservation data 1 is null or undefined");
 
-            return false;
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.notValidInputData());
+
         }
 
         if (i_reservation_data_2 == null || i_reservation_data_2 == undefined)
         {
             alert("ReservationEventXml.equalRecords Input reservation data 2 is null or undefined");
 
-            return false;
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.notValidInputData());
+
         }
 
-        if (i_reservation_data_1.getName() != i_reservation_data_2.getName()    ||
-            i_reservation_data_1.getEmail() != i_reservation_data_2.getEmail()  ||
-            i_reservation_data_1.getRemark() != i_reservation_data_2.getRemark()    ) 
+        if (i_reservation_data_1.getName() == i_reservation_data_2.getName() )
         {
-            return false;
-        }
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.name());
 
-        if (!b_old_xml)
-        {
-        
-            if (i_reservation_data_1.getPassword() != i_reservation_data_2.getPassword()  ||
-                i_reservation_data_1.getFee() != i_reservation_data_2.getFee()  )
+            if (i_reservation_data_1.getEmail() == i_reservation_data_2.getEmail() )
             {
-                return false;
-            }
-        }
+                ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmail());
+
+                var bool_all_seats_equal = this.allSeatsEqual(i_reservation_data_1, i_reservation_data_2);
+
+                var b_one_seat_equal = this.oneSeatEqual(i_reservation_data_1, i_reservation_data_2);
+
+                var bool_no_seats_equal = this.noSeatsEqual(i_reservation_data_1, i_reservation_data_2);
+
+                if (bool_all_seats_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailAllSeats());
+                }
+                else if (b_one_seat_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailSomeSeats());
+                }
+                else if (bool_no_seats_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailNoSeats());
+                }
+                
+            } // Email equal
+
+        } // Name equal
+
+         // TODO Perhaps getPassword() and getFee()
+
+        ret_equal_result_obj.determineBool();
+
+        return ret_equal_result_obj;
+
+    } // equalRecords
+
+    allSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
+    {
+        var bool_all_seats_equal = true;
 
         var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
 
         var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
 
-        if (seat_data_array_1.length != seat_data_array_2.length)
+        if (seat_data_array_1.length == seat_data_array_2.length)
         {
-            return false;
-        }
-
-        for (var index_seat=0; index_seat<seat_data_array_1.length; index_seat++)
-        {
-            var seat_data_1 = seat_data_array_1[index_seat];
-            var seat_data_2 = seat_data_array_2[index_seat];
-
-            if (seat_data_1.getRowTableNumber() != seat_data_2.getRowTableNumber() ||
-                seat_data_1.getSeatCharacterNumber() != seat_data_2.getSeatCharacterNumber() )
+            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
             {
-            return false;
-            }
+                var seat_data_1 = seat_data_array_1[index_seat];
+                var seat_data_2 = seat_data_array_2[index_seat];
 
-            if (!b_old_xml)
-            {
-                if (seat_data_1.getSeatName() != seat_data_2.getSeatName()) 
+                var table_number_1 = seat_data_1.getRowTableNumber();
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 != table_number_2 || seat_char_1 != seat_char_2)
                 {
-                    return false;
+                    bool_all_seats_equal = false;
+
+                    break;
                 }
+
+            } // index_seat
+
+        } // seat_data_array_1.length == seat_data_array_2.length
+
+        return bool_all_seats_equal;
+
+    } // allSeatsEqual
+
+    noSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
+    {
+        var bool_no_seats_equal = false;
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        if (seat_data_array_1.length == seat_data_array_2.length)
+        {
+            bool_no_seats_equal = true;
+
+            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
+            {
+                var seat_data_1 = seat_data_array_1[index_seat];
+                var seat_data_2 = seat_data_array_2[index_seat];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 == table_number_2 || seat_char_1 == seat_char_2)
+                {
+                    bool_no_seats_equal = false;
+
+                    break;
+                }
+
+            } // index_seat
+
+        } // seat_data_array_1.length == seat_data_array_2.length
+
+        return bool_no_seats_equal;
+
+    } // noSeatsEqual
+
+    oneSeatEqual(i_reservation_data_1, i_reservation_data_2)
+    {
+        var b_one_seat_equal = false;       
+
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        for (var index_seat_1=0; index_seat_1<seat_data_array_1.length; index_seat_1++)
+        {
+            var seat_data_1 = seat_data_array_1[index_seat_1];
+
+            for (var index_seat_2=0; index_seat_2<seat_data_array_2.length; index_seat_2++)
+            {
+                var seat_data_2 = seat_data_array_2[index_seat_2];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 == table_number_2 && seat_char_1 == seat_char_2)
+                {
+                    b_one_seat_equal = true;
+                    break;
+                }   
+
+            } // index_seat_2
+
+            if (b_one_seat_equal)
+            {
+                break;
             }
+        } // index_seat_1
 
-        }
+        return b_one_seat_equal;
 
-        return true;
-
-    } // equalRecords
+    } // oneSeatEqual   
 
     // Returns an instance of the class ReservationData for a given reservation number
     getReservationData(i_reservation_number, i_b_old_xml)
@@ -1465,6 +1609,88 @@ class ReservationEventXml
         return ret_str;
 
     } // getXmlEventFileNameOld
+
+    // Returns an instance of the class ReservationEventData with the data of the event, 
+    // i.e. event number, year, month, day and name
+
+    getReservationEventData(i_b_old_xml)
+    {
+         var b_old_xml = this.boolOldXml(i_b_old_xml);
+
+        var event_data = new ReservationEventData();
+
+        var event_number = "";
+        if (!b_old_xml)
+        {
+            event_number = this.getEventNumber();
+        }
+
+        var event_year = this.getYear();
+
+        var event_month = this.getMonth();
+
+        var event_day = this.getDay();
+
+        var event_name = this.getEventName();
+
+        event_data.setNumber(event_number);
+
+        event_data.setYear(event_year);
+
+        event_data.setMonth(event_month);
+
+        event_data.setDay(event_day);
+
+        event_data.setName(event_name);
+
+        return event_data;
+
+    } // getReservationEventData
+
+/*
+    getReservationEventData()
+    {
+        var event_data = new ReservationEventData();
+
+        var event_number = this.getEventNumber();
+
+        var event_year = this.getYear();
+
+        var event_month = this.getMonth();
+
+        var event_day = this.getDay();
+
+        var event_name = this.getEventName();
+
+        event_data.setNumber(event_number);
+
+        event_data.setYear(event_year);
+
+        event_data.setMonth(event_month);
+
+        event_data.setDay(event_day);
+
+        event_data.setName(event_name);
+
+        return event_data;
+
+    } // getReservationEventData
+*/
+    // Sets the event data in the XML object for a given instance of the class ReservationEventData
+    // i_event_data: An instance of the class ReservationEventData 
+    setReservationEventData(i_event_data)
+    {
+        this.setEventNumber(i_event_data.getNumber());
+
+        this.setYear(i_event_data.getYear());
+
+        this.setMonth(i_event_data.getMonth());
+
+        this.setDay(i_event_data.getDay());
+
+        this.setEventName(i_event_data.getName());
+     
+    } // setReservationEventData
 
     // Check that the layout program XML object is set
     checkEventXml()
@@ -1926,6 +2152,203 @@ class ReservationAndSeatData
     } // constructor
 
 } // ReservationAndSeatData
+
+// Holds the data for one reservation event, e.g. one concert
+class ReservationEventData
+{
+    constructor()
+    {
+        // Event number.
+        // This number is a reference to events defined
+        // in the event program XML file (EventProgramXml)
+        this.m_event_number = ""; 
+        
+        // Event year
+        this.m_event_year = "";
+
+        // Event month
+        this.m_event_month = "";
+
+        // Event day
+        this.m_event_day = "";
+
+        // Event (band/concert) name
+        this.m_event_name = "";
+
+    } // constructor
+
+    setNumber(i_event_number)
+    {
+        this.m_event_number = i_event_number;
+
+    } // setNumber
+    getNumber()
+    {
+        return this.m_event_number; 
+
+    } // getNumber
+
+    setYear(i_event_year)
+    {
+        this.m_event_year = i_event_year;
+
+    } // setYear
+    getYear()
+    {
+        return this.m_event_year;
+
+    } // getYear
+
+    setMonth(i_event_month)
+    {
+        this.m_event_month = i_event_month;
+
+    } // setMonth
+    getMonth()
+    {
+        return this.m_event_month;
+
+    } // getMonth
+
+    setDay(i_event_day)
+    {
+        this.m_event_day = i_event_day;
+
+    } // setDay
+    getDay()
+    {
+        return this.m_event_day;
+
+    } // getDay
+
+    setName(i_event_name)
+    {
+        this.m_event_name = i_event_name;
+
+    } // setName
+
+    getName()
+    {
+        return this.m_event_name;
+
+    } // getName
+
+} // ReservationEventData
+
+// Class that holds the result of the comparison of two reservation records. 
+// The result is used in the reservation edit function to check if the 
+// reservation data has been changed.
+class EqualRecordsResult
+{
+    constructor()
+    {
+        this.m_equal = false;
+
+        this.m_equal_code_str = EqualRecordsResult.notYetDetermined();
+    
+    } // constructor
+
+    // Sets the boolean value of the result based on the code string value
+    determineBool()
+    {
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailAllSeats())
+        {
+            this.m_equal = true;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.notValidInputData())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailSomeSeats())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.name())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailNoSeats())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmail())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.notYetDetermined())
+        {
+            this.m_equal = false;
+        }
+
+    } // determineBool
+
+
+    setBool(i_equal)
+    {
+        this.m_equal = i_equal;
+
+    } // setBool
+
+    setCodeStr(i_code_str)
+    {
+        this.m_equal_code_str = i_code_str;
+
+    } // setCodeStr
+
+    getBool()
+    {
+        return this.m_equal;
+
+    } // getBool
+
+    getCodeStr()
+    {
+        return this.m_equal_code_str;
+
+    } // getCodeStr
+
+    static notYetDetermined()
+    {
+        return "NotYetDetermined";
+    }
+
+    static notValidInputData()
+    {
+        return "NotValidInputData";
+    }
+
+    static name()
+    {
+        return "NameEqual";
+    }
+
+    static nameEmail()
+    {
+        return "NameEmailEqual";
+    }
+
+    static nameEmailSomeSeats()
+    {
+        return "NameEmailSomeSeatsEqual";
+    }
+
+    static nameEmailAllSeats()
+    {
+        return "NameEmailAllSeatsEqual";
+    }
+
+    static nameEmailNoSeats()
+    {
+        return "NameEmailNoSeatsEqual";
+    }
+
+} // EqualRecordsResult
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Data Classes ////////////////////////////////////////////////

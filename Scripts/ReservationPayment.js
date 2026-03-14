@@ -1,5 +1,5 @@
 // File: ReservationPayment.js
-// Date: 2026-03-12
+// Date: 2026-03-14
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -17,17 +17,35 @@ var g_jubilee_xml = null;
 // Instance of the class ReservationEventXml for the jam session XML data
 var g_jam_session_xml = null;
 
+// The converted XML data from g_jubilee_xml for the input jubilee concert in the new format. 
+// File name Enemt_Input_.xml in the directory /www/ReservationLayout/Jubilee/SaisonXML/.
+var g_input_one_xml = null;
+
+// The converted XML data from g_jam_session_xml for the input jam session in the new format. 
+// File name Event_Input_2.xml in the directory /www/ReservationLayout/Jubilee/SaisonXML/.
+var g_input_two_xml = null;
+
+
+
+
+// The active directory for concert input (old) XML data. 
+// Set in function concertOneOldDirectory() and concertTwoOldDirectory()
+var g_active_concert_old_xml = null;
+
+// The active directory for concert new format XML data. 
+// Set in function concertNewDirectory()
+var g_active_concert_new_xml = null;
+
+
+
+
+
+
 // Instance of the class ReservationEventXml for the jubilee concert XML data. New format
 var g_jubilee_new_xml = null;
 
 // Instance of the class ReservationEventXml for the jam session XML data. New format
 var g_jam_session_new_xml = null;
-
-// The active concert old XML data. 
-var g_active_concert_old_xml = null;
-
-// The active concert new format XML data. 
-var g_active_concert_new_xml = null;
 
 var g_active_xml_record_number = -12345;
 
@@ -75,13 +93,20 @@ var g_create_list_result_button = null;
 // Initialization
 // 1. Create the controls for this application
 //    Call of createReservationPaymentControls
+// 2. Load the input (current) XML files for the reservation data, convert to the new
+//    format and save withe the names Enemt_Input_1.xml and Event_Input_2.xml in the 
+//    directory /www/ReservationLayout/Jubilee/SaisonXML/. 
+//    The global XML object variables for the input files are g_jubilee_xml and 
+//    g_jam_session_xml, Toutput variables are g_input_one_xml and g_input_two_xml.
 function initReservationPayment()
 {
     debugReservationPayment('initReservationPayment Enter');
 
     createReservationPaymentControls();
 
-    loadXmlFiles();
+    loadConvertInputFiles();
+
+    //QQQ loadXmlFiles();
 
 } // initReservationPayment
 
@@ -102,6 +127,218 @@ function callbackAfterInit()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Convert Input Files ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function convertSaveInputXmlFilesInNewFormat()
+{
+    debugReservationPayment('convertSaveInputXmlFilesInNewFormat Start converting to new format');
+
+    concertNewDirectory();
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "Input_1";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = true; // File does not exist. New file will be created.
+
+    var callback_function_name = afterCreationOutputOne;
+
+    g_input_one_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // convertSaveInputXmlFilesInNewFormat
+
+function afterCreationOutputOne()
+{
+    debugReservationPayment('afterCreationOutputOne Enter');
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    var event_reg_number = "Input_2";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = true; // File does not exist. New file will be created.
+
+    var callback_function_name = setEventDataForInputXmlFiles;
+
+    g_input_two_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // afterCreationOutputOne
+
+function setEventDataForInputXmlFiles()
+{
+    debugReservationPayment('setEventDataForInputXmlFiles Enter');
+
+    var b_old_xml = true;
+ 
+    var input_xml_data_one = g_jubilee_xml.getReservationEventData(b_old_xml);
+
+    var input_xml_data_two = g_jam_session_xml.getReservationEventData(b_old_xml);
+  
+    g_input_one_xml.appendEventNodes();
+
+    g_input_two_xml.appendEventNodes();
+
+    g_input_one_xml.setReservationEventData(input_xml_data_one);
+
+    g_input_two_xml.setReservationEventData(input_xml_data_two);
+
+
+    if(ReservationEventXml.execApplicationOnServer())
+    {
+        g_input_one_xml.saveFile(inputOneIsSaved);
+    }
+    else
+    {
+        alert('Record appended to new XML file. Save is not possible for Live Server.');
+
+        inputOneIsSaved();
+    }
+
+    debugReservationPayment('setEventDataForInputXmlFiles Exit');
+
+} // setEventDataForInputXmlFiles
+
+function inputOneIsSaved()
+{
+    debugReservationPayment('inputOneIsSaved Enter');
+
+
+    if(ReservationEventXml.execApplicationOnServer())
+    {
+        g_input_two_xml.saveFile(inputTwoIsSaved);
+    }
+    else
+    {
+        alert('Record appended to new XML file. Save is not possible for Live Server.');
+
+        inputTwoIsSaved();
+    }
+
+
+} // inputOneIsSaved
+
+function inputTwoIsSaved()
+{
+    debugReservationPayment('inputTwoIsSaved Enter');
+
+
+
+} // inputTwoIsSaved
+
+
+// The the directory name for the new format XML files
+// For execution with Live Server a computer directory is defined.
+function concertNewDirectory()
+{
+    if (!ReservationEventXml.execApplicationOnServer())      
+
+    {
+        g_xml_active_new_dir = '/XmlTestData/SaisonXML_New/';
+    }
+    else
+    {
+        g_xml_active_new_dir = '/ReservationLayout/Jubilee/SaisonXML/';
+    }
+
+} // concertNewDirectory
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Convert Input Files /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Load Input Files //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function loadConvertInputFiles()
+{
+    debugReservationPayment('loadConvertInputFiles Enter');
+
+    concertOneOldDirectory();
+
+    // subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name
+    var subdir_xml = g_xml_active_old_dir;
+
+    debugReservationPayment('loadXmlFiles subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "old"; // Old names will be generated for the XML reservation data files
+
+    var event_number =  13; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File exists
+
+    var callback_function_name = afterLoadInputJubileeOld;
+
+    g_jubilee_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // loadConvertInputFiles
+
+function afterLoadInputJubileeOld()
+{
+    debugReservationPayment('afterLoadInputJubileeOld Enter');
+
+    concertTwoOldDirectory();
+
+   var subdir_xml = g_xml_active_old_dir;
+
+   debugReservationPayment('afterLoadJubileeOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "old"; // Old names will be generated for the XML reservation data files
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File exists
+
+    var callback_function_name = convertSaveInputXmlFilesInNewFormat;
+
+    g_jam_session_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // afterLoadInputJubileeOld
+
+// Sets the active directory for the input (old forma) XML file for the concert one. 
+// For execution with Live Server a computer directory is defined.
+function concertOneOldDirectory()
+{
+    if (!ReservationEventXml.execApplicationOnServer())
+    {
+        g_xml_active_old_dir = '/XmlTestData/SaisonXML_Names/';
+    }
+    else
+    {
+        g_xml_active_old_dir = '../Reservation/Spagi_76_Chairs_V_1/SaisonXML/';
+    }
+}
+
+// Sets the active directory for the input (old forma) XML file for the concert two. 
+// For execution with Live Server a computer directory is defined.
+function concertTwoOldDirectory()
+{
+    if (!ReservationEventXml.execApplicationOnServer())      
+
+    {
+        g_xml_active_old_dir = '/XmlTestData/SaisonXML_Tickets/';
+    }
+    else
+    {
+        g_xml_active_old_dir = '../Reservation/Spagi_Jam_Session_V2/SaisonXML/';
+
+        // /www/Reservation/Spagi_Jam_Session_V2/SaisonXML
+    }
+
+} // concertTwoOldDirectory
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Load Input Files ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -149,49 +386,6 @@ function eventSelectConcertDropDown()
 
 } // eventSelectConcertDropDown
 
-function concertOneOldDirectory()
-{
-    if (!ReservationEventXml.execApplicationOnServer())
-    {
-        g_xml_active_old_dir = '/XmlTestData/SaisonXML_Names/';
-    }
-    else
-    {
-        g_xml_active_old_dir = '../Reservation/Spagi_76_Chairs_V_1/SaisonXML/';
-    }
-}
-
-function concertTwoOldDirectory()
-{
-    if (!ReservationEventXml.execApplicationOnServer())      
-
-    {
-        g_xml_active_old_dir = '/XmlTestData/SaisonXML_Tickets/';
-    }
-    else
-    {
-        g_xml_active_old_dir = '../Reservation/Spagi_Jam_Session_V2/SaisonXML/';
-
-        // /www/Reservation/Spagi_Jam_Session_V2/SaisonXML
-    }
-
-} // concertTwoOldDirectory
-
-// The new XML files for the reservation data have a different format 
-function concertNewDirectory()
-{
-    if (!ReservationEventXml.execApplicationOnServer())      
-
-    {
-        g_xml_active_new_dir = '/XmlTestData/SaisonXML_New/';
-    }
-    else
-    {
-        g_xml_active_new_dir = '/ReservationLayout/Jubilee/SaisonXML/';
-    }
-
-} // concertNewDirectory
-
 // User selected a reservation person in the reservation person dropdown
 function eventSelectReservationPersonDropDown()
 { 
@@ -205,8 +399,11 @@ function eventSelectReservationPersonDropDown()
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Addd Rocords To Xml New Files /////////////////////////////
+///////////////////////// Start Add Records To Xml New Files //////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Append new reservations to the new XML files that have been added to the old XML files.
@@ -219,6 +416,8 @@ function addNewRecordsToXmlNewFiles()
 
     for (var index_file=0; index_file < 2; index_file++)
     {
+        var n_total_added = 0;
+
         if (index_file == 0)
         {
             old_xml = g_jubilee_xml;
@@ -244,19 +443,19 @@ function addNewRecordsToXmlNewFiles()
 
                 var record_old_xml = old_xml.getReservationData(record_number, b_old_xml);
 
-                appendRecordsToNewXmlFileIfNotExisting(record_old_xml, new_xml, old_xml);
+                n_total_added += appendRecordsToNewXmlFileIfNotExisting(record_old_xml, new_xml, old_xml);
             }
         }
         else
         {
-            debugReservationPayment('updateNewXmlFiles No records in old XML file: ' + index_file);
+            debugReservationPayment('updateNewXmlFiles No records in old XML file number ' + index_file);
         }
 
         var n_new_xml = new_xml.getNumberOfReservations();
 
-        debugReservationPayment('addNewRecordsToXmlNewFiles n_new_xml= ' + n_new_xml + ' n_old_xml= ' + n_old_xml);
+        debugReservationPayment('addNewRecordsToXmlNewFiles n_new_xml= ' + n_new_xml + ' n_old_xml= ' + n_old_xml + ' n_total_added= ' + n_total_added);
 
-    } // indes_file
+    } // index_file
 
     var n_jubilee_old = g_jubilee_xml.getNumberOfReservations();
     debugReservationPayment('addNewRecordsToXmlNewFiles Number of reservations in jubilee old XML: ' + n_jubilee_old);
@@ -289,10 +488,10 @@ function xmlJubileeFileSavedCallback()
 
 } // xmlJubileeFileSavedCallback
 
-
+// Append the old XML record to the new XML file if it does not exist in the new XML file.
 function appendRecordsToNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file, i_xml_old_file)
 {
-    // debugReservationPayment('appendRecordsToNewXmlFileIfNotExisting Enter');
+    var ret_n_added = 0;
 
     var b_old_xml = false;
 
@@ -304,19 +503,17 @@ function appendRecordsToNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file
 
         i_xml_new_file.appendReservationData(number_records_new_xml + 1, i_xml_old_record);
 
+        ret_n_added = 1;
+
     }
     
-    //number_records_new_xml = i_xml_new_file.getNumberOfReservations();
-
-    //var number_records_old_xml = i_xml_old_file.getNumberOfReservations();
-
-    //debugReservationPayment('appendRecordsToNewXmlFileIfNotExisting number_records_new_xml: ' + number_records_new_xml + ' number_records_old_xml: ' + number_records_old_xml);
+    return ret_n_added;
 
 } // appendRecordsToNewXmlFileIfNotExisting
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Addd Rocords To Xml New Files ///////////////////////////////
+///////////////////////// End Add Records To Xml New Files ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -327,11 +524,11 @@ function appendRecordsToNewXmlFileIfNotExisting(i_xml_old_record, i_xml_new_file
 // whole reservation is deleted or one seat from a reservation is deleted then the new
 // XML files shall be updated with these changes.
 // This is imlemented as loop function for the new XML files that update the changes in
-// the new files.
+// the new XML files.
 
 function updateNewXmlFiles()
 {
-    debugReservationPayment('updateNewXmlFiles Enter');
+    debugReservationPayment('updateNewXmlFiles Remove records from new XML files that are not in the old XML files');
 
     checkInputXmlFiles();
 
@@ -355,47 +552,190 @@ function updateNewXmlFiles()
 
         if (n_new_xml > 0)
         {
-            var b_old_xml = false;
-
-            for (var record_number=1; record_number < n_new_xml; record_number++)
-            {
-
-                var record_new_xml = new_xml.getReservationData(record_number, b_old_xml);
-
-                updateOneNewXmlFile(record_new_xml, new_xml, old_xml);
-            }
+            updateOneNewXmlFile(new_xml, old_xml);
         }
         else
         {
-            debugReservationPayment('updateNewXmlFiles No records in new XML file: ' + index_file);
+            debugReservationPayment('updateNewXmlFiles No records in new XML file number ' + index_file);
         }
-
+        
     } // index_file
 
     addNewRecordsToXmlNewFiles();
 
 } // updateNewXmlFiles
 
-function updateOneNewXmlFile(i_xml_new_record, i_xml_new_file, i_xml_old_file)
+// Update one new XML file with the data of the old XML file. This is for instance needed 
+// if a whole reservation has been deleted in the old XML file. Then this reservation shall 
+// also be deleted in the new XML file. Or if one seat has been deleted in the old XML file 
+// then this seat shall also be deleted in the new XML file.
+function updateOneNewXmlFile(i_xml_new_file, i_xml_old_file)
 {
     // debugReservationPayment('updateOneNewXmlFile Enter');
 
-    var b_old_xml = true;
-    
-    for (var record_number=1; record_number < i_xml_old_file.getNumberOfReservations(); record_number++)
+    var file_name_new_xml = i_xml_new_file.getXmlEventFileNameAbsolutePath();
+
+    var file_name_old_xml = i_xml_old_file.getXmlEventFileNameAbsolutePath();
+
+    debugReservationPayment('updateOneNewXmlFile file_name_new_xml=  \n' + file_name_new_xml + 
+                    ' file_name_old_xml= \n' + file_name_old_xml);
+
+    var b_old_xml = false;
+
+    var n_name_equal = 0;
+
+    var n_name_email_equal = 0;
+
+    var n_name_email_some_seats_equal = 0;
+
+    var n_name_email_no_seats_equal = 0;
+
+    var n_name_email_all_seats_equal = 0;
+
+    var delete_record_number_array = [];
+
+    for (var record_number_new=1; record_number_new <= i_xml_new_file.getNumberOfReservations(); record_number_new++)
     {
-        var record_old_xml = i_xml_old_file.getReservationData(record_number, b_old_xml);
+        var record_new_xml = i_xml_new_file.getReservationData(record_number_new, b_old_xml);
 
-        updateOneNewXmlRecord(i_xml_new_record, record_old_xml);
+        for (var record_number_old=1; record_number_old <= i_xml_old_file.getNumberOfReservations(); record_number_old++)
+        {
+            var record_old_xml = i_xml_old_file.getReservationData(record_number_old, b_old_xml);
 
-    } // record_index
+            var equal_records_result_obj = i_xml_old_file.equalRecords(record_new_xml, record_old_xml, b_old_xml);
+
+            var equal_records_code_str = equal_records_result_obj.getCodeStr();
 
 
+            if (equal_records_code_str == EqualRecordsResult.name())
+            {
+                delete_record_number_array.push(record_number_new);
+
+                n_name_equal++;
+            }
+            else if (equal_records_code_str == EqualRecordsResult.nameEmail())
+            {
+                delete_record_number_array.push(record_number_new);
+
+                n_name_email_equal++;
+            }
+            else if (equal_records_code_str == EqualRecordsResult.nameEmailSomeSeats())
+            {
+                updateOneNewXmlRecord(record_old_xml, record_new_xml, record_number_new, i_xml_new_file);
+
+                n_name_email_some_seats_equal++;
+            }
+            else if (equal_records_code_str == EqualRecordsResult.nameEmailNoSeats())
+            {
+                delete_record_number_array.push(record_number_new);
+
+                n_name_email_no_seats_equal++;
+            }
+            else if (equal_records_code_str == EqualRecordsResult.nameEmailAllSeats())
+            {
+                // Do nothing. End loop of old XML records and continue with next new XML record
+                n_name_email_all_seats_equal++;
+
+                record_number_old =  i_xml_old_file.getNumberOfReservations() + 1;
+            }
+
+        } // record_number_old
+
+    } // record_number_new
+
+    debugReservationPayment('updateOneNewXmlFile ' +
+        '\nequal name: ' + n_name_equal +
+        '\nequal name and email: ' + n_name_email_equal +
+        '\nequal name and email some seats: ' + n_name_email_some_seats_equal +
+        '\nequal name and email no seats: ' + n_name_email_no_seats_equal +
+        '\nequal name and email all seats: ' + n_name_email_all_seats_equal);
+
+    if (delete_record_number_array.length   == 0)
+    {
+        debugReservationPayment('updateOneNewXmlFile No records to delete in new XML file');
+
+        return;
+    }
+
+    if (!ReservationEventXml.execApplicationOnServer())
+    {
+        alert('updateOneNewXmlFile Deleting records not possible for Live Server ');
+
+        return;
+    }
+
+    for (var index_delete_record= delete_record_number_array.length - 1; index_delete_record >= 0; index_delete_record--)
+    {
+        var record_number_to_delete = delete_record_number_array[index_delete_record];
+
+        i_xml_new_file.deleteOneRecord(record_number_to_delete);
+
+    } // index_delete_record
+ 
 } // updateOneNewXmlFile
 
-function updateOneNewXmlRecord(i_xml_new_record, i_xml_old_record)
+// Update one new XML record with the data of the old XML record. This is for instance needed if 
+// one seat has been deleted in the old XML file. Then this seat shall also be deleted in the new XML file.
+function updateOneNewXmlRecord(i_xml_old_record, i_xml_new_record, i_record_number, i_xml_new_file)
 {
-    // debugReservationPayment('updateOneNewXmlRecord Enter');
+    debugReservationPayment('updateOneNewXmlRecord i_record_number=' + i_record_number);
+
+    var seat_array_old = i_xml_old_record.getSeatDataArray();
+
+    var seat_array_new = i_xml_new_record.getSeatDataArray();
+
+    var delete_seat_number_array = [];
+
+    for (var index_seat_new=0; index_seat_new < seat_array_new.length; index_seat_new++)
+    {
+        var seat_new = seat_array_new[index_seat_new];
+
+        var b_seat_exists_in_old_xml = false;
+
+        for (var index_seat_old=0; index_seat_old < seat_array_old.length; index_seat_old++)
+        {
+            var seat_old = seat_array_old[index_seat_old];  
+
+            var old_row_table_number = seat_old.getRowTableNumber();
+
+            var new_row_table_number = seat_new.getRowTableNumber();
+
+            var old_seat_char_number = seat_old.getSeatCharacterNumber();
+
+            var new_seat_char_number = seat_new.getSeatCharacterNumber();
+
+            var equal_seat = (old_row_table_number == new_row_table_number) && (old_seat_char_number == new_seat_char_number);
+
+            if (!equal_seat)
+            {
+               delete_seat_number_array.push(index_seat_new);   
+            }
+
+        } // index_seat_old
+
+    } // index_seat_new
+
+    if (0 == delete_seat_number_array.length)
+    {
+        debugReservationPayment('updateOneNewXmlRecord No seats to delete in new XML record');
+
+        return;
+    }
+
+    if (!ReservationEventXml.execApplicationOnServer())
+    {
+        alert('updateOneNewXmlRecord Deleting seats not possible for Live Server');
+
+        return;
+    }
+
+    for (var index_delete_seat= delete_seat_number_array.length - 1; index_delete_seat >= 0; index_delete_seat--)
+    {
+        var seat_number_to_delete = delete_seat_number_array[index_delete_seat];
+
+        i_xml_new_file.deleteOneSeatRecord(i_record_number, seat_number_to_delete);
+
+    } // index_delete_seat
 
 } // updateOneNewXmlRecord
 
@@ -424,6 +764,7 @@ function checkInputXmlFiles()
 ///////////////////////// Start Load Xml Files ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+/* No longer used
 // Loads the XML files for the reservation data
 function loadXmlFiles()
 {
@@ -469,6 +810,8 @@ function afterLoadJubileeOld()
     g_jam_session_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
 
 } // afterLoadJubileeOld
+
+No longer used */
 
 // This function is called after the XML file for the jam session old format has been loaded
 function afterLoadJamSessionOld()
