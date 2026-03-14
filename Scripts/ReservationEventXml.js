@@ -1612,7 +1612,6 @@ class ReservationEventXml
 
     // Returns an instance of the class ReservationEventData with the data of the event, 
     // i.e. event number, year, month, day and name
-
     getReservationEventData(i_b_old_xml)
     {
          var b_old_xml = this.boolOldXml(i_b_old_xml);
@@ -1647,35 +1646,6 @@ class ReservationEventXml
 
     } // getReservationEventData
 
-/*
-    getReservationEventData()
-    {
-        var event_data = new ReservationEventData();
-
-        var event_number = this.getEventNumber();
-
-        var event_year = this.getYear();
-
-        var event_month = this.getMonth();
-
-        var event_day = this.getDay();
-
-        var event_name = this.getEventName();
-
-        event_data.setNumber(event_number);
-
-        event_data.setYear(event_year);
-
-        event_data.setMonth(event_month);
-
-        event_data.setDay(event_day);
-
-        event_data.setName(event_name);
-
-        return event_data;
-
-    } // getReservationEventData
-*/
     // Sets the event data in the XML object for a given instance of the class ReservationEventData
     // i_event_data: An instance of the class ReservationEventData 
     setReservationEventData(i_event_data)

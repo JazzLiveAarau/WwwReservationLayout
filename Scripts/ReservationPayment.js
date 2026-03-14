@@ -110,6 +110,13 @@ function initReservationPayment()
 
 } // initReservationPayment
 
+function inputConvertedXmlFilesAreSaved()
+{
+    debugReservationPayment('inputConvertedXmlFilesAreSaved Enter');
+
+} // inputConvertedXmlFilesAreSaved
+
+/* No longer used
 // This function is called after the XML files have been loaded
 function afterLoadXmlFiles()
 {
@@ -124,9 +131,39 @@ function callbackAfterInit()
     debugReservationPayment('callbackAfterInit Enter');
 
 } // callbackAfterInit
+ no longer used */
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy Reservation Data /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyReservationData(i_input_xml, i_output_xml)
+{
+    debugReservationPayment('copyReservationData Enter');
+
+    var b_input_xml = true;
+
+    var n_old_xml = i_input_xml.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_old_xml; record_number++)
+    {
+
+        var record_input_xml = i_input_xml.getReservationData(record_number, b_input_xml);
+
+        var number_records_output_xml = i_output_xml.getNumberOfReservations();
+
+        i_output_xml.appendReservationData(number_records_output_xml + 1, record_input_xml);
+    }
+
+} // copyReservationData
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy Reservation Data ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -191,48 +228,50 @@ function setEventDataForInputXmlFiles()
 
     g_input_two_xml.setReservationEventData(input_xml_data_two);
 
+    copyReservationData(g_jubilee_xml, g_input_one_xml);
+
+    copyReservationData(g_jam_session_xml, g_input_two_xml);
+
+    saveInputFiles();
+
+} // setEventDataForInputXmlFiles
+
+function saveInputFiles()
+{
+    debugReservationPayment('saveInputFiles Enter');
 
     if(ReservationEventXml.execApplicationOnServer())
     {
         g_input_one_xml.saveFile(inputOneIsSaved);
     }
-    else
+    else    
     {
-        alert('Record appended to new XML file. Save is not possible for Live Server.');
+        alert('saveInputFiles. Save is not possible for Live Server.');
 
         inputOneIsSaved();
+
     }
 
-    debugReservationPayment('setEventDataForInputXmlFiles Exit');
+} // saveInputFiles
 
-} // setEventDataForInputXmlFiles
 
 function inputOneIsSaved()
 {
     debugReservationPayment('inputOneIsSaved Enter');
 
-
     if(ReservationEventXml.execApplicationOnServer())
     {
-        g_input_two_xml.saveFile(inputTwoIsSaved);
+        g_input_two_xml.saveFile(inputConvertedXmlFilesAreSaved);
     }
     else
     {
-        alert('Record appended to new XML file. Save is not possible for Live Server.');
+        alert('inputOneIsSaved. Save is not possible for Live Server.');
 
-        inputTwoIsSaved();
+        inputConvertedXmlFilesAreSaved();
     }
-
 
 } // inputOneIsSaved
 
-function inputTwoIsSaved()
-{
-    debugReservationPayment('inputTwoIsSaved Enter');
-
-
-
-} // inputTwoIsSaved
 
 
 // The the directory name for the new format XML files
