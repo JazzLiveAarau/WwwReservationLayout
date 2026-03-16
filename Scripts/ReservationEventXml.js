@@ -1054,6 +1054,189 @@ class ReservationEventXml
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    // Returns true if the input reservation data records are equal. 
+    // The eqaul criteria are:
+    // 1. Name, email and password are equal. 
+    // 2. At least one reservation seat is equal
+    static equalReservation(i_reservation_data_1, i_reservation_data_2)
+    {
+        if (i_reservation_data_1 == null || i_reservation_data_1 == undefined)
+        {
+            alert("ReservationEventXml.equalReservation Input reservation data 1 is null or undefined");
+
+            return false;
+        }
+
+        if (i_reservation_data_2 == null || i_reservation_data_2 == undefined)
+        {
+            alert("ReservationEventXml.equalReservation Input reservation data 2 is null or undefined");
+
+            return false;
+        }
+
+        if (i_reservation_data_1.getName() != i_reservation_data_2.getName() )
+        {
+            return false;
+        }
+
+        if (i_reservation_data_1.getEmail() != i_reservation_data_2.getEmail() )
+        {
+            return false;
+        }
+
+        if (i_reservation_data_1.getPassword() != i_reservation_data_2.getPassword() )
+        {
+            return false;
+        }
+
+        var bool_at_least_one_seat_equal = ReservationEventXml.atLeastOneSeatEqual(i_reservation_data_1, i_reservation_data_2);
+
+        if (!bool_at_least_one_seat_equal)
+        {
+            return false;
+        }
+
+        return true;
+
+    } // equalReservation
+
+    // Returns true if the input reservation data records are identical.
+    // 1. Name, email and password are equal. 
+    // 2. All reservation seats are equal
+    static equalReservationAndSeats(i_reservation_data_1, i_reservation_data_2)
+    {
+        if (!ReservationEventXml.equalReservation(i_reservation_data_1, i_reservation_data_2))
+        {
+            return false;
+        }
+
+        if (!ReservationEventXml.allSeatsEqual(i_reservation_data_1, i_reservation_data_2))
+        {
+            return false;
+        }
+
+        return true;
+
+    } // equalReservationAndSeats
+
+    static allSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
+    {
+        var bool_all_seats_equal = true;
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        if (seat_data_array_1.length == seat_data_array_2.length)
+        {
+            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
+            {
+                var seat_data_1 = seat_data_array_1[index_seat];
+                var seat_data_2 = seat_data_array_2[index_seat];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 != table_number_2 || seat_char_1 != seat_char_2)
+                {
+                    bool_all_seats_equal = false;
+
+                    break;
+                }
+
+            } // index_seat
+
+        } // seat_data_array_1.length == seat_data_array_2.length
+
+        return bool_all_seats_equal;
+
+    } // allSeatsEqual
+
+    static noSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
+    {
+        var bool_no_seats_equal = false;
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        if (seat_data_array_1.length == seat_data_array_2.length)
+        {
+            bool_no_seats_equal = true;
+
+            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
+            {
+                var seat_data_1 = seat_data_array_1[index_seat];
+                var seat_data_2 = seat_data_array_2[index_seat];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 == table_number_2 || seat_char_1 == seat_char_2)
+                {
+                    bool_no_seats_equal = false;
+
+                    break;
+                }
+
+            } // index_seat
+
+        } // seat_data_array_1.length == seat_data_array_2.length
+
+        return bool_no_seats_equal;
+
+    } // noSeatsEqual
+
+    static atLeastOneSeatEqual(i_reservation_data_1, i_reservation_data_2)
+    {
+        var b_one_seat_equal = false;       
+
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        for (var index_seat_1=0; index_seat_1<seat_data_array_1.length; index_seat_1++)
+        {
+            var seat_data_1 = seat_data_array_1[index_seat_1];
+
+            for (var index_seat_2=0; index_seat_2<seat_data_array_2.length; index_seat_2++)
+            {
+                var seat_data_2 = seat_data_array_2[index_seat_2];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 == table_number_2 && seat_char_1 == seat_char_2)
+                {
+                    b_one_seat_equal = true;
+                    break;
+                }   
+
+            } // index_seat_2
+
+            if (b_one_seat_equal)
+            {
+                break;
+            }
+        } // index_seat_1
+
+        return b_one_seat_equal;
+
+    } // atLeastOneSeatEqual   
+
+
     // Returns true if the input reservation data record exists in the XML layout
     // i_reservation_data: An instance of the ReservationData class
     // i_b_old_xml: Boolean. If true, the password and fee are not included in the comparison, 
@@ -1129,7 +1312,7 @@ class ReservationEventXml
 
                 var bool_all_seats_equal = this.allSeatsEqual(i_reservation_data_1, i_reservation_data_2);
 
-                var b_one_seat_equal = this.oneSeatEqual(i_reservation_data_1, i_reservation_data_2);
+                var b_one_seat_equal = this.atLeastOneSeatEqual(i_reservation_data_1, i_reservation_data_2);
 
                 var bool_no_seats_equal = this.noSeatsEqual(i_reservation_data_1, i_reservation_data_2);
 
@@ -1157,123 +1340,6 @@ class ReservationEventXml
         return ret_equal_result_obj;
 
     } // equalRecords
-
-    allSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
-    {
-        var bool_all_seats_equal = true;
-
-        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
-
-        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
-
-        if (seat_data_array_1.length == seat_data_array_2.length)
-        {
-            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
-            {
-                var seat_data_1 = seat_data_array_1[index_seat];
-                var seat_data_2 = seat_data_array_2[index_seat];
-
-                var table_number_1 = seat_data_1.getRowTableNumber();
-                var table_number_2 = seat_data_2.getRowTableNumber();
-
-                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
-                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
-
-                if (table_number_1 != table_number_2 || seat_char_1 != seat_char_2)
-                {
-                    bool_all_seats_equal = false;
-
-                    break;
-                }
-
-            } // index_seat
-
-        } // seat_data_array_1.length == seat_data_array_2.length
-
-        return bool_all_seats_equal;
-
-    } // allSeatsEqual
-
-    noSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
-    {
-        var bool_no_seats_equal = false;
-
-        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
-
-        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
-
-        if (seat_data_array_1.length == seat_data_array_2.length)
-        {
-            bool_no_seats_equal = true;
-
-            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
-            {
-                var seat_data_1 = seat_data_array_1[index_seat];
-                var seat_data_2 = seat_data_array_2[index_seat];
-
-                var table_number_1 = seat_data_1.getRowTableNumber();
-                var table_number_2 = seat_data_2.getRowTableNumber();
-
-                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
-                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
-
-                if (table_number_1 == table_number_2 || seat_char_1 == seat_char_2)
-                {
-                    bool_no_seats_equal = false;
-
-                    break;
-                }
-
-            } // index_seat
-
-        } // seat_data_array_1.length == seat_data_array_2.length
-
-        return bool_no_seats_equal;
-
-    } // noSeatsEqual
-
-    oneSeatEqual(i_reservation_data_1, i_reservation_data_2)
-    {
-        var b_one_seat_equal = false;       
-
-
-        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
-
-        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
-
-        for (var index_seat_1=0; index_seat_1<seat_data_array_1.length; index_seat_1++)
-        {
-            var seat_data_1 = seat_data_array_1[index_seat_1];
-
-            for (var index_seat_2=0; index_seat_2<seat_data_array_2.length; index_seat_2++)
-            {
-                var seat_data_2 = seat_data_array_2[index_seat_2];
-
-                var table_number_1 = seat_data_1.getRowTableNumber();
-
-                var table_number_2 = seat_data_2.getRowTableNumber();
-
-                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
-
-                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
-
-                if (table_number_1 == table_number_2 && seat_char_1 == seat_char_2)
-                {
-                    b_one_seat_equal = true;
-                    break;
-                }   
-
-            } // index_seat_2
-
-            if (b_one_seat_equal)
-            {
-                break;
-            }
-        } // index_seat_1
-
-        return b_one_seat_equal;
-
-    } // oneSeatEqual   
 
     // Returns an instance of the class ReservationData for a given reservation number
     getReservationData(i_reservation_number, i_b_old_xml)

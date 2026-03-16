@@ -1,5 +1,5 @@
 // File: ReservationPayment.js
-// Date: 2026-03-14
+// Date: 2026-03-16
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -25,7 +25,13 @@ var g_input_one_xml = null;
 // File name Event_Input_2.xml in the directory /www/ReservationLayout/Jubilee/SaisonXML/.
 var g_input_two_xml = null;
 
+// The converted XML data from g_jubilee_xml for the output jubilee concert in the new format. 
+// File name Enemt_Output_.xml in the directory /www/ReservationLayout/Jubilee/SaisonXML/.
+var g_output_one_xml = null;
 
+// The converted XML data from g_jam_session_xml for the output jam session in the new format. 
+// File name Event_Output_2.xml in the directory /www/ReservationLayout/Jubilee/SaisonXML/.
+var g_output_two_xml = null;
 
 
 // The active directory for concert input (old) XML data. 
@@ -106,8 +112,6 @@ function initReservationPayment()
 
     loadConvertInputFiles();
 
-    //QQQ loadXmlFiles();
-
 } // initReservationPayment
 
 function inputConvertedXmlFilesAreSaved()
@@ -125,21 +129,295 @@ function inputConvertedXmlFilesAreSaved()
     var relative_path_php_dir = './Php/';
 
     util_files_data.setDataExecCaseFileExists(absolute_file_name, relative_path_php_dir, 
-            outputXmlFilesExist, copyFromInputToOutputXmlFiles);
+            updatateOutputXmlFilesWithDeletedReservations, copyFromInputToOutputXmlFiles);
 
     UtilFiles.dirFileAnyCase(util_files_data);
 
 } // inputConvertedXmlFilesAreSaved
 
-function outputXmlFilesExist( )
-{
-    debugReservationPayment('outputXmlFilesExist Enter');
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
-} // outputXmlFilesExist
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Save Updated Output Files /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function saveUpdatedXmlFileOne()
+{
+
+    debugReservationPayment('saveUpdatedXmlFileOne Enter');
+    
+} // saveUpdatedXmlFileOne
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Delete Reservation Seats In Output Files //////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// If seats have been deleted in the input XML files then these seats shall also be deleted 
+// in the output XML files.
+function updateStepTwoDeleteRecordSeats()
+{
+    debugReservationPayment('updateStepTwoDeleteRecordSeats Enter');
+
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        updateDeleteRecordSeatsInOneXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    // TODO updateStepTwoDeleteRecordSeats();
+
+} // updateStepTwoDeleteRecordSeats
+
+function updateDeleteRecordSeatsInOneXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    debugReservationPayment('updateDeleteRecordSeatsInOneXmlFile Enter');
+
+    var n_records_updated = 0;
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_records_output_xml; record_number++)
+    {
+        var record_output_xml = i_current_output_xml_object.getReservationData(record_number);   
+
+        var record_input_xml = i_current_input_xml_object.getReservationData(record_number);
+
+        var b_equal_reservation = ReservationEventXml.equalReservation(record_output_xml, record_input_xml);
+
+        if (!b_equal_reservation)
+        {
+            alert('updateDeleteRecordSeatsInOneXmlFile These records have been deleted in deleteRecordsInOneOutputXmlFile() ');
+
+            return;
+        }
+
+        var b_equal_reservation_and_seats = ReservationEventXml.equalReservationAndSeats(record_output_xml, record_input_xml);
+
+        if (!b_equal_reservation_and_seats)
+        {
+            updateDeleteSeatsInOneRecord(i_current_output_xml_object, i_current_input_xml_object, record_number);
+
+            n_records_updated++;
+        }
+
+    } 
+
+    debugReservationPayment('updateDeleteRecordSeatsInOneXmlFile n_records_updated= ' + n_records_updated);
+
+    // TODO saveUpdatedXmlFileOne();
+
+} // updateStepTwoDeleteRecordSeatsInOneXmlFile
+
+function updateDeleteSeatsInOneRecord(i_current_output_xml_object, i_current_input_xml_object, i_reservation_number)
+{
+    debugReservationPayment('updateDeleteSeatsInOneRecord Enter');
+
+    var n_seats_current = i_current_output_xml_object.getNumberOfSeats(i_reservation_number);
+
+    var n_seats_updated = i_current_input_xml_object.getNumberOfSeats(i_reservation_number);
+
+    var n_seats_to_delete = n_seats_current - n_seats_updated;
+
+    for (var seat_number=1; seat_number <= n_seats_to_delete; seat_number++ )
+    {
+        i_current_output_xml_object.deleteOneSeatRecord(i_reservation_number, seat_number);
+
+        debugReservationPayment('updateDeleteSeatsInOneRecord Deleted seat number ' + seat_number + 
+            ' from reservation number ' + i_reservation_number + ' in output XML file');
+    }
+
+    for (var seat_update_number=n_seats_to_delete + 1; seat_update_number <= n_seats_updated; seat_update_number++ )
+    {
+        var table_number = i_current_input_xml_object.getTableNumber(i_reservation_number, seat_update_number);
+
+        var seat_character = i_current_input_xml_object.getSeatChar(i_reservation_number, seat_update_number);
+
+        var seat_name = i_current_input_xml_object.getSeatName(i_reservation_number, seat_update_number);
+
+        i_current_output_xml_object.setTableNumber(i_reservation_number, seat_update_number, table_number);
+
+        i_current_output_xml_object.setSeatChar(i_reservation_number, seat_update_number, seat_character);
+
+        i_current_output_xml_object.setSeatName(i_reservation_number, seat_update_number, seat_name);
+
+        debugReservationPayment('updateDeleteSeatsInOneRecord Updated seat number ' + seat_update_number);
+
+    }
+
+} // updateDeleteSeatsInOneRecord
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Delete Reservation Seats In Output Files ////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Main Functions //////////////////////////////////////////////
+///////////////////////// Start Create Output XML objects /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// The the Admin reservation application can reservation be deleted and/or seats of a 
+// reservation can be deleted. 
+// The admin application cannot change the order of the reservation in the XML file, and
+// new reservations can only be appended to the end of the XML file. 
+// The output XML files will here first be updated because of deleted reservations.
+
+function updatateOutputXmlFilesWithDeletedReservations()
+{
+    debugReservationPayment('updatateOutputXmlFilesWithDeletedReservations Enter');
+
+    concertNewDirectory();
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "Output_1";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File does not exist. New file will be created.
+
+    var callback_function_name = afterCreationXmlObjectOutputOne;
+
+    g_output_one_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // updatateOutputXmlFilesWithDeletedReservations
+
+// Function is called after the creation of the XML object for the output XML file for the concert one.
+function afterCreationXmlObjectOutputOne()
+{
+    debugReservationPayment('afterCreationXmlObjectOutputOne Enter');
+
+    concertNewDirectory();
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "Output_2";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File does not exist. New file will be created.
+
+    var callback_function_name = updateStepOneDeleteRecords;
+
+    g_output_two_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // afterCreationXmlObjectOutputTwo
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Create Output XML objects ///////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Delete Reservation In Output Files ////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Function is called after the creation of the XML object for the output XML file for the concert two. 
+// This function will 
+function updateStepOneDeleteRecords()
+{
+    debugReservationPayment('updateStepOneDeleteRecords Enter');
+
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        deleteRecordsInOneOutputXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    updateStepTwoDeleteRecordSeats();
+
+} // updateStepOneDeleteRecords
+
+// Delete the records in the output XML file that are not in the input XML file. 
+// 
+function deleteRecordsInOneOutputXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    // debugReservationPayment('deleteRecordsInOneOutputXmlFile Enter');
+
+    var delete_record_number_array = [];
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_records_output_xml; record_number++)
+    {
+        var record_output_xml = i_current_output_xml_object.getReservationData(record_number);   
+
+        var record_input_xml = i_current_input_xml_object.getReservationData(record_number);
+
+        var b_equal_reservation = ReservationEventXml.equalReservation(record_output_xml, record_input_xml);
+
+        if (!b_equal_reservation)
+        {
+            delete_record_number_array.push(record_number);
+        }
+    }
+
+    if (delete_record_number_array.length   == 0)
+
+    {
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile No records to delete in output XML file');
+
+        return;
+    }
+
+    if (!ReservationEventXml.execApplicationOnServer())
+    {
+        alert('deleteRecordsInOneOutputXmlFile Deleting records not possible for Live Server ');
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile Deleting records not possible for Live Server ');
+
+        return;
+    }
+
+    for (var index_delete_record= delete_record_number_array.length - 1; index_delete_record >= 0; index_delete_record--)
+    {
+        var record_number_to_delete = delete_record_number_array[index_delete_record];
+
+        i_current_output_xml_object.deleteOneRecord(record_number_to_delete);
+
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile Deleted record number ' + record_number_to_delete + ' from output XML file');
+
+    }
+
+} // deleteRecordsInOneOutputXmlFile
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Delete Reservation In Output Files //////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
