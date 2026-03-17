@@ -140,15 +140,90 @@ function inputConvertedXmlFilesAreSaved()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Add New Resrvations To Output Files ///////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function updateStepThreeAddNewReservations()
+{
+    debugReservationPayment('updateStepThreeAddNewReservations Enter');
+
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        updateAddReservationsInOneXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    saveUpdatedXmlFilesOutput();
+
+} // updateStepThreeAddNewReservations
+
+function updateAddReservationsInOneXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    // debugReservationPayment('updateAddReservationsInOneXmlFile Enter');
+
+    var n_records_added = 0;
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    var n_records_input_xml = i_current_input_xml_object.getNumberOfReservations();
+
+    var reservation_start_number = n_records_output_xml + 1;
+
+    for (var reservation_number=reservation_start_number; reservation_number <= n_records_input_xml; reservation_number++)
+    {
+        var input_reservation_data = i_current_input_xml_object.getReservationData(reservation_number);
+    
+        i_current_output_xml_object.appendReservationData(reservation_number, input_reservation_data);
+
+         n_records_added++;
+
+    } 
+
+    debugReservationPayment('updateAddReservationsInOneXmlFile n_records_added= ' + n_records_added +
+        ' reservation_start_number= ' + reservation_start_number + ' n_records_input_xml= ' + n_records_input_xml   
+    );
+
+} // updateAddReservationsInOneXmlFile
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Add New Resrvations To Output Files /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Save Updated Output Files /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-function saveUpdatedXmlFileOne()
+function saveUpdatedXmlFilesOutput()
 {
+    debugReservationPayment('saveUpdatedXmlFilesOutput Enter');
 
-    debugReservationPayment('saveUpdatedXmlFileOne Enter');
+    var b_reservations_file_one = g_output_one_xml.getNumberOfReservations();
+    var b_reservations_file_two = g_output_two_xml.getNumberOfReservations();
+
+    debugReservationPayment('saveUpdatedXmlFilesOutput Number of reservations in output XML file one: ' + b_reservations_file_one);
+    debugReservationPayment('saveUpdatedXmlFilesOutput Number of reservations in output XML file two: ' + b_reservations_file_two);
+
+
+    // TODO 
     
-} // saveUpdatedXmlFileOne
+} // saveUpdatedXmlFilesOutput
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Delete Reservation Seats In Output Files //////////////////
@@ -159,7 +234,6 @@ function saveUpdatedXmlFileOne()
 function updateStepTwoDeleteRecordSeats()
 {
     debugReservationPayment('updateStepTwoDeleteRecordSeats Enter');
-
 
     var current_output_xml_object = null;
 
@@ -182,7 +256,7 @@ function updateStepTwoDeleteRecordSeats()
 
     } // index_file
 
-    // TODO updateStepTwoDeleteRecordSeats();
+    updateStepThreeAddNewReservations();
 
 } // updateStepTwoDeleteRecordSeats
 
@@ -221,8 +295,6 @@ function updateDeleteRecordSeatsInOneXmlFile(i_current_output_xml_object, i_curr
     } 
 
     debugReservationPayment('updateDeleteRecordSeatsInOneXmlFile n_records_updated= ' + n_records_updated);
-
-    // TODO saveUpdatedXmlFileOne();
 
 } // updateStepTwoDeleteRecordSeatsInOneXmlFile
 
