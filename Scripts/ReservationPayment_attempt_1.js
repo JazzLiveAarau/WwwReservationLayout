@@ -118,6 +118,20 @@ function inputConvertedXmlFilesAreSaved()
 {
     debugReservationPayment('inputConvertedXmlFilesAreSaved Enter');
 
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Output_1.xml';
+
+    var absolute_file_name = input_dir_name + input_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseFileExists(absolute_file_name, relative_path_php_dir, 
+            updatateOutputXmlFilesWithDeletedReservations, copyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
 
 } // inputConvertedXmlFilesAreSaved
 
@@ -125,6 +139,518 @@ function inputConvertedXmlFilesAreSaved()
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Add New Resrvations To Output Files ///////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function updateStepThreeAddNewReservations()
+{
+    debugReservationPayment('updateStepThreeAddNewReservations Enter');
+
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        updateAddReservationsInOneXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    saveUpdatedXmlFilesOutput();
+
+} // updateStepThreeAddNewReservations
+
+function updateAddReservationsInOneXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    // debugReservationPayment('updateAddReservationsInOneXmlFile Enter');
+
+    var n_records_added = 0;
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    var n_records_input_xml = i_current_input_xml_object.getNumberOfReservations();
+
+    var reservation_start_number = n_records_output_xml + 1;
+
+    for (var reservation_number=reservation_start_number; reservation_number <= n_records_input_xml; reservation_number++)
+    {
+        var input_reservation_data = i_current_input_xml_object.getReservationData(reservation_number);
+    
+        i_current_output_xml_object.appendReservationData(reservation_number, input_reservation_data);
+
+         n_records_added++;
+
+    } 
+
+    debugReservationPayment('updateAddReservationsInOneXmlFile n_records_added= ' + n_records_added +
+        ' reservation_start_number= ' + reservation_start_number + ' n_records_input_xml= ' + n_records_input_xml   
+    );
+
+} // updateAddReservationsInOneXmlFile
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Add New Resrvations To Output Files /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Save Updated Output Files /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function saveUpdatedXmlFilesOutput()
+{
+    debugReservationPayment('saveUpdatedXmlFilesOutput Enter');
+
+    var b_reservations_file_one = g_output_one_xml.getNumberOfReservations();
+    var b_reservations_file_two = g_output_two_xml.getNumberOfReservations();
+
+    debugReservationPayment('saveUpdatedXmlFilesOutput Number of reservations in output XML file one: ' + b_reservations_file_one);
+    debugReservationPayment('saveUpdatedXmlFilesOutput Number of reservations in output XML file two: ' + b_reservations_file_two);
+
+
+    // TODO 
+    
+} // saveUpdatedXmlFilesOutput
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Delete Reservation Seats In Output Files //////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// If seats have been deleted in the input XML files then these seats shall also be deleted 
+// in the output XML files.
+function updateStepTwoDeleteRecordSeats()
+{
+    debugReservationPayment('updateStepTwoDeleteRecordSeats Enter');
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        updateDeleteRecordSeatsInOneXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    updateStepThreeAddNewReservations();
+
+} // updateStepTwoDeleteRecordSeats
+
+function updateDeleteRecordSeatsInOneXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    debugReservationPayment('updateDeleteRecordSeatsInOneXmlFile Enter');
+
+    var n_records_updated = 0;
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_records_output_xml; record_number++)
+    {
+        var record_output_xml = i_current_output_xml_object.getReservationData(record_number);   
+
+        var record_input_xml = i_current_input_xml_object.getReservationData(record_number);
+
+        var b_equal_reservation = ReservationEventXml.equalReservation(record_output_xml, record_input_xml);
+
+        if (!b_equal_reservation)
+        {
+            alert('updateDeleteRecordSeatsInOneXmlFile These records have been deleted in deleteRecordsInOneOutputXmlFile() ');
+
+            return;
+        }
+
+        var b_equal_reservation_and_seats = ReservationEventXml.equalReservationAndSeats(record_output_xml, record_input_xml);
+
+        if (!b_equal_reservation_and_seats)
+        {
+            updateDeleteSeatsInOneRecord(i_current_output_xml_object, i_current_input_xml_object, record_number);
+
+            n_records_updated++;
+        }
+
+    } 
+
+    debugReservationPayment('updateDeleteRecordSeatsInOneXmlFile n_records_updated= ' + n_records_updated);
+
+} // updateStepTwoDeleteRecordSeatsInOneXmlFile
+
+function updateDeleteSeatsInOneRecord(i_current_output_xml_object, i_current_input_xml_object, i_reservation_number)
+{
+    debugReservationPayment('updateDeleteSeatsInOneRecord Enter');
+
+    var n_seats_current = i_current_output_xml_object.getNumberOfSeats(i_reservation_number);
+
+    var n_seats_updated = i_current_input_xml_object.getNumberOfSeats(i_reservation_number);
+
+    var n_seats_to_delete = n_seats_current - n_seats_updated;
+
+    for (var seat_number=1; seat_number <= n_seats_to_delete; seat_number++ )
+    {
+        i_current_output_xml_object.deleteOneSeatRecord(i_reservation_number, seat_number);
+
+        debugReservationPayment('updateDeleteSeatsInOneRecord Deleted seat number ' + seat_number + 
+            ' from reservation number ' + i_reservation_number + ' in output XML file');
+    }
+
+    for (var seat_update_number=n_seats_to_delete + 1; seat_update_number <= n_seats_updated; seat_update_number++ )
+    {
+        var table_number = i_current_input_xml_object.getTableNumber(i_reservation_number, seat_update_number);
+
+        var seat_character = i_current_input_xml_object.getSeatChar(i_reservation_number, seat_update_number);
+
+        var seat_name = i_current_input_xml_object.getSeatName(i_reservation_number, seat_update_number);
+
+        i_current_output_xml_object.setTableNumber(i_reservation_number, seat_update_number, table_number);
+
+        i_current_output_xml_object.setSeatChar(i_reservation_number, seat_update_number, seat_character);
+
+        i_current_output_xml_object.setSeatName(i_reservation_number, seat_update_number, seat_name);
+
+        debugReservationPayment('updateDeleteSeatsInOneRecord Updated seat number ' + seat_update_number);
+
+    }
+
+} // updateDeleteSeatsInOneRecord
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Delete Reservation Seats In Output Files ////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Create Output XML objects /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// The the Admin reservation application can reservation be deleted and/or seats of a 
+// reservation can be deleted. 
+// The admin application cannot change the order of the reservation in the XML file, and
+// new reservations can only be appended to the end of the XML file. 
+// The output XML files will here first be updated because of deleted reservations.
+
+function updatateOutputXmlFilesWithDeletedReservations()
+{
+    debugReservationPayment('updatateOutputXmlFilesWithDeletedReservations Enter');
+
+    concertNewDirectory();
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "Output_1";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File does not exist. New file will be created.
+
+    var callback_function_name = afterCreationXmlObjectOutputOne;
+
+    g_output_one_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // updatateOutputXmlFilesWithDeletedReservations
+
+// Function is called after the creation of the XML object for the output XML file for the concert one.
+function afterCreationXmlObjectOutputOne()
+{
+    debugReservationPayment('afterCreationXmlObjectOutputOne Enter');
+
+    concertNewDirectory();
+
+    var subdir_xml = g_xml_active_new_dir;
+
+    debugReservationPayment('afterLoadJamSessionOld subdir_xml= ' + subdir_xml);
+
+    var event_reg_number = "Output_2";
+
+    var event_number =  1; // Event number is not used in this applicazion
+
+    var b_new_file = false; // File does not exist. New file will be created.
+
+    var callback_function_name = updateStepOneDeleteRecords;
+
+    g_output_two_xml = new ReservationEventXml(subdir_xml, event_reg_number, event_number, b_new_file, callback_function_name);
+
+} // afterCreationXmlObjectOutputTwo
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Create Output XML objects ///////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Delete Reservation In Output Files ////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Function is called after the creation of the XML object for the output XML file for the concert two. 
+// This function will 
+function updateStepOneDeleteRecords()
+{
+    debugReservationPayment('updateStepOneDeleteRecords Enter');
+
+
+    var current_output_xml_object = null;
+
+    var current_input_xml_object = null;
+
+    for (var index_file=0; index_file < 2; index_file++)
+    {
+        if (index_file == 0)
+        {
+            current_output_xml_object = g_output_one_xml;
+            current_input_xml_object = g_input_one_xml;
+        }
+        else if (index_file == 1)
+        {
+            current_output_xml_object = g_output_two_xml;
+            current_input_xml_object = g_input_two_xml;
+        }
+
+        deleteRecordsInOneOutputXmlFile(current_output_xml_object, current_input_xml_object);
+
+    } // index_file
+
+    updateStepTwoDeleteRecordSeats();
+
+} // updateStepOneDeleteRecords
+
+// Delete the records in the output XML file that are not in the input XML file. 
+// 
+function deleteRecordsInOneOutputXmlFile(i_current_output_xml_object, i_current_input_xml_object)
+{
+    // debugReservationPayment('deleteRecordsInOneOutputXmlFile Enter');
+
+    var delete_record_number_array = [];
+
+    var n_records_output_xml = i_current_output_xml_object.getNumberOfReservations();
+
+    var n_records_input_xml = i_current_input_xml_object.getNumberOfReservations();
+
+    for (var reservation_number=1; reservation_number <= n_records_output_xml; reservation_number++)
+    {
+        var record_output_xml = i_current_output_xml_object.getReservationData(reservation_number);   
+
+        if (reservation_number <= n_records_input_xml)
+        {
+            var record_input_xml = i_current_input_xml_object.getReservationData(reservation_number);
+
+            var b_equal_reservation = ReservationEventXml.equalReservation(record_output_xml, record_input_xml);
+
+            if (!b_equal_reservation)
+            {
+                delete_record_number_array.push(reservation_number);
+                debugReservationPayment('deleteRecordsInOneOutputXmlFile Record number ' + reservation_number + 
+                    ' will be deleted from output XML file ');
+            }
+
+        }
+        else
+        {
+            // Less reservations in input XML file
+            var n_delete_array = delete_record_number_array.length;
+
+            debugReservationPayment('(n_delete_array + reservation_number - n_records_input_xml) = ' + 
+                (n_delete_array + reservation_number - n_records_input_xml).toString() );
+
+            if (n_delete_array + reservation_number - n_records_input_xml > 0)
+            {
+                delete_record_number_array.push(reservation_number);
+
+                debugReservationPayment('deleteRecordsInOneOutputXmlFile Record number ' + reservation_number + 
+                    ' will be deleted from output XML file ');
+            }
+        }
+
+
+    } // reservation_number
+
+    if (delete_record_number_array.length   == 0)
+    {
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile No records to delete in output XML file');
+
+        return;
+    }
+
+    if (!ReservationEventXml.execApplicationOnServer())
+    {
+        alert('deleteRecordsInOneOutputXmlFile Deleting records not possible for Live Server ');
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile Deleting records not possible for Live Server ');
+
+        return;
+    }
+
+    for (var index_delete_record= delete_record_number_array.length - 1; index_delete_record >= 0; index_delete_record--)
+    {
+        var record_number_to_delete = delete_record_number_array[index_delete_record];
+
+        i_current_output_xml_object.deleteOneRecord(record_number_to_delete);
+
+        debugReservationPayment('deleteRecordsInOneOutputXmlFile Deleted record number ' + record_number_to_delete + ' from output XML file');
+
+    }
+
+} // deleteRecordsInOneOutputXmlFile
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Delete Reservation In Output Files //////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy To Output File ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyFromInputToOutputXmlFiles()
+{
+    debugReservationPayment('copyFromInputToOutputXmlFiles Enter');
+
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Input_1.xml';
+
+    var absolute_input_file_name = input_dir_name + input_file_name;
+
+    var output_file_name = 'Event_Output_1.xml';
+
+    var absolute_output_file_name = input_dir_name + output_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseCopyFile(absolute_input_file_name, absolute_output_file_name, relative_path_php_dir, 
+            outputXmlOneCopied, failureCopyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+
+    // setDataExecCaseCopyFile(input_file_name, i_output_file_name, i_path_php_dir, i_callback_function_name, i_error_callback_function_name)
+
+} // copyFromInputToOutputXmlFiles
+
+function outputXmlOneCopied()
+{
+    debugReservationPayment('outputXmlOneCopied Enter');
+
+    var util_files_data = new UtilFilesData();
+
+    var input_dir_name = g_input_one_xml.getXmlEventDirectoryNameAbsolutePath();
+
+    var input_file_name = 'Event_Input_2.xml';
+
+    var absolute_input_file_name = input_dir_name + input_file_name;
+
+    var output_file_name = 'Event_Output_2.xml';
+
+    var absolute_output_file_name = input_dir_name + output_file_name;
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseCopyFile(absolute_input_file_name, absolute_output_file_name, relative_path_php_dir, 
+            outputXmlTwoCopied, failureCopyFromInputToOutputXmlFiles);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
+} // outputXmlOneCopied
+
+function outputXmlTwoCopied()
+{
+    debugReservationPayment('outputXmlTwoCopied Enter');
+
+} // outputXmlTwoCopied
+
+
+function failureCopyFromInputToOutputXmlFiles()
+{
+    debugReservationPayment('failureCopyFromInputToOutputXmlFiles Enter');
+
+    alert('Copy from input to output XML file failed.');
+
+} // failureCopyFromInputToOutputXmlFiles
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy To Output File /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy Reservation Data /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyReservationData(i_input_xml, i_output_xml)
+{
+    debugReservationPayment('copyReservationData Enter');
+
+    var b_input_xml = true;
+
+    var n_old_xml = i_input_xml.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_old_xml; record_number++)
+    {
+
+        var record_input_xml = i_input_xml.getReservationData(record_number, b_input_xml);
+
+        var number_records_output_xml = i_output_xml.getNumberOfReservations();
+
+        i_output_xml.appendReservationData(number_records_output_xml + 1, record_input_xml);
+    }
+
+} // copyReservationData
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy Reservation Data ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Copy Reservation Data /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+function copyReservationData(i_input_xml, i_output_xml)
+{
+    debugReservationPayment('copyReservationData Enter');
+
+    var b_input_xml = true;
+
+    var n_old_xml = i_input_xml.getNumberOfReservations();
+
+    for (var record_number=1; record_number <= n_old_xml; record_number++)
+    {
+
+        var record_input_xml = i_input_xml.getReservationData(record_number, b_input_xml);
+
+        var number_records_output_xml = i_output_xml.getNumberOfReservations();
+
+        i_output_xml.appendReservationData(number_records_output_xml + 1, record_input_xml);
+    }
+
+} // copyReservationData
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Copy Reservation Data ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Convert Input Files ///////////////////////////////////////
@@ -338,35 +864,6 @@ function concertTwoOldDirectory()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Load Input Files ////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Copy Reservation Data /////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-function copyReservationData(i_input_xml, i_output_xml)
-{
-    debugReservationPayment('copyReservationData Enter');
-
-    var b_input_xml = true;
-
-    var n_old_xml = i_input_xml.getNumberOfReservations();
-
-    for (var record_number=1; record_number <= n_old_xml; record_number++)
-    {
-
-        var record_input_xml = i_input_xml.getReservationData(record_number, b_input_xml);
-
-        var number_records_output_xml = i_output_xml.getNumberOfReservations();
-
-        i_output_xml.appendReservationData(number_records_output_xml + 1, record_input_xml);
-    }
-
-} // copyReservationData
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Copy Reservation Data ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////

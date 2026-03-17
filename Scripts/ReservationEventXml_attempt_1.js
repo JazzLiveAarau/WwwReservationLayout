@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2026-03-17
+// Date: 2026-03-13
 // Author: Gunnar Lidén
 
 // File content
@@ -1155,6 +1155,43 @@ class ReservationEventXml
 
     } // allSeatsEqual
 
+    static noSeatsEqual(i_reservation_data_1, i_reservation_data_2 )
+    {
+        var bool_no_seats_equal = false;
+
+        var seat_data_array_1 = i_reservation_data_1.getSeatDataArray();
+
+        var seat_data_array_2 = i_reservation_data_2.getSeatDataArray();
+
+        if (seat_data_array_1.length == seat_data_array_2.length)
+        {
+            bool_no_seats_equal = true;
+
+            for (var index_seat=0; index_seat<seat_data_array_1.length && index_seat<seat_data_array_2.length; index_seat++)
+            {
+                var seat_data_1 = seat_data_array_1[index_seat];
+                var seat_data_2 = seat_data_array_2[index_seat];
+
+                var table_number_1 = seat_data_1.getRowTableNumber();
+                var table_number_2 = seat_data_2.getRowTableNumber();
+
+                var seat_char_1 = seat_data_1.getSeatCharacterNumber();
+                var seat_char_2 = seat_data_2.getSeatCharacterNumber();
+
+                if (table_number_1 == table_number_2 || seat_char_1 == seat_char_2)
+                {
+                    bool_no_seats_equal = false;
+
+                    break;
+                }
+
+            } // index_seat
+
+        } // seat_data_array_1.length == seat_data_array_2.length
+
+        return bool_no_seats_equal;
+
+    } // noSeatsEqual
 
     static atLeastOneSeatEqual(i_reservation_data_1, i_reservation_data_2)
     {
@@ -1198,6 +1235,111 @@ class ReservationEventXml
         return b_one_seat_equal;
 
     } // atLeastOneSeatEqual   
+
+
+    // Returns true if the input reservation data record exists in the XML layout
+    // i_reservation_data: An instance of the ReservationData class
+    // i_b_old_xml: Boolean. If true, the password and fee are not included in the comparison, 
+    // because they are not included in the old XML layout
+    reservationRecordExists(i_reservation_data, i_b_old_xml)
+    {
+        var ret_exists = false;
+
+        var b_old_xml = this.boolOldXml(i_b_old_xml);
+
+        if (i_reservation_data == null || i_reservation_data == undefined)
+        {
+            alert("ReservationEventXml.reservationRecordExists Input reservation data is null or undefined");
+
+            return false;
+        }
+
+        var n_reservations = this.getNumberOfReservations();
+
+        for (var reservation_number=1; reservation_number<=n_reservations; reservation_number++)
+        {
+            var reservation_data = this.getReservationData(reservation_number, b_old_xml);
+
+            var equal_records_result_obj = this.equalRecords(i_reservation_data, reservation_data, b_old_xml);
+
+            if (equal_records_result_obj.getBool())
+            {
+                ret_exists = true;
+
+                break;
+            }
+
+        } // reservation_number
+
+        return ret_exists;
+
+    } // reservationRecordExists
+
+    // Returns true if the input reservation data is equal to the reservation data 
+    //i_reservation_data_1 Instance of ReservationData class
+    //i_reservation_data_2 Instance of ReservationData class
+    //i_b_old_xml Boolean. If true, the password and fee are not included in the comparison, 
+    // because they are not included in the old XML layout
+    equalRecords(i_reservation_data_1, i_reservation_data_2, i_b_old_xml)
+    {
+        var ret_equal_result_obj = new EqualRecordsResult();
+
+        var b_old_xml = this.boolOldXml(i_b_old_xml);
+
+        if (i_reservation_data_1 == null || i_reservation_data_1 == undefined)
+        {
+            alert("ReservationEventXml.equalRecords Input reservation data 1 is null or undefined");
+
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.notValidInputData());
+
+        }
+
+        if (i_reservation_data_2 == null || i_reservation_data_2 == undefined)
+        {
+            alert("ReservationEventXml.equalRecords Input reservation data 2 is null or undefined");
+
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.notValidInputData());
+
+        }
+
+        if (i_reservation_data_1.getName() == i_reservation_data_2.getName() )
+        {
+            ret_equal_result_obj.setCodeStr(EqualRecordsResult.name());
+
+            if (i_reservation_data_1.getEmail() == i_reservation_data_2.getEmail() )
+            {
+                ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmail());
+
+                var bool_all_seats_equal = this.allSeatsEqual(i_reservation_data_1, i_reservation_data_2);
+
+                var b_one_seat_equal = this.atLeastOneSeatEqual(i_reservation_data_1, i_reservation_data_2);
+
+                var bool_no_seats_equal = this.noSeatsEqual(i_reservation_data_1, i_reservation_data_2);
+
+                if (bool_all_seats_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailAllSeats());
+                }
+                else if (b_one_seat_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailSomeSeats());
+                }
+                else if (bool_no_seats_equal)
+                {
+                    ret_equal_result_obj.setCodeStr(EqualRecordsResult.nameEmailNoSeats());
+                }
+                
+            } // Email equal
+
+        } // Name equal
+
+         // TODO Perhaps getPassword() and getFee()
+
+        ret_equal_result_obj.determineBool();
+
+        return ret_equal_result_obj;
+
+    } // equalRecords
 
     // Returns an instance of the class ReservationData for a given reservation number
     getReservationData(i_reservation_number, i_b_old_xml)
@@ -2146,6 +2288,121 @@ class ReservationEventData
     } // getName
 
 } // ReservationEventData
+
+// Class that holds the result of the comparison of two reservation records. 
+// The result is used in the reservation edit function to check if the 
+// reservation data has been changed.
+class EqualRecordsResult
+{
+    constructor()
+    {
+        this.m_equal = false;
+
+        this.m_equal_code_str = EqualRecordsResult.notYetDetermined();
+    
+    } // constructor
+
+    // Sets the boolean value of the result based on the code string value
+    determineBool()
+    {
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailAllSeats())
+        {
+            this.m_equal = true;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.notValidInputData())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailSomeSeats())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.name())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmailNoSeats())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.nameEmail())
+        {
+            this.m_equal = false;
+        }
+
+        if (this.m_equal_code_str == EqualRecordsResult.notYetDetermined())
+        {
+            this.m_equal = false;
+        }
+
+    } // determineBool
+
+
+    setBool(i_equal)
+    {
+        this.m_equal = i_equal;
+
+    } // setBool
+
+    setCodeStr(i_code_str)
+    {
+        this.m_equal_code_str = i_code_str;
+
+    } // setCodeStr
+
+    getBool()
+    {
+        return this.m_equal;
+
+    } // getBool
+
+    getCodeStr()
+    {
+        return this.m_equal_code_str;
+
+    } // getCodeStr
+
+    static notYetDetermined()
+    {
+        return "NotYetDetermined";
+    }
+
+    static notValidInputData()
+    {
+        return "NotValidInputData";
+    }
+
+    static name()
+    {
+        return "NameEqual";
+    }
+
+    static nameEmail()
+    {
+        return "NameEmailEqual";
+    }
+
+    static nameEmailSomeSeats()
+    {
+        return "NameEmailSomeSeatsEqual";
+    }
+
+    static nameEmailAllSeats()
+    {
+        return "NameEmailAllSeatsEqual";
+    }
+
+    static nameEmailNoSeats()
+    {
+        return "NameEmailNoSeatsEqual";
+    }
+
+} // EqualRecordsResult
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Data Classes ////////////////////////////////////////////////
