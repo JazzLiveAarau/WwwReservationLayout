@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2025-12-03
+File: ReservationNewLayout.css Date: 2026-03-20
 
 Author: Gunnar Liden
 
@@ -39,6 +39,33 @@ Defines all style classes for the application reservation new layout
     overflow: hidden;   
     width: 100%;
 }
+.cl_div_help_button
+{
+    /* border: solid 2px red; */
+    background-color: black;
+    color: white;
+    font-size: 5px;
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 95%;
+    margin-top: 2px;
+}
+
+.cl_help_button
+{
+    border: solid 1px white; 
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px;
+    margin-left: 28px;
+    cursor: pointer;
+    height: auto;
+    float: right;
+}
+
 
 /* For all <label> elements */
 label

@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2025-11-25
+// Date: 2026-03-20
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -25,6 +25,13 @@ var g_xml_create_event_program_button = null;
 
 // Instance of ReservationNewSeasonData holding data for the execution
 var g_new_season_files_data = null;
+
+// Help button
+var g_help_button = null;
+
+// IT info button
+var g_it_info_button = null;
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
@@ -185,6 +192,24 @@ function setNewSeasonLocalStorageData()
 
 } // setNewSeasonLocalStorageData
 
+// User clicked the help button
+function onClickHelpButton()
+{
+    var help_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0069.pdf';
+
+    window.open(help_url,'_blank').focus();
+
+} // onClickHelpButton
+
+// User clicked the IT info button
+function onClickItInfoButton()
+{
+    var it_info_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0182.pdf';
+
+    window.open(it_info_url,'_blank').focus();
+
+} // onClickItInfoButton
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -204,7 +229,49 @@ function createReservationNewSeasonControls()
 
     createXmlCreateNewButton();
 
+    createHelpButton();
+
+    createItInfoButton();
+
 } // createReservationNewSeasonControls
+
+// Creates the help button 
+function createHelpButton()
+{
+    g_help_button = new JazzButton('id_help_button', 'id_div_help_button');
+
+    g_help_button.setOnclickFunctionName("onClickHelpButton");
+
+    g_help_button.setCaption('Hilfe');
+
+    g_help_button.setLabelText("");
+
+    g_help_button.setWidth("60px");
+
+    g_help_button.setClass("cl_help_button");
+
+    g_help_button.setTitle('Reservationen Initialisierung einer neuen Saison');
+
+} // createHelpButton
+
+// Creates the IT info button 
+function createItInfoButton()
+{
+    g_it_info_button = new JazzButton('id_it_info_button', 'id_div_it_info_button');
+
+    g_it_info_button.setOnclickFunctionName("onClickItInfoButton");
+
+    g_it_info_button.setCaption('IT Info');
+
+    g_it_info_button.setLabelText("");
+
+    g_it_info_button.setWidth("60px");
+
+    g_it_info_button.setClass("cl_help_button");
+
+    g_it_info_button.setTitle('Web Applikation Reservation Neue Saison - Informationen für IT');
+
+} // createItInfoButton
 
 // Create the text box for the organisation directory
 function createTextBoxMainDirectory()

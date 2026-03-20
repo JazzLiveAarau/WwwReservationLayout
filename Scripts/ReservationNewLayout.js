@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2025-12-16
+// Date: 2026-03-20
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -61,6 +61,15 @@ var g_upload_xml_button = null;
 
 // Button download layout XML file
 var g_download_xml_button = null;
+
+// Help button
+var g_help_button = null;
+
+// IT info button
+var g_it_info_button = null;
+
+// Tutorial button
+var g_tutorial_button = null;
 
 // Button for copying layout directories and files
 var g_copy_dir_files_button = null;
@@ -785,6 +794,32 @@ function onInputMainDirectoryName()
 
 } // onInputMainDirectoryName
 
+// User clicked the help button
+function onClickHelpButton()
+{
+    var help_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0015.pdf';
+
+    window.open(help_url,'_blank').focus();
+
+} // onClickHelpButton
+
+// User clicked the IT info button
+function onClickItInfoButton()
+{
+    var it_info_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0171.pdf';
+
+    window.open(it_info_url,'_blank').focus();
+
+} // onClickItInfoButton
+
+function onClickTutorialButton()
+{
+    var tutorial_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0197.pdf';
+
+    window.open(tutorial_url,'_blank').focus();
+
+} // onClickTutorialButton
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -859,7 +894,70 @@ function createReservationNewLayoutControls()
 
     createUploadXmlControl();
 
+    createHelpButton();
+
+    createItInfoButton();
+
+    createTutorialButton();
+
 } // createReservationNewSeasonControls
+
+// Creates the help button 
+function createHelpButton()
+{
+    g_help_button = new JazzButton('id_help_button', 'id_div_help_button');
+
+    g_help_button.setOnclickFunctionName("onClickHelpButton");
+
+    g_help_button.setCaption('Hilfe');
+
+    g_help_button.setLabelText("");
+
+    g_help_button.setWidth("60px");
+
+    g_help_button.setClass("cl_help_button");
+
+    g_help_button.setTitle('Tischplan des Konzertsaals generieren - Hilfe');
+
+} // createHelpButton
+
+// Creates the IT info button 
+function createItInfoButton()
+{
+    g_it_info_button = new JazzButton('id_it_info_button', 'id_div_it_info_button');
+
+    g_it_info_button.setOnclickFunctionName("onClickItInfoButton");
+
+    g_it_info_button.setCaption('IT Info');
+
+    g_it_info_button.setLabelText("");
+
+    g_it_info_button.setWidth("60px");
+
+    g_it_info_button.setClass("cl_help_button");
+
+    g_it_info_button.setTitle('IT Informationen für die Erstellung eines neuen Layouts');
+
+} // createItInfoButton
+
+// Creates the tutorial button 
+function createTutorialButton()
+{
+    g_tutorial_button = new JazzButton('id_tutorial_button', 'id_div_tutorial_button');
+
+    g_tutorial_button.setOnclickFunctionName("onClickTutorialButton");
+
+    g_tutorial_button.setCaption('Tutorial');
+
+    g_tutorial_button.setLabelText("");
+
+    g_tutorial_button.setWidth("60px");
+
+    g_tutorial_button.setClass("cl_help_button");
+
+    g_tutorial_button.setTitle('Tutorial für die Erstellung eines neuen Layouts');
+
+} // createTutorialButton
 
 // Create the text box for the test or relase directory TODO Remove
 function createTextBoxMainDirectory()
