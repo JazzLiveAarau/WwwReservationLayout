@@ -1,5 +1,5 @@
 // File: ReservationCards.js
-// Date: 2026-03-04
+// Date: 2026-03-23
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -241,6 +241,8 @@ class NameCards
             this.m_names_array[index_name] = seat_data.m_name;
 
             this.m_event_name_array[index_name] = seat_data.m_event_name;
+
+            // this.m_event_name_array[index_name] = 'Jubiläumsessen';
 
             this.m_seat_char_array[index_name] = seat_data.m_seat_character_or_number;
 
@@ -1168,7 +1170,7 @@ function setReservationCardsControls(i_card_case)
 
     if (i_card_case == 'name_cards')
     {
-        if (ReservationEventXml.execApplicationOnServer())
+        if (!ReservationEventXml.execApplicationOnServer())
         {
             g_xml_data_dir = '/XmlTestData/SaisonXML_Names/';
         }
@@ -1180,7 +1182,7 @@ function setReservationCardsControls(i_card_case)
     } // name_cards
     else if (i_card_case == 'ticket_cards')
     {
-        if (ReservationEventXml.execApplicationOnServer())
+        if (!ReservationEventXml.execApplicationOnServer())
         {
             g_xml_data_dir = '/XmlTestData/SaisonXML_Tickets/';
         }
