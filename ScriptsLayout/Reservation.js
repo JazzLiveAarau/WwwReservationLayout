@@ -1,5 +1,5 @@
 // File: ScriptsLayout/Reservation.js
-// Date: 2025-12-19
+// Date: 2026-04-15
 // Author: Gunnar Lidén
 
 
@@ -189,7 +189,14 @@ function MainAddReservationAfterLoadEventProgramXml()
         addSearchInputFieldAndClearButton();
     }
     else if ("true" == g_for_web_page_search)
-    {		  
+    {	
+        setSeasonConcertArrays();
+
+        console.log("MainAddReservationAfterLoadEventProgramXml Case search: g_current_event_number= " 
+            + g_current_event_number + " Length array g_season_concerts_date_band_array= " + 
+            g_season_concerts_date_band_array.length);
+
+        /*QQQQQ
         g_current_event_number = g_season_program_xml.getEventNumberForNextEvent();
 
         if (g_current_event_number <= 0)
@@ -198,13 +205,21 @@ function MainAddReservationAfterLoadEventProgramXml()
 
             g_current_event_number = 1;
         }
+            QQQQQ*/
 
         setMaxNumberSeatReservations();
 
         addSearchInputFieldAndClearButton();
+
+        console.log("MainAddReservationAfterLoadEventProgramXml Case search: Exit");
+
+        MainSearchReservationAfterInit();
+
+        return;
+
     }
 	
-	removeElement(g_id_button_event_list); // New QQQQQQQ	
+	// 20260415 removeElement(g_id_button_event_list); // New QQQQQQQ	
 
     console.log("MainAddReservationAfterLoadEventProgramXml 3. g_current_event_number= " + g_current_event_number);
 
@@ -505,16 +520,26 @@ function mainSearchReservation(i_add_to_xml_file_name)
     g_for_web_page_search = "true";
 	
     g_add_to_xml_file_name_for_drop_down = i_add_to_xml_file_name;	
+
+    console.log("mainSearchReservation Call MainAddReservation for initialization");
     
     MainAddReservation(i_add_to_xml_file_name);
-	 
+	
+} // mainSearchReservation
+
+function MainSearchReservationAfterInit()
+{
+    console.log("MainSearchReservationAfterInit Enter");
+
     removeElementsForSearchPage();
 
     replaceImagePrintReservationsToDisplayNames();
 
+    setConcertTitleText();
+
     g_modal_popup_window = new ReservationModalPopup();
-	
-} // mainSearchReservation
+
+} // MainSearchReservationAfterInit
 
 // Remove buttons that not are used for the search web page
 function removeElementsForSearchPage()
@@ -532,6 +557,8 @@ function removeElementsForSearchPage()
     removeElement("id_image_save_reservation_text");
 	
     // Not yet created removeElement("id_dropdown_concerts");	
+
+    console.log("removeElementsForSearchPage All elements for search page are removed");
 	
 } // removeElementsForSearchPage
 
@@ -544,6 +571,8 @@ function replaceImagePrintReservationsToDisplayNames()
     var el_image = document.getElementById(id_image);
 
     el_image.setAttribute('href', 'ImagesApp/text_reservation_display.png');
+
+    console.log("replaceImagePrintReservationsToDisplayNames Image for print reservation is replaced to display names");
 
 } // replaceImagePrintReservationsToDisplayNames
 
@@ -985,7 +1014,6 @@ function reloadXmlReservationAndSearch(i_input_element, i_search_str, i_output_e
 ///////////////////////// End Load Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Init Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1137,6 +1165,83 @@ function setMaxNumberSeatReservations()
     console.log("setMaxNumberSeatReservations g_maximum_number_reservations= " + g_maximum_number_reservations.toString());
 
 } // setMaxNumberSeatReservations
+
+// Set the concert title text
+function setConcertTitleText()
+{
+    var concert_text = getConcertTitleText();
+
+	var element_text = document.getElementById(g_id_reservation_show_concert_date_band);
+	if (null == element_text)
+	{
+		alert("setConcertTitleText Element text is null");
+		return;
+	}
+	
+	element_text.textContent = concert_text;
+
+    console.log("setConcertTitleText concert_text= " + concert_text);
+
+} // setConcertTitleText
+
+// Get the concert title text
+// For the dropdown concert selection the array g_season_concerts_date_band_array is used.
+// The event names and dates of the array are retrieved from the season program XML file 
+// The global variable g_curent_event_number holds the event number selected by the user
+// Date and event name are returned for index g_curent_event_number-1 
+// Please note that the same data also is available in the reservation XML files
+function getConcertTitleText()
+{ 
+    var date_band = g_season_concerts_date_band_array[g_current_event_number-1];
+
+    return date_band;
+	
+} // getConcertTitleText
+
+// Set text for the email send button
+function setTextForEmailSendButton(i_number_selected)
+{
+    setImageAndTitleForReserveButton(i_number_selected);
+
+} // setTextForEmailSendButton
+
+// Set text image and titke (tool tip) for the reservation button
+// Input i_number_selected is the number of selected seats
+function setImageAndTitleForReserveButton(i_number_selected)
+{
+    // Return if email button not is defined.
+	if (g_user_is_concert_visitor == "false")
+		return;
+
+	var element_text_image = document.getElementById("text_image_send_email");
+
+	if (null == element_text_image)
+	{
+		alert("showAndSetTitleForReserveButton Element text is null");
+
+		return;
+
+
+	}
+    var text_image_select_seats = 'ImagesApp/text_select_seats.png';
+
+    var text_image_reserve_seats = 'ImagesApp/text_reserve_seats.png';
+
+    if (i_number_selected == 0)
+    {
+        // console.log("showAndSetTitleForReserveButton i_number_selected = 0");
+
+		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_select_seats);
+		element_text_image.innerHTML =  '<title>' + g_title_text_image_select_seats + '</title>';
+    }
+    else
+    {
+        // console.log("showAndSetTitleForReserveButton i_number_selected= " + i_number_selected.toString());
+		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_seats);
+        element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
+    }
+
+} // setImageAndTitleForReserveButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Init Functions //////////////////////////////////////////////
@@ -1293,96 +1398,9 @@ function addDivForSeatsSearch()
 	
 } // addDivForSeatsSearch
 
-// Get the concert title text
-function setConcertTitleText()
-{
-    var concert_text = getConcertTitleText();
-
-	var element_text = document.getElementById(g_id_reservation_show_concert_date_band);
-	if (null == element_text)
-	{
-		alert("setConcertTitleText Element text is null");
-		return;
-	}
-	
-	element_text.textContent = concert_text;
-
-    // console.log("setConcertTitleText concert_text= " + concert_text);
-
-} // setConcertTitleText
-
-// Get concert text
-function getConcertTitleText()
-{
-    var concert_day = g_reservations_xml.getElementsByTagName(g_tag_day)[0].childNodes[0].nodeValue; 
-	var concert_month = g_reservations_xml.getElementsByTagName(g_tag_month)[0].childNodes[0].nodeValue; 
-	var concert_year = g_reservations_xml.getElementsByTagName(g_tag_year)[0].childNodes[0].nodeValue; 
-	var concert_band_name = g_reservations_xml.getElementsByTagName(g_tag_band_name)[0].childNodes[0].nodeValue; 
-
-    concert_band_name = replaceInvalidEmailCharacters(concert_band_name);
-
-    var concert_text = concert_day + "/" + concert_month + " " + concert_year + " " + concert_band_name;	
-
-    console.log("getConcertTitleText concert_text= " + concert_text);
-	
-	return concert_text;
-	
-} // getConcertTitleText
-
 QQQQQQQQQQQQQQQQQQ */
 
-// Set text for the email send button
-function setTextForEmailSendButton(i_number_selected)
-{
-    setImageAndTitleForReserveButton(i_number_selected);
 
-
-    /*
-	
-   var text_image_reserve_select_undef = g_layout_xml.getElementsByTagName(g_tag_text_image_reserve_select_undef)[0].childNodes[0].nodeValue;
-   var text_image_select_seats = g_layout_xml.getElementsByTagName(g_tag_text_image_select_seats)[0].childNodes[0].nodeValue;
-   var text_image_reserve_seats = g_layout_xml.getElementsByTagName(g_tag_text_image_reserve_seats)[0].childNodes[0].nodeValue;
-     */
-
-} // setTextForEmailSendButton
-
-// Set text image and titke (tool tip) for the reservation button
-// Input i_number_selected is the number of selected seats
-function setImageAndTitleForReserveButton(i_number_selected)
-{
-    // Return if email button not is defined.
-	if (g_user_is_concert_visitor == "false")
-		return;
-
-	var element_text_image = document.getElementById("text_image_send_email");
-
-	if (null == element_text_image)
-	{
-		alert("showAndSetTitleForReserveButton Element text is null");
-
-		return;
-
-
-	}
-    var text_image_select_seats = 'ImagesApp/text_select_seats.png';
-
-    var text_image_reserve_seats = 'ImagesApp/text_reserve_seats.png';
-
-    if (i_number_selected == 0)
-    {
-        // console.log("showAndSetTitleForReserveButton i_number_selected = 0");
-
-		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_select_seats);
-		element_text_image.innerHTML =  '<title>' + g_title_text_image_select_seats + '</title>';
-    }
-    else
-    {
-        // console.log("showAndSetTitleForReserveButton i_number_selected= " + i_number_selected.toString());
-		element_text_image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', text_image_reserve_seats);
-        element_text_image.innerHTML =  '<title>' + g_title_text_image_reserve_seats+ '</title>';
-    }
-
-} // setImageAndTitleForReserveButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Layout Functions ////////////////////////////////////////////

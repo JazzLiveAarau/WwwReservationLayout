@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationStrings.js
-// Date: 2025-12-01
+// Date: 2026-04-15
 // Author: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -453,7 +453,7 @@ var g_id_reservation_select_concert = "id_reservation_select_concert";
 
 var g_id_reservation_search_seats = "id_reservation_search_seats";
 
-var g_id_button_event_list = "buttonEventList";
+// 20260415 QQQQ var g_id_button_event_list = "buttonEventList";
 
 // "id_reservation_select_or_search"
 
