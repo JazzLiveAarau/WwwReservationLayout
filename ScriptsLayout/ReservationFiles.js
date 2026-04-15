@@ -1,5 +1,5 @@
 // File: ScriptsLayout/ReservationFiles.js
-// Date: 2025-12-01
+// Date: 2026-04-15
 // Author: Gunnar Lidén
 
 // Functions for the generation of files and lists
@@ -1032,6 +1032,8 @@ function getJazzLiveAarauLogoString()
     return ret_jazz_live_aarau_str;
 	
 } // getJazzLiveAarauLogoString
+
+var g_list_new_line = "<br>"; // 20260415
 
 // Get header string
 function getAllReservationsHeader(i_number_reservations, i_total_number_reserved_seats, i_total_number_seats)
