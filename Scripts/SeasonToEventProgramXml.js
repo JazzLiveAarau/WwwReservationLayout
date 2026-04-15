@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2026-02-01
+// Date: 2026-04-15
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -308,7 +308,7 @@ class SeasonToEventProgramXml
     // (Text is not in any XML file. Not on the homepage! Only in the printed season program)
     static prices()
     {
-        return 'Erwachsene Fr. 25.- '   + 'Supporter Fr. 15.-';
+        return 'Erwachsene Fr. 30.- '   + 'Supporter Fr. 20.-';
         
     } // prices
 

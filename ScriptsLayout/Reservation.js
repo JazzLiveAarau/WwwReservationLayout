@@ -196,17 +196,6 @@ function MainAddReservationAfterLoadEventProgramXml()
             + g_current_event_number + " Length array g_season_concerts_date_band_array= " + 
             g_season_concerts_date_band_array.length);
 
-        /*QQQQQ
-        g_current_event_number = g_season_program_xml.getEventNumberForNextEvent();
-
-        if (g_current_event_number <= 0)
-        {
-            alert("MainAddReservationAfterLoadEventProgramXml Case Search. g_current_event_number <=0");
-
-            g_current_event_number = 1;
-        }
-            QQQQQ*/
-
         setMaxNumberSeatReservations();
 
         addSearchInputFieldAndClearButton();
@@ -245,11 +234,11 @@ function MainMakeReservation()
 { 
     console.log("MainMakeReservation Enter");
 
-    g_make_reservation_data = new MakeReservationData(g_url_file_concert_reservation_xml_directory, g_url_xml_file_event_program);
+    //TODO g_make_reservation_data = new MakeReservationData(g_url_file_concert_reservation_xml_directory, g_url_xml_file_event_program);
 
-    MakeReservation.init();
+    // TODO MakeReservation.init();
 
-    /* QQQQQQQQQ 
+    
     var add_to_xml_file_name = window.passed_data_add_to_xml_file_name;
     var reservation_name = window.passed_data_reservation_name;
     var reservation_email = window.passed_data_reservation_email;
@@ -293,8 +282,6 @@ function MainMakeReservation()
     g_season_program_xml = new EventProgramXml(g_xml_event_program_subdirectory, 
         g_url_xml_file_event_program, MainMakeReservationAfterLoadEventProgramXml);
 
-    QQQ*/
-
 } // MainMakeReservation
 
 // Callback function after loading the event progran file
@@ -304,7 +291,7 @@ function MainMakeReservation()
 //    (e.g. Reservation_Salmen_09.xml in folder SaisonXML) and load this file, i.e.
 //    set global parameter g_season_program_xml. Call of constructNameLoadReservationXMLDoc. 
 //    The reservation file name is stored in g_url_file_concert_reservation_xml_name 
-/*QQQQQQQ
+
 function MainMakeReservationAfterLoadEventProgramXml()
 {
     g_current_event_number = g_requested_concert_number_make_reservaion;
@@ -314,10 +301,14 @@ function MainMakeReservationAfterLoadEventProgramXml()
 
     setMaxNumberSeatReservations();
 
+    setSeasonConcertArrays();
+
+    setConcertTitleText();
+
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
 
 } // MainMakeReservationAfterLoadEventProgramXml
- QQQQQQQ*/
+ 
 
 // Set concerts dropdown 
 // Note that the function is used for two web pages: StartReservation.htm and AddReservation.htm
