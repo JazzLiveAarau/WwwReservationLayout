@@ -1,0 +1,198 @@
+/* 
+File: EventProgram.css Date: 2026-04-16
+
+Author: Gunnar Liden
+
+General information
+====================
+
+Defines all style classes for the application event program
+
+*/
+
+/* The whole page  */
+.cl_div_event_program_page
+{
+    border: solid 2px blue;
+    font-family: 'Arial';
+    font-size: 15px;
+    font-weight: bold;
+    width: 660px;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden; 
+    min-height: 400px;
+}
+
+
+/* Text logo <div> element */
+.cl_div_event_program_text_logo
+{
+    border: solid 2px white;
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;   
+    width: 100%;
+}
+.cl_event_program_title
+{
+    border: solid 1px yellow;
+    width: 80%;
+
+    float: left;
+}
+
+.cl_div_event_program_help_buttons
+{
+    border: solid 1px yellow;
+    width: 10%;
+    overflow: hidden;   
+    float: right;
+}
+
+
+.cl_div_event_program_help_button
+{
+    border: solid 2px red;
+    background-color: black;
+    color: white;
+    font-size: 5px;
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 30%;
+    margin-top: 2px;
+    clear: both;
+}
+
+.cl_help_button
+{
+    border: solid 1px white; 
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px;
+    margin-left: 28px;
+    cursor: pointer;
+    height: auto;
+    float: right;
+}
+
+
+/* For all <label> elements */
+label
+{
+    margin-left: 10px;
+}
+
+.cl_event_step_title
+{
+    width: 100%;
+    padding: 5px;
+    clear: both;   
+}
+
+/* Storage container <div> element */
+.cl_div_event_program_storage_dir
+{
+    border-bottom: dashed 3px blue;
+    width: 100%;
+    min-height: 30px;
+    overflow: hidden;  
+    clear: both;
+}
+
+/* Main develop/release <div> element */
+.cl_div_event_program_main_dir
+{
+    border: solid 1px blue;
+    width: 45%;
+    float: left;
+}
+
+/* Main develop/release <div> element */
+.cl_div_event_program_result_dir
+{
+    border: solid 1px blue;
+    width: 45%;
+    float: right;
+}
+
+.cl_div_event_program_upload_xml_container
+{
+    border-bottom: dashed 3px blue;
+    width: 100%;
+    overflow: hidden;  
+    min-height: 60px;
+    clear: both;   
+}
+
+.cl_div_event_program_upload_xml_textbox
+{
+    border: solid 1px red;
+    margin-left: 1%;
+    width: 55%;
+    float: left;
+}
+
+.cl_div_event_program_upload_xml_button
+{
+    border: solid 1px red;
+    margin-left: 3%;
+    width: 15%;
+    float: left;  
+}
+
+.cl_div_event_program_download_xml_button
+{
+    border: solid 1px red;
+    margin-right: 3%;
+    width: 15%;
+    float: right;  
+}
+
+.cl_div_event_program_select_container
+{
+    border: solid 1px yellow;
+    width: 100%;
+    overflow: hidden;  
+    min-height: 60px;
+    clear: both;       
+}
+
+.cl_div_event_program_select_dropdown
+{
+    border: solid 1px green;
+    margin-left: 2%;
+    width: 90%; 
+    clear: both;  
+}
+
+.cl_div_event_program_select_buttons
+{
+    border: solid 1px yellow;
+    width: 95%;
+    margin-left: 2%;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_program_select_button
+{
+    border: solid 2px red;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 20%;
+    margin-top: 2px;
+    margin-right: 10%;
+    min-height: 15px;
+    float: right;
+}
