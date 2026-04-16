@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2026-03-20
+// Date: 2026-04-16
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -55,6 +55,9 @@ var g_progress_messages_text_box = null;
 
 // Button for the creation of the layout files
 var g_create_layout_files_button = null;
+
+// Button for the creation of the new season files
+var g_create_new_season_files_button = null;
 
 // Button upload layout XML file
 var g_upload_xml_button = null;
@@ -656,8 +659,18 @@ function onClickCreateLayoutFilesButton()
 
     execCreateLayoutHtmlFiles();
     
-
 }// onClickCreateLayoutFilesButton
+
+// User clicked the create new season files button
+function onClickCreateNewSeasonFilesButton()
+{
+    debugReservationNewLayout("onClickCreateNewSeasonFilesButton User klicked the button create the new season files");
+
+    var rel_new_season_files_url = 'ReservationNewSeason.htm';
+
+    window.open(rel_new_season_files_url,'_blank').focus();
+
+} // onClickCreateNewSeasonFilesButton
 
 // User clicked the copying layout directories and files
 function onClickCopyDirFilesButton()
@@ -880,6 +893,8 @@ function createReservationNewLayoutControls()
 
     createLayoutFileslButton();
 
+    createNewSeasonFilesButton();
+
     showLayoutButton();
 
     createReservationAdminButton();
@@ -1071,6 +1086,23 @@ function createLayoutFileslButton()
 
 } // createLayoutFileslButton
 
+// Creates the button that starts theb creation of the layout files
+function createNewSeasonFilesButton()
+{
+    g_create_new_season_files_button = new JazzButton('id_create_new_season_files_button', 'id_div_create_new_season_files_button');
+
+    g_create_new_season_files_button.setOnclickFunctionName("onClickCreateNewSeasonFilesButton");
+
+    g_create_new_season_files_button.setCaption('5. Event XML files generieren');
+
+    g_create_new_season_files_button.setLabelText("");
+
+    g_create_new_season_files_button.setWidth("250px");
+
+    g_create_new_season_files_button.setTitle('Schritt 5: Event Programm und Reservation XML files generieren');
+
+} // createNewSeasonFilesButton
+
 
 // Creates the button opening application 'Reservation Show Layout'
 function showLayoutButton()
@@ -1081,7 +1113,7 @@ function showLayoutButton()
 
     g_show_layout_button.setCaption('Layout');
 
-    g_show_layout_button.setLabelText("5. Test");
+    g_show_layout_button.setLabelText("6. Test");
 
     g_show_layout_button.setLabelTextPositionAbove();
 

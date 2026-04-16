@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2026-03-20
+File: ReservationNewLayout.css Date: 2026-04-16
 
 Author: Gunnar Liden
 
@@ -188,7 +188,26 @@ label
     clear: both;   
 }
 
+.cl_div_create_new_season_files_row
+{
+    border-bottom: dashed 3px blue;
+    padding-bottom: 5px;
+    padding-left: 5%;
+    margin-top: 5px;
+    min-height: 20px;
+    overflow: hidden;  
+    clear: both;   
+}
+
 .cl_div_create_layout_files_button
+{
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 90%;
+    float: left;
+}
+
+.cl_div_create_new_season_files_button
 {
     margin-left: 3%;
     margin-right: 3%;
