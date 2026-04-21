@@ -25,6 +25,9 @@ var g_event_program_xml_server_dir = null;
 // The name of the event program XML file name
 var g_event_program_xml_filename = 'EventProgram.xml';
 
+// Flag if the event program XML file exists on the server
+var g_event_program_xml_file_exists = false;
+
 // Help button
 var g_help_event_program_button = null;
 
@@ -153,7 +156,7 @@ function initEventProgram()
 {
     debugEventProgram('initEventProgram Enter');
 
-    //displayMainPage();
+    displayMainPage();
 
     NewSeasonStorage.initLocal();
 
@@ -165,7 +168,42 @@ function initEventProgram()
 
     setGlobalProgramXmlVariablesFromControls();
 
+    determinIfEventProgramXmlFileExistsOnServer();
+    
 } // initEventProgram
+
+// Checks if the event program XML file exists on the server 
+function determinIfEventProgramXmlFileExistsOnServer()
+{
+    var url_xml = getAbsUrlToProgramXmlFile();
+
+    g_event_program_xml_file_exists = false;
+
+    hideEventProgramSection();
+
+    //TODO UtilServer.checkIfFileExistsOnServer(url_xml, callbackFileExists, callbackFileNotExists);
+
+} // determinIfEventProgramXmlFileExistsOnServer
+
+
+// Callback function if the file exists on the server
+function callbackFileExists()
+{
+    g_event_program_xml_file_exists = true;
+
+    displayEventProgramSection();
+
+} // callbackFileExists
+
+// Callback function if the file does not exist on the server
+function callbackFileNotExists()
+{
+    g_event_program_xml_file_exists = false;
+
+    hideEventProgramSection();
+
+} // callbackFileNotExists
+
 
 // Set the controls with data from local storage
 function setEventProgramControls(i_new_season_data)
@@ -346,12 +384,16 @@ function onClickTextDescriptionButton()
 {
     debugEventProgram('onClickTextDescriptionButton Enter');
 
+    displayTextPage();
+
 } // onClickTextDescriptionButton
 
 // User clicked the text prices button
 function onClickTextPricesButton()
 {
-    debugEventProgram('onClickTextPricesButton Enter');     
+    debugEventProgram('onClickTextPricesButton Enter');   
+    
+    displayTextPage();
 
 } // onClickTextPricesButton
 
@@ -360,12 +402,16 @@ function onClickTextPaymentButton()
 {
     debugEventProgram('onClickTextPaymentButton Enter');
 
+    displayTextPage();
+
 } // onClickTextPaymentButton
 
 // User clicked the text instructions button
 function onClickTextInstructionsButton()
 {
     debugEventProgram('onClickTextInstructionsButton Enter');
+
+    displayTextPage();
 
 } // onClickTextInstructionsButton
 
@@ -374,12 +420,18 @@ function onClickSaveRecordButton()
 {
     debugEventProgram('onClickSaveRecordButton Enter');
 
+    // TODO Save the record
+
+    displayMainPage();
+
 } // onClickSaveRecordButton
 
 // User clicked the cancel edit record button
 function onClickCancelEditRecordButton()
 {
     debugEventProgram('onClickCancelEditRecordButton Enter');
+
+    displayMainPage();
 
 } // onClickCancelEditRecordButton
 
@@ -393,12 +445,18 @@ function onClickExitTextEditButton()
 {
     debugEventProgram('onClickExitTextEditButton Enter');
 
+    // TODO Save the text
+
+    displayEditPage();
+
 } // onClickExitTextEditButton
 
 // User clicked the cancel text edit button
 function onClickCancelTextEditButton()
 {
     debugEventProgram('onClickCancelTextEditButton Enter');
+
+    displayEditPage();
 
 } // onClickCancelTextEditButton
 
@@ -1188,6 +1246,52 @@ function getIdTextPage()
     return 'id_text_page';
 
 } // getIdTextPage
+
+// Display the event program section in the edit page
+function displayEventProgramSection()
+{
+    getElementDivEventStepTitleEventProgram().style.display = 'block';
+
+    getElementDivEventProgramSection().style.display = 'block';
+
+} // displayEventProgramSection
+
+// Hide the event program section in the edit page
+function hideEventProgramSection()
+{
+    getElementDivEventStepTitleEventProgram().style.display = 'none';
+
+    getElementDivEventProgramSection().style.display = 'none';
+
+} // hideEventProgramSection
+
+// Returns the div element with the title of the event program section in the edit page
+function getElementDivEventStepTitleEventProgram()
+{
+    return document.getElementById(getIdEventStepTitleEventProgram());
+
+} // getElementDivEventStepTitleEventProgram
+
+// Returns the id of the event program section title div element
+function getIdEventStepTitleEventProgram()
+{
+    return 'id_event_step_title_event_program';
+
+} // getIdEventStepTitleEventProgram
+
+// Returns the div element event program section
+function getElementDivEventProgramSection()
+{
+    return document.getElementById(getIdEventProgramSection());    
+
+} // getElementDivEventProgramSection
+
+// Returns the id of the event program section div element
+function getIdEventProgramSection()
+{
+    return 'id_div_event_program_select_container';
+
+} // getIdEventProgramSection
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Display Functions ///////////////////////////////////////////
