@@ -172,7 +172,7 @@ label
 
 .cl_div_event_program_upload_xml_container
 {
-    border-bottom: dashed 3px blue;
+    
     width: 100%;
     overflow: hidden;  
     min-height: 60px;
@@ -203,6 +203,25 @@ label
     margin-top: 3px;
     width: 15%;
     float: right;  
+}
+
+.cl_div_popup_container
+{
+    border-bottom: dashed 3px blue;
+    height: 40px;
+    clear: both;
+}
+
+.cl_div_upload_xml_row
+{
+    /* border: solid 1px green; */
+    border: solid 2px rgb(143, 50, 110);
+    background-color: rgb(255, 174, 0);
+    margin-top: 0px;
+    margin-left: 0%;
+    width: 99%;
+    padding: 4px;  
+    clear: both;   
 }
 
 .cl_div_event_program_select_container

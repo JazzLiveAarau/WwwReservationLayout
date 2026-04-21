@@ -21,6 +21,9 @@
     <!--  Main function for the application -->
     <script type="text/javascript" src="Scripts/EventProgram.js"></script>
 
+    <!--  Class for the upload file control  -->
+    <script type="text/javascript" src="Scripts/ControlUploadFile.js"></script>
+
     <!--  Class creating an EventProgramXml XML file from a season XML file  -->
     <script type="text/javascript" src="Scripts/SeasonToEventProgramXml.js"></script>
 
@@ -50,6 +53,10 @@
 
      <!--  jQuery UI library (for date picker)-->
      <script src="jQuery/jquery-ui.js"></script>
+
+    <!--  jQuery plugin Upload Form with Ajax (for upload of XML files)-->
+    <script src="jQuery/jquery.form.js"></script> 
+
 
 
     <title>Konzertprogramm</title>
@@ -88,13 +95,16 @@
 
             <div class="cl_event_step_title" >2. Veranstaltungsprogramm importieren</div>
 
-            <div class="cl_div_event_program_upload_xml_container">
+            <div  id="id_div_event_program_upload_xml_container" class="cl_div_event_program_upload_xml_container">
                 <div id="id_div_event_program_upload_xml_textbox" class="cl_div_event_program_upload_xml_textbox" >div text</div>
                 <div id="id_div_event_program_upload_xml_button" class="cl_div_event_program_upload_xml_button" >2. upload</div>
                 <div id="id_div_event_program_download_xml_button" class="cl_div_event_program_download_xml_button" >download</div>
 
-
             </div> <!-- cl_div_event_program_upload_xml_container -->
+
+            <div id="id_div_popup_container" class="cl_div_popup_container">
+                <div id="id_div_upload_xml_row" class="cl_div_upload_xml_row" ></div>
+            </div>
 
             <div class="cl_event_step_title" >Veranstaltungsprogramm</div>
 

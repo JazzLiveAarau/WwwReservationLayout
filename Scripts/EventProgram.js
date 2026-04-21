@@ -1,5 +1,5 @@
 // File: EventProgram.js
-// Date: 2026-04-20
+// Date: 2026-04-21
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -13,6 +13,18 @@
 
 ///////////////////////////////// Start Main Page /////////////////////////////////////////
 
+// The main server directory for the event program XML file. This is set by the user in the text box for the main directory
+var g_event_program_target_main_dir = null;
+
+// The server directory for the event program XML file. This is set by the user in the text box for the result directory
+var g_event_program_target_result_dir = null;
+
+// The server directory for the event program XML file. This is set by the user in the text box for the main directory and the text box for the result directory
+var g_event_program_xml_server_dir = null;
+
+// The name of the event program XML file name
+var g_event_program_xml_filename = 'EventProgram.xml';
+
 // Help button
 var g_help_event_program_button = null;
 
@@ -25,8 +37,8 @@ var g_event_program_main_dir_text_box = null;
 // Result directory where the generated HTML files and other files shall be stored
 var g_event_program_result_dir_text_box = null;
 
-// The name of the event program XML file name
-var g_event_program_xml_filename = 'EventProgram.xml';
+// Control for uploading of an XML program file
+var g_program_xml_upload = null;
 
 // Textbox for the event program XML file name
 var g_xml_event_program_filename_text_box = null;
@@ -151,7 +163,7 @@ function initEventProgram()
 
     setEventProgramControls(new_season_data);
 
-    // g_new_season_files_data = null;
+    setGlobalProgramXmlVariablesFromControls();
 
 } // initEventProgram
 
@@ -160,7 +172,25 @@ function setEventProgramControls(i_new_season_data)
 {
     debugEventProgram('setEventProgramControls Enter');
 
+    g_event_program_main_dir_text_box.setValue(i_new_season_data.getMainDir());  
+
+    g_event_program_result_dir_text_box.setValue(i_new_season_data.getResultDir()); 
+
+    g_xml_event_program_filename_text_box.setValue(g_event_program_xml_filename);
+
 } // setEventProgramControls
+
+// Sets the program XML global variables g_program_xml_filename and g_event_program_xml_server_dir
+function setGlobalProgramXmlVariablesFromControls()
+{
+    g_event_program_target_main_dir = g_event_program_main_dir_text_box.getValue();
+   
+    g_event_program_target_result_dir =  g_event_program_result_dir_text_box.getValue();
+
+    g_event_program_xml_server_dir = g_event_program_target_main_dir + '/' + 
+                              g_event_program_target_result_dir + '/SaisonXML/';
+
+} // setGlobalProgramXmlVariablesFromControls
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -199,6 +229,8 @@ function onClickUploadEventProgramButton()
 {
    debugEventProgram('onClickUploadEventProgramButton Enter'); 
 
+    g_program_xml_upload.hideUploadDiv(false);
+
 } // onClickUploadEventProgramButton
 
 // User clicked the download event program XML button
@@ -206,7 +238,81 @@ function onClickDownloadEventProgramButton()
 {
     debugEventProgram('onClickDownloadEventProgramButton Enter'); 
 
+    var url_xml = getAbsUrlToProgramXmlFile();
+
+    window.open(url_xml,'_blank').focus();
+
+
 } // onClickDownloadEventProgramButton
+
+// Returns the abs URL to the uploaded program XML file
+function getAbsUrlToProgramXmlFile()
+{
+    return  'https://jazzliveaarau.ch/' + g_event_program_xml_server_dir + g_event_program_xml_filename;
+
+} // getAbsUrlToProgramXmlFile
+
+// Checks the selected program XML file
+function checkSelectedProgramXmlFileName()
+{
+    var selected_file_name = g_program_xml_upload.getSelectedFileName();
+
+    if (g_event_program_xml_filename == selected_file_name)
+    {
+        return true;
+    }
+    else
+    {
+        var err_msg = 'Falsche Name der gewählte Datei ' + selected_file_name + '\n' + 
+                'Ändere Name zu '+  g_event_program_xml_filename;
+
+        alert(err_msg);
+
+        return false;
+    }
+
+} // checkSelectedProgramXmlFileName
+
+// The user has selected an XML local file that shall be uploaded
+// 1. Set the selected file name and activate the upload file function.
+//    Call setSelectedFileNameActivateUploadFileFunction
+// 2. Check if the selected file is OK. Call of ControUploadFile.checkSelectedFileName
+//    Return if the file is unvalid. The check function has displayed an error message
+// 3. Set the server full file name in the XML text box. Please note however that the
+//    actual server directory name is set by UploadFileToServer.php
+//    Call of ControUploadFile.getSelectedFileServerUrl and JazztextBox.setValue
+// 4. Return with the message that upload cannot be done with VSC Live server
+//    Call of execApplicationOnServer
+// 5. Set the active record full file name. Call of getUserInputFromFormSetActiveRecordLinkDoc
+//    Return from php uses this value
+// 6. Set the caption for the button that the user shall klick to upload the selected file
+//    Call of ControUploadFile.displayButtonCaption
+function eventUserSelectedProgramXml()
+{
+	 debugEventProgram('eventUserSelectedProgramXml Enter'); 
+
+     g_program_xml_upload.setSelectedFileNameActivateUploadFileFunction();
+
+     if (!checkSelectedProgramXmlFileName())
+     {
+        g_program_xml_upload.initSelectedFileName();
+
+        return;
+
+     } // b_check
+
+    var file_server_url = g_event_program_xml_server_dir + g_program_xml_upload.getSelectedFileName();
+
+    if (!UtilServer.execApplicationOnServer())
+    {
+        alert("XML Datei kann nicht lokal (mit Visual Studio Code) aufgeladen werden");
+
+        return;
+    }
+
+    g_program_xml_upload.displayButtonCaption();
+ 
+} // eventUserSelectedProgramXml
 
 // User clicked the delete event button
 function onClickDeleteEventButton()
@@ -325,6 +431,8 @@ function createEventProgramControls()
     createTextBoxMainDirectory();
 
     createTextBoxResultDirectory();
+
+    createUploadXmlControl();
 
     createTextBoxXmlEventProgramFilename();
 
@@ -476,6 +584,23 @@ function createTextBoxXmlEventProgramFilename()
     g_xml_event_program_filename_text_box.setTitle("Zeigt der Name der Veranstaltungsprogramm Datei (XML Format). Dieser Schritt ist optional.");
 
 } // createTextBoxXmlEventProgramFilename
+
+// Create control for uploading of an XML program file
+function createUploadXmlControl()
+{
+    g_program_xml_upload = new ControUploadFile('id_upload_xml_row', 'id_div_upload_xml_row');
+
+    g_program_xml_upload.setLabelText("");
+
+    g_program_xml_upload.setOnchangeFunctionName("eventUserSelectedProgramXml");
+
+    g_program_xml_upload.setButtonCaption("Datei hochladen");
+
+    g_program_xml_upload.setExtensions(".xml");
+
+    g_program_xml_upload.hideUploadDiv(true);
+
+} // createUploadXmlControl
 
 // Creates the upload XML button 
 function createUploadEventProgramButton()
