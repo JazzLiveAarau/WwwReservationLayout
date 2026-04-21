@@ -1,5 +1,5 @@
 /* 
-File: EventProgram.css Date: 2026-04-18
+File: EventProgram.css Date: 2026-04-21
 
 Author: Gunnar Liden
 
@@ -13,13 +13,38 @@ Defines all style classes for the application event program
 /* The whole page  */
 .cl_div_event_program_page
 {
-    border: solid 2px blue;
     font-family: 'Arial';
     font-size: 15px;
     font-weight: bold;
     width: 660px;
     margin-top: 20px;
     margin-left: 20px;
+    overflow: hidden; 
+}
+
+/* The main page container <div> element */
+.cl_main_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 400px;
+}
+
+/* The edit page container <div> element */
+.cl_edit_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 400px;
+}
+
+/* The text page container <div> element */
+.cl_text_page
+{
+    border: solid 2px blue;
+    width: 99%;
     overflow: hidden; 
     min-height: 400px;
 }
@@ -50,7 +75,7 @@ Defines all style classes for the application event program
     padding-top: 3px;
     padding-bottom: 3px;
     overflow: hidden;   
-    width: 100%;
+    width: 99.5%;
 }
 .cl_event_program_title
 {
@@ -79,7 +104,7 @@ Defines all style classes for the application event program
     padding-top: 0px;
     padding-bottom: 0px;
     width: 70%;
-    margin-top: 3px;
+    margin-top: 5px;
     clear: both;
 }
 
@@ -95,6 +120,7 @@ Defines all style classes for the application event program
     margin-left: 28px;
     cursor: pointer;
     height: auto;
+    margin-top: 5px;
     float: right;
 }
 
@@ -111,6 +137,8 @@ label
     margin-top: 3px;
     clear: both;   
 }
+
+/* ///////////////////////////// Start Main Page ///////////////////////////////////////// */
 
 /* Storage container <div> element */
 .cl_div_event_program_storage_dir
@@ -179,7 +207,7 @@ label
 
 .cl_div_event_program_select_container
 {
-    border: solid 1px yellow;
+    /* border: solid 1px yellow; */
     width: 100%;
     overflow: hidden;  
     min-height: 60px;
@@ -217,3 +245,268 @@ label
     float: right;
 }
 
+/* ///////////////////////////// End Main Page /////////////////////////////////////////// */
+
+/* ///////////////////////////// Start Edit Page ///////////////////////////////////////// */
+
+.cl_div_event_name
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_date_time
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_date
+{
+    /* border: solid 1px green; */
+    width: 35%;
+    float: left;
+}
+
+.cl_div_event_start_time
+{
+    /* border: solid 1px green; */
+    width: 25%;
+    margin-left: 10px;
+    float: left;
+}
+
+.cl_div_event_end_time
+{
+    /* border: solid 1px green; */
+    width: 25%;
+    margin-left: 10px;
+    float: left;
+}
+
+.cl_div_event_place_address
+{
+    /* border: solid 1px green; */
+    width: 98%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+.cl_div_event_place
+{
+    /* border: solid 1px green; */
+    width: 36%;
+    float: left;
+}
+.cl_div_event_address
+{
+    /* border: solid 1px green; */
+    width: 60%;
+    margin-left: 10px;
+    float: left;
+}
+
+.cl_div_event_organisation
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_text_buttons
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_text_description_button
+{
+    /* border: solid 1px yellow; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+}
+
+.cl_div_text_prices_button
+{
+    /* border: solid 1px yellow; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+}
+
+.cl_div_text_prices_button
+{
+    /* border: solid 1px yellow; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+}
+
+.cl_div_text_pay_button
+{
+    /* border: solid 1px yellow; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;    
+}
+
+.cl_div_text_instructions_button
+{
+    /* border: solid 1px yellow; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+   float: left;                                                                                       
+}
+
+.cl_div_event_email_fields_button
+{
+    border: solid 1px green;
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_email_title
+{
+    border: solid 1px green;
+    width: 18%;
+    float: left;
+}
+
+.cl_div_email_sender
+{
+    border: solid 1px green;
+    width: 18%;
+    float: left;
+}
+
+.cl_div_email_content_title
+{
+    border: solid 1px green;
+    width: 48%;
+    float: left;
+}
+
+.cl_div_email_content_button
+{
+    border: solid 1px green;
+    width: 18%;
+    float: left;
+}
+
+.cl_div_event_cancel
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_cancel_save_edit_buttons
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_save_record_button
+{
+    /* border: solid 1px green; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: right;    
+}
+
+.cl_div_cancel_edit_record_button
+{
+    /* border: solid 1px green; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: right;    
+}
+
+/* ///////////////////////////// End Edit Page //////////////////////////////////////////// */
+
+/* ///////////////////////////// Start Text Page ///////////////////////////////////////// */
+
+.cl_div_event_text_title
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_text_field
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    min-height: 200px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_event_cancel_exit_save_buttons
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
+.cl_div_exit_text_edit_button
+{
+    /* border: solid 1px green; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: right;    
+}
+
+.cl_div_cancel_text_edit_button
+{
+    /* border: solid 1px green; */
+    width: 128px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: right;    
+}
+
+/* ///////////////////////////// End Text Page /////////////////////////////////////////// */

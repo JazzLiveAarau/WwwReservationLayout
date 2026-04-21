@@ -12,6 +12,9 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />	
 
+   <!--  Styles for the date picker -->
+    <link href= 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'> 
+
     <!-- Styles for the application  -->
     <link rel="stylesheet" href="Styles/EventProgram.css">
 
@@ -45,7 +48,11 @@
     <!--  jQuery library -->
     <script src="jQuery/jquery-3.6.0.js"></script>
 
-    <title>Event Program</title>
+     <!--  jQuery UI library (for date picker)-->
+     <script src="jQuery/jquery-ui.js"></script>
+
+
+    <title>Konzertprogramm</title>
 
 </head>
 
@@ -53,9 +60,13 @@
 
     <div id= 'id_div_event_program_page' class= 'cl_div_event_program_page'>
 
+
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+        
         <div id= 'id_div_event_program_text_logo' class= 'cl_div_event_program_text_logo'>
 
-            <div class="cl_event_program_title">JAZZ <i>live</i> AARAU <br>Event Programm</div> 
+            <div class="cl_event_program_title">JAZZ <i>live</i> AARAU <br>Reservation <br></b>Veranstaltungsprogramm</div> 
             <div class="cl_div_event_program_help_buttons"> 
                 <div id="id_div_help_button" class="cl_div_event_program_help_button">Hilfe</div>
                 <div id="id_div_it_info_button" class="cl_div_event_program_help_button">IT Info</div>
@@ -63,43 +74,124 @@
 
         </div> <!-- id_div_event_program_text_logo -->
 
-        <div class="cl_event_step_title" >1. Server Ordner</div>
 
-        <div class="cl_div_event_program_storage_dir">
-            <div id="id_div_event_program_main_dir" class="cl_div_event_program_main_dir" >URL main dir</div>
-            <div id="id_div_event_program_result_dir" class="cl_div_event_program_result_dir" >URL result dir</div>
-        </div> <!-- cl_div_event_program_storage_dir -->
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
 
-        <div class="cl_event_step_title" >Start XML Datei</div>
 
-        <div class="cl_div_event_program_upload_xml_container">
-            <div id="id_div_event_program_upload_xml_textbox" class="cl_div_event_program_upload_xml_textbox" >div text</div>
-            <div id="id_div_event_program_upload_xml_button" class="cl_div_event_program_upload_xml_button" >2. upload</div>
-            <div id="id_div_event_program_download_xml_button" class="cl_div_event_program_download_xml_button" >download</div>
+        <div id="id_main_page" class="cl_main_page">
+            <div class="cl_event_step_title" >1. Server Ordner</div>
 
-        </div> <!-- cl_div_event_program_upload_xml_container -->
+            <div class="cl_div_event_program_storage_dir">
+                <div id="id_div_event_program_main_dir" class="cl_div_event_program_main_dir" >URL main dir</div>
+                <div id="id_div_event_program_result_dir" class="cl_div_event_program_result_dir" >URL result dir</div>
+            </div> <!-- cl_div_event_program_storage_dir -->
 
-        <div class="cl_event_step_title" >Event Programm</div>
+            <div class="cl_event_step_title" >2. Veranstaltungsprogramm importieren</div>
 
-        <div id="id_div_event_program_select_container" class="cl_div_event_program_select_container">
-            <div id="id_div_event_program_select_dropdown" class="cl_div_event_program_select_dropdown">Events dropdown</div>
-            <div class="cl_div_event_program_select_buttons"> 
-                <div id="id_div_select_edit_button" class="cl_div_event_program_select_button">Event bearbeiten</div>
-                <div id="id_div_select_delete_button" class="cl_div_event_program_select_button">Event löschen</div>
+            <div class="cl_div_event_program_upload_xml_container">
+                <div id="id_div_event_program_upload_xml_textbox" class="cl_div_event_program_upload_xml_textbox" >div text</div>
+                <div id="id_div_event_program_upload_xml_button" class="cl_div_event_program_upload_xml_button" >2. upload</div>
+                <div id="id_div_event_program_download_xml_button" class="cl_div_event_program_download_xml_button" >download</div>
+
+
+            </div> <!-- cl_div_event_program_upload_xml_container -->
+
+            <div class="cl_event_step_title" >Veranstaltungsprogramm</div>
+
+            <div id="id_div_event_program_select_container" class="cl_div_event_program_select_container">
+                <div id="id_div_event_program_select_dropdown" class="cl_div_event_program_select_dropdown">Events dropdown</div>
+                <div class="cl_div_event_program_select_buttons"> 
+                    <div id="id_div_select_edit_button" class="cl_div_event_program_select_button">Event bearbeiten</div>
+                    <div id="id_div_select_delete_button" class="cl_div_event_program_select_button">Event löschen</div>
+                    
+                </div> <!-- cl_div_event_program_select_buttons -->
+
+            </div> <!-- cl_div_event_program_select_container -->
+
+        </div> <!-- cl_main_page -->
+
+
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+
+        <div id="id_edit_page" class="cl_edit_page">
+
+            <div class="cl_event_step_title" >4. Veranstaltungstexte bearbeiten</div>
+
+            <div id="id_div_event_name" class="cl_div_event_name" >Event name container</div>
+
+            <div id="id_div_event_date_time" class="cl_div_event_date_time" >
                 
-            </div> <!-- cl_div_event_program_select_buttons -->
+                <div id="id_div_event_date" class="cl_div_event_date" >Date container</div>
+                <div id="id_div_event_start_time" class="cl_div_event_start_time" >Start time container</div>
+                <div id="id_div_event_end_time" class="cl_div_event_end_time" >End time container</div>
+            
+            </div> <!-- cl_div_event_date_time  -->
 
-        </div> <!-- cl_div_event_program_select_container -->
+            <div id="id_div_event_place_address" class="cl_div_event_place_address" >
+                <div id="id_div_event_place" class="cl_div_event_place" >Place</div>
+                <div id="id_div_event_address" class="cl_div_event_address" >Address</div>
+                
+            
+            </div> <!-- cl_div_event_place_address -->
 
-    </div>
+            <div id="id_div_event_organisation" class="cl_div_event_organisation" >Event organisation container</div>
 
-<!--  
+            <div id="id_div_event_text_buttons" class="cl_div_event_text_buttons" >
+                
+                    <div id="id_div_text_description_button" class="cl_div_text_description_button">Beschreibung</div>
+                    <div id="id_div_text_prices_button" class="cl_div_text_prices_button">Preise</div>
+                    <div id="id_div_text_pay_button" class="cl_div_text_pay_button">Bezahlen</div>
+                    <div id="id_div_text_instructions_button" class="cl_div_text_instructions_button">Anweisungen</div>
+
+            </div> <!-- cl_div_event_text_buttons -->
+
+            <div id="id_div_event_email_fields_button" class="cl_div_event_email_fields_button" >
+                
+                <div id="id_div_email_title" class="cl_div_email_title" >E-Mail title</div>
+                <div id="id_div_email_sender" class="cl_div_email_sender" >E-Mail Absender</div>
+                <div id="id_div_email_content_title" class="cl_div_email_content_title" >Inhalt Titel</div>
+                <div id="id_div_email_content_button" class="cl_div_email_content_button" >Inhalt Button</div>
+                
+            </div> <!-- cl_div_event_email_fields_button -->
+
+            <div id="id_div_event_cancel" class="cl_div_event_cancel" >Event cancel container</div>
+
+            <div id="id_div_cancel_save_edit_buttons" class="cl_div_cancel_save_edit_buttons" >
+
+                <div id="id_div_save_record_button" class="cl_div_save_record_button">Speichern</div>
+                <div id="id_div_cancel_edit_record_button" class="cl_div_cancel_edit_record_button">Abbrechen</div>
+
+            </div>
+
+        </div> <!-- cl_edit_page -->
 
 
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
 
 
+        <div id="id_text_page" class="cl_text_page">
 
--->
+            <div class="cl_event_step_title" >5. Textfeld bearbeiten</div>
+
+            <div id="id_div_event_text_title" class="cl_div_event_text_title" >Event text title container</div>
+
+            <div id="id_div_event_text_field" class="cl_div_event_text_field" >Event text field container</div>
+
+            <div id="id_div_event_cancel_exit_save_buttons" class="cl_div_event_cancel_exit_save_buttons" >
+                
+                 <div id="id_div_exit_text_edit_button" class="cl_div_exit_text_edit_button">Übernehmen</div>
+                 <div id="id_div_cancel_text_edit_button" class="cl_div_cancel_text_edit_button">Abbrechen</div>
+            
+            </div>
+
+
+        </div> <!-- cl_text_page -->
+
+
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    </div> <!-- cl_div_event_program_page -->
    
 
 </body>
