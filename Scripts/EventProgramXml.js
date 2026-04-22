@@ -483,7 +483,7 @@ class EventProgramXml
     ///////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////
-	///////////////////////// Start Append Guest Node  ////////////////////////
+	///////////////////////// Start Append Event Node  ////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 	// https://www.webdeveloper.com/forum/d/231973-append-xml-node-in-javascript/3
@@ -608,6 +608,39 @@ class EventProgramXml
     } // appendEventNode
 
     ///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Append Event Node  //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Delete Event Node  ////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	// Deletes an event node   
+    deleteEventNode(i_record_number)
+    {
+        if (!this.checkEventProgramXml()){ return false; }
+
+        var n_records = this.getNumberOfEvents();
+        
+        if (i_record_number < 1 || i_record_number > n_records)
+        {
+            alert("EventProgramXml.deleteEventNode Record number is not between 1 and " + n_records.toString());
+            return false;		
+        }
+
+        var event_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getEvent());
+
+        var event_rec_node = event_rec_nodes[i_record_number-1];
+
+        event_rec_node.parentNode.removeChild(event_rec_node);
+
+    } // deleteEventNode
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Delete Event Node  //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// Start Record Node Value  ////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -629,7 +662,7 @@ class EventProgramXml
         
         if (i_event_number < 1 || i_event_number > n_records)
         {
-            alert("SeasonXml.getEventNodeValue Record number is not between 1 and " + n_records.toString());
+            alert("EventProgramXml.getEventNodeValue Record number is not between 1 and " + n_records.toString());
             return ret_data;		
         }
             
@@ -654,7 +687,7 @@ class EventProgramXml
         
         if (i_record_number < 1 || i_record_number > n_records)
         {
-            alert("SeasonXml.setJazzTaskNodeValue Record number is not between 1 and " + n_records.toString());
+            alert("EventProgramXml.setEventNodeValue Record number is not between 1 and " + n_records.toString());
             
             return;		
         }

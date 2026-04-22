@@ -598,14 +598,6 @@ function getEditPageControlsSaveXmlFile()
 
 } // getEditPageControlsSaveXmlFile
 
-/*
-
-    // Check box for event cancelled
-    var b_cancelled_str = g_event_program_xml_object.getCancelled(g_current_event_number);
-    g_event_cancelled_check_box.setCheck(b_cancelled_str);
-
-*/
-
 // Callback function when the event program XML file has been saved on the server
 function eventProgramFileSaved()
 {
@@ -731,11 +723,46 @@ function eventUserSelectedProgramXml()
 } // eventUserSelectedProgramXml
 
 // User clicked the delete event button
+// 1. Ask the user if he really wants to delete the event. Call of confirm
+// 2. Save the event program XML file on the server. Call of EventProgramXml.saveFile 
+//    with callback function eventProgramFileSavedAfterDelete
 function onClickDeleteEventButton()
 {
     debugEventProgram('onClickDeleteEventButton Enter');
 
+    var event_name_str = g_event_program_xml_object.getEventName(g_current_event_number);
+
+
+    var confirm_delete = confirm('Möchten Sie "'+ event_name_str +'" wirklich löschen?');
+    if (!confirm_delete)
+    {
+        return;
+    }
+
+    g_event_program_xml_object.deleteEventNode(g_current_event_number);
+
+    
+    g_event_program_xml_object.saveFile(getAbsUrlToProgramXmlFile(), eventProgramFileSavedAfterDelete);
+
+
 } // onClickDeleteEventButton
+
+// Callback function when the event program XML file has been saved on the server after delete
+function eventProgramFileSavedAfterDelete()
+{
+    debugEventProgram('eventProgramFileSavedAfterDelete Enter');
+
+    setEventProgramDropdownControl();
+
+    g_current_event_number = 1;
+
+    debugEventProgram('eventProgramFileSavedAfterDelete g_current_event_number= ' + g_current_event_number);
+
+    setEventRecordControls();
+
+    // TODO After delete
+
+} // eventProgramFileSavedAfterDelete
 
 // User clicked the edit event button
 function onClickEditEventButton()
