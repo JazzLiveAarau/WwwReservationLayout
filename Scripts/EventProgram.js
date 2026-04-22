@@ -1,5 +1,5 @@
 // File: EventProgram.js
-// Date: 2026-04-21
+// Date: 2026-04-22
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -27,6 +27,9 @@ var g_event_program_xml_filename = 'EventProgram.xml';
 
 // Flag if the event program XML file exists on the server
 var g_event_program_xml_file_exists = false;
+
+// The event program XML object
+var g_event_program_xml_object = null;
 
 // Help button
 var g_help_event_program_button = null;
@@ -175,7 +178,7 @@ function initEventProgram()
 // Checks if the event program XML file exists on the server 
 function determinIfEventProgramXmlFileExistsOnServer()
 {
-    var url_xml = getAbsUrlToProgramXmlFile();
+    debugEventProgram('determinIfEventProgramXmlFileExistsOnServer Enter');
 
     g_event_program_xml_file_exists = false;
 
@@ -183,27 +186,61 @@ function determinIfEventProgramXmlFileExistsOnServer()
 
     //TODO UtilServer.checkIfFileExistsOnServer(url_xml, callbackFileExists, callbackFileNotExists);
 
+    var util_files_data = new UtilFilesData();
+
+    var absolute_file_name = getAbsUrlToProgramXmlFile();
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_data.setDataExecCaseFileExists(absolute_file_name, relative_path_php_dir, 
+            callbackProgramXmlFileExists, callbackProgramXmlFileNotExists);
+
+    UtilFiles.dirFileAnyCase(util_files_data);
+
 } // determinIfEventProgramXmlFileExistsOnServer
 
-
 // Callback function if the file exists on the server
-function callbackFileExists()
+function callbackProgramXmlFileExists()
 {
+    debugEventProgram('callbackProgramXmlFileExists Enter');
+    
     g_event_program_xml_file_exists = true;
 
     displayEventProgramSection();
 
-} // callbackFileExists
+    createEventProgramXmlObject();
+
+} // callbackProgramXmlFileExists
 
 // Callback function if the file does not exist on the server
-function callbackFileNotExists()
+function callbackProgramXmlFileNotExists()
 {
+    debugEventProgram('callbackProgramXmlFileNotExists Enter');
+
     g_event_program_xml_file_exists = false;
 
     hideEventProgramSection();
 
-} // callbackFileNotExists
+} // callbackProgramXmlFileNotExists
 
+// Creates the event program XML object
+function createEventProgramXmlObject()
+{
+    var rel_url_xml = getRelUrlToProgramXmlDir();
+
+    debugEventProgram('createEventProgramXmlObject rel_url_xml: ' + rel_url_xml);
+
+    g_event_program_xml_object = 
+        new EventProgramXml(rel_url_xml, g_event_program_xml_filename, eventProgramXmlObjectCreated);
+
+} // createEventProgramXmlObject
+
+// Callback function when the event program XML object has been created
+function eventProgramXmlObjectCreated()
+{
+    debugEventProgram('eventProgramXmlObjectCreated Enter');
+
+} // eventProgramXmlObjectCreated
 
 // Set the controls with data from local storage
 function setEventProgramControls(i_new_season_data)
@@ -229,6 +266,20 @@ function setGlobalProgramXmlVariablesFromControls()
                               g_event_program_target_result_dir + '/SaisonXML/';
 
 } // setGlobalProgramXmlVariablesFromControls
+
+// Returns the relative URL to the program XML directory
+function getRelUrlToProgramXmlDir()
+{
+    return  g_event_program_target_result_dir + '/SaisonXML/';
+
+} // getRelUrlToProgramXmlDir
+
+// Returns the abs URL to the program XML file
+function getAbsUrlToProgramXmlFile()
+{
+    return  'https://jazzliveaarau.ch/' + g_event_program_xml_server_dir + g_event_program_xml_filename;
+
+} // getAbsUrlToProgramXmlFile
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -282,13 +333,6 @@ function onClickDownloadEventProgramButton()
 
 
 } // onClickDownloadEventProgramButton
-
-// Returns the abs URL to the uploaded program XML file
-function getAbsUrlToProgramXmlFile()
-{
-    return  'https://jazzliveaarau.ch/' + g_event_program_xml_server_dir + g_event_program_xml_filename;
-
-} // getAbsUrlToProgramXmlFile
 
 // Checks the selected program XML file
 function checkSelectedProgramXmlFileName()
