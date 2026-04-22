@@ -13,6 +13,9 @@
 
 ///////////////////////////////// Start Main Page /////////////////////////////////////////
 
+// The current event number. This is set when the user selects an event in the dropdown. 
+var g_current_event_number = -1234;
+
 // The main server directory for the event program XML file. This is set by the user in the text box for the main directory
 var g_event_program_target_main_dir = null;
 
@@ -240,7 +243,32 @@ function eventProgramXmlObjectCreated()
 {
     debugEventProgram('eventProgramXmlObjectCreated Enter');
 
+    setEventProgramDropdownControl();
+
 } // eventProgramXmlObjectCreated
+
+// Sets the event program dropdown control with the event names from the event program XML file
+function setEventProgramDropdownControl()
+{
+    var b_only_coming = true;
+
+    var event_name_array = g_event_program_xml_object.getEventNameArray(b_only_coming);
+
+    debugEventProgram('setEventProgramDropdownControl n_elements event_name_array: ' + event_name_array.length);
+
+    var date_foramt = 'swiss';
+    var event_date_array = g_event_program_xml_object.getEventDateArray(b_only_coming, date_foramt);
+
+    var event_name_date_array = [];
+
+    for (var event_index=0; event_index<event_name_array.length; event_index++)
+    {
+        event_name_date_array[event_index] =event_date_array[event_index] + '  ' + event_name_array[event_index];
+    }
+
+    g_drop_down_event_program.setNameArray(event_name_date_array);
+
+} // setEventProgramDropdownControl
 
 // Set the controls with data from local storage
 function setEventProgramControls(i_new_season_data)
@@ -415,7 +443,11 @@ function onClickEditEventButton()
 // User selected an event in the event dropdown
 function eventSelectEventDropDown()
 {
-    debugEventProgram('eventSelectEventDropDown Enter');
+    var selected_event_option_number = g_drop_down_event_program.getSelectOptionNumber();
+
+    g_current_event_number = selected_event_option_number;
+
+    debugEventProgram('eventSelectEventDropDown g_current_event_number= ' + g_current_event_number);
 
 } // eventSelectEventDropDown
 
@@ -747,13 +779,15 @@ function createEventProgramDropdown()
 {
     g_drop_down_event_program = new JazzDropdown('id_event_program_select_dropdown', 'id_div_event_program_select_dropdown');
 
-    // TODO Get event 
-    var event_array = [];
+    g_current_event_number = 1;
 
-	event_array[0] = 'Event 1';
-	event_array[1] = 'Event 2';
+    debugEventProgram('createEventProgramDropdown g_current_event_number= ' + g_current_event_number);
 
-    g_drop_down_event_program.setNameArray(event_array);
+    var dummy_event_array = [];
+	dummy_event_array[0] = 'Event 1 Not yet set';
+	dummy_event_array[1] = 'Event 2 Not yet set';
+
+    g_drop_down_event_program.setNameArray(dummy_event_array);
 
     g_drop_down_event_program.setOnchangeFunctionName("eventSelectEventDropDown");
 
