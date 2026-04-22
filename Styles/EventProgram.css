@@ -1,5 +1,5 @@
 /* 
-File: EventProgram.css Date: 2026-04-21
+File: EventProgram.css Date: 2026-04-22
 
 Author: Gunnar Liden
 
@@ -427,14 +427,14 @@ label
 {
     border: solid 1px green;
     width: 48%;
-    float: left;
+    clear: both;
 }
 
 .cl_div_email_content_button
 {
     border: solid 1px green;
     width: 18%;
-    float: left;
+    float: right;
 }
 
 .cl_div_event_cancel

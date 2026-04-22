@@ -1,5 +1,5 @@
 // File: EventProgramXml.js
-// Date: 2025-12-12
+// Date: 2026-04-22
 // Author: Gunnar Lidén
 
 
@@ -133,7 +133,7 @@ class EventProgramXml
     {
         var ret_value = false;
 
-        var event_cancelled_str = this.getEventCancelled(i_event_number);
+        var event_cancelled_str = this.getCancelled(i_event_number);
         
         if (event_cancelled_str == 'TRUE')
         {

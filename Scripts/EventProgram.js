@@ -245,6 +245,8 @@ function eventProgramXmlObjectCreated()
 
     setEventProgramDropdownControl();
 
+    setEventRecordControls();
+
 } // eventProgramXmlObjectCreated
 
 // Sets the event program dropdown control with the event names from the event program XML file
@@ -282,6 +284,99 @@ function setEventProgramControls(i_new_season_data)
     g_xml_event_program_filename_text_box.setValue(g_event_program_xml_filename);
 
 } // setEventProgramControls
+
+// Hide the section with the event program controls
+function setEventRecordControls()
+{
+    debugEventProgram('setEventRecordControls Enter');
+
+    var n_events = g_event_program_xml_object.getNumberOfEvents();
+
+    if (g_current_event_number < 1 || g_current_event_number > n_events)
+    {
+        debugEventProgram('setEventRecordControls g_current_event_number < 0 or g_current_event_number > n_events g_current_event_number= ' 
+            + g_current_event_number + ' n_events= ' + n_events);
+
+        alert('Invalid event number g_current_event_number= ' + g_current_event_number + ' n_events= ' + n_events);
+
+        return;
+    }
+
+
+    // Textbox for the event name
+    g_event_name_text_box.setValue(g_event_program_xml_object.getEventName(g_current_event_number));
+
+    // Date picker for the event date
+    var event_day = g_event_program_xml_object.getDay(g_current_event_number);
+    var event_month = g_event_program_xml_object.getMonth(g_current_event_number);
+    var event_year = g_event_program_xml_object.getYear(g_current_event_number);
+    var iso_date_str = UtilDate.getIsoDateString(event_year, event_month, event_day);
+    g_event_date_picker.setValue(iso_date_str);
+
+    // Textbox for the event start time
+    var start_hour = g_event_program_xml_object.getStartHour(g_current_event_number);
+    var start_minute = g_event_program_xml_object.getStartMinute(g_current_event_number);
+    var start_colon_time_str = getColonTimeString(start_hour, start_minute);
+    g_start_time_text_box.setValue(start_colon_time_str);
+
+    // Textbox for the event end time
+    var end_hour = g_event_program_xml_object.getEndHour(g_current_event_number);
+    var end_minute = g_event_program_xml_object.getEndMinute(g_current_event_number);
+    var end_colon_time_str = getColonTimeString(end_hour, end_minute);
+    g_end_time_text_box.setValue(end_colon_time_str);
+    
+    // Textbox for the event place
+    var event_place = g_event_program_xml_object.getPlace(g_current_event_number);
+    g_event_place_text_box.setValue(event_place);
+
+    // Textbox for the event address
+    var event_address = g_event_program_xml_object.getAddress(g_current_event_number);
+    g_event_address_text_box.setValue(event_address);
+
+    // Textbox for the event organisation
+    // TODO var event_organisation = g_event_program_xml_object.getOrganisation(g_current_event_number);
+    var event_organisation = 'JAZZ live AARAU';
+    g_event_organisation_text_box.setValue(event_organisation);
+
+    // Textbox for the email title
+    var email_title = g_event_program_xml_object.getEmailSubject(g_current_event_number);
+    g_email_title_text_box.setValue(email_title);
+
+    // TODO var email_sender = g_event_program_xml_object.getEmailSender(g_current_event_number);
+    var email_sender = 'reservation@jazzliveaarau.ch';
+    g_email_sender_text_box.setValue(email_sender);
+
+    // Textbox for the email content title
+    var email_content_title = g_event_program_xml_object.getEmailHeader(g_current_event_number);
+    g_email_content_title_text_box.setValue(email_content_title);
+
+    // Check box for event cancelled
+    var b_cancelled_str = g_event_program_xml_object.getCancelled(g_current_event_number);
+    g_event_cancelled_check_box.setCheck(b_cancelled_str);
+
+} // setEventRecordControls
+
+// Sets the controls for the text fields with the data from the event program XML object
+function setEventTextFieldControls()
+{
+
+} // setEventTextFieldControls
+
+// Gets the time string with colon for the given hour and minute. 
+// If the minute is smaller than 10, a leading zero is added.
+function getColonTimeString(i_hour, i_minute)
+{
+    var hour_str = i_hour.toString();
+    var minute_str = i_minute.toString();
+
+    if (i_minute < 10)
+    {
+        minute_str = '0' + minute_str;
+    }
+
+    return hour_str + ':' + minute_str;
+
+} // getColonTimeString
 
 // Sets the program XML global variables g_program_xml_filename and g_event_program_xml_server_dir
 function setGlobalProgramXmlVariablesFromControls()
@@ -448,6 +543,8 @@ function eventSelectEventDropDown()
     g_current_event_number = selected_event_option_number;
 
     debugEventProgram('eventSelectEventDropDown g_current_event_number= ' + g_current_event_number);
+
+    setEventRecordControls();
 
 } // eventSelectEventDropDown
 
