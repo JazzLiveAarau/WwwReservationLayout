@@ -356,11 +356,76 @@ function setEventRecordControls()
 
 } // setEventRecordControls
 
-// Sets the controls for the text fields with the data from the event program XML object
-function setEventTextFieldControls()
+// Class for the text fields in the text edit page. 
+// This class is used for the description, prices, payment methods and instructions text fields. 
+// It contains the field name and the XML get and set function names for the text field. 
+// It also contains a function to set the controls of the text field page with the data 
+// from the event program XML object.
+class EventTextField
 {
+    // Member variables
+    constructor(i_case)
+    {
+        this.m_case = i_case;
 
-} // setEventTextFieldControls
+        this.m_field_name = "";
+        
+        this.m_field_text = "";
+        
+        this.getXmlValues();
+
+        this.setControls();
+
+    } // constructor
+
+    // Get the field name and the field text from the event program XML object for the given case
+    getXmlValues()
+    {
+        if (this.m_case == 'description')
+        {
+            this.m_field_name = 'Beschreibung der Veranstaltung';
+
+            this.m_field_text = g_event_program_xml_object.getShortText(g_current_event_number);
+        }
+       else if (this.m_case == 'prices')
+        {
+            this.m_field_name = 'Eintrittspreise';
+
+            this.m_field_text = g_event_program_xml_object.getPrices(g_current_event_number);
+        }
+        else if (this.m_case == 'payment')
+        {
+            this.m_field_name = 'Zahlungsmittel';
+
+            this.m_field_text = g_event_program_xml_object.getPayMethod(g_current_event_number);
+        }    
+        else if (this.m_case == 'instructions')
+        {
+            this.m_field_name = 'Anweisungen für die Besucher';       
+            this.m_field_text = g_event_program_xml_object.getInstructions(g_current_event_number);
+        }
+        else if (this.m_case == 'email')
+        {
+            this.m_field_name = 'E-Mail Inhalt';
+            this.m_field_text = g_event_program_xml_object.getEmailContent(g_current_event_number);
+        }     
+        else
+        {
+            alert('Invalid case for EventTextField: ' + this.m_case);
+        }  
+    } // getXmlValues
+
+    // Set the controls of the text field page
+    setControls()
+    {
+        g_text_field_title_text_box.setValue(this.m_field_name);
+        
+        g_text_field_text_area.setValue(this.m_field_text);
+
+    } // setControls
+
+} // EventTextField
+
 
 // Gets the time string with colon for the given hour and minute. 
 // If the minute is smaller than 10, a leading zero is added.
@@ -559,6 +624,8 @@ function onClickTextDescriptionButton()
 
     displayTextPage();
 
+    var event_text_field = new EventTextField('description');
+
 } // onClickTextDescriptionButton
 
 // User clicked the text prices button
@@ -567,6 +634,8 @@ function onClickTextPricesButton()
     debugEventProgram('onClickTextPricesButton Enter');   
     
     displayTextPage();
+
+    var event_text_field = new EventTextField('prices');
 
 } // onClickTextPricesButton
 
@@ -577,6 +646,8 @@ function onClickTextPaymentButton()
 
     displayTextPage();
 
+    var event_text_field = new EventTextField('payment');
+
 } // onClickTextPaymentButton
 
 // User clicked the text instructions button
@@ -585,6 +656,8 @@ function onClickTextInstructionsButton()
     debugEventProgram('onClickTextInstructionsButton Enter');
 
     displayTextPage();
+
+    var event_text_field = new EventTextField('instructions');
 
 } // onClickTextInstructionsButton
 
@@ -637,6 +710,10 @@ function onClickCancelTextEditButton()
 function onClickEmailContentButton()
 {
     debugEventProgram('onClickEmailContentButton Enter');
+
+    displayTextPage();
+
+    var event_text_field = new EventTextField('email');
 
 } // onClickEmailContentButton
 
