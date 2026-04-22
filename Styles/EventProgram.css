@@ -347,6 +347,7 @@ label
 .cl_div_event_text_buttons
 {
     /* border: solid 1px green; */
+    border-bottom: dashed 3px blue;
     width: 95%;
     margin-left: 2%;
     margin-top: 5px;
@@ -401,38 +402,40 @@ label
 
 .cl_div_event_email_fields_button
 {
-    border: solid 1px green;
+    /* border: solid 1px green; */
+    border-bottom: dashed 3px blue;
     width: 95%;
     margin-left: 2%;
     margin-top: 5px;
+    padding-bottom: 5px;
     overflow: hidden;   
     clear: both;
 }
 
 .cl_div_email_title
 {
-    border: solid 1px green;
-    width: 18%;
+    /* border: solid 1px green; */
+    width: 68%;
     float: left;
 }
 
 .cl_div_email_sender
 {
-    border: solid 1px green;
+    /* border: solid 1px green; */
     width: 18%;
     float: left;
 }
 
 .cl_div_email_content_title
 {
-    border: solid 1px green;
-    width: 48%;
-    clear: both;
+    /* border: solid 1px green; */
+    width: 68%;
+    float: left;
 }
 
 .cl_div_email_content_button
 {
-    border: solid 1px green;
+    /* border: solid 1px green; */
     width: 18%;
     float: right;
 }
@@ -440,9 +443,11 @@ label
 .cl_div_event_cancel
 {
     /* border: solid 1px green; */
+     border-bottom: dashed 3px blue;
     width: 95%;
     margin-left: 2%;
     margin-top: 5px;
+    padding-bottom: 5px;
     overflow: hidden;   
     clear: both;
 }

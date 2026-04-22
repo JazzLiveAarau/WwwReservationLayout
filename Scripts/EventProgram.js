@@ -1140,7 +1140,7 @@ function createCheckBoxEventCancelled()
 {
     g_event_cancelled_check_box = new JazzCheckBox('id_event_cancel', 'id_div_event_cancel');
 
-    //QQQ g_event_cancelled_check_box.setOninputFunctionName("eventClickCheckBoxEventCancelledled");
+    // g_event_cancelled_check_box.setOninputFunctionName("eventClickCheckBoxEventCancelledled");
 
     g_event_cancelled_check_box.setLabelText("Veranstaltung abgesagt ");
 	
@@ -1161,7 +1161,7 @@ function createTextBoxEmailTitle()
 
     g_email_title_text_box.setLabelTextPositionAbove();
 
-    g_email_title_text_box.setSize("30");
+    g_email_title_text_box.setSize("53");
 
     g_email_title_text_box.setReadOnlyFlag(false);
 
@@ -1178,7 +1178,7 @@ function createTextBoxEmailSender()
 
     g_email_sender_text_box.setLabelTextPositionAbove();
 
-    g_email_sender_text_box.setSize("30");
+    g_email_sender_text_box.setSize("22");
 
     g_email_sender_text_box.setReadOnlyFlag(false);
 
@@ -1195,7 +1195,7 @@ function createTextBoxEmailContentTitle()
 
     g_email_content_title_text_box.setLabelTextPositionAbove();
 
-    g_email_content_title_text_box.setSize("30");
+    g_email_content_title_text_box.setSize("53");
 
     g_email_content_title_text_box.setReadOnlyFlag(false);
 
