@@ -521,6 +521,26 @@ function getAbsUrlToProgramXmlFile()
 
 } // getAbsUrlToProgramXmlFile
 
+// Gets the XML string for saving the event program XML file on the server
+function getEditPageControlsSaveXmlFile()
+{
+    debugEventProgram('getEditPageControlsSaveXmlFile Enter');
+
+    // TODO: Implement this function
+
+   g_event_program_xml_object.saveFile(getAbsUrlToProgramXmlFile(), eventProgramFileSaved);
+
+} // getEditPageControlsSaveXmlFile
+
+// Callback function when the event program XML file has been saved on the server
+function eventProgramFileSaved()
+{
+    debugEventProgram('eventProgramFileSaved Enter');
+
+    displayMainPage();
+
+} // eventProgramFileSaved
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -718,9 +738,9 @@ function onClickSaveRecordButton()
 {
     debugEventProgram('onClickSaveRecordButton Enter');
 
-    // TODO Save the record
+    getEditPageControlsSaveXmlFile();
 
-    displayMainPage();
+    // displayMainPage(); Called after save
 
 } // onClickSaveRecordButton
 

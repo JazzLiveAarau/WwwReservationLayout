@@ -1124,6 +1124,31 @@ class EventProgramXml
     /////// End Load Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Save Functions //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Save object as XML file
+    saveFile(i_file_name_full_path, i_callback_after_save_function_name)
+    {
+        //QQ var file_name_full_path = this.getXmlEventFileNameAbsolutePath();
+
+        //QQ var file_name_relative_path = this.getXmlEventProgramFileName();
+
+        console.log('EventProgramXml.saveFile file_name_full_path= ' + i_file_name_full_path);
+
+        var pretty_print = new PrettyPrintXml(this.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        UtilServer.saveCallback(i_file_name_full_path, xml_content_str, i_callback_after_save_function_name);
+
+    } // saveFile
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Save Functions ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 } // EventProgramXml
 
 // Class defining the tags of the XML event program file
