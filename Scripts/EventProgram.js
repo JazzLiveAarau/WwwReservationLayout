@@ -526,11 +526,85 @@ function getEditPageControlsSaveXmlFile()
 {
     debugEventProgram('getEditPageControlsSaveXmlFile Enter');
 
-    // TODO: Implement this function
+    // Textbox for the event name
+    g_event_program_xml_object.setEventName(g_current_event_number, g_event_name_text_box.getValue());
 
-   g_event_program_xml_object.saveFile(getAbsUrlToProgramXmlFile(), eventProgramFileSaved);
+    // Date picker for the event date
+    var iso_date_str = g_event_date_picker.getValue();
+    var event_day = iso_date_str.substr(8,2);
+    if (event_day.startsWith('0'))
+    {
+        event_day = event_day.substr(1,1);
+    }
+    var event_month = iso_date_str.substr(5,2);
+    if (event_month.startsWith('0'))
+    {
+        event_month = event_month.substr(1,1);
+    }
+    var event_year = iso_date_str.substr(0,4);
+    debugEventProgram('getEditPageControlsSaveXmlFile event_year= ' + event_year + ' event_month= ' + event_month + ' event_day= ' + event_day);
+    g_event_program_xml_object.setDay(g_current_event_number, event_day);
+    g_event_program_xml_object.setMonth(g_current_event_number, event_month);
+    g_event_program_xml_object.setYear(g_current_event_number, event_year);
+
+    // Textbox for the event start time
+    var start_colon_time_str = g_start_time_text_box.getValue();
+    var start_time_array = start_colon_time_str.split(':');
+    g_event_program_xml_object.setStartHour(g_current_event_number, start_time_array[0]);
+    var start_minute_str = start_time_array[1];
+    if (start_minute_str.startsWith('0'))
+    {
+        start_minute_str = start_minute_str.substr(1,1);
+    }
+    g_event_program_xml_object.setStartMinute(g_current_event_number, start_minute_str);
+    debugEventProgram('getEditPageControlsSaveXmlFile start_time_array[0]= ' + start_time_array[0] + ' start_minute_str= ' + start_minute_str);
+
+   // Textbox for the event end time
+    var end_colon_time_str = g_end_time_text_box.getValue();
+    var end_time_array = end_colon_time_str.split(':');
+    g_event_program_xml_object.setEndHour(g_current_event_number, end_time_array[0]);
+    var end_minute_str = end_time_array[1];
+    if (end_minute_str.startsWith('0'))
+    {
+        end_minute_str = end_minute_str.substr(1,1);
+    }
+    g_event_program_xml_object.setEndMinute(g_current_event_number, end_minute_str);
+    debugEventProgram('getEditPageControlsSaveXmlFile end_time_array[0]= ' + end_time_array[0] + ' end_minute_str= ' + end_minute_str);
+
+    // Textbox for the event place
+    g_event_program_xml_object.setPlace(g_current_event_number, g_event_place_text_box.getValue());
+
+    // Textbox for the event address
+    g_event_program_xml_object.setAddress(g_current_event_number, g_event_address_text_box.getValue());
+
+    // Textbox for the event organisation
+    // TODO g_event_program_xml_object.setOrganisation(g_current_event_number, g_event_organisation_text_box.getValue());
+
+    // Textbox for the email title
+    g_event_program_xml_object.setEmailSubject(g_current_event_number, g_email_title_text_box.getValue());
+
+    // Textbox for the email sender
+    // TODO g_event_program_xml_object.setEmailSender(g_current_event_number, g_email_sender_text_box.getValue());
+
+    // Textbox for the email content title
+    g_event_program_xml_object.setEmailHeader(g_current_event_number, g_email_content_title_text_box.getValue());
+    
+    // Check box for event cancelled
+    g_event_program_xml_object.setCancelled(g_current_event_number, g_event_cancelled_check_box.getCheck());
+
+
+    // Save the event program XML file on the server
+    g_event_program_xml_object.saveFile(getAbsUrlToProgramXmlFile(), eventProgramFileSaved);
 
 } // getEditPageControlsSaveXmlFile
+
+/*
+
+    // Check box for event cancelled
+    var b_cancelled_str = g_event_program_xml_object.getCancelled(g_current_event_number);
+    g_event_cancelled_check_box.setCheck(b_cancelled_str);
+
+*/
 
 // Callback function when the event program XML file has been saved on the server
 function eventProgramFileSaved()
