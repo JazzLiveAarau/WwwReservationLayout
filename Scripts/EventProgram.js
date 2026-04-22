@@ -16,6 +16,10 @@
 // The current event number. This is set when the user selects an event in the dropdown. 
 var g_current_event_number = -1234;
 
+// The event text field object for the text edit page. 
+// This is set when the user clicks on one of the text buttons in the edit page.
+var g_event_text_field = null;
+
 // The main server directory for the event program XML file. This is set by the user in the text box for the main directory
 var g_event_program_target_main_dir = null;
 
@@ -243,11 +247,22 @@ function eventProgramXmlObjectCreated()
 {
     debugEventProgram('eventProgramXmlObjectCreated Enter');
 
+    createEventTextFieldObject();
+
     setEventProgramDropdownControl();
 
     setEventRecordControls();
 
 } // eventProgramXmlObjectCreated
+
+// Creates the event text field object for the text edit page
+function createEventTextFieldObject()
+{
+    debugEventProgram('createEventTextFieldObject Enter');
+
+    g_event_text_field = new EventTextField();
+
+} // createEventTextFieldObject
 
 // Sets the event program dropdown control with the event names from the event program XML file
 function setEventProgramDropdownControl()
@@ -364,19 +379,29 @@ function setEventRecordControls()
 class EventTextField
 {
     // Member variables
-    constructor(i_case)
+    constructor()
     {
-        this.m_case = i_case;
+        this.m_case = "";
 
         this.m_field_name = "";
         
         this.m_field_text = "";
-        
-        this.getXmlValues();
-
-        this.setControls();
 
     } // constructor
+
+    // Set the case for the text field and update the field name and field 
+    // text from the event program XML object.
+    setCase(i_case)
+    {
+        this.m_case = i_case;
+
+        debugEventProgram('EventTextField.setCase Enter this.m_case= ' + this.m_case);
+
+        this.getXmlValues();
+
+        this.setControls(); 
+
+    } // setCase
 
     // Get the field name and the field text from the event program XML object for the given case
     getXmlValues()
@@ -423,6 +448,33 @@ class EventTextField
         g_text_field_text_area.setValue(this.m_field_text);
 
     } // setControls
+
+    // Save the text field value to the event program XML object for the given case
+    save( )
+    {
+        debugEventProgram('EventTextField.save this.m_case= ' + this.m_case);
+
+        if (this.m_case == 'description')
+        {
+            g_event_program_xml_object.setShortText(g_current_event_number, g_text_field_text_area.getValue()); 
+        }
+         else if (this.m_case == 'prices')
+        {
+            g_event_program_xml_object.setPrices(g_current_event_number, g_text_field_text_area.getValue());
+        }
+        else if (this.m_case == 'payment')
+        {
+            g_event_program_xml_object.setPayMethod(g_current_event_number, g_text_field_text_area.getValue());
+        }
+        else if (this.m_case == 'instructions')
+        {
+            g_event_program_xml_object.setInstructions(g_current_event_number, g_text_field_text_area.getValue());
+        }
+        else if (this.m_case == 'email')
+        {
+            g_event_program_xml_object.setEmailContent(g_current_event_number, g_text_field_text_area.getValue());
+        }
+    } // save
 
 } // EventTextField
 
@@ -624,7 +676,7 @@ function onClickTextDescriptionButton()
 
     displayTextPage();
 
-    var event_text_field = new EventTextField('description');
+    g_event_text_field.setCase('description');
 
 } // onClickTextDescriptionButton
 
@@ -635,7 +687,7 @@ function onClickTextPricesButton()
     
     displayTextPage();
 
-    var event_text_field = new EventTextField('prices');
+    g_event_text_field.setCase('prices');
 
 } // onClickTextPricesButton
 
@@ -646,7 +698,7 @@ function onClickTextPaymentButton()
 
     displayTextPage();
 
-    var event_text_field = new EventTextField('payment');
+    g_event_text_field.setCase('payment');
 
 } // onClickTextPaymentButton
 
@@ -657,7 +709,7 @@ function onClickTextInstructionsButton()
 
     displayTextPage();
 
-    var event_text_field = new EventTextField('instructions');
+    g_event_text_field.setCase('instructions');
 
 } // onClickTextInstructionsButton
 
@@ -687,17 +739,21 @@ function onClickCancelEditRecordButton()
 ///////////////////////////////// Start Text Page /////////////////////////////////////////
 
 // User clicked the exit and save text edit button
+// 1. Save the text field value to the event program XML object. 
+//    Call of EventTextField.save
+// 2. Display the edit page. Call of displayEditPage
 function onClickExitTextEditButton()
 {
     debugEventProgram('onClickExitTextEditButton Enter');
 
-    // TODO Save the text
+    g_event_text_field.save();
 
     displayEditPage();
 
 } // onClickExitTextEditButton
 
 // User clicked the cancel text edit button
+// 1. Display the edit page. Call of displayEditPage
 function onClickCancelTextEditButton()
 {
     debugEventProgram('onClickCancelTextEditButton Enter');
@@ -707,13 +763,16 @@ function onClickCancelTextEditButton()
 } // onClickCancelTextEditButton
 
 // User clicked the email content button
+// 1. Display the text page. Call of displayTextPage
+// 2. Set the case for the text field to email. 
+//    Call of EventTextField.setCase with 'email'
 function onClickEmailContentButton()
 {
     debugEventProgram('onClickEmailContentButton Enter');
 
     displayTextPage();
 
-    var event_text_field = new EventTextField('email');
+    g_event_text_field.setCase('email');
 
 } // onClickEmailContentButton
 
@@ -1368,9 +1427,7 @@ function createTextAreaForTextField()
 
     //g_text_field_text_area.setLabelTextPositionAbove();
 
-    //QQ g_text_field_text_area.setSize("66");
-
-    g_text_field_text_area.setReadOnlyFlag(true);
+    g_text_field_text_area.setReadOnlyFlag(false);
 
     g_text_field_text_area.setTitle("Text eingeben oder ändern");
 
