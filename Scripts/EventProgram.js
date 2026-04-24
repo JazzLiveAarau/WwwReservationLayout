@@ -659,7 +659,6 @@ function onClickDownloadEventProgramButton()
 
     window.open(url_xml,'_blank').focus();
 
-
 } // onClickDownloadEventProgramButton
 
 // Checks the selected program XML file

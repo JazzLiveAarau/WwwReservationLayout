@@ -11,12 +11,12 @@
 ///////////////////////// Start Control Upload File ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// The control is based on HTML element 
+// The control is based on the <form> HTML element 
 
-// <form action="upload.php" method="post" enctype="multipart/form-data">
-//   Select image to upload:
-//   <input type="file" name="fileToUpload" id="fileToUpload">
-//   <input type="submit" value="Upload Image" name="submit">
+// <form id= "id_upload_xml_row_form"  action="Php/UploadFileToServer.php" method="post" enctype="multipart/form-data">
+//   <input type="file" id="id_upload_xml_row" name="name_file_to_upload"  onchange="eventUserSelectedProgramXml()"  accept=".xml" >
+//   <input id="id_upload_xml_row_server_path"  type="hidden" name="name_server_path" value="">
+//   <input id="id_upload_xml_row_submit_button"  type="submit" value="Datei hochladen" name="name_submit">
 // </form>
 
 // References
@@ -31,14 +31,6 @@
 // http://jquery.malsup.com/form/ (plugin upload form with Ajax)
 // https://github.com/jquery-form/form (plugin upload form with Ajax)
 
-/*
-<form id= "id_upload_xml_row_form"  action="Php/UploadFileToServer.php" method="post" enctype="multipart/form-data">
-<input type="file" id="id_upload_xml_row" name="name_file_to_upload"  onchange="eventUserSelectedProgramXml()"  accept=".xml" >
-<input id="id_upload_xml_row_server_path"  type="hidden" name="name_server_path" value="">
-<input id="id_upload_xml_row_submit_button"  type="submit" value="Datei hochladen" name="name_submit"></form>
-
-
-*/
 
 // Class for a button that uploads a file to the server
 class ControUploadFile 
@@ -119,6 +111,28 @@ class ControUploadFile
         this.setControl();
 
     } // constructor
+
+    // Sets the server directory for the uploaded file
+    // This path must be set
+    // Example: ReservationLayout/Spagi_76_Chairs_V_3/XML/
+    setServerPath(i_server_path)
+    {
+        if (typeof i_server_path !== 'string')
+        {
+            i_server_path = '';
+        }
+
+        this.m_server_path = i_server_path.trim();
+
+        var el_server_path = this.getElementServerPath();
+        if (el_server_path != null)
+        {
+            el_server_path.value = this.m_server_path;
+        }
+
+        console.log("ControUploadFile.setServerPath: " + this.m_server_path);
+
+    } // setServerPath
 
     // Set and get functions
     // =====================
@@ -327,26 +341,6 @@ function replaceAll(txt, replace, with_this) {
 
         this.setControl();
     }
-
-    // Sets the server directory for the uploaded file
-    setServerPath(i_server_path)
-    {
-        if (typeof i_server_path !== 'string')
-        {
-            i_server_path = '';
-        }
-
-        this.m_server_path = i_server_path.trim();
-
-        var el_server_path = this.getElementServerPath();
-        if (el_server_path != null)
-        {
-            el_server_path.value = this.m_server_path;
-        }
-
-        console.log("ControUploadFile.setServerPath: " + this.m_server_path);
-
-    } // setServerPath
 
     // Sets the label text for the upload file button
     // There will be no label if the text not is set
