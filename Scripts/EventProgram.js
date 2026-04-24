@@ -646,6 +646,8 @@ function onClickUploadEventProgramButton()
 
     g_program_xml_upload.hideUploadDiv(false);
 
+    g_program_xml_upload.setServerPath(g_event_program_xml_server_dir);
+    
 } // onClickUploadEventProgramButton
 
 // User clicked the download event program XML button
@@ -667,6 +669,7 @@ function checkSelectedProgramXmlFileName()
 
     if (g_event_program_xml_filename == selected_file_name)
     {
+        debugEventProgram('checkSelectedProgramXmlFileName selected file name is correct: ' + selected_file_name);
         return true;
     }
     else

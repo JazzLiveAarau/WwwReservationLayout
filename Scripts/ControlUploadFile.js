@@ -1,5 +1,5 @@
 // File: ControlUploadFile.js
-// Date: 2025-06-07
+// Date: 2026-04-24
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -31,6 +31,15 @@
 // http://jquery.malsup.com/form/ (plugin upload form with Ajax)
 // https://github.com/jquery-form/form (plugin upload form with Ajax)
 
+/*
+<form id= "id_upload_xml_row_form"  action="Php/UploadFileToServer.php" method="post" enctype="multipart/form-data">
+<input type="file" id="id_upload_xml_row" name="name_file_to_upload"  onchange="eventUserSelectedProgramXml()"  accept=".xml" >
+<input id="id_upload_xml_row_server_path"  type="hidden" name="name_server_path" value="">
+<input id="id_upload_xml_row_submit_button"  type="submit" value="Datei hochladen" name="name_submit"></form>
+
+
+*/
+
 // Class for a button that uploads a file to the server
 class ControUploadFile 
 {
@@ -56,6 +65,9 @@ class ControUploadFile
 
         // Selected file name (without path)
         this.m_selected_file_name = '';
+
+        // Server directory for the uploaded file
+        this.m_server_path = '';
 
         // The container element for the text box
         this.m_el_div_container = null;
@@ -102,6 +114,8 @@ class ControUploadFile
 
         this.m_id_upload_submit_button  = this.m_id_upload_button + '_submit_button';
 
+        this.m_id_server_path_input = this.m_id_upload_button + '_server_path';
+
         this.setControl();
 
     } // constructor
@@ -135,7 +149,14 @@ class ControUploadFile
     {
         var ret_url = '';
 
-        ret_url = ret_url + '/www/Tasks/Documents/' + this.getSelectedFileName();
+        if (this.m_server_path.length > 0)
+        {
+            ret_url = this.getNormalizedServerPath() + this.getSelectedFileName();
+        }
+        else
+        {
+            ret_url = ret_url + '/www/Tasks/Documents/' + this.getSelectedFileName();
+        }
 
         return ret_url;
 
@@ -307,6 +328,26 @@ function replaceAll(txt, replace, with_this) {
         this.setControl();
     }
 
+    // Sets the server directory for the uploaded file
+    setServerPath(i_server_path)
+    {
+        if (typeof i_server_path !== 'string')
+        {
+            i_server_path = '';
+        }
+
+        this.m_server_path = i_server_path.trim();
+
+        var el_server_path = this.getElementServerPath();
+        if (el_server_path != null)
+        {
+            el_server_path.value = this.m_server_path;
+        }
+
+        console.log("ControUploadFile.setServerPath: " + this.m_server_path);
+
+    } // setServerPath
+
     // Sets the label text for the upload file button
     // There will be no label if the text not is set
     setLabelText(i_label_text) 
@@ -371,6 +412,25 @@ function replaceAll(txt, replace, with_this) {
 
     // Utility functions
     // =================
+
+    // Returns the server path with a trailing slash
+    getNormalizedServerPath()
+    {
+        if (this.m_server_path.length == 0)
+        {
+            return '';
+        }
+
+        if (this.m_server_path.slice(-1) == '/')
+        {
+            return this.m_server_path;
+        }
+
+        console.log("ControUploadFile.getNormalizedServerPath: Server path " + this.m_server_path + " does not end with a slash. A slash is added.");
+
+        return this.m_server_path + '/';
+
+    } // getNormalizedServerPath
 
     // Sets the div element container
     setDivContainerElement()
@@ -440,7 +500,7 @@ function replaceAll(txt, replace, with_this) {
     // this.m_id_upload_form
     // Returns the string that defines the HTML upload file button string
     // <form action="Php/UploadFileToServer.php" method="post" enctype="multipart/form-data">
-    // <input type="file" id="id_upload_button" onchange="eventFileSelected" accept=".doc,.docx" title="Tip ...">  
+    // <input type="file" id="id_upload_button" onchange="eventFileSelected" accept=".doc,.docx,.xml" title="Tip ...">  
     // <input type="submit" value="Upload file" name="submit">
     // </form>
     getHtmlString()
@@ -491,6 +551,12 @@ function replaceAll(txt, replace, with_this) {
 
         ret_html_str = ret_html_str + '>';
 
+        ret_html_str = ret_html_str + '<input id="' + this.m_id_server_path_input + '" ';
+
+        ret_html_str = ret_html_str + ' type="hidden" name="name_server_path" value="';
+
+        ret_html_str = ret_html_str + this.m_server_path + '">';
+
         ret_html_str = ret_html_str + '<input id="' + this.m_id_upload_submit_button + '" ';
 
         ret_html_str = ret_html_str + ' type="submit" value="';
@@ -505,6 +571,8 @@ function replaceAll(txt, replace, with_this) {
                 getHtmlElementLabelString(this.m_label_text, this.m_id_text_box, this.m_title);
         }
 
+        // console.log("ControUploadFile.getHtmlString: \n" + ret_html_str);
+
         return ret_html_str;
 
     } // getHtmlString
@@ -515,6 +583,13 @@ function replaceAll(txt, replace, with_this) {
         return  document.getElementById(this.m_id_upload_submit_button);
 
     } // getElementSubmitButton
+
+    // Returns the hidden input for the server path
+    getElementServerPath()
+    {
+        return document.getElementById(this.m_id_server_path_input);
+
+    } // getElementServerPath
 
 } // ControUploadFile
 

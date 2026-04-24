@@ -1,5 +1,5 @@
 // File: ReservationNewLayout.js
-// Date: 2026-04-16
+// Date: 2026-04-24
 // Author: Gunnar Lidén
 
 // TODO  2025-06-16
@@ -712,7 +712,11 @@ function onClickCreateReservationMakeButton()
 // User clicked the upload layout XML file button
 function onClickUploadXmlFileButton()
 {
+    debugReservationLayout("onClickUploadXmlFileButton User klicked the button upload layout XML file");
+
     g_xml_upload.hideUploadDiv(false);
+
+    g_xml_upload.setServerPath(g_layout_xml_server_dir);
 
 }// onClickUploadXmlFileButton
 
