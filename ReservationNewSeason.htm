@@ -36,6 +36,9 @@
     <!--  Class handling the storage of new season data in the computer  -->
     <script type="text/javascript" src="Scripts/NewSeasonStorage.js"></script>
 
+    <!--  Class with functions for absolute and relative URLs  -->
+    <script type="text/javascript" src="Scripts/UtilUrl.js"></script>
+
      <!-- Standard controls -->
      <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Controls_20250406.js"></script>
 
@@ -64,16 +67,18 @@
             <div id="id_div_it_info_button" class="cl_div_help_button">IT Info</div>
         </div>
 
-        <div id="id_div_season_main_dir" class="cl_div_season_main_dir" >URL for the organisation</div>
+        <div id="id_div_season_main_dir" class="cl_div_season_main_dir" >URL Release/Develop dir</div>
 
-        <div id="id_div_season_result_dir" class="cl_div_season_result_dir" >URL dir where the result shall be stored</div> 
+        <div id="id_div_season_result_dir" class="cl_div_season_result_dir" >URL Premises dir</div> 
 
-        <div id="id_div_season_button_row_one" class="cl_div_season_button_row_one" >
- 
-        </div> 
+        <div class="cl_event_step_title" >Veranstaltungsprogramm</div>
+
         <div id="id_div_event_program_row" class="cl_div_event_program_row" >
             <div id="id_div_event_program_button" class="cl_div_event_program_button" ></div>
+            <div id="id_div_create_new_event_program_button" class="cl_div_event_program_button" ></div>
         </div> 
+
+        <div class="cl_event_step_title" >Reservationsdateien</div>
 
         <div id="id_div_season_create_set_xml_row"" class="cl_div_season_create_set_xml_row" >
             <div id="id_div_season_button_xml_new" class="cl_div_season_button_xml_new" ></div>

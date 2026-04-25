@@ -21,7 +21,7 @@ var g_layout_server_dir_text_box = null;
 var g_xml_create_event_files_button = null;
 
 // Button for the creation of a new event program XML file
-var g_xml_create_event_program_button = null;
+var g_xml_import_event_program_button = null;
 
 // Instance of ReservationNewSeasonData holding data for the execution
 var g_new_season_files_data = null;
@@ -138,7 +138,7 @@ function execCreateNewXmlEventFiles()
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-function onClickOfNewSeasonXmlButton()
+function onClickOfImportSeasonXmlButton()
 {
     var input_data = getNewSeasonDataInput();
 
@@ -149,7 +149,7 @@ function onClickOfNewSeasonXmlButton()
 
     execCreateEventProgramXmlFile();
 
-} // onClickOfNewSeasonXmlButton
+} // onClickOfImportSeasonXmlButton
 
 // User clicked the create new event XML files button
 function onClickOfNewEventXmlFilesButton()
@@ -225,7 +225,7 @@ function createReservationNewSeasonControls()
 
     createTextBoxResultDirectory();
 
-    createNewSeasonXmlButton();
+    createImportSeasonXmlButton();
 
     createXmlCreateNewButton();
 
@@ -308,21 +308,23 @@ function createTextBoxResultDirectory()
 } // createTextBoxResultDirectory
 
 // Creates a new event program XML file for the new season
-function createNewSeasonXmlButton()
+function createImportSeasonXmlButton()
 {
-    g_xml_create_event_program_button = new JazzButton('id_event_program_button', 'id_div_event_program_button');
+    g_xml_import_event_program_button = new JazzButton('id_event_program_button', 'id_div_event_program_button');
 
-    g_xml_create_event_program_button.setOnclickFunctionName("onClickOfNewSeasonXmlButton");
+    g_xml_import_event_program_button.setOnclickFunctionName("onClickOfImportSeasonXmlButton");
 
-    g_xml_create_event_program_button.setCaption('Neue Event Programm XML Datei');
+    g_xml_import_event_program_button.setCaption('Von der Homepage importieren');
 
-    g_xml_create_event_program_button.setLabelText("");
+    g_xml_import_event_program_button.setLabelText("");
 
-    g_xml_create_event_program_button.setWidth("245px");
+    g_xml_import_event_program_button.setWidth("245px");
 
-    g_xml_create_event_program_button.setTitle('XML Event Programm Datei generieren und speichern');
+    g_xml_import_event_program_button.setTitle('Saisonsprogramm von der JAZZ live AARAU Homepage importieren');
 
-} // createNewSeasonXmlButton
+} // createImportSeasonXmlButton
+
+
 
 // Creates the event (concert) XML files for the new season
 function createXmlCreateNewButton()

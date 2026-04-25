@@ -1,5 +1,5 @@
 // File: ReservationEventXml.js
-// Date: 2026-03-17
+// Date: 2026-04-25
 // Author: Gunnar Lidén
 
 // File content
@@ -35,6 +35,16 @@ var g_xml_start_line = "<?xml version= \"1.0\" encoding=\"utf-8\"?>";
 ///////////////////////// Start Class Definition //////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Creates an XML object corresponding to an XML file that holds all reservations for one 
+// event, e.g. a concert.
+//
+// The class can load an existing XML file or create a new initial XML file. 
+//
+// The name of the XML file is derived from the input event registration number. This number
+// should come from an event program XML file (EventProgram.xml). The idea is that the names
+// of the XML files should be unique for an organistaion. Please refer to class EventProgramXml
+// for more details about the event registration number and the event program XML file. 
+// 
 class ReservationEventXml
 {
     // Creates the instance of the class
@@ -42,6 +52,7 @@ class ReservationEventXml
     // i_subdir_xm: The subdirctory for the event XML file. Full relative URL, e.g. /ReservationLayout/Jubilee/SaisonXML/
     // i_event_reg_number: Event registration number REG_xyz (a string)
     // i_event_number: Event number that will used for the name of the event XML file
+    //                 For old files name give 'old' as input. TODO Remove
     // i_b_new_file: Flag telling if the event XML file shall be created
     constructor(i_subdir_xml, i_event_reg_number, i_event_number, i_b_new_file, i_callback_function_name) 
     {
@@ -81,7 +92,8 @@ class ReservationEventXml
 
     } // constructor
 
-    // 1. Case Load an existing file (this.m_b_new_file)
+    // 1. Load an existing XML file or create a new file. Case m_b_new_file determines
+    //    Call of ReservationEventXml.loadOneXmlFile or .createNewObjectSaveFile
     execute()
     {
         if (!this.m_b_new_file)
@@ -104,7 +116,7 @@ class ReservationEventXml
     //    Callback function is m_callback_function_name
     createNewObjectSaveFile()
     {
-        // debugReservationLayout('ReservationEventXml.createNewObjectSaveFile Event number ' + this.m_event_number.toString());
+        ReservationEventXml.debug('ReservationEventXml.createNewObjectSaveFile Event number ' + this.m_event_number.toString());
 
         var root_tag = this.m_tags.getRoot();
 
@@ -126,7 +138,7 @@ class ReservationEventXml
 
         var file_name_full_path = this.getXmlEventFileNameAbsolutePath();
 
-        console.log('createNewObjectSaveFile file_name_full_path= ' + file_name_full_path);
+        // ReservationEventXml.debug('createNewObjectSaveFile file_name_full_path= ' + file_name_full_path);
 
         UtilServer.saveCallback(file_name_full_path, content_string, this.m_callback_function_name);
 
@@ -137,11 +149,13 @@ class ReservationEventXml
     {
         var file_name_full_path = this.getXmlEventFileNameAbsolutePath();
 
-        console.log('saveFile file_name_full_path= ' + file_name_full_path);
+        // ReservationEventXml.debug('saveFile file_name_full_path= ' + file_name_full_path);
 
         var pretty_print = new PrettyPrintXml(this.getXmlObject());
 
         var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        ReservationEventXml.debug('saveFile xml_content_str= \n' + xml_content_str);
 
         UtilServer.saveCallback(file_name_full_path, xml_content_str, i_callback_after_save_function_name);
 
@@ -1495,9 +1509,13 @@ class ReservationEventXml
                 ret_str = '/' + ret_str;
             }
 
-            ret_str = window.location.origin + ret_str;
+            var active_url = UtilUrl.getFilePath( window.location.href);
 
-            // console.log("ReservationEventXml.getXmlEventFileNameAbsolutePath ret_str: " + ret_str);
+            // ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath active_url: " + active_url);
+
+            ret_str = active_url + ret_str;
+
+            ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath ret_str: " + ret_str);
 
             return ret_str;
         }
@@ -1516,7 +1534,7 @@ class ReservationEventXml
             ret_str = '/' + ret_str;
         }
 
-        ret_str = window.location.origin + ret_str;
+        ReservationEventXml.debug("ReservationEventXml.getXmlEventDirectoryNameAbsolutePath ret_str: " + ret_str);
 
         return ret_str;
 
@@ -1544,9 +1562,11 @@ class ReservationEventXml
 
         number_str = '_' + number_str;
 
-        var ret_str = this.m_subdir_xml + start_name + add_str + number_str + '.xml';
+         var active_url = UtilUrl.getFilePath( window.location.href);
 
-        console.log("ReservationEventXml.getXmlEventFileNameOld Note OLD name ret_str: " + ret_str);
+        var ret_str = active_url + start_name + add_str + number_str + '.xml';
+
+        ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameOld Note OLD name ret_str: " + ret_str);
 
         return ret_str;
 
@@ -1709,6 +1729,24 @@ class ReservationEventXml
     ///////////////////////////////////////////////////////////////////////////
     /////// End Load Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Debug Function //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Debug function to log messages in the console and in a debug file on the server
+    static debug(i_msg_str)
+    {
+        console.log(i_msg_str);
+
+        // UtilServer.appendDebugFile(i_msg_str, 'ReservationLayout');
+
+    } // debug
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Debug Function ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 
 } // ReservationEventXml
 

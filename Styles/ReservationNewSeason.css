@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewSeason.css Date: 2026-03-20
+File: ReservationNewSeason.css Date: 2026-04-24
 
 Author: Gunnar Liden
 
@@ -86,9 +86,17 @@ label
     margin-left: 10px;
 }
 
+.cl_event_step_title
+{
+    width: 95%;
+    padding-left: 10px;
+    margin-top: 3px;
+    clear: both;   
+}
+
 .cl_div_season_main_dir
 {
-    margin-top: 10px;
+    margin-top: 1px;
     margin-bottom: 5px;
     margin-left: 3%;
     clear: both;
@@ -96,15 +104,20 @@ label
 
 .cl_div_season_result_dir
 {
+    border-bottom: dashed 3px blue;
     margin-top: 3px;
     margin-bottom: 5px;
     margin-left: 3%;
+    overflow: hidden;
+    padding-bottom: 6px;
     clear: both;
 }
 
 .cl_div_event_program_row
 {
     /* border: solid 1px yellow; */
+    border-bottom: dashed 3px blue;
+    overflow: hidden;
     margin-top: 10px;
     clear: both;   
 }
@@ -142,7 +155,7 @@ button
 {
     border: solid 2px black;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 10px;
     padding-top: 5px;
     padding-bottom: 5px;

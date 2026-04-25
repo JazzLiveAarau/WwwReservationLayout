@@ -1,5 +1,5 @@
 // File: CreateXmlEventFiles.js
-// Date: 2025-12-12
+// Date: 2026-04-25
 // Authors: Gunnar Lidén
 
 // Content
@@ -7,6 +7,10 @@
 //
 // Creation of new XML event files
 //
+
+// Global flag telling if the new event XML files shall be created with the old file name
+var g_generate_with_old_file_name = true;
+
 class CreateXmlEventFiles
 {
     static start()
@@ -84,6 +88,11 @@ class CreateXmlEventFiles
         //QQ var file_name_add_str = g_new_season_files_data.m_file_name_add_str;
 
         var event_reg_number = g_new_season_files_data.m_event_xml.getRegNumber(event_number);
+
+        if (g_generate_with_old_file_name)
+        {
+            event_reg_number = 'old';
+        }
 
         var subdir_event_xml_files = g_new_season_files_data.m_event_files_sub_dir;
 
