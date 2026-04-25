@@ -1,5 +1,5 @@
 // File: SeasonToEventProgramXml.js
-// Date: 2026-04-15
+// Date: 2026-04-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -248,7 +248,7 @@ class SeasonToEventProgramXml
     {
         var ret_event_name = i_event_name;
 
-        var max_event_name_length = 30;
+        var max_event_name_length = 35;
 
         if (ret_event_name.length > max_event_name_length)
         {

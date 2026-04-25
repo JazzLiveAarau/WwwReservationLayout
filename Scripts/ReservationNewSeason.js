@@ -144,6 +144,7 @@ function execCreateNewXmlEventFiles()
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// User clicked the import season XML file button
 function onClickOfImportSeasonXmlButton()
 {
     var input_data = getNewSeasonDataInput();
@@ -153,9 +154,35 @@ function onClickOfImportSeasonXmlButton()
         return;
     }
 
+    if (!confirmImportSeasonProgramFile(input_data))
+    {
+        return;
+    }
+
     execCreateEventProgramXmlFile();
 
 } // onClickOfImportSeasonXmlButton
+
+// Confirm with the user that the new XML event program file shall be created and that the existing 
+// XML event program file in the target folder will be overwritten
+function confirmImportSeasonProgramFile(i_input_data)
+{
+    var main_dir = i_input_data.getMainDir();
+
+    if (main_dir == "ReservationLayout")
+    {
+        return true;
+    }
+ 
+    var confirm_msg = "Es wird ein neues XML Veranstaltungsprogramm für die neue Saison erstellt. " +
+    "Das bereits vorhandenes Veranstaltungsprogramm wird überschrieben. " +
+    "Möchten Sie fortfahren?";   
+    
+    var user_confirmed = confirm(confirm_msg);
+
+    return user_confirmed;
+
+} // confirmImportSeasonProgramFile
 
 // User clicked the create new event XML files button
 function onClickOfNewEventXmlFilesButton()
@@ -166,10 +193,35 @@ function onClickOfNewEventXmlFilesButton()
     {
         return;
     }
+    if (!confirmCreateNewXmlEventFiles(input_data))
+    {
+        return;
+    }
 
     execCreateNewXmlEventFiles();
 
 }// onClickOfNewEventXmlFilesButton
+
+// Confirm with the user that the new XML event files shall be created and that all existing 
+// XML event files in the target folder will be overwritten
+function confirmCreateNewXmlEventFiles(i_input_data)
+{
+    var main_dir = i_input_data.getMainDir();
+
+    if (main_dir == "ReservationLayout")
+    {
+        return true;
+    }
+ 
+    var confirm_msg = "Es werden neue XML Reservationsdateien für die neue Saison erstellt. " +
+    "Alle bereits vorhandenen XML Reservationsdateien werden überschrieben. " +
+    "Möchten Sie fortfahren?";   
+    
+    var user_confirmed = confirm(confirm_msg);
+
+    return user_confirmed;
+
+} // confirmCreateNewXmlEventFiles
 
 // Returns an instance of NewSeasonData
 function getNewSeasonDataInput()

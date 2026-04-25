@@ -1503,23 +1503,6 @@ class ReservationEventXml
 
             var ret_str = this.m_abs_dir_xml + start_name + event_reg_number + '.xml';
 
-            /* QQQQ
-            var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
-
-            var first_characterpath = ret_str.charAt(0);
-
-            if ('/' != first_characterpath)
-            {
-                ret_str = '/' + ret_str;
-            }
-
-            var active_url = UtilUrl.getFilePath( window.location.href);
-
-            // ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath active_url: " + active_url);
-
-            ret_str = active_url + ret_str;
-            QQQQ*/
-
             ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath ret_str: " + ret_str);
 
             return ret_str;
@@ -1568,13 +1551,6 @@ class ReservationEventXml
         number_str = '_' + number_str;
 
         var ret_str = this.m_abs_dir_xml + start_name + add_str + number_str + '.xml';
-
-        /* QQQQ
-         var active_url = UtilUrl.getFilePath( window.location.href);
-
-        var ret_str = active_url + start_name + add_str + number_str + '.xml';
-
-        QQQQ */
 
         ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameOld Note OLD name ret_str: " + ret_str);
 
