@@ -64,7 +64,7 @@ function initReservationNewSeason()
 
     setNewSeasonControls(new_season_data);
 
-    eventClickCheckBoxMainDir();
+    eventClickCheckBoxMainDir(); // Set the main directory text box according to the main directory check box
 
     g_new_season_files_data = null;
 
@@ -186,6 +186,7 @@ function getNewSeasonDataInput()
 
 } // getNewSeasonDataInput
 
+// Set the local storage data for the new season
 function setNewSeasonLocalStorageData()
 {
     var new_season_data = new NewSeasonData();
@@ -225,7 +226,8 @@ function eventClickCheckBoxMainDir()
     {
         g_layout_main_dir_text_box.setValue("ReservationLayout");
     }
-    else    {
+    else    
+    {
         g_layout_main_dir_text_box.setValue("Reservation");
     }
 

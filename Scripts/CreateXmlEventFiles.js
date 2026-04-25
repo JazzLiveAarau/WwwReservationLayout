@@ -11,6 +11,18 @@
 // Global flag telling if the new event XML files shall be created with the old file name
 var g_generate_with_old_file_name = true;
 
+
+// Class for creation of new XML event files
+
+// The creation of the new XML event files is done in the following steps:
+// 1. Create the event XML object EventProgramXml which reads the event program XML file and stores the data in arrays
+// 2. Create an array of event XML objects ReservationEventXml, one for each event, and store them in m_event_xml_array
+// 3. Set the data for each event XML object in m_event_xml_array from the data stored in the event XML object created in step 1
+// 4. Save each event XML file by calling the saveFile method of each event XML object in m_event_xml_array
+
+// Input data is an instance of the class ReservationNewSeasonData (global variable g_new_season_files_data) which 
+// is created in ReservationNewSeason.js
+
 class CreateXmlEventFiles
 {
     static start()
@@ -85,8 +97,6 @@ class CreateXmlEventFiles
             callback_function_name = CreateXmlEventFiles.setEventXmlObjects;
         }
 
-        //QQ var file_name_add_str = g_new_season_files_data.m_file_name_add_str;
-
         var event_reg_number = g_new_season_files_data.m_event_xml.getRegNumber(event_number);
 
         if (g_generate_with_old_file_name)
@@ -96,8 +106,11 @@ class CreateXmlEventFiles
 
         var subdir_event_xml_files = g_new_season_files_data.m_event_files_sub_dir;
 
+        var abs_url_event_files_dir = g_new_season_files_data.getAbsUrlEventFilesDir();
+
         g_new_season_files_data.m_event_xml_array[g_new_season_files_data.m_event_object_index] = 
-            new ReservationEventXml(subdir_event_xml_files, event_reg_number, event_number, b_new_file, callback_function_name);
+            new ReservationEventXml(abs_url_event_files_dir, event_reg_number, event_number, b_new_file, callback_function_name);
+            // new ReservationEventXml(subdir_event_xml_files, event_reg_number, event_number, b_new_file, callback_function_name);
 
     } // createObjectRecursively
 

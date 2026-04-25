@@ -1,5 +1,5 @@
 // File: ReservationNewSeasonData.js
-// Date: 2025-06-02
+// Date: 2026-04-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -66,6 +66,9 @@ class ReservationNewSeasonData
         // Subdirectory m_result_dir/m_sub_xml_dir/
         this.m_event_files_sub_dir = '';
 
+        // Absolute URL for the directory of the output event XML program file
+        this.m_abs_url_event_files_dir = '';
+
         // Initialization
         this.init();
 
@@ -97,6 +100,8 @@ class ReservationNewSeasonData
         this.relUrlEventProgramDir();
 
         this.eventFilesSubDir();
+
+        this.absUrlEventFilesDir();
 
         this.seasonStartYear();
 
@@ -183,6 +188,8 @@ class ReservationNewSeasonData
 
        this.m_abs_result_dir_url = abs_url;
 
+       console.log('ReservationNewSeasonData.absUrlResultDir this.m_abs_result_dir_url= ' + this.m_abs_result_dir_url);
+
    } // absUrlResultDir
 
     // Constructs the relative URL for the directory of the output event XML program file
@@ -198,6 +205,8 @@ class ReservationNewSeasonData
 
         this.m_rel_event_program_dir_url = rel_url;
 
+        console.log('ReservationNewSeasonData.relUrlEventProgramDir this.m_rel_event_program_dir_url= ' + this.m_rel_event_program_dir_url);
+
     } // relUrlEventProgramDir
 
     // Subdirectory m_result_dir/m_sub_xml_dir/
@@ -205,7 +214,35 @@ class ReservationNewSeasonData
     {
         this.m_event_files_sub_dir = this.m_result_dir + '/' + this.m_sub_xml_dir + '/';
 
+        console.log('ReservationNewSeasonData.eventFilesSubDir this.m_event_files_sub_dir= ' + this.m_event_files_sub_dir);
+
     } // eventFilesSubDir
+
+    // Constructs the absolute URL for the directory of the output event XML program file
+    absUrlEventFilesDir()
+    {
+        var abs_url = window.location.origin + '/';
+
+        abs_url =  abs_url + this.m_main_dir + '/';
+
+        abs_url =  abs_url + this.m_result_dir + '/';
+
+        abs_url =  abs_url + this.m_sub_xml_dir + '/';
+
+        console.log('ReservationNewSeasonData.absUrlEventFilesDir abs_url= ' + abs_url);
+
+        this.m_abs_url_event_files_dir = abs_url;
+
+    } // absUrlEventFilesDir
+
+    // Returns the absolute URL for the directory of the output event XML program file
+    getAbsUrlEventFilesDir()
+    {
+        console.log('ReservationNewSeasonData.getAbsUrlEventFilesDir Directory= ' + this.m_abs_url_event_files_dir);
+        
+        return this.m_abs_url_event_files_dir;
+
+    } // getAbsUrlEventFilesDir
 
     // Sets the season start year
     // Season changes 1/4

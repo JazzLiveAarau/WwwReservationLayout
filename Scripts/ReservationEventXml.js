@@ -49,19 +49,20 @@ class ReservationEventXml
 {
     // Creates the instance of the class
     // i_callback_function_name: Function that shall be called after loading
-    // i_subdir_xm: The subdirctory for the event XML file. Full relative URL, e.g. /ReservationLayout/Jubilee/SaisonXML/
+    // i_abs_dir_xml: The absolute directory for the event XML file. 
     // i_event_reg_number: Event registration number REG_xyz (a string)
     // i_event_number: Event number that will used for the name of the event XML file
     //                 For old files name give 'old' as input. TODO Remove
     // i_b_new_file: Flag telling if the event XML file shall be created
-    constructor(i_subdir_xml, i_event_reg_number, i_event_number, i_b_new_file, i_callback_function_name) 
+    constructor(i_abs_dir_xml, i_event_reg_number, i_event_number, i_b_new_file, i_callback_function_name) 
     {
         // Member variables
         // ================
 
-        // The subdirectory for the event XML file, e.g. SaisonXml
-        // TODO Should be the absolute URL to the subdirectory
-        this.m_subdir_xml = i_subdir_xml;
+        // The absolute URL to the subdirectory to the event XML files directory
+        // 
+        this.m_abs_dir_xml = i_abs_dir_xml;
+        // this.m_subdir_xml = i_subdir_xml;
 
         // String to add to name of the XML event file, e.g. Salmen
         // Empty string is allowed
@@ -1500,6 +1501,9 @@ class ReservationEventXml
 
             var event_reg_number = this.m_event_reg_number;
 
+            var ret_str = this.m_abs_dir_xml + start_name + event_reg_number + '.xml';
+
+            /* QQQQ
             var ret_str = this.m_subdir_xml + start_name + event_reg_number + '.xml';
 
             var first_characterpath = ret_str.charAt(0);
@@ -1514,6 +1518,7 @@ class ReservationEventXml
             // ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath active_url: " + active_url);
 
             ret_str = active_url + ret_str;
+            QQQQ*/
 
             ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameAbsolutePath ret_str: " + ret_str);
 
@@ -1562,9 +1567,14 @@ class ReservationEventXml
 
         number_str = '_' + number_str;
 
+        var ret_str = this.m_abs_dir_xml + start_name + add_str + number_str + '.xml';
+
+        /* QQQQ
          var active_url = UtilUrl.getFilePath( window.location.href);
 
         var ret_str = active_url + start_name + add_str + number_str + '.xml';
+
+        QQQQ */
 
         ReservationEventXml.debug("ReservationEventXml.getXmlEventFileNameOld Note OLD name ret_str: " + ret_str);
 
