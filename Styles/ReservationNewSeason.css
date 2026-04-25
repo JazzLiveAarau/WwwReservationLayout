@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewSeason.css Date: 2026-04-24
+File: ReservationNewSeason.css Date: 2026-04-25
 
 Author: Gunnar Liden
 
@@ -94,11 +94,25 @@ label
     clear: both;   
 }
 
+.cl_div_main_dir_checkbox
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;   
+    clear: both;
+}
+
 .cl_div_season_main_dir
 {
     margin-top: 1px;
     margin-bottom: 5px;
     margin-left: 3%;
+    padding-bottom: 5px;
+    border-bottom: dashed 3px blue;
+    font-size: 11px;
     clear: both;
 }
 

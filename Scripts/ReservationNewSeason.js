@@ -12,6 +12,10 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Main directory 
+// Result directory where the generated HTML files and other files shall be stored
+var g_main_dir_check_box = null;
+
+// Text box for the main directory
 var g_layout_main_dir_text_box = null;
 
 // Result directory where the generated HTML files and other files shall be stored
@@ -59,6 +63,8 @@ function initReservationNewSeason()
     new_season_data = NewSeasonStorage.getLocal();
 
     setNewSeasonControls(new_season_data);
+
+    eventClickCheckBoxMainDir();
 
     g_new_season_files_data = null;
 
@@ -210,6 +216,30 @@ function onClickItInfoButton()
 
 } // onClickItInfoButton
 
+// User clicked the main directory check box
+function eventClickCheckBoxMainDir()
+{
+    var check_box_value = g_main_dir_check_box.getCheck();
+
+    if (check_box_value == "TRUE")
+    {
+        g_layout_main_dir_text_box.setValue("ReservationLayout");
+    }
+    else    {
+        g_layout_main_dir_text_box.setValue("Reservation");
+    }
+
+} // eventClickCheckBoxMainDir
+
+// User clicked the create new event program XML file button
+function onClickOfCreateNewEventProgramXmlButton()
+{
+    var event_program_url = 'https://jazzliveaarau.ch/ReservationLayout/EventProgram.htm';
+
+    window.open(event_program_url,'_blank').focus();
+
+} // onClickOfCreateNewEventProgramXmlButton
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -221,11 +251,15 @@ function onClickItInfoButton()
 // Creates all the controls for the application
 function createReservationNewSeasonControls()
 {
+    createCheckBoxMainDir();
+
     createTextBoxMainDirectory();
 
     createTextBoxResultDirectory();
 
     createImportSeasonXmlButton();
+
+    createNewEventProgramXmlButton();
 
     createXmlCreateNewButton();
 
@@ -273,20 +307,39 @@ function createItInfoButton()
 
 } // createItInfoButton
 
+// Creates the main directory check box
+function createCheckBoxMainDir()
+{
+    g_main_dir_check_box = new JazzCheckBox('id_main_dir_check', 'id_div_main_dir_checkbox');
+
+    g_main_dir_check_box.setOninputFunctionName("eventClickCheckBoxMainDir");
+
+    g_main_dir_check_box.setLabelText("Neues Layout ");
+
+     g_main_dir_check_box.setLabelTextPositionLeft();
+	
+	g_main_dir_check_box.setLabelTextPositionLeft();
+
+     g_main_dir_check_box.setTitle("Markieren, wenn Dateien für ein neues Layout erstellt werden sollen.");
+
+     g_main_dir_check_box.setCheck("FALSE");
+
+} // createCheckBoxMainDir
+
 // Create the text box for the organisation directory
 function createTextBoxMainDirectory()
 {
     g_layout_main_dir_text_box = new JazzTextBox("id_season_main_dir", 'id_div_season_main_dir');
 
-    g_layout_main_dir_text_box.setLabelText("ReservationLayout / Reservation");
+    g_layout_main_dir_text_box.setLabelText("Gewählter Hauptordner");
 
     g_layout_main_dir_text_box.setLabelTextPositionAbove();
 
-    g_layout_main_dir_text_box.setSize("30");
+    g_layout_main_dir_text_box.setSize("20");
 
-    g_layout_main_dir_text_box.setReadOnlyFlag(false);
+    g_layout_main_dir_text_box.setReadOnlyFlag(true);
 
-    g_layout_main_dir_text_box.setTitle("Für Release Ordner Reservation eingeben");
+    g_layout_main_dir_text_box.setTitle("Für Release ist der Ordner Reservation, für ein neues Layout der Ordner ReservationLayout.");
 
 } // createTextBoxMainDirectory
 
@@ -295,7 +348,7 @@ function createTextBoxResultDirectory()
 {
     g_layout_server_dir_text_box = new JazzTextBox("id_season_result_dir", 'id_div_season_result_dir');
 
-    g_layout_server_dir_text_box.setLabelText("Ordner für Konzertsaal-Sitzplan");
+    g_layout_server_dir_text_box.setLabelText("2. Ordner für Konzertsaal-Sitzplan");
 
     g_layout_server_dir_text_box.setLabelTextPositionAbove();
 
@@ -324,7 +377,22 @@ function createImportSeasonXmlButton()
 
 } // createImportSeasonXmlButton
 
+// Creates a new event program XML file for the new season
+function createNewEventProgramXmlButton()
+{
+    g_xml_new_event_program_button = new JazzButton('id_create_new_event_program_button', 'id_div_create_new_event_program_button');
 
+    g_xml_new_event_program_button.setOnclickFunctionName("onClickOfCreateNewEventProgramXmlButton");
+
+    g_xml_new_event_program_button.setCaption('Neu erstellen');
+
+    g_xml_new_event_program_button.setLabelText("");
+
+    g_xml_new_event_program_button.setWidth("245px");
+
+    g_xml_new_event_program_button.setTitle('Neues Saisonsprogramm erstellen');
+
+} // createNewEventProgramXmlButton
 
 // Creates the event (concert) XML files for the new season
 function createXmlCreateNewButton()
@@ -333,7 +401,7 @@ function createXmlCreateNewButton()
 
     g_xml_create_event_files_button.setOnclickFunctionName("onClickOfNewEventXmlFilesButton");
 
-    g_xml_create_event_files_button.setCaption('Neue Konzert XML Dateien');
+    g_xml_create_event_files_button.setCaption('Neue XML Dateien generieren');
 
     g_xml_create_event_files_button.setLabelText("");
 
