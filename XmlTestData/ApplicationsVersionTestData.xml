@@ -1,0 +1,28 @@
+﻿<?xml version= "1.0" encoding="utf-8"?>
+<!--  JAZZ live AARAU Versions Of Applications -->  
+<ApplicationsVersions>
+	<ApplicationVersion>
+		<ApplicationName>MakeReservation</ApplicationName>
+		<ApplicationUrl>Reservation/Spagi_76_Chairs_V_3/MakeReservation.htm</ApplicationUrl>
+		<ApplicationDescription>Homepage user makes a reservation</ApplicationDescription>
+	</ApplicationVersion>
+
+	<ApplicationVersion>
+		<ApplicationName>MakeSpecialReservation</ApplicationName>
+		<ApplicationUrl>Reservation/Spagi_Jam_Session_V2/MakeReservation.htm</ApplicationUrl>
+		<ApplicationDescription>Homepage user makes a special reservation</ApplicationDescription>
+	</ApplicationVersion>
+
+	<ApplicationVersion>
+		<ApplicationName>GuestbookUpload</ApplicationName>
+		<ApplicationUrl>https://jazzliveaarau.ch/Guestbook/Version_4/GuestbookUpload.htm</ApplicationUrl>
+		<ApplicationDescription>Homepage user makes a contribution to the guestbook</ApplicationDescription>
+	</ApplicationVersion>
+
+	<ApplicationVersion>
+		<ApplicationName>GuestbookAdmin</ApplicationName>
+		<ApplicationUrl>https://jazzliveaarau.ch/Guestbook/Version_2/GuestbookAdminLink.htm</ApplicationUrl>
+		<ApplicationDescription>Member adds a record or edits the guestbook</ApplicationDescription>
+	</ApplicationVersion>
+
+</ApplicationsVersions>

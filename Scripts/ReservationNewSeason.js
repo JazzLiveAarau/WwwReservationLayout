@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2026-03-20
+// Date: 2026-04-26
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -10,6 +10,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Instance of the ApplicationsVersion class
+var g_applications_version_object = null;
 
 // Main directory 
 // Result directory where the generated HTML files and other files shall be stored
@@ -68,7 +71,42 @@ function initReservationNewSeason()
 
     g_new_season_files_data = null;
 
+    var callback_function_name = callbackApplicationsVersionCreated;
+
+    createApplicationsVersionObject(callback_function_name);
+
 } // initReservationNewSeason
+
+// Creates an instance of the ApplicationsVersion class
+function createApplicationsVersionObject(i_callback_function_name)
+{
+    debugReservationNewSeason('createApplicationsVersionObject Enter');
+
+    if (g_applications_version_object != null)
+    {
+        if (i_callback_function_name.length > 0)
+        {
+            return i_callback_function_name;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    var url_relative_dir = '../Homepage/';
+
+    g_applications_version_object = new ApplicationsVersion(i_callback_function_name, url_relative_dir);
+
+} // createApplicationsVersionObject
+
+// Callback after the ApplicationsVersion object has been created and the version 
+// information has been retrieved
+function callbackApplicationsVersionCreated()
+{
+    debugReservationNewSeason('callbackApplicationsVersionCreated Enter ');
+
+} // callbackApplicationsVersionCreated
 
 // Set the controls
 function setNewSeasonControls(i_new_season_data)
@@ -393,7 +431,8 @@ function createTextBoxMainDirectory()
 
     g_layout_main_dir_text_box.setReadOnlyFlag(true);
 
-    g_layout_main_dir_text_box.setTitle("Für Release ist der Ordner Reservation, für ein neues Layout der Ordner ReservationLayout.");
+    g_layout_main_dir_text_box.setTitle("Für Release ist der Ordner Reservation. "+
+                    " \nFür ein neues Layout der Ordner ReservationLayout.");
 
 } // createTextBoxMainDirectory
 
@@ -421,7 +460,7 @@ function createImportSeasonXmlButton()
 
     g_xml_import_event_program_button.setOnclickFunctionName("onClickOfImportSeasonXmlButton");
 
-    g_xml_import_event_program_button.setCaption('Von der Homepage importieren');
+    g_xml_import_event_program_button.setCaption('3. Von der Homepage importieren');
 
     g_xml_import_event_program_button.setLabelText("");
 
@@ -438,7 +477,7 @@ function createNewEventProgramXmlButton()
 
     g_xml_new_event_program_button.setOnclickFunctionName("onClickOfCreateNewEventProgramXmlButton");
 
-    g_xml_new_event_program_button.setCaption('Neu erstellen');
+    g_xml_new_event_program_button.setCaption('4. Ändern oder neu erstellen');
 
     g_xml_new_event_program_button.setLabelText("");
 
