@@ -14,6 +14,9 @@
 // Instance of the ApplicationsVersion class
 var g_applications_version_object = null;
 
+// Current reservation version (directory)
+var g_current_reservation_version_dir = '';
+
 // Main directory 
 // Result directory where the generated HTML files and other files shall be stored
 var g_main_dir_check_box = null;
@@ -21,7 +24,8 @@ var g_main_dir_check_box = null;
 // Text box for the main directory
 var g_layout_main_dir_text_box = null;
 
-// Result directory where the generated HTML files and other files shall be stored
+// Result directory where the generated HTML files and other files 
+// shall be stored. Directories are for example XML and SaisonXml
 var g_layout_server_dir_text_box = null;
 
 // Button for the generation of new season (event) XML files
@@ -71,7 +75,7 @@ function initReservationNewSeason()
 
     g_new_season_files_data = null;
 
-    var callback_function_name = callbackApplicationsVersionCreated;
+    var callback_function_name = setCurrentReservationVersionDir;
 
     createApplicationsVersionObject(callback_function_name);
 
@@ -100,13 +104,60 @@ function createApplicationsVersionObject(i_callback_function_name)
 
 } // createApplicationsVersionObject
 
-// Callback after the ApplicationsVersion object has been created and the version 
+// Returns the current reservation version (directory) and sets the global variable g_reservation_version
+// Callback function after the ApplicationsVersion object has been created and the version 
 // information has been retrieved
-function callbackApplicationsVersionCreated()
+function setCurrentReservationVersionDir()
 {
-    debugReservationNewSeason('callbackApplicationsVersionCreated Enter ');
+    // debugReservationNewSeason('setCurrentReservationVersionDir Enter');
 
-} // callbackApplicationsVersionCreated
+    g_current_reservation_version_dir = '';
+
+    var reservation_version_url = '';
+
+    for (var appl_number = 1; appl_number <= g_applications_version_object.getNumberOfApplicationVersionRecords(); appl_number++)
+    {
+        var appl_name = g_applications_version_object.getApplicationName(appl_number);
+
+        if (appl_name == "MakeReservation")
+        {
+            reservation_version_url = g_applications_version_object.getApplicationUrl(appl_number);
+            
+            break;
+        }
+    } // appl_number
+
+    if (reservation_version_url.length == 0)
+    {
+        debugReservationNewSeason('setCurrentReservationVersionDir - MakeReservation application version information not found');
+        alert('Die Applikationsversionsinformationen für MakeReservation konnten nicht gefunden werden.');
+        
+        return;
+    }
+
+    var index_reservation = reservation_version_url.indexOf("Reservation/");
+
+    if (index_reservation == -1)
+    {
+        debugReservationNewSeason('setCurrentReservationVersionDir - MakeReservation application version information not found');
+        alert('Die Applikationsversionsinformationen für MakeReservation konnten nicht gefunden werden.');
+        
+        return;
+    }
+
+    var search_str = "Reservation/";
+
+    var start_index_version = index_reservation + search_str.length;
+
+    var start_str = reservation_version_url.substring(start_index_version);
+
+    var index_version_end = start_str.indexOf("/MakeReservation", start_index_version);
+
+    g_current_reservation_version_dir = start_str.substring(0, index_version_end);
+
+    debugReservationNewSeason('setCurrentReservationVersionDir Current reservation version (directory): ' + g_current_reservation_version_dir);
+
+} // setCurrentReservationVersionDir
 
 // Set the controls
 function setNewSeasonControls(i_new_season_data)
@@ -315,11 +366,31 @@ function eventClickCheckBoxMainDir()
     if (check_box_value == "TRUE")
     {
         g_layout_main_dir_text_box.setValue("ReservationLayout");
+
+        g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
+
+        debugReservationNewSeason('eventClickCheckBoxMainDir Directories: ReservationLayout and ' + g_current_reservation_version_dir);
     }
     else    
     {
         g_layout_main_dir_text_box.setValue("Reservation");
-    }
+
+        var input_data = getNewSeasonDataInput();
+
+        var result_dir = input_data.getResultDir();
+        if (result_dir.length == 0)
+        {
+            g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
+
+            debugReservationNewSeason('eventClickCheckBoxMainDir Storage not defined, using default dir: ' + g_current_reservation_version_dir);
+        }
+        else
+        {   
+            g_layout_server_dir_text_box.setValue(result_dir);
+
+            debugReservationNewSeason('eventClickCheckBoxMainDir Directories: Reservation and ' + result_dir);
+        }  
+    }  // Checkbox FALSE
 
 } // eventClickCheckBoxMainDir
 
