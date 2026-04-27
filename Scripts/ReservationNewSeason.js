@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2026-04-26
+// Date: 2026-04-27
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -520,7 +520,11 @@ function createTextBoxResultDirectory()
 
     g_layout_server_dir_text_box.setReadOnlyFlag(false);
 
-    g_layout_server_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
+    g_layout_server_dir_text_box.setTitle("Ein Layout (Veranstaltungslokal + Sitzplan) hat ein Name." + 
+        "\n Dieser Name ist auch der Name des Ordners auf dem Server."  + 
+        "\n Für das aktuelle layout wir der Name von der Homepage übernommen."  + 
+        "\n Für ein neues Layout bitte ein neuen Namen eingeben."  + 
+        "\n" );
 
 } // createTextBoxResultDirectory
 
@@ -537,7 +541,10 @@ function createImportSeasonXmlButton()
 
     g_xml_import_event_program_button.setWidth("245px");
 
-    g_xml_import_event_program_button.setTitle('Saisonsprogramm von der JAZZ live AARAU Homepage importieren');
+    g_xml_import_event_program_button.setTitle('Saisonsprogramm von der JAZZ live AARAU Homepage importieren' + 
+        '\nDas Reservationssystem hat ein eigenes Veranstaltungsprogramm. Von der Homepage werden'  + 
+        '\nDaten, die für das Reservationssystem relevant sind, übernommen.'  + 
+        '\n' );
 
 } // createImportSeasonXmlButton
 
@@ -554,7 +561,11 @@ function createNewEventProgramXmlButton()
 
     g_xml_new_event_program_button.setWidth("245px");
 
-    g_xml_new_event_program_button.setTitle('Neues Saisonsprogramm erstellen');
+    g_xml_new_event_program_button.setTitle('Das Veranstaltungsprogramm ändern oder neu erstellen.' + 
+        '\nFür das aktuelle Layout sind normalerweise keine Änderungen erforderlich, aber Eintritt '  + 
+        '\nfür eine bestimmte Veranstaltung könnte zum Beispiel geändert werden.'  + 
+        '\nFür ein neues Layout könnten für Testzwecke Änderungen oder ein neues'+
+        '\nVeranstaltungsprogramm nützlich sein.');
 
 } // createNewEventProgramXmlButton
 
@@ -565,14 +576,19 @@ function createXmlCreateNewButton()
 
     g_xml_create_event_files_button.setOnclickFunctionName("onClickOfNewEventXmlFilesButton");
 
-    g_xml_create_event_files_button.setCaption('Neue XML Dateien generieren');
+    g_xml_create_event_files_button.setCaption('5. Neue XML Dateien generieren');
 
     g_xml_create_event_files_button.setLabelText("");
 
     g_xml_create_event_files_button.setWidth("245px");
 
-    g_xml_create_event_files_button.setTitle('XML Event Dateien generieren und speichern');
-
+    g_xml_create_event_files_button.setTitle('XML Reservationsdateien generieren und speichern.' + 
+        '\nDie Dateien sind für das gewählte Lokal (Layout Ordner) '+ 
+        '\nund für das gewählte Veranstaltungsprogramm' + 
+        '\n'  + 
+        '\nNach dem Generieren bitte Testreservationen als' + 
+        '\n Benutzer und Administrator machen!'   );
+        
 } // createXmlCreateNewButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////

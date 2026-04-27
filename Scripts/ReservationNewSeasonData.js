@@ -1,5 +1,5 @@
 // File: ReservationNewSeasonData.js
-// Date: 2026-04-25
+// Date: 2026-04-27
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -300,6 +300,8 @@ class ReservationNewSeasonData
          ret_msg = ret_msg +  ' Event Dateien sind kreiert im Ordner \n';
 
         ret_msg = ret_msg + this.wwwResultDirUrl();
+
+        ret_msg = ret_msg +  '\n\nBitte Testreservationen als Benutzer und Administrator machen!';
 
         return ret_msg;
 
