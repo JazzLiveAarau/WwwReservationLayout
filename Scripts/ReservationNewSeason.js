@@ -564,8 +564,8 @@ function createNewEventProgramXmlButton()
     g_xml_new_event_program_button.setTitle('Das Veranstaltungsprogramm ändern oder neu erstellen.' + 
         '\nFür das aktuelle Layout sind normalerweise keine Änderungen erforderlich, aber Eintritt '  + 
         '\nfür eine bestimmte Veranstaltung könnte zum Beispiel geändert werden.'  + 
-        '\nFür ein neues Layout könnten für Testzwecke Änderungen oder ein neues'+
-        '\nVeranstaltungsprogramm nützlich sein.');
+        '\nFür ein neues Layout oder Änderungen in Source Code der App können für  '+
+        '\nTestzwecke Änderungen nützlich sein.');
 
 } // createNewEventProgramXmlButton
 
