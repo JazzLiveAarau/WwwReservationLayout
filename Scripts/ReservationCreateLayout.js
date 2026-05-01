@@ -33,7 +33,7 @@ function getAbsUrlToResultDir()
 } // getAbsUrlToResultDir
 
 // Returns the abs URL to the layout result XML file
-function getAbsUrlToResultLayoutXmlFile()
+function getAbsUrlResultLayoutXmlFile()
 {
     var abs_url_to_result_dir = getAbsUrlToResultDir();
 
@@ -41,11 +41,17 @@ function getAbsUrlToResultLayoutXmlFile()
 
     var ret_abs_file_url = abs_url_to_result_dir + result_dir + '.xml';
 
-    debugCreateLayout('getAbsUrlToResultLayoutXmlFile ret_abs_file_url= ' + ret_abs_file_url);
+    debugCreateLayout('getAbsUrlResultLayoutXmlFile ret_abs_file_url= ' + ret_abs_file_url);
 
     return  ret_abs_file_url;
 
-} // getAbsUrlToResultLayoutXmlFile
+} // getAbsUrlResultLayoutXmlFile
+
+// Global variable if the layout result directory exists on the server
+var g_create_layout_result_dir_exists = false;
+
+// Global variable if the layout XML file exists on the server
+var g_create_layout_xml_file_exists = false;
 
 
 ///////////////////////////////// Start Main Page /////////////////////////////////////////
@@ -98,6 +104,13 @@ function initReservationCreateLayout()
     determinIfLayoutResultDirExistsOnServer();
 
 } // initReservationCreateLayout
+
+// Create an instance of the class ReservationLayoutXml
+function createLayoutXmlObject()
+{
+    debugCreateLayout('createLayoutXmlObject Enter');
+
+} // createLayoutXmlObject
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -157,7 +170,7 @@ function determinIfLayoutResultDirExistsOnServer()
 {
     debugCreateLayout('determinIfLayoutResultDirExistsOnServer Enter');
 
-    g_layout_result_dir_exists = false;
+    g_create_layout_result_dir_exists = false;
 
     if (UtilUrl.execApplicationOnServer() == false)
     {
@@ -168,18 +181,16 @@ function determinIfLayoutResultDirExistsOnServer()
         return;
     }
 
-    // TODO hideEventProgramSection();
-
-    var util_files_data = new UtilFilesData();
+    var util_files_dir_data = new UtilFilesData();
 
     var absolute_dir_url = getAbsUrlToResultDir();
 
     var relative_path_php_dir = './Php/';
 
-    util_files_data.setDataExecCaseDirExists(absolute_dir_url, relative_path_php_dir, 
+    util_files_dir_data.setDataExecCaseDirExists(absolute_dir_url, relative_path_php_dir, 
             callbackLayoutDirExists, callbackLayoutDirNotExists);
 
-    UtilFiles.dirFileAnyCase(util_files_data);
+    UtilFiles.dirFileAnyCase(util_files_dir_data);
 
 } // determinIfLayoutResultDirExistsOnServer
 
@@ -188,6 +199,10 @@ function callbackLayoutDirExists()
 {
     debugCreateLayout('callbackLayoutDirExists Enter');
 
+    getElementDivResultDirectory().style.color = 'black';
+
+    determinIfLayoutXmlFileExistsOnServer();
+
 } // callbackLayoutDirExists
 
 // Callback function if the layout result directory not exists on the server
@@ -195,7 +210,58 @@ function callbackLayoutDirNotExists()
 {
     debugCreateLayout('callbackLayoutDirNotExists Enter');
 
+    getElementDivResultDirectory().style.color = 'red';
+
 } // callbackLayoutDirNotExists
+
+// Checks if the layout XML file exists on the server 
+function determinIfLayoutXmlFileExistsOnServer()
+{
+    debugCreateLayout('determinIfLayoutXmlFileExistsOnServer Enter');
+
+    g_create_layout_xml_file_exists = false;
+
+    if (UtilUrl.execApplicationOnServer() == false)
+    {
+        debugCreateLayout('determinIfLayoutXmlFileExistsOnServer Not executed on server');
+
+        alert('determinIfLayoutXmlFile ExistsOnServer\nBitte lade die Applikation auf den Server und rufe sie von dort auf.');
+    
+        return;
+    }
+
+    var util_files_dir_data = new UtilFilesData();
+
+    var absolute_file_url = getAbsUrlResultLayoutXmlFile();
+
+    var relative_path_php_dir = './Php/';
+
+    util_files_dir_data.setDataExecCaseFileExists(absolute_file_url, relative_path_php_dir, 
+            callbackLayoutXmlFileExists, callbackLayoutXmlFileNotExists);
+
+    UtilFiles.dirFileAnyCase(util_files_dir_data);
+
+} // determinIfLayoutXmlFileExistsOnServer
+
+// Callback function if the layout XML file exists on the server
+function callbackLayoutXmlFileExists()
+{
+    debugCreateLayout('callbackLayoutXmlFileExists Enter');
+
+    g_create_layout_xml_file_exists = true;
+
+    createLayoutXmlObject();
+
+} // callbackLayoutXmlFileExists
+
+// Callback function if the layout XML file not exists on the server
+function callbackLayoutXmlFileNotExists()
+{
+    debugCreateLayout('callbackLayoutXmlFileNotExists Enter');
+
+    g_create_layout_xml_file_exists = false;
+
+} // callbackLayoutXmlFileNotExists
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Controls ////////////////////////////////////////////////
@@ -262,7 +328,7 @@ function createTextBoxResultDirectory()
 {
     g_create_layout_result_dir_text_box = new JazzTextBox("id_create_layout_result_dir", 'id_div_create_layout_result_dir');
 
-    g_create_layout_result_dir_text_box.setLabelText(" (Auch Server Ordner Name)");
+    g_create_layout_result_dir_text_box.setLabelText(" (auch der Server Ordner Name)");
 
     g_create_layout_result_dir_text_box.setLabelTextPositionRight();
 
@@ -272,7 +338,11 @@ function createTextBoxResultDirectory()
 
     g_create_layout_result_dir_text_box.setOninputFunctionName("onInputResultDirectory");
 
-    g_create_layout_result_dir_text_box.setTitle("Name des Server Ordners für den neuen Konzertsaal.");
+    g_create_layout_result_dir_text_box.setTitle("Name des Layouts und Name des Server Ordners für alle Layout-Dateien." 
+        + "\nDer Server Ordner wird mit der App Reservation Neues Layout erstellt. "
+        + "\nDer Schrift wird rot, wenn der Ordner nicht existiert. In diesem Fall bitte"
+        + "\nzuerst Reservation Neues Layout starten und alle Layout Ordner erstellen."
+    );
 
 } // createTextBoxResultDirectory
 
@@ -354,6 +424,22 @@ function getIdTablePage()
     return 'id_table_page';
 
 } // getIdTablePage
+
+
+
+// Returns the element result directory
+function getElementDivResultDirectory()
+{
+    return document.getElementById(getIdResultDirectory());    
+
+} // getElementDivResultDirectory
+
+// Returns the id of the result directory element
+function getIdResultDirectory()
+{
+    return 'id_create_layout_result_dir';
+
+} // getIdResultDirectory
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Debug Function ////////////////////////////////////////////
