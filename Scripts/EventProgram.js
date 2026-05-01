@@ -172,7 +172,7 @@ function initEventProgram()
 
     createEventProgramControls();
 
-    new_season_data = NewSeasonStorage.getLocal();
+    var new_season_data = NewSeasonStorage.getLocal();
 
     setEventProgramControls(new_season_data);
 

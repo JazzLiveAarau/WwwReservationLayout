@@ -1,0 +1,116 @@
+/* 
+File: ReservationCreateLayout.css Date: 2026-05-01
+
+Author: Gunnar Liden
+
+General information
+====================
+
+Defines all style classes for the application reservation layout create page.
+
+*/
+
+/* The whole page  */
+.cl_div_create_layout_page
+{
+    font-family: 'Arial';
+    font-size: 15px;
+    font-weight: bold;
+    width: 660px;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden; 
+}
+
+/* Text logo <div> element */
+.cl_div_create_layout_text_logo
+{
+    /* border: solid 2px white; */
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;   
+    width: 99.5%;
+}
+.cl_create_layout_title
+{
+    /* border: solid 1px yellow; */
+    width: 80%;
+
+    float: left;
+}
+
+.cl_create_program_title
+{
+    /* border: solid 1px yellow; */
+    width: 80%;
+
+    float: left;
+}
+
+/* Help and IT info button */
+.cl_help_button
+{
+    border: solid 1px white; 
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px;
+    margin-left: 28px;
+    cursor: pointer;
+    height: auto;
+    margin-top: 5px;
+    margin-right: 15px;
+    float: right;
+}
+
+.cl_create_step_title
+{
+    width: 100%;
+    padding: 15px;
+    margin-top: 3px;
+    clear: both;   
+}
+
+
+/* The start page container <div> element */
+.cl_start_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 200px;
+}
+
+.cl_div_create_layout_result_dir
+{
+    /* border: solid 1px green; */
+    border-bottom: dashed 3px blue;
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 10px;
+    overflow: hidden; 
+}
+
+/* The table group page container <div> element */
+.cl_table_group_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 200px;
+}
+
+/* The table page container <div> element */
+.cl_table_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 200px;
+}
