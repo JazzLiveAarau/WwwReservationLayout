@@ -90,11 +90,38 @@ Defines all style classes for the application reservation layout create page.
 .cl_div_create_layout_result_dir
 {
     /* border: solid 1px green; */
-    border-bottom: dashed 3px blue;
     width: 95%;
     margin-left: 15px;
     padding-bottom: 10px;
     overflow: hidden; 
+}
+
+.cl_div_create_new_xml_button
+{
+    /* border: solid 1px red; */
+    border-bottom: dashed 3px blue;
+    margin-left: 15px;
+    width: 95%;
+    padding-bottom: 10px;
+    clear: both;
+}
+
+.cl_div_select_layout_elements_container
+{
+    border: solid 1px green;
+    min-height: 85px;
+    width: 100%;
+    clear: both;
+}
+
+.cl_div_select_element_dropdown
+{
+    border: solid 1px green;
+    width: 95%;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding: 5px;
+    clear: both;
 }
 
 /* The table group page container <div> element */

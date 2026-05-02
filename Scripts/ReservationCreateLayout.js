@@ -62,6 +62,9 @@ var g_create_layout_xml_file_exists = false;
 // Global variable for the text box with the result server directory 
 var g_create_layout_result_dir_text_box = null;
 
+// Global variable for the button for creating a new layout XML file
+var g_layout_xml_file_create_button = null;
+
 ///////////////////////////////// End Main Page ///////////////////////////////////////////
 
 
@@ -84,17 +87,27 @@ var g_create_layout_result_dir_text_box = null;
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Initialization
-// 1. If local storage not is set (after delete browser cache) set empty strings
+// 1. Display start page. Call of displayStartPage
+// 2. Hide the select layout elements container. Call of hideSelectContainer
+// 3. Hide the button for creating a new layout XML file. Call of hideCreateNewXmlButton
+// 4. If local storage not is set (after delete browser cache) set empty strings
 //    Call of NewSeasonStorage.initLocal
-// 2. Create the controls for this application
-//    Call of createEventProgramControls
-// 3. Set the controls with data from local storage
-//    Call of NewSeasonStorage.getLocal and setNewSeasonControls
+// 5. Create the controls for this application
+//    Call of createLayoutCreateControls
+// 6. Set the controls with data from local storage
+//    Call of setLayoutCreateControls
+// 7. Check if the layout result directory exists on the server 
+//    and set the color of the text accordingly
+//    Call of determinIfLayoutResultDirExistsOnServer
 function initReservationCreateLayout()
 {
     debugCreateLayout('initReservationCreateLayout Enter');
 
     //TODO displayStartPage();
+
+    hideSelectContainer();
+
+    hideCreateNewXmlButton();
 
     NewSeasonStorage.initLocal();
 
@@ -129,6 +142,8 @@ function callbackAfterLoadOfXmlLayout()
     debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
             result_dir + '/XML/' + result_dir + '.xml');
 
+    displaySelectContainer();
+
     setLocalStorageData();
 
 } // callbackAfterLoadOfXmlLayout
@@ -159,12 +174,14 @@ function setLocalStorageData()
 ///////////////////////// Start Event Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Event function for the click on the help button
 function onClickHelpButton()
 {
     debugCreateLayout('onClickHelpButton Enter');
 
 } // onClickHelpButton
 
+// Event function for the click on the IT info button
 function onClickItInfoCreateLayoutButton()
 {
     debugCreateLayout('onClickItInfoCreateLayoutButton Enter');
@@ -180,6 +197,14 @@ function onInputResultDirectory()
 
 } // onInputResultDirectory
 
+// Event function for the click on the button for creating a new layout XML file
+function onClickCreateNewXmlFileButton()
+{
+    debugCreateLayout('onClickCreateNewXmlFileButton Enter');
+
+    alert('onClickCreateNewXmlFileButton\nTODO Eine neue XML Datei erstellen' );
+
+} // onClickCreateNewXmlFileButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -234,9 +259,15 @@ function determinIfLayoutResultDirExistsOnServer()
 } // determinIfLayoutResultDirExistsOnServer
 
 // Callback function if the layout result directory exists on the server
+// 1. Set the global variable g_create_layout_result_dir_exists to true
+// 2. Set the color of the text of the result directory element to black
+// 3. Check if the layout XML file exists on the server. 
+//    Call of determinIfLayoutXmlFileExistsOnServer
 function callbackLayoutDirExists()
 {
     debugCreateLayout('callbackLayoutDirExists Enter');
+
+    g_create_layout_result_dir_exists = true;
 
     getElementDivResultDirectory().style.color = 'black';
 
@@ -245,9 +276,13 @@ function callbackLayoutDirExists()
 } // callbackLayoutDirExists
 
 // Callback function if the layout result directory not exists on the server
+// 1. Set the global variable g_create_layout_result_dir_exists to false
+// 2. Set the color of the text of the result directory element to red
 function callbackLayoutDirNotExists()
 {
     debugCreateLayout('callbackLayoutDirNotExists Enter');
+
+    g_create_layout_result_dir_exists = false;
 
     getElementDivResultDirectory().style.color = 'red';
 
@@ -294,11 +329,16 @@ function callbackLayoutXmlFileExists()
 } // callbackLayoutXmlFileExists
 
 // Callback function if the layout XML file not exists on the server
+// 1. Set the global variable g_create_layout_xml_file_exists to false
+// 2. Display the button for creating a new layout XML file. 
+//    Call of displayCreateNewXmlButton
 function callbackLayoutXmlFileNotExists()
 {
     debugCreateLayout('callbackLayoutXmlFileNotExists Enter');
 
     g_create_layout_xml_file_exists = false;
+
+    displayCreateNewXmlButton();
 
 } // callbackLayoutXmlFileNotExists
 
@@ -320,6 +360,8 @@ function createLayoutCreateControls()
     createItInfoCreateLayoutButton();
 
     createTextBoxResultDirectory();
+
+    createLayoutXmlFileCreateButton();
 
 } // createLayoutCreateControls
 
@@ -385,6 +427,26 @@ function createTextBoxResultDirectory()
 
 } // createTextBoxResultDirectory
 
+// Creates the button that starts the creation of a new layout XML file
+function createLayoutXmlFileCreateButton()
+{
+    g_layout_xml_file_create_button = new JazzButton('id_create_new_xml_button', getIdCreateNewXmlButton());
+
+    g_layout_xml_file_create_button.setOnclickFunctionName("onClickCreateNewXmlFileButton");
+
+    g_layout_xml_file_create_button.setCaption('Eine neue XML Datei erstellen');
+
+     g_layout_xml_file_create_button.setLabelTextPositionLeft();
+
+    g_layout_xml_file_create_button.setLabelText("Es gibt keine Layout XML Datei ");
+
+    g_layout_xml_file_create_button.setWidth("210px");
+
+    g_layout_xml_file_create_button.setTitle('Klick hier um eine neue Layout XML Datei zu erstellen. '+ 
+        '\n ');
+
+} // createLayoutXmlFileCreateButton
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -421,6 +483,39 @@ function displayTablePage()
     getElementDivTablePage().style.display = 'block';
 
 } // displayTablePage
+
+// Display the select layout elements container
+function displaySelectContainer()
+{
+    getElementDivSelectLayoutElementsContainer().style.display = 'block';
+
+} // displaySelectContainer
+
+function hideSelectContainer()
+{
+    getElementDivSelectLayoutElementsContainer().style.display = 'none';
+
+} // hideSelectContainer
+
+function displayCreateNewXmlButton()
+{
+    getElementDivCreateNewXmlButton().style.display = 'block';
+
+} // displayCreateNewXmlButton
+
+function hideCreateNewXmlButton()
+{
+    getElementDivCreateNewXmlButton().style.display = 'none';
+
+} // hideCreateNewXmlButton
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Display Functions ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Element Functions /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 // Returns the div element start page
 function getElementDivStartPage()
@@ -464,8 +559,6 @@ function getIdTablePage()
 
 } // getIdTablePage
 
-
-
 // Returns the element result directory
 function getElementDivResultDirectory()
 {
@@ -479,6 +572,38 @@ function getIdResultDirectory()
     return 'id_create_layout_result_dir';
 
 } // getIdResultDirectory
+
+// Returns the element select layout elements container
+function getElementDivSelectLayoutElementsContainer()
+{
+    return document.getElementById(getIdSelectLayoutElementsContainer());
+
+} // getElementDivSelectLayoutElementsContainer
+
+// Returns the id of the select layout elements container element
+function getIdSelectLayoutElementsContainer()
+{
+    return 'id_div_select_layout_elements_container';
+
+} // getIdSelectLayoutElementsContainer
+
+// Returns the element create new XML button
+function getElementDivCreateNewXmlButton()
+{
+    return document.getElementById(getIdCreateNewXmlButton());
+
+} // getElementDivCreateNewXmlButton
+
+// Returns the id of the create new XML button element
+function getIdCreateNewXmlButton()
+{
+    return 'id_div_create_new_xml_button';
+
+} // getIdCreateNewXmlButton
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Element Functions ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Debug Function ////////////////////////////////////////////
