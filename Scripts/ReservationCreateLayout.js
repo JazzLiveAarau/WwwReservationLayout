@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-01
+// Date: 2026-05-02
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -9,6 +9,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Global variable for the layout XML object an instance of the class ReservationLayoutXml
+var g_create_layout_xml = null;
 
 // Global variables for the controls of the application
 var g_help_create_layout_button = null;
@@ -95,11 +98,11 @@ function initReservationCreateLayout()
 
     NewSeasonStorage.initLocal();
 
-    createCreateLayoutControls();
+    createLayoutCreateControls();
 
     var create_layout_data = NewSeasonStorage.getLocal();
 
-    setCreateLayoutControls(create_layout_data);
+    setLayoutCreateControls(create_layout_data);
 
     determinIfLayoutResultDirExistsOnServer();
 
@@ -108,9 +111,45 @@ function initReservationCreateLayout()
 // Create an instance of the class ReservationLayoutXml
 function createLayoutXmlObject()
 {
-    debugCreateLayout('createLayoutXmlObject Enter');
+    var organisation_directory_name = 'NotUsed';
+
+    var result_dir = g_create_layout_result_dir_text_box.getValue();
+
+    debugCreateLayout('createLayoutXmlObject Result directory= ' + result_dir);
+
+    g_create_layout_xml = new ReservationLayoutXml(callbackAfterLoadOfXmlLayout, organisation_directory_name, result_dir);   
 
 } // createLayoutXmlObject
+
+// Callback function after loading the layout XML file
+function callbackAfterLoadOfXmlLayout()
+{
+    var result_dir = g_create_layout_result_dir_text_box.getValue();
+
+    debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
+            result_dir + '/XML/' + result_dir + '.xml');
+
+    setLocalStorageData();
+
+} // callbackAfterLoadOfXmlLayout
+
+// Set the local storage data with the values from the result directory control
+// The main directory for this application is always ReservationLayout.
+function setLocalStorageData()
+{
+    var create_layout_data = new NewSeasonData();
+
+    create_layout_data.setMainDir('ReservationLayout');
+
+    var result_dir = g_create_layout_result_dir_text_box.getValue();
+
+    create_layout_data.setResultDir(result_dir);
+
+    NewSeasonStorage.setLocal(create_layout_data);
+
+   debugCreateLayout('setLocalStorageData Result directory= ' + create_layout_data.getResultDir());
+
+} // setLocalStorageData
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -151,9 +190,9 @@ function onInputResultDirectory()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Set the controls with data from local storage
-function setCreateLayoutControls(i_create_layout_data)
+function setLayoutCreateControls(i_create_layout_data)
 {
-    debugCreateLayout('setCreateLayoutControls Set result directory= ' + i_create_layout_data.getResultDir());
+    debugCreateLayout('setLayoutCreateControls Set result directory= ' + i_create_layout_data.getResultDir());
 
     // Please note that onInputResultDirectory will not be called! Why? Answer from AI:
     // Because the value of the text box will be set with the function setValue and 
@@ -163,7 +202,7 @@ function setCreateLayoutControls(i_create_layout_data)
 
     // TODO g_create_layout_xml_filename_text_box.setValue(g_event_program_xml_filename);
 
-} // setCreateLayoutControls
+} // setLayoutCreateControls
 
 // Checks if the layout result directory exists on the server 
 function determinIfLayoutResultDirExistsOnServer()
@@ -272,9 +311,9 @@ function callbackLayoutXmlFileNotExists()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Create the controls for this application
-function createCreateLayoutControls()
+function createLayoutCreateControls()
 {
-    debugCreateLayout('createCreateLayoutControls Enter');
+    debugCreateLayout('createLayoutCreateControls Enter');
 
     createHelpCreateLayoutButton();
 
@@ -282,7 +321,7 @@ function createCreateLayoutControls()
 
     createTextBoxResultDirectory();
 
-} // createCreateLayoutControls
+} // createLayoutCreateControls
 
 
 // Creates the help button 
