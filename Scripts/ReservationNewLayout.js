@@ -62,6 +62,9 @@ var g_create_new_season_files_button = null;
 // Button upload layout XML file
 var g_upload_xml_button = null;
 
+// Button for creating the layout XML file
+var g_xml_create_button = null;
+
 // Button download layout XML file
 var g_download_xml_button = null;
 
@@ -250,6 +253,13 @@ function getAbsUrlToLayoutXmlFile()
     return  'https://jazzliveaarau.ch/' + g_layout_xml_server_dir + g_layout_xml_filename;
 
 } // getAbsUrlToLayoutXmlFile
+
+// Returns the abs URL to the application create layout XML file
+function getAbsUrlToLayoutCreateXmlFile()
+{
+    return  'https://jazzliveaarau.ch/ReservationLayout/ReservationCreateLayout.htm';
+
+} // getAbsUrlToLayoutCreateXmlFile
 
 // Copy directories and files for the new layout
 // 1. Create object holding all the data for the copying of files
@@ -712,13 +722,24 @@ function onClickCreateReservationMakeButton()
 // User clicked the upload layout XML file button
 function onClickUploadXmlFileButton()
 {
-    debugReservationLayout("onClickUploadXmlFileButton User klicked the button upload layout XML file");
+    debugReservationNewLayout("onClickUploadXmlFileButton User klicked the button upload layout XML file");
 
     g_xml_upload.hideUploadDiv(false);
 
     g_xml_upload.setServerPath(g_layout_xml_server_dir);
 
 }// onClickUploadXmlFileButton
+
+// User clicked the create XML button
+function onClickXmlCreateButton()
+{
+    debugReservationNewLayout("onClickXmlCreateButton User klicked the button create XML file");
+
+    var create_xml_url = getAbsUrlToLayoutCreateXmlFile();
+
+    window.open(create_xml_url,'_blank').focus();
+
+} // onClickXmlCreateButton
 
 // User clicked the download layout XML file button
 function onClickDownloadXmlFileButton()
@@ -893,8 +914,6 @@ function createReservationNewLayoutControls()
 
     createCopyDirFilesButton();
 
-    //TODO Remove ?createTextBoxProgressMessages();
-
     createLayoutFileslButton();
 
     createNewSeasonFilesButton();
@@ -908,6 +927,8 @@ function createReservationNewLayoutControls()
     createReservationMakeButton();
 
     createUploadXmlButton();
+
+    createXmlCreateButton();
 
     createDownloadXmlButton();
 
@@ -1002,11 +1023,11 @@ function createTextBoxResultDirectory()
 {
     g_layout_server_dir_text_box = new JazzTextBox("id_layout_result_dir", 'id_div_layout_result_dir');
 
-    g_layout_server_dir_text_box.setLabelText("1. Ordner für Konzertsaal-Sitzplan");
+    g_layout_server_dir_text_box.setLabelText("(auch Ordner)");
 
-    g_layout_server_dir_text_box.setLabelTextPositionAbove();
+    g_layout_server_dir_text_box.setLabelTextPositionRight();
 
-    g_layout_server_dir_text_box.setSize("32");
+    g_layout_server_dir_text_box.setSize("16");
 
     g_layout_server_dir_text_box.setReadOnlyFlag(false);
 
@@ -1038,40 +1059,19 @@ function createTextBoxXmlFilename()
 {
     g_xml_filename_text_box = new JazzTextBox("id_upload_download_xml_textbox", 'id_div_upload_download_xml_textbox');
 
-    g_xml_filename_text_box.setLabelText("Layout XML Dateiname");
+    //g_xml_filename_text_box.setLabelText("Dateiname");
 
-    g_xml_filename_text_box.setLabelTextPositionAbove();
+    //g_xml_filename_text_box.setLabelTextPositionRight();
 
-    g_xml_filename_text_box.setSize("33");
+    g_xml_filename_text_box.setSize("23");
 
     g_xml_filename_text_box.setReadOnlyFlag(true);
 
-    g_xml_filename_text_box.setTitle("Zeigt der Name der Layout XML Datei, die das Lokal definiert");
+    g_xml_filename_text_box.setTitle("Zeigt der Name der Layout XML Datei, die das Layout definiert");
 
     g_xml_filename_text_box.setClass('cl_upload_download_xml_textbox');
 
 } // createTextBoxXmlFilename
-
-// Create the text box for the progress messages TODO Remove??
-function createTextBoxProgressMessages()
-{
-    g_progress_messages_text_box = new JazzTextBox("id_message_row", 'id_div_message_row');
-
-    g_progress_messages_text_box.setLabelText("");
-
-    g_progress_messages_text_box.setLabelTextPositionAbove();
-
-    g_progress_messages_text_box.setSize("32");
-
-    g_progress_messages_text_box.setReadOnlyFlag(true);
-
-    g_progress_messages_text_box.setTitle("Fortschrittsmeldungen");
-
-    g_progress_messages_text_box.setPlaceholderText("Fortschrittsmeldungen");
-	
-	g_progress_messages_text_box.setClass('cl_progress_messages_textbox');
-
-} // createTextBoxProgressMessages
 
 // Creates the button that starts theb creation of the layout files
 function createLayoutFileslButton()
@@ -1189,15 +1189,32 @@ function createUploadXmlButton()
 
     g_upload_xml_button.setOnclickFunctionName("onClickUploadXmlFileButton");
 
-    g_upload_xml_button.setCaption('3. Upload');
+    g_upload_xml_button.setCaption('Upload');
 
     g_upload_xml_button.setLabelText("");
 
-    g_upload_xml_button.setWidth("76px");
+    g_upload_xml_button.setWidth("60px");
 
     g_upload_xml_button.setTitle('Scritt 3: Layout XML Datei hochladen. Die Datei definiert das Lokal');
 
 } // createUploadXmlButton
+
+// Creates the XML create button
+function createXmlCreateButton()
+{
+    g_xml_create_button = new JazzButton('id_create_xml_button', 'id_div_create_xml_button');
+
+    g_xml_create_button.setOnclickFunctionName("onClickXmlCreateButton");
+
+    g_xml_create_button.setCaption('Ändern/Erstellen');
+
+    g_xml_create_button.setLabelText("");
+
+    g_xml_create_button.setWidth("126px");
+
+    g_xml_create_button.setTitle('Schritt 3: Layout XML Datei ändern/erstellen. Die Datei definiert das Lokal');
+
+} // createXmlCreateButton
 
 // Creates the download layout XML file button
 function createDownloadXmlButton()
@@ -1213,6 +1230,8 @@ function createDownloadXmlButton()
     g_download_xml_button.setWidth("76px");
 
     g_download_xml_button.setTitle('Layout XML Datei herunterladen');
+
+    g_download_xml_button.setClass('cl_download_xml_button');
 
 } // createDownloadXmlButton
 

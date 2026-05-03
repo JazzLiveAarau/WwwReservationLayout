@@ -1,5 +1,5 @@
 /* 
-File: ReservationNewLayout.css Date: 2026-04-16
+File: ReservationNewLayout.css Date: 2026-05-03
 
 Author: Gunnar Liden
 
@@ -73,6 +73,15 @@ label
     margin-left: 10px;
 }
 
+.cl_new_layout_step_title
+{
+    width: 95%;
+    padding: 5px;
+    margin-top: 3px;
+    margin-left: 10px;
+    clear: both;   
+}
+
 .cl_div_layout_main_dir
 {
     /* border-bottom: dashed 3px blue; */
@@ -118,8 +127,7 @@ label
     margin-left: 3%;
     font-size: 12px;
     font-style: italic;
-    width: 93%;
-    clear: both;
+    float: left;
 }
 
 .cl_upload_download_xml_textbox
@@ -131,19 +139,20 @@ label
     margin-top: 2px;
 }
 
-.cl_progress_messages_textbox
-{
-    font-size: 12px;
-    font-weight: bold;
-    font-style: italic;
-    text-align: left;
-}
-
 .cl_div_upload_xml_button
 {
     /* border: solid 1px red; */
-    margin-left: 3%;
-    width: 40%;
+    margin-left: 5px;
+    width: 30%;
+    text-align: center;
+    float: left;
+}
+
+.cl_div_create_xml_button
+{
+    /* border: solid 1px red; */
+    margin-left: 5px;
+    width: 48%;
     text-align: center;
     float: left;
 }
@@ -151,11 +160,18 @@ label
 .cl_div_download_xml_button
 {
     /* border: solid 1px red; */
-    margin-left: 3%;
-    margin-right: 3%;
-    width: 40%;
+    margin-left: 5px;
     text-align: center;
     float: left;
+}
+
+.cl_download_xml_button
+{
+    font-size: 11px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    margin-top: 0px;
 }
 
 .cl_div_popup_container
