@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-02
+// Date: 2026-05-03
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -105,9 +105,9 @@ function initReservationCreateLayout()
 
     //TODO displayStartPage();
 
-    hideSelectContainer();
+    // TODOhideSelectContainer();
 
-    hideCreateNewXmlButton();
+    // TODO hideCreateNewXmlButton();
 
     NewSeasonStorage.initLocal();
 
