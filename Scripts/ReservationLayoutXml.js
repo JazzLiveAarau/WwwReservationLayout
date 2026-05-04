@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2025-11-09
+// Date: 2026-05-04
 // Author: Gunnar Lidén
 
 // File content
@@ -2675,7 +2675,16 @@ class ReservationLayoutXml
             return false;
         }
 
-        if (i_table_number >= 1 && i_table_number <= n_tables)
+        var table_number_int = parseInt(i_table_number);
+
+        if (isNaN(table_number_int))
+        {
+            alert("ReservationLayoutXml.checkTableNumber Input table number " +  i_table_number.toString() + 
+                                " is not a number");
+            return false;
+        }
+        
+        if (table_number_int >= 1 && table_number_int <= n_tables)
         {
             return true;
         }

@@ -235,7 +235,7 @@ function eventSelectLayoutElementDropDown()
 
     debugCreateLayout('eventSelectLayoutElementDropDown g_gurrent_layout_element_number= ' + g_gurrent_layout_element_number);
 
-    setOpenControlsForSelectedElement();
+    setAndOpenPageControlsForSelectedElement();
 
 } // eventSelectLayoutElementDropDown
 
@@ -284,39 +284,54 @@ function onClickCancelTableButton()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Set the controls with data from the selected element in the layout element dropdown control
-function setOpenControlsForSelectedElement()
+function setAndOpenPageControlsForSelectedElement()
 {
-    debugCreateLayout('setOpenControlsForSelectedElement g_gurrent_layout_element_number= ' + 
+    debugCreateLayout('setAndOpenPageControlsForSelectedElement g_gurrent_layout_element_number= ' + 
                         g_gurrent_layout_element_number);
 
     if (g_gurrent_layout_element_number == 1)
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Nothing was selected');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Nothing was selected');
     }
     else if (g_gurrent_layout_element_number == 2)
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Group von Tischen selected');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Group von Tischen selected');
 
         displayTableGroupPage();
+
+        setControlsForTableGroup()
     }
     else if (g_gurrent_layout_element_number == 3)
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Tischeigenschaften selected');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Tischeigenschaften selected');
     }
     else if (g_gurrent_layout_element_number == 4)
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Bühne selected');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Bühne selected');
     }
     else if (g_gurrent_layout_element_number == 5)
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Wände selected');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Wände selected');
     }
     else
     {
-        debugCreateLayout('setOpenControlsForSelectedElement Kein gültiges Layout Element ausgewählt');
+        debugCreateLayout('setAndOpenPageControlsForSelectedElement Kein gültiges Layout Element ausgewählt');
     }
 
-} // setOpenControlsForSelectedElement
+} // setAndOpenPageControlsForSelectedElement
+
+// Set the controls for the table group page with the data from the selected table group
+function setControlsForTableGroup()
+{
+    debugCreateLayout('setControlsForTableGroup Enter');
+
+    var layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
+
+    var table_group_array = layout_xml_table.getTableGroupArray();
+
+    debugCreateLayout('setControlsForTableGroup table_group_array.length= ' + table_group_array.length);
+
+} // setControlsForTableGroup
 
 // Set the controls with data from local storage
 function setLayoutCreateControls(i_create_layout_data)
