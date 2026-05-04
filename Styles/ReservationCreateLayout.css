@@ -133,6 +133,16 @@ Defines all style classes for the application reservation layout create page.
     min-height: 200px;
 }
 
+.cl_div_table_group_exit_container
+{
+    /* border: solid 1px red; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
 /* The table page container <div> element */
 .cl_table_page
 {
@@ -140,4 +150,23 @@ Defines all style classes for the application reservation layout create page.
     width: 99%;
     overflow: hidden; 
     min-height: 200px;
+}
+
+.cl_div_table_exit_container
+{
+    /* border: solid 1px red; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
+.cl_div_exit_button
+{
+    /* border: solid 1px green; */
+    width: 20%;
+    margin-top: 5px;
+    margin-right: 15px;
+    float: right;
 }

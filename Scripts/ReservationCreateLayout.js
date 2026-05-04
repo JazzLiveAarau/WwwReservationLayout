@@ -76,10 +76,22 @@ var g_layout_xml_file_create_button = null;
 
 ///////////////////////////////// Start TableGroup Page ////////////////////////////////////
 
+// Global variable for the button for saving a table group
+var g_table_group_save_button = null;
+
+// Global variable for the button for canceling a table group
+var g_table_group_cancel_button = null;
+
 ///////////////////////////////// End TableGroup Page /////////////////////////////////////
 
 
 ///////////////////////////////// Start Table Page /////////////////////////////////////////
+
+// Global variable for the button for saving a table
+var g_table_save_button = null;
+
+// Global variable for the button for canceling a table
+var g_table_cancel_button = null;
 
 ///////////////////////////////// End Table Page ///////////////////////////////////////////
 
@@ -226,6 +238,42 @@ function eventSelectLayoutElementDropDown()
     setOpenControlsForSelectedElement();
 
 } // eventSelectLayoutElementDropDown
+
+// Event function for the click on the button for saving a table group
+function onClickSaveTableGroupButton()
+{
+    debugCreateLayout('onClickSaveTableGroupButton Enter');
+
+    displayStartPage();
+
+} // onClickSaveTableGroupButton
+
+// Event function for the click on the button for canceling a table group
+function onClickCancelTableGroupButton()
+{
+    debugCreateLayout('onClickCancelTableGroupButton Enter');
+
+    displayStartPage();
+
+} // onClickCancelTableGroupButton
+
+// Event function for the click on the button for saving a table
+function onClickSaveTableButton()
+{
+    debugCreateLayout('onClickSaveTableButton Enter');
+
+    displayTableGroupPage();
+
+} // onClickSaveTableButton
+
+// Event function for the click on the button for canceling a table
+function onClickCancelTableButton()
+{
+    debugCreateLayout('onClickCancelTableButton Enter');
+
+    displayTableGroupPage();
+
+} // onClickCancelTableButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -438,6 +486,14 @@ function createLayoutCreateControls()
 
     createLayoutElementDropdown();
 
+     createTableGroupSaveButton();
+
+     createTableGroupCancelButton();
+
+     createTableSaveButton();
+
+     createTableCancelButton();
+
 } // createLayoutCreateControls
 
 
@@ -546,6 +602,86 @@ function createLayoutElementDropdown()
     g_drop_down_layout_element.setTitle('Layout Element wählen');
 
 } // createLayoutElementDropdown
+
+// Creates the button for saving the changes of a table group
+function createTableGroupSaveButton()
+{
+    g_table_group_save_button = new JazzButton('id_table_group_save_button', 'id_div_table_group_save_button');
+
+    g_table_group_save_button.setOnclickFunctionName("onClickSaveTableGroupButton");
+
+    g_table_group_save_button.setCaption('Speichern');
+
+     g_table_group_save_button.setLabelTextPositionLeft();
+
+    g_table_group_save_button.setLabelText("");
+
+    g_table_group_save_button.setWidth("100px");
+
+    g_table_group_save_button.setTitle('Klick hier um die Änderungen der Tabellen-Gruppe zu speichern. '+ 
+        '\n ');
+
+} // createTableGroupSaveButton
+
+// Creates the button for canceling the changes of a table group
+function createTableGroupCancelButton()
+{
+    g_table_group_cancel_button = new JazzButton('id_table_group_cancel_button', 'id_div_table_group_cancel_button');
+
+    g_table_group_cancel_button.setOnclickFunctionName("onClickCancelTableGroupButton");
+
+    g_table_group_cancel_button.setCaption('Abbrechen');
+
+     g_table_group_cancel_button.setLabelTextPositionLeft();
+
+    g_table_group_cancel_button.setLabelText("");
+
+    g_table_group_cancel_button.setWidth("100px");
+
+    g_table_group_cancel_button.setTitle('Klick hier um die Änderungen der Tabellen-Gruppe abzubrechen. '+ 
+        '\n ');
+
+} // createTableGroupCancelButton
+
+// Creates the button for saving the changes of a table
+function createTableSaveButton()
+{
+    g_table_save_button = new JazzButton('id_table_save_button', 'id_div_table_save_button');
+
+    g_table_save_button.setOnclickFunctionName("onClickSaveTableButton");
+
+    g_table_save_button.setCaption('Speichern');
+
+     g_table_save_button.setLabelTextPositionLeft();
+
+    g_table_save_button.setLabelText("");
+
+    g_table_save_button.setWidth("100px");
+
+    g_table_save_button.setTitle('Klick hier um die Änderungen der Tabelle zu speichern. '+ 
+        '\n ');
+
+} // createTableSaveButton
+
+// Creates the button for canceling the changes of a table
+function createTableCancelButton()
+{
+    g_table_cancel_button = new JazzButton('id_table_cancel_button', 'id_div_table_cancel_button');
+
+    g_table_cancel_button.setOnclickFunctionName("onClickCancelTableButton");
+
+    g_table_cancel_button.setCaption('Abbrechen');
+
+     g_table_cancel_button.setLabelTextPositionLeft();
+
+    g_table_cancel_button.setLabelText("");
+
+    g_table_cancel_button.setWidth("100px");
+
+    g_table_cancel_button.setTitle('Klick hier um die Änderungen der Tabelle abzubrechen. '+ 
+        '\n ');
+
+} // createTableCancelButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////
