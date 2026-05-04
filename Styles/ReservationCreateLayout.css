@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-01
+File: ReservationCreateLayout.css Date: 2026-05-04
 
 Author: Gunnar Liden
 
@@ -116,7 +116,7 @@ Defines all style classes for the application reservation layout create page.
 
 .cl_div_select_element_dropdown
 {
-    border: solid 1px green;
+    /* border: solid 1px green; */
     width: 95%;
     margin-left: 15px;
     margin-top: 10px;

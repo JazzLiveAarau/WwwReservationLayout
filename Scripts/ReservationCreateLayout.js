@@ -13,6 +13,9 @@
 // Global variable for the layout XML object an instance of the class ReservationLayoutXml
 var g_create_layout_xml = null;
 
+// Global variable selected element number in the dropdown control
+var g_current_layout_element_number = -12345;
+
 // Global variables for the controls of the application
 var g_help_create_layout_button = null;
 
@@ -21,6 +24,9 @@ var g_it_info_create_layout_button = null;
 
 // Global variable for the text box with the result server directory
 var g_create_layout_main_dir = 'ReservationLayout/';
+
+// Global variable for the layout element dropdown control
+var g_drop_down_layout_element = null;
 
 // Returns the abs URL to the layout result directory
 function getAbsUrlToResultDir()
@@ -117,6 +123,8 @@ function initReservationCreateLayout()
 
     setLayoutCreateControls(create_layout_data);
 
+    setLayoutElementDropdownControl();
+
     determinIfLayoutResultDirExistsOnServer();
 
 } // initReservationCreateLayout
@@ -206,6 +214,19 @@ function onClickCreateNewXmlFileButton()
 
 } // onClickCreateNewXmlFileButton
 
+// User selected an event in the event dropdown
+function eventSelectLayoutElementDropDown()
+{
+    var selected_event_option_number = g_drop_down_layout_element.getSelectOptionNumber();
+
+    g_gurrent_layout_element_number = selected_event_option_number;
+
+    debugCreateLayout('eventSelectLayoutElementDropDown g_gurrent_layout_element_number= ' + g_gurrent_layout_element_number);
+
+    setOpenControlsForSelectedElement();
+
+} // eventSelectLayoutElementDropDown
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -213,6 +234,41 @@ function onClickCreateNewXmlFileButton()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Set Controls //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Set the controls with data from the selected element in the layout element dropdown control
+function setOpenControlsForSelectedElement()
+{
+    debugCreateLayout('setOpenControlsForSelectedElement g_gurrent_layout_element_number= ' + 
+                        g_gurrent_layout_element_number);
+
+    if (g_gurrent_layout_element_number == 1)
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Nothing was selected');
+    }
+    else if (g_gurrent_layout_element_number == 2)
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Group von Tischen selected');
+
+        displayTableGroupPage();
+    }
+    else if (g_gurrent_layout_element_number == 3)
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Tischeigenschaften selected');
+    }
+    else if (g_gurrent_layout_element_number == 4)
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Bühne selected');
+    }
+    else if (g_gurrent_layout_element_number == 5)
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Wände selected');
+    }
+    else
+    {
+        debugCreateLayout('setOpenControlsForSelectedElement Kein gültiges Layout Element ausgewählt');
+    }
+
+} // setOpenControlsForSelectedElement
 
 // Set the controls with data from local storage
 function setLayoutCreateControls(i_create_layout_data)
@@ -342,6 +398,23 @@ function callbackLayoutXmlFileNotExists()
 
 } // callbackLayoutXmlFileNotExists
 
+// Sets the layout element dropdown control with the layout element names from the layout element XML file
+function setLayoutElementDropdownControl()
+{
+    debugCreateLayout('setLayoutElementDropdownControl Enter');
+
+    var layout_element_array = [];
+
+    layout_element_array[0] = 'Layout Element wählen';
+    layout_element_array[1] = 'Gruppen von Tischen';
+    layout_element_array[2] = 'Tischeigenschaften';
+    layout_element_array[3] = 'Bühne';
+    layout_element_array[4] = 'Wände';
+
+    g_drop_down_layout_element.setNameArray(layout_element_array);
+
+} // setLayoutElementDropdownControl
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Controls ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -362,6 +435,8 @@ function createLayoutCreateControls()
     createTextBoxResultDirectory();
 
     createLayoutXmlFileCreateButton();
+
+    createLayoutElementDropdown();
 
 } // createLayoutCreateControls
 
@@ -446,6 +521,31 @@ function createLayoutXmlFileCreateButton()
         '\n ');
 
 } // createLayoutXmlFileCreateButton
+
+// Creates the layout element dropdown control
+function createLayoutElementDropdown()
+{
+    g_drop_down_layout_element = new JazzDropdown('id_select_element_dropdown', 'id_div_select_element_dropdown');
+
+    g_current_layout_element_number = 1;
+
+    debugCreateLayout('createLayoutElementDropdown g_current_layout_element_number= ' + g_current_layout_element_number);
+
+    var dummy_layout_element_array = [];
+	dummy_layout_element_array[0] = 'Layout Element wählen';
+	dummy_layout_element_array[1] = 'Layout Element 1 Not yet set';
+
+    g_drop_down_layout_element.setNameArray(dummy_layout_element_array);
+
+    g_drop_down_layout_element.setOnchangeFunctionName("eventSelectLayoutElementDropDown");
+
+    g_drop_down_layout_element.setLabelText('Layout Element wählen ');
+
+    g_drop_down_layout_element.setLabelTextPositionLeft();
+
+    g_drop_down_layout_element.setTitle('Layout Element wählen');
+
+} // createLayoutElementDropdown
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////
