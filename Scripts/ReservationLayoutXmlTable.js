@@ -1,5 +1,5 @@
 // File: ReservationLayoutXmlTable.js
-// Date: 2026-05-04
+// Date: 2026-05-05
 // Author: Gunnar Lidén
 
 // File content
@@ -100,23 +100,24 @@ class LayoutXmlTable
 
             table_group_element.setText(group_text);
 
-            debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', group_text = ' + group_text);
+            // debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', group_text = ' + group_text);
 
             var n_tables = this.m_layout_xml.getNumberOTablesInOneGroup(table_group_number);
 
-                debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', n_tables = ' + n_tables);
+            // debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', n_tables = ' + n_tables);
 
             var table_number_array = this.m_layout_xml.getGroupTableNumbers(table_group_number);
 
             var n_table_numbers = table_number_array.length;
 
-            debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', n_table_numbers = ' + n_table_numbers);
+            debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + 
+                ', n_table_numbers = ' + n_table_numbers + ', group_text = ' + group_text);
 
             for (var i_index_table_number = 0; i_index_table_number < n_table_numbers; i_index_table_number++)
             {
                 var table_number = table_number_array[i_index_table_number];
 
-                debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', i_index_table_number = ' + i_index_table_number + ', table_number = ' + table_number);
+                // debugLayoutXmlTable('getTableGroupArray: table_group_number = ' + table_group_number + ', i_index_table_number = ' + i_index_table_number + ', table_number = ' + table_number);
 
                 var table_element = this.getTableElement(table_number);
 
@@ -135,8 +136,6 @@ class LayoutXmlTable
     // Returns an instance of the class Table for a given table group number and table number
     getTableElement(i_table_number)
     {
-        debugLayoutXmlTable('getTableElement: i_table_number = ' + i_table_number);
-
         var ret_table_element = new Table();
 
         var table_number = this.m_layout_xml.getTableNumber(i_table_number);
@@ -157,24 +156,27 @@ class LayoutXmlTable
         var number_left_right_seats = this.m_layout_xml.getTableNumberLeftRightSeats(i_table_number);
         ret_table_element.setNumberLeftRightSeats(number_left_right_seats);
 
-        debugLayoutXmlTable('getTableElement: Number = ' + ret_table_element.getNumber() + 
+        debugLayoutXmlTable('getTableElement: \nNumber (string) = ' + ret_table_element.getNumber() + 
         '\nupper_left_x = ' + ret_table_element.getUpperLeftX() + '\nupper_left_y = ' + 
         ret_table_element.getUpperLeftY() + '\nwidth = ' + ret_table_element.getWidth() + 
         '\nheight = ' + ret_table_element.getHeight() + '\nnumber_left_right_seats = ' + 
-        ret_table_element.getNumberLeftRightSeats());
+        ret_table_element.getNumberLeftRightSeats() + '\ni_table_number = ' + i_table_number);
 
-        //TODO Fix boolean rightTwo ret_table_element = this.addSeatBooleanValuesToTableElement(ret_table_element);
+        ret_table_element = this.addSeatBooleanValuesToTableElement(i_table_number, ret_table_element);
 
         return ret_table_element;
 
     } // getTableElement
 
     // Add the boolean values for the seats to a given table element
-    addSeatBooleanValuesToTableElement(i_table_element)
+    addSeatBooleanValuesToTableElement(i_table_number, i_table_element)
     {
-        var table_number = i_table_element.getNumber();
+        var table_number = i_table_number;
 
         var number_left_right_seats = i_table_element.getNumberLeftRightSeats();
+
+        debugLayoutXmlTable('addSeatBooleanValuesToTableElement: table_number = ' + table_number + 
+            ', number_left_right_seats = ' + number_left_right_seats);
 
         var ret_table_element = i_table_element;
 
@@ -338,7 +340,6 @@ class LayoutXmlTable
             ret_table_element.m_seat_twenty_right = seat_twenty_right;
         }
 
-
         var seat_upper = this.m_layout_xml.getTableSeatUpper(table_number);
         ret_table_element.m_seat_upper = seat_upper;
 
@@ -348,7 +349,6 @@ class LayoutXmlTable
         return ret_table_element;
 
     } // addSeatBooleanValuesToTableElement
-
 
 
     ///////////////////////////////////////////////////////////////////////////
