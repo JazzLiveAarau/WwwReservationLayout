@@ -207,6 +207,24 @@ Defines all style classes for the application reservation layout create page.
     min-height: 200px;
 }
 
+.cl_div_table_page_text_boxes
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
+.cl_table_page_property_textbox
+{
+    /* border: solid 1px yellow; */
+    margin-left: 15px;
+    padding-bottom: 3px;
+    float: left;
+}
+
 .cl_div_table_exit_container
 {
     /* border: solid 1px red; */

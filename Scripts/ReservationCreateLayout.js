@@ -123,6 +123,27 @@ var g_table_group_cancel_button = null;
 
 ///////////////////////////////// Start Table Page /////////////////////////////////////////
 
+// Global variable for the text box with the number id of a table
+var g_table_page_number_id_text = null;
+
+// Global variable for the text box with the position of a table left upper corner
+var g_table_page_position_left_text = null;
+
+// Global variable for the text box with the position of a table top upper corner
+var g_table_page_position_top_text = null;
+
+// Global variable for the text box with the dimension width of a table
+var g_table_page_dimension_width_text = null;
+
+// Global variable for the text box with the dimension height of a table
+var g_table_page_dimension_height_text = null;
+
+// Global variable for the text box with the number id of a table
+var g_table_page_dimension_width_textbox = null;
+
+// Global variable for the text box with the dimension height of a table
+var g_table_page_dimension_height_textbox = null;
+
 // Global variable for the button for saving a table
 var g_table_save_button = null;
 
@@ -325,6 +346,18 @@ function clickTableInGroupContainer(this_table_div)
     setControlsOnTablePage(table_number_id);
 
 } // clickTableInGroupContainer
+
+// Global variable if a table property was changed in the table page
+var g_table_property_was_changed = false;
+
+// Event function for the change of a table property in the table page
+function onChangeTableProperty()
+{
+    debugCreateLayout('onChangeTableProperty Enter');
+
+     g_table_property_was_changed = true;
+
+} // onChangeTableProperty
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -806,6 +839,20 @@ function createLayoutCreateControls()
 
      createTableGroupCancelButton();
 
+     createTextBoxTablePageNumberId();
+
+     createTextBoxTablePagePositionLeft();
+
+     createTextBoxTablePagePositionTop();
+
+     createTextBoxTablePageDimensionWidth();
+
+     createTextBoxTablePageDimensionHeight();
+
+     createTextBoxTablePageNumberSeats();
+
+     createTextBoxTablePageText();
+
      createTableSaveButton();
 
      createTableCancelButton();
@@ -1206,7 +1253,139 @@ function createTextBoxTableGroupSixText()
 
 } // createTextBoxTableGroupSixText
 
+// Create the text box for the number ID of a table
+function createTextBoxTablePageNumberId()
+{
+    g_table_page_number_id_textbox = new JazzTextBox("id_table_page_number_id", 'id_div_table_page_number_id');
 
+    g_table_page_number_id_textbox.setLabelText("Tisch Nummer (Identität) ");
+
+    g_table_page_number_id_textbox.setLabelTextPositionLeft();
+
+    g_table_page_number_id_textbox.setSize("30");
+
+    g_table_page_number_id_textbox.setReadOnlyFlag(false);
+
+    g_table_page_number_id_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_number_id_textbox.setTitle("Tisch Nummer (eine Identität, die auch ein String sein kann). "+
+        "\nMuss eine eindeutige Identität sein." + "\n ");
+
+} // createTextBoxTablePageNumberId
+
+// Create the text box for the left position of a table on the table page
+function createTextBoxTablePagePositionLeft()
+{
+    g_table_page_position_left_textbox = new JazzTextBox("id_table_page_position_left", 'id_div_table_page_position_left');    
+
+    g_table_page_position_left_textbox.setLabelText("Links ");
+
+    g_table_page_position_left_textbox.setLabelTextPositionLeft();
+
+    g_table_page_position_left_textbox.setSize("10");
+
+    g_table_page_position_left_textbox.setReadOnlyFlag(false);
+
+    g_table_page_position_left_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_position_left_textbox.setTitle("Tisch Position: Linke Ecke." + "\n ");
+
+} // createTextBoxTablePagePositionLeft
+
+// Create the text box for the top position of a table on the table page
+function createTextBoxTablePagePositionTop()
+{
+    g_table_page_position_top_textbox = new JazzTextBox("id_table_page_position_top", 'id_div_table_page_position_top');    
+
+    g_table_page_position_top_textbox.setLabelText("Oben ");
+
+    g_table_page_position_top_textbox.setLabelTextPositionLeft();
+
+    g_table_page_position_top_textbox.setSize("10");
+
+    g_table_page_position_top_textbox.setReadOnlyFlag(false);
+
+    g_table_page_position_top_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_position_top_textbox.setTitle("Tisch Position: Obere Ecke." + "\n ");
+
+} // createTextBoxTablePagePositionTop
+
+// Create the text box for the width of a table on the table page
+function createTextBoxTablePageDimensionWidth()
+{
+    g_table_page_dimension_width_textbox = new JazzTextBox("id_table_page_dimension_width", 'id_div_table_page_dimension_width');
+
+    g_table_page_dimension_width_textbox.setLabelText("Breite ");
+
+    g_table_page_dimension_width_textbox.setLabelTextPositionLeft();
+
+    g_table_page_dimension_width_textbox.setSize("10");
+
+    g_table_page_dimension_width_textbox.setReadOnlyFlag(false);
+
+    g_table_page_dimension_width_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_dimension_width_textbox.setTitle("Tisch Dimension: Breite." + "\n ");
+
+} // createTextBoxTablePageDimensionWidth
+
+// Create the text box for the height of a table on the table page
+function createTextBoxTablePageDimensionHeight()
+{
+    g_table_page_dimension_height_textbox = new JazzTextBox("id_table_page_dimension_height", 'id_div_table_page_dimension_height');
+
+    g_table_page_dimension_height_textbox.setLabelText("Höhe ");
+
+    g_table_page_dimension_height_textbox.setLabelTextPositionLeft();
+
+    g_table_page_dimension_height_textbox.setSize("10");
+
+    g_table_page_dimension_height_textbox.setReadOnlyFlag(false);
+
+    g_table_page_dimension_height_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_dimension_height_textbox.setTitle("Tisch Dimension: Höhe." + "\n ");
+
+} // createTextBoxTablePageDimensionHeight
+
+// Create the text box for the number of seats of a table on the table page
+function createTextBoxTablePageNumberSeats()
+{
+    g_table_page_number_seats_textbox = new JazzTextBox("id_table_page_number_seats", 'id_div_table_page_number_seats');
+
+    g_table_page_number_seats_textbox.setLabelText("Anzahl Plätze ");
+
+    g_table_page_number_seats_textbox.setLabelTextPositionLeft();
+
+    g_table_page_number_seats_textbox.setSize("10");
+
+    g_table_page_number_seats_textbox.setReadOnlyFlag(false);
+
+    g_table_page_number_seats_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_number_seats_textbox.setTitle("Anzahl Plätze an dem Tisch." + "\n ");
+
+} // createTextBoxTablePageNumberSeats
+
+// Create the text box for the text of a table on the table page
+function createTextBoxTablePageText()
+{
+    g_table_page_text_textbox = new JazzTextBox("id_table_page_text", 'id_div_table_page_text');
+
+    g_table_page_text_textbox.setLabelText("Text ");
+
+    g_table_page_text_textbox.setLabelTextPositionLeft();
+
+    g_table_page_text_textbox.setSize("60");
+
+    g_table_page_text_textbox.setReadOnlyFlag(false);
+
+    g_table_page_text_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_table_page_text_textbox.setTitle("Beschreibung des Tisches." + "\n ");
+
+} // createTextBoxTablePageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////

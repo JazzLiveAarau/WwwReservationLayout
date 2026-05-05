@@ -462,6 +462,8 @@ class Table
 {
     constructor()
     {
+        // Table number (string) is used to identify the 
+        // table and must be unique in the layout
         this.m_number = "";
         this.m_upper_left_x = -12345;
         this.m_upper_left_y = -12345;
@@ -517,14 +519,16 @@ class Table
         this.m_text = "";       
     }
 
-    // Get the table number (string)
+    // Get the table number (string). The table number is used to 
+    // identify the table and must be unique in the layout
     getNumber()
     {
         return this.m_number;
 
     } // getNumber
 
-    // Set the table number (string)
+    // Set the table number (string). The table number is used to 
+    // identify the table and must be unique in the layout
     setNumber(value)
     {
         this.m_number = value;
