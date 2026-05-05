@@ -76,6 +76,42 @@ var g_layout_xml_file_create_button = null;
 
 ///////////////////////////////// Start TableGroup Page ////////////////////////////////////
 
+// Global variable for the text box with the name of a table group one
+var g_table_group_one_name_text_box = null;
+
+// Global variable for the text box with the name of a table group two
+var g_table_group_two_name_text_box = null;
+
+// Global variable for the text box with the name of a table group three
+var g_table_group_three_name_text_box = null;
+
+// Global variable for the text box with the name of a table group four
+var g_table_group_four_name_text_box = null;
+
+// Global variable for the text box with the name of a table group five
+var g_table_group_five_name_text_box = null;
+
+// Global variable for the text box with the name of a table group six
+var g_table_group_six_name_text_box = null;
+
+// Global variable for the text box with the text of a table group one
+var g_table_group_one_text_textbox = null;
+
+// Global variable for the text box with the text of a table group two
+var g_table_group_two_text_textbox = null;
+
+// Global variable for the text box with the text of a table group three
+var g_table_group_three_text_textbox = null;
+
+// Global variable for the text box with the text of a table group four
+var g_table_group_four_text_textbox = null;
+
+// Global variable for the text box with the text of a table group five
+var g_table_group_five_text_textbox = null;
+
+// Global variable for the text box with the text of a table group six
+var g_table_group_six_text_textbox = null;
+
 // Global variable for the button for saving a table group
 var g_table_group_save_button = null;
 
@@ -501,6 +537,30 @@ function createLayoutCreateControls()
 
     createLayoutElementDropdown();
 
+    createTextBoxTableGroupOneName();
+
+    createTextBoxTableGroupTwoName();
+
+    createTextBoxTableGroupThreeName();
+
+    createTextBoxTableGroupFourName();
+
+    createTextBoxTableGroupFiveName();
+
+    createTextBoxTableGroupSixName();
+
+    createTextBoxTableGroupOneText();
+
+    createTextBoxTableGroupTwoText();
+
+    createTextBoxTableGroupThreeText();
+
+    createTextBoxTableGroupFourText();
+
+    createTextBoxTableGroupFiveText();
+
+    createTextBoxTableGroupSixText();
+
      createTableGroupSaveButton();
 
      createTableGroupCancelButton();
@@ -697,6 +757,215 @@ function createTableCancelButton()
         '\n ');
 
 } // createTableCancelButton
+
+
+
+
+// Create the text box for the name of a table group one
+function createTextBoxTableGroupOneName()
+{
+    g_table_group_one_name_text_box = new JazzTextBox("id_table_group_one_left_name", 'id_div_table_group_one_left_name');
+
+    g_table_group_one_name_text_box.setLabelText("Name");
+
+    g_table_group_one_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_one_name_text_box.setSize("30");
+
+    g_table_group_one_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_one_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupOneName
+
+// Create the text box for the name of a table group two
+function createTextBoxTableGroupTwoName()
+{
+    g_table_group_two_name_text_box = new JazzTextBox("id_table_group_two_left_name", 'id_div_table_group_two_left_name');
+
+    g_table_group_two_name_text_box.setLabelText("Name");
+
+    g_table_group_two_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_two_name_text_box.setSize("30");
+
+    g_table_group_two_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_two_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupTwoName
+
+// Create the text box for the name of a table group three
+function createTextBoxTableGroupThreeName()
+{
+    g_table_group_three_name_text_box = new JazzTextBox("id_table_group_three_left_name", 'id_div_table_group_three_left_name');
+
+    g_table_group_three_name_text_box.setLabelText("Name");
+
+    g_table_group_three_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_three_name_text_box.setSize("30");
+
+    g_table_group_three_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_three_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupThreeName
+
+// Create the text box for the name of a table group four
+function createTextBoxTableGroupFourName()
+{
+    g_table_group_four_name_text_box = new JazzTextBox("id_table_group_four_left_name", 'id_div_table_group_four_left_name');
+
+    g_table_group_four_name_text_box.setLabelText("Name");
+
+    g_table_group_four_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_four_name_text_box.setSize("30");
+
+    g_table_group_four_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_four_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupFourName
+
+// Create the text box for the name of a table group five
+function createTextBoxTableGroupFiveName()
+{
+    g_table_group_five_name_text_box = new JazzTextBox("id_table_group_five_left_name", 'id_div_table_group_five_left_name');
+
+    g_table_group_five_name_text_box.setLabelText("Name");
+
+    g_table_group_five_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_five_name_text_box.setSize("30");
+
+    g_table_group_five_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_five_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupFiveName
+
+// Create the text box for the name of a table group six
+function createTextBoxTableGroupSixName()
+{
+    g_table_group_six_name_text_box = new JazzTextBox("id_table_group_six_left_name", 'id_div_table_group_six_left_name');
+
+    g_table_group_six_name_text_box.setLabelText("Name");
+
+    g_table_group_six_name_text_box.setLabelTextPositionAbove();
+
+    g_table_group_six_name_text_box.setSize("30");
+
+    g_table_group_six_name_text_box.setReadOnlyFlag(false);
+
+    g_table_group_six_name_text_box.setTitle("Name der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupSixName
+
+// Create the text box for the text of a table group one
+function createTextBoxTableGroupOneText()
+{
+    g_table_group_one_text_textbox = new JazzTextBox("id_table_group_one_left_text", 'id_div_table_group_one_left_text');
+
+    g_table_group_one_text_textbox.setLabelText("Text");
+
+    g_table_group_one_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_one_text_textbox.setSize("30");
+
+    g_table_group_one_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_one_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupOneText
+
+// Create the text box for the text of a table group two
+function createTextBoxTableGroupTwoText()
+{
+    g_table_group_two_text_textbox = new JazzTextBox("id_table_group_two_left_text", 'id_div_table_group_two_left_text');
+
+    g_table_group_two_text_textbox.setLabelText("Text");
+
+    g_table_group_two_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_two_text_textbox.setSize("30");
+
+    g_table_group_two_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_two_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupTwoText
+
+// Create the text box for the text of a table group three
+function createTextBoxTableGroupThreeText()
+{
+    g_table_group_three_text_textbox = new JazzTextBox("id_table_group_three_left_text", 'id_div_table_group_three_left_text');
+
+    g_table_group_three_text_textbox.setLabelText("Text");
+
+    g_table_group_three_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_three_text_textbox.setSize("30");
+
+    g_table_group_three_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_three_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupThreeText
+
+// Create the text box for the text of a table group four
+function createTextBoxTableGroupFourText()
+{
+    g_table_group_four_text_textbox = new JazzTextBox("id_table_group_four_left_text", 'id_div_table_group_four_left_text');
+
+    g_table_group_four_text_textbox.setLabelText("Text");
+
+    g_table_group_four_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_four_text_textbox.setSize("30");
+
+    g_table_group_four_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_four_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupFourText
+
+// Create the text box for the text of a table group five
+function createTextBoxTableGroupFiveText()
+{
+    g_table_group_five_text_textbox = new JazzTextBox("id_table_group_five_left_text", 'id_div_table_group_five_left_text');
+
+    g_table_group_five_text_textbox.setLabelText("Text");
+
+    g_table_group_five_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_five_text_textbox.setSize("30");
+
+    g_table_group_five_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_five_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupFiveText
+
+// Create the text box for the text of a table group six
+function createTextBoxTableGroupSixText()
+{
+    g_table_group_six_text_textbox = new JazzTextBox("id_table_group_six_left_text", 'id_div_table_group_six_left_text');
+
+    g_table_group_six_text_textbox.setLabelText("Text");
+
+    g_table_group_six_text_textbox.setLabelTextPositionAbove();
+
+    g_table_group_six_text_textbox.setSize("30");
+
+    g_table_group_six_text_textbox.setReadOnlyFlag(false);
+
+    g_table_group_six_text_textbox.setTitle("Text der Tabellen-Gruppe eingeben oder ändern." + "\n ");
+
+} // createTextBoxTableGroupSixText
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////
