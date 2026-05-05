@@ -335,7 +335,7 @@ function setAndOpenPageControlsForSelectedElement()
 
         displayTableGroupPage();
 
-        setControlsForTableGroup()
+        setControlsForTableGroup();
     }
     else if (g_gurrent_layout_element_number == 3)
     {
@@ -365,9 +365,224 @@ function setControlsForTableGroup()
 
     var table_group_array = layout_xml_table.getTableGroupArray();
 
-    debugCreateLayout('setControlsForTableGroup table_group_array.length= ' + table_group_array.length);
+    var delta_height_for_table = getDeltaHeightForTable(table_group_array);
+
+    var n_table_groups = table_group_array.length;
+
+    debugCreateLayout('setControlsForTableGroup table_group_array.length= ' + n_table_groups);
+
+    if (n_table_groups >= 1)
+    {
+        displayTableGroupOneContainer();
+
+        var table_group_one = table_group_array[0];
+
+        // TODO g_table_group_one_name_text_box.setValue(table_group_one.getName());
+
+        g_table_group_one_text_textbox.setValue(table_group_one.getText());
+
+        var i_table_group_number = 1;
+        displayTablesInGroupContainer(table_group_one, i_table_group_number, delta_height_for_table);
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group one in the layout XML file');
+
+        hideTableGroupOneContainer();
+    }
+
+    if (n_table_groups >= 2)
+    {
+        displayTableGroupTwoContainer();
+
+        var table_group_two = table_group_array[1];
+
+        // TODO g_table_group_two_name_text_box.setValue(table_group_two.getName());
+
+        g_table_group_two_text_textbox.setValue(table_group_two.getText());
+
+        var i_table_group_number = 2;
+        displayTablesInGroupContainer(table_group_two, i_table_group_number, delta_height_for_table);
+
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group two in the layout XML file');
+
+        hideTableGroupTwoContainer();
+    }
+
+    if (n_table_groups >= 3)
+    {
+        displayTableGroupThreeContainer();
+
+        var table_group_three = table_group_array[2];
+
+        // TODO g_table_group_three_name_text_box.setValue(table_group_three.getName());
+
+        g_table_group_three_text_textbox.setValue(table_group_three.getText());
+
+        var i_table_group_number = 3;
+        displayTablesInGroupContainer(table_group_three, i_table_group_number, delta_height_for_table);
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group three in the layout XML file');
+
+        hideTableGroupThreeContainer();
+    }
+
+    if (n_table_groups >= 4)
+    {
+        displayTableGroupFourContainer();
+
+        var table_group_four = table_group_array[3];
+
+        // TODO g_table_group_four_name_text_box.setValue(table_group_four.getName());
+
+        g_table_group_four_text_textbox.setValue(table_group_four.getText());
+
+        var i_table_group_number = 4;
+        displayTablesInGroupContainer(table_group_four, i_table_group_number, delta_height_for_table);
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group four in the layout XML file');
+
+        hideTableGroupFourContainer();
+    }
+
+    if (n_table_groups >= 5)
+    {
+        displayTableGroupFiveContainer();
+
+        var table_group_five = table_group_array[4];
+
+        // TODO g_table_group_five_name_text_box.setValue(table_group_five.getName());
+
+        g_table_group_five_text_textbox.setValue(table_group_five.getText());
+
+        var i_table_group_number = 5;
+        displayTablesInGroupContainer(table_group_five, i_table_group_number, delta_height_for_table);
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group five in the layout XML file');
+
+        hideTableGroupFiveContainer();
+    }
+
+    if (n_table_groups >= 6)
+    {
+        displayTableGroupSixContainer();
+
+        var table_group_six = table_group_array[5];
+
+        // TODO g_table_group_six_name_text_box.setValue(table_group_six.getName());
+
+        g_table_group_six_text_textbox.setValue(table_group_six.getText());
+
+        var i_table_group_number = 6;
+        displayTablesInGroupContainer(table_group_six, i_table_group_number, delta_height_for_table);
+    }
+    else
+    {
+        // debugCreateLayout('setControlsForTableGroup No table group six in the layout XML file');
+
+        hideTableGroupSixContainer();
+    }
 
 } // setControlsForTableGroup
+
+//getTablesContainer(i_table_group_number).style.height = delta_height_for_table + 'px';
+
+function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_delta_height_for_table)
+{
+    debugCreateLayout('displayTablesInGroupContainer Enter i_table_group_number= ' + i_table_group_number + 
+        ' i_delta_height_for_table= ' + i_delta_height_for_table);
+
+    var tables_container = getTablesContainer(i_table_group_number);
+
+    if (tables_container == null)
+    {
+        return;
+    }
+
+    var html_tables = '';
+
+    var table_array = i_table_group.getTableArray();
+
+    var n_tables = table_array.length;
+
+    for (var index_table = 0; index_table < n_tables; index_table++)
+    {
+        var current_table = table_array[index_table];
+
+        var n_left_right_seats = current_table.getNumberLeftRightSeats();
+
+        var height_div = parseInt(i_delta_height_for_table * n_left_right_seats).toString() + 'px';
+
+        var table_div_html = '<div class="cl_table_in_group_container_div" style="height: ' + height_div + '"; >' + 
+        n_left_right_seats.toString() + '</div>';
+
+        debugCreateLayout('displayTablesInGroupContainer table_div_html= \n' + table_div_html );
+
+        html_tables += table_div_html;
+
+            //'title="Tischnummer: ' + current_table.getNumber() + '">Tischnummer: ' + current_table.getNumber() + '</div>';
+
+    } // index_table
+
+    tables_container.innerHTML = html_tables;
+
+} // displayTablesInGroupContainer
+
+// Get the delta height for a table defined by max number of seats and container height
+function getDeltaHeightForTable(i_table_group_array)
+{
+    var n_table_groups = i_table_group_array.length;
+
+    var max_left_right_seats = 0;
+
+    for (var index_table_group = 0; index_table_group < n_table_groups; index_table_group++)
+    {
+        var table_group = i_table_group_array[index_table_group];
+
+        var table_array = table_group.getTableArray();
+
+        for (var index_table = 0; index_table < table_array.length; index_table++)
+        {
+            var table = table_array[index_table];
+
+            var n_left_right_seats = table.getNumberLeftRightSeats();
+
+            var n_left_right_seats_int = parseInt(n_left_right_seats);
+
+            // debugCreateLayout('getDeltaHeightForTable Table group text = ' + table_group.getText() + 
+            //    ' table= ' + table.getNumber() +
+            //    ' n_left_right_seats_int= ' + n_left_right_seats_int);
+
+            if (n_left_right_seats_int > max_left_right_seats)
+            {
+                max_left_right_seats = n_left_right_seats_int;
+
+                //debugCreateLayout('getDeltaHeightForTable New max_left_right_seats= ' + max_left_right_seats);
+            }
+
+        } // index_table
+
+    } // index_table_group
+
+    var container_height = getElementDivTableGroupOneRightContainer().offsetHeight;
+
+    var ret_delta_height = container_height * 0.9 / max_left_right_seats;
+
+    debugCreateLayout('getDeltaHeightForTable max_left_right_seats= ' + max_left_right_seats + 
+        ' container_height= ' + container_height + ' delta_height= ' + ret_delta_height);
+
+    return ret_delta_height;
+
+} // getDeltaHeightForTable
 
 // Set the controls with data from local storage
 function setLayoutCreateControls(i_create_layout_data)
@@ -1029,6 +1244,91 @@ function hideCreateNewXmlButton()
 
 } // hideCreateNewXmlButton
 
+// Display the table group one container
+function hideTableGroupOneContainer()
+{
+    getElementDivTableGroupOneContainer().style.display = 'none';
+
+} // hideTableGroupOneContainer
+
+// Display the table group two container
+function hideTableGroupTwoContainer()
+{
+    getElementDivTableGroupTwoContainer().style.display = 'none';
+
+} // hideTableGroupTwoContainer
+
+// Display the table group three container
+function hideTableGroupThreeContainer()
+{
+    getElementDivTableGroupThreeContainer().style.display = 'none';
+
+} // hideTableGroupThreeContainer
+
+// Display the table group four container
+function hideTableGroupFourContainer()
+{
+    getElementDivTableGroupFourContainer().style.display = 'none';
+
+} // hideTableGroupFourContainer
+
+// Display the table group five container
+function hideTableGroupFiveContainer()
+{
+    getElementDivTableGroupFiveContainer().style.display = 'none';  
+
+} // hideTableGroupFiveContainer
+
+//
+function hideTableGroupSixContainer()
+{
+    getElementDivTableGroupSixContainer().style.display = 'none';
+
+} // hideTableGroupSixContainer
+
+
+// Hide the table group one container
+function displayTableGroupOneContainer()
+{
+    getElementDivTableGroupOneContainer().style.display = 'block';
+
+} // displayTableGroupOneContainer
+
+// Hide the table group two container
+function displayTableGroupTwoContainer()
+{
+    getElementDivTableGroupTwoContainer().style.display = 'block';
+
+} // displayTableGroupTwoContainer
+
+// Hide the table group three container
+function displayTableGroupThreeContainer()
+{
+    getElementDivTableGroupThreeContainer().style.display = 'block';
+
+} // displayTableGroupThreeContainer
+
+// Hide the table group four container
+function displayTableGroupFourContainer()
+{
+    getElementDivTableGroupFourContainer().style.display = 'block';
+
+} // displayTableGroupFourContainer
+
+// Hide the table group five container
+function displayTableGroupFiveContainer()
+{
+    getElementDivTableGroupFiveContainer().style.display = 'block';  
+
+} // displayTableGroupFiveContainer
+
+//
+function displayTableGroupSixContainer()
+{
+    getElementDivTableGroupSixContainer().style.display = 'block';
+
+} // displayTableGroupSixContainer
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Display Functions ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1120,6 +1420,151 @@ function getIdCreateNewXmlButton()
     return 'id_div_create_new_xml_button';
 
 } // getIdCreateNewXmlButton
+
+
+// Returns the element table group one container
+function getElementDivTableGroupOneContainer()
+{
+    return document.getElementById(getIdDivTableGroupOneContainer());
+
+} // getElementDivTableGroupOneContainer
+
+// Returns the id of the table group one container element
+function getIdDivTableGroupOneContainer()
+{
+    return 'id_div_table_group_one_container';
+
+} // getIdDivTableGroupOneContainer
+
+// Returns the element table group two container
+function getElementDivTableGroupTwoContainer()
+{
+    return document.getElementById(getIdDivTableGroupTwoContainer());
+
+} // getElementDivTableGroupTwoContainer
+
+// Returns the id of the table group two container element
+function getIdDivTableGroupTwoContainer()
+{
+    return 'id_div_table_group_two_container';
+
+} // getIdDivTableGroupTwoContainer
+
+// Returns the element table group three container
+function getElementDivTableGroupThreeContainer()
+{
+    return document.getElementById(getIdDivTableGroupThreeContainer());
+
+} // getElementDivTableGroupThreeContainer
+
+// Returns the id of the table group three container element
+function getIdDivTableGroupThreeContainer()
+{
+    return 'id_div_table_group_three_container';
+
+} // getIdDivTableGroupThreeContainer
+
+// Returns the element table group four container
+function getElementDivTableGroupFourContainer()
+{
+    return document.getElementById(getIdDivTableGroupFourContainer());
+
+} // getElementDivTableGroupFourContainer
+
+// Returns the id of the table group four container element
+function getIdDivTableGroupFourContainer()
+{
+    return 'id_div_table_group_four_container'; 
+
+} // getIdDivTableGroupFourContainer
+
+// Returns the element table group five container
+function getElementDivTableGroupFiveContainer()
+{
+    return document.getElementById(getIdDivTableGroupFiveContainer());
+
+} // getElementDivTableGroupFiveContainer
+
+// Returns the id of the table group five container element
+function getIdDivTableGroupFiveContainer()
+{
+    return 'id_div_table_group_five_container';
+
+} // getIdDivTableGroupFiveContainer
+
+// Returns the element table group six container
+function getElementDivTableGroupSixContainer()
+{
+    return document.getElementById(getIdDivTableGroupSixContainer());
+
+} // getElementDivTableGroupSixContainer
+
+// Returns the id of the table group six container element
+function getIdDivTableGroupSixContainer()
+{
+    return 'id_div_table_group_six_container';
+
+} // getIdDivTableGroupSixContainer
+
+// Returns the element table group one right container
+function getElementDivTableGroupOneRightContainer()
+{
+    return document.getElementById(getIdDivTableGroupOneRightContainer());
+
+} // getElementDivTableGroupOneRightContainer
+
+// Returns the id of the table group one right container element
+function getIdDivTableGroupOneRightContainer()
+{
+    return 'id_div_table_group_one_right_container';
+
+} // getIdDivTableGroupOneRightContainer
+
+
+// Returns the element table group two right container
+function getTablesContainer(i_table_group_number)
+{
+    //"id_div_table_group_one_right_container"
+    var start_container_id_str = 'id_div_table_group_';
+
+    var end_container_id_str = '_right_container';
+
+    if (1 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'one' + end_container_id_str);
+    }
+    else if (2 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'two' + end_container_id_str);
+    }
+    else if (3 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'three' + end_container_id_str);
+    }
+    else if (4 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'four' + end_container_id_str);
+    }
+    else if (5 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'five' + end_container_id_str);
+    }
+    else if (6 == i_table_group_number)
+    {
+        return document.getElementById(start_container_id_str + 'six' + end_container_id_str);
+    }
+    else
+    {
+        debugCreateLayout('getTablesContainer No table group container for table group number= ' + i_table_group_number);
+
+        alert('getTablesContainer\nKeine Tabellen-Gruppe für die Nummer= ' + i_table_group_number + 
+            '\nEs gibt nur sechs Tabellen-Gruppen. Bitte überprüfe die Nummer der Tabellen-Gruppe.');
+
+        return null;
+    }
+
+
+} // getTablesContainer
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Element Functions ///////////////////////////////////////////
