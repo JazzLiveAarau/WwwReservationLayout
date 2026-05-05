@@ -124,16 +124,16 @@ var g_table_group_cancel_button = null;
 ///////////////////////////////// Start Table Page /////////////////////////////////////////
 
 // Global variable for the text box with the number id of a table
-var g_table_page_number_id_text = null;
+var g_table_page_number_id_textbox = null;
 
 // Global variable for the text box with the position of a table left upper corner
-var g_table_page_position_left_text = null;
+var g_table_page_position_left_textbox = null;
 
 // Global variable for the text box with the position of a table top upper corner
-var g_table_page_position_top_text = null;
+var g_table_page_position_top_textbox = null;
 
 // Global variable for the text box with the dimension width of a table
-var g_table_page_dimension_width_text = null;
+//QQ var g_table_page_dimension_width_text = null;
 
 // Global variable for the text box with the dimension height of a table
 var g_table_page_dimension_height_text = null;
@@ -143,6 +143,12 @@ var g_table_page_dimension_width_textbox = null;
 
 // Global variable for the text box with the dimension height of a table
 var g_table_page_dimension_height_textbox = null;
+
+// Global variable for the text box with the number of seats of a table
+var g_table_page_number_seats_textbox = null;
+
+// Global variable for the text box with the text of a table
+var g_table_page_text_textbox = null;
 
 // Global variable for the button for saving a table
 var g_table_save_button = null;
@@ -592,7 +598,40 @@ function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_de
 // Set the controls on the table page with the data from the selected table
 function setControlsOnTablePage(i_table_number_id)
 {
-    debugCreateLayout('setControlsOnTablePage Enter i_table_number_id= ' + i_table_number_id);
+    var layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
+
+    var xml_table_number = layout_xml_table.getXmlTableNumberForTableNumberIdentity(i_table_number_id);
+
+    debugCreateLayout('setControlsOnTablePage xml_table_number= ' + xml_table_number + ' for table_number_id= ' + i_table_number_id);
+
+    var table_object = layout_xml_table.getTableElement(xml_table_number);
+
+    var upper_left_position = table_object.getUpperLeftX();
+
+    var upper_top_position = table_object.getUpperLeftY();
+
+    var dimension_width = table_object.getWidth();
+
+    var dimension_height = table_object.getHeight();
+
+    var number_seats = table_object.getNumberLeftRightSeats();
+
+    var table_text = table_object.getText();
+
+    g_table_page_number_id_textbox.setValue(i_table_number_id);
+
+    g_table_page_position_left_textbox.setValue(upper_left_position);
+
+    g_table_page_position_top_textbox.setValue(upper_top_position);
+
+    g_table_page_dimension_width_textbox.setValue(dimension_width);
+
+    g_table_page_dimension_height_textbox.setValue(dimension_height);
+
+    g_table_page_text_textbox.setValue(table_text);
+
+    g_table_page_number_seats_textbox.setValue(number_seats);
+
 
 } // setControlsOnTablePage
 

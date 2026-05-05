@@ -350,6 +350,43 @@ class LayoutXmlTable
 
     } // addSeatBooleanValuesToTableElement
 
+    // Returns the table number (string) for a given table number identity string
+    getXmlTableNumberForTableNumberIdentity(i_table_number_identity_str)
+    {
+        var ret_table_number = -12345;
+
+        var table_number_is_found = false;
+
+        var n_tables = this.m_layout_xml.getNumberOfTables();
+
+        for (var table_number = 1; table_number <= n_tables; table_number++)
+        {
+            var table_number_identity = this.m_layout_xml.getTableNumber(table_number);    
+
+            if (table_number_identity == i_table_number_identity_str)
+            {
+                ret_table_number = table_number;
+
+                if (!table_number_is_found)
+                {
+                    table_number_is_found = true;
+                }
+                else
+                {
+                    debugLayoutXmlTable('getXmlTableNumberForTableNumberIdentity: ERROR: Two tables with the same table number identity string = ' + i_table_number_identity_str);
+
+                    alert('ERROR: Two tables with the same table number identity string = ' + i_table_number_identity_str);
+
+                    return -12345;
+                }
+            } // Identity found
+
+        }
+
+        return ret_table_number;
+
+    } // getXmlTableNumberForTableNumberIdentity
+
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Utility Functions ///////////////////////////
