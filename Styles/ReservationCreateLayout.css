@@ -136,8 +136,10 @@ Defines all style classes for the application reservation layout create page.
 .cl_div_table_group_container
 {
     /* border: solid 1px red; */
+    border-bottom: dashed 3px blue;
     width: 95%;
     margin-left: 15px;
+    padding-top: 3px;
     padding-bottom: 3px;
     overflow: hidden; 
     clear: both;
@@ -163,6 +165,7 @@ Defines all style classes for the application reservation layout create page.
     clear: both;
 }
 
+ /* The table in group container <div> element */
 .cl_table_in_group_container_div
 {
     border: solid 2px blue;
@@ -170,6 +173,7 @@ Defines all style classes for the application reservation layout create page.
     margin-top: 5px;
     width: 30px;
     text-align: center;
+    cursor: pointer;
     float: left;
 }
 

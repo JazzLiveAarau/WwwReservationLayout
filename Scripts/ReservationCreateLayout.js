@@ -311,6 +311,21 @@ function onClickCancelTableButton()
 
 } // onClickCancelTableButton
 
+// Event function for the click on a table in the group container
+function clickTableInGroupContainer(this_table_div)
+{
+    debugCreateLayout('clickTableInGroupContainer Enter');
+
+    var table_number_id = this_table_div.id;
+
+    debugCreateLayout('clickTableInGroupContainer table_number_id= ' + table_number_id);
+
+    displayTablePage();
+
+    setControlsOnTablePage(table_number_id);
+
+} // clickTableInGroupContainer
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -494,8 +509,7 @@ function setControlsForTableGroup()
 
 } // setControlsForTableGroup
 
-//getTablesContainer(i_table_group_number).style.height = delta_height_for_table + 'px';
-
+// Display the tables in the container of a table group
 function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_delta_height_for_table)
 {
     debugCreateLayout('displayTablesInGroupContainer Enter i_table_group_number= ' + i_table_group_number + 
@@ -522,7 +536,12 @@ function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_de
 
         var height_div = parseInt(i_delta_height_for_table * n_left_right_seats).toString() + 'px';
 
-        var table_div_html = '<div class="cl_table_in_group_container_div" style="height: ' + height_div + '"; >' + 
+        var table_number_id = current_table.getNumber();
+
+        var table_div_html = '<div '+ 'id="' + table_number_id + '" ' + 
+        ' class="cl_table_in_group_container_div" ' + 
+        ' onclick="clickTableInGroupContainer(this)" ' + 
+        ' style="height: ' + height_div + '"; >' + 
         n_left_right_seats.toString() + '</div>';
 
         debugCreateLayout('displayTablesInGroupContainer table_div_html= \n' + table_div_html );
@@ -536,6 +555,13 @@ function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_de
     tables_container.innerHTML = html_tables;
 
 } // displayTablesInGroupContainer
+
+// Set the controls on the table page with the data from the selected table
+function setControlsOnTablePage(i_table_number_id)
+{
+    debugCreateLayout('setControlsOnTablePage Enter i_table_number_id= ' + i_table_number_id);
+
+} // setControlsOnTablePage
 
 // Get the delta height for a table defined by max number of seats and container height
 function getDeltaHeightForTable(i_table_group_array)
