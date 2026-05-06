@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-04
+File: ReservationCreateLayout.css Date: 2026-05-06
 
 Author: Gunnar Liden
 
@@ -225,21 +225,109 @@ Defines all style classes for the application reservation layout create page.
     float: left;
 }
 
-.cl_div_table_exit_container
+.cl_div_display_table_container
 {
     /* border: solid 1px red; */
-    width: 95%;
-    margin-left: 15px;
+    width: 55%;
+    margin-left: 20%;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    min-height: 200px;
+    clear: both;
+}
+
+.cl_div_display_table_column_left_right
+{
+    /* border: solid 1px green; */
+    width: 60px;
+    min-height: 195px;
+    margin-left: 0px;
+    text-align: center;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    float: left;
+}
+
+.cl_div_display_table_column_mid
+{
+    /* border: solid 1px green; */
+    width: 120px;
+    min-height: 195px;
+    margin-left: 0px;
+    text-align: center;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    float: left;
+}
+
+.cl_div_display_table_seat
+{
+    border: solid 3px black;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin: 5px;
+    text-align: center;
+    font-size: 11px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    cursor: pointer;
+    clear: both;
+}
+
+.cl_div_display_table_seat_upper_lower
+{
+    border: solid 3px black;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: gray;
+    margin-left: 35px;
+    text-align: center;
+    font-size: 11px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    cursor: pointer;
+    clear: both;
+}
+
+.cl_div_display_table_seat_upper
+{
+    border: solid 3px white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 11px;
     padding-bottom: 3px;
     overflow: hidden; 
     clear: both;
 }
+
+.cl_div_display_table_in_mid_container
+{
+    border: solid 1px black;
+    width: 95%;
+    min-height: 435px;
+    margin-left: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    overflow: hidden; 
+    clear: both;
+}
+
 
 .cl_div_exit_button
 {
     /* border: solid 1px green; */
     width: 20%;
     margin-top: 5px;
+    margin-bottom: 5px;
     margin-right: 15px;
     float: right;
 }

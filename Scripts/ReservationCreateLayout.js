@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-03
+// Date: 2026-05-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -1052,7 +1052,7 @@ function createTableSaveButton()
 
     g_table_save_button.setOnclickFunctionName("onClickSaveTableButton");
 
-    g_table_save_button.setCaption('Speichern');
+    g_table_save_button.setCaption('Übernehmen');
 
      g_table_save_button.setLabelTextPositionLeft();
 
@@ -1060,7 +1060,7 @@ function createTableSaveButton()
 
     g_table_save_button.setWidth("100px");
 
-    g_table_save_button.setTitle('Klick hier um die Änderungen der Tabelle zu speichern. '+ 
+    g_table_save_button.setTitle('Klick hier um die Änderungen des Tisches zu übernehmen. '+ 
         '\n ');
 
 } // createTableSaveButton
@@ -1084,9 +1084,6 @@ function createTableCancelButton()
         '\n ');
 
 } // createTableCancelButton
-
-
-
 
 // Create the text box for the name of a table group one
 function createTextBoxTableGroupOneName()
