@@ -133,7 +133,7 @@ class LayoutXmlTable
 
     } // getTableGroupArray
 
-    // Returns an instance of the class Table for a given table group number and table number
+    // Returns an instance of the class Table for a given table number
     getTableElement(i_table_number)
     {
         var ret_table_element = new Table();
@@ -167,6 +167,22 @@ class LayoutXmlTable
         return ret_table_element;
 
     } // getTableElement
+
+    // Returns an instance of the class Table for a given table number identity string
+    getTableElementForTableNumberIdentity(i_table_number_identity_str)
+    {
+        var table_number = this.getXmlTableNumberForTableNumberIdentity(i_table_number_identity_str);
+
+        if (table_number <= 0)
+        {
+            debugLayoutXmlTable('getTableElementForTableNumberIdentity: ERROR: No table with table number identity string = ' + i_table_number_identity_str);
+            
+            return null;
+        }
+
+        return this.getTableElement(table_number);
+
+    } // getTableElementForTableNumberIdentity
 
     // Add the boolean values for the seats to a given table element
     addSeatBooleanValuesToTableElement(i_table_number, i_table_element)
@@ -381,7 +397,10 @@ class LayoutXmlTable
                 }
             } // Identity found
 
-        }
+        } // table_number
+
+        debugLayoutXmlTable('getXmlTableNumberForTableNumberIdentity: i_table_number_identity_str = ' + 
+            i_table_number_identity_str + ', ret_table_number = ' + ret_table_number);
 
         return ret_table_number;
 
@@ -508,51 +527,16 @@ class Table
         this.m_height = -12345;
         this.m_number_left_right_seats = -12345;
 
-        this.m_seat_one_left = "true";
-        this.m_seat_two_left = "true";
-        this.m_seat_three_left = "true";
-        this.m_seat_four_left = "true";
-        this.m_seat_five_left = "true";
-        this.m_seat_six_left = "true";
-        this.m_seat_seven_left = "true";
-        this.m_seat_eight_left = "true";
-        this.m_seat_nine_left = "true";
-        this.m_seat_ten_left = "true";
-        this.m_seat_eleven_left = "true";
-        this.m_seat_twelve_left = "true";
-        this.m_seat_thirteen_left = "true";
-        this.m_seat_fourteen_left = "true";
-        this.m_seat_fifteen_left = "true";
-        this.m_seat_sixteen_left = "true";
-        this.m_seat_seventeen_left = "true";
-        this.m_seat_eightteen_left = "true";
-        this.m_seat_nineteen_left = "true";
-        this.m_seat_twenty_left = "true";
+        // Boolean values for the seats. The number of left 
+        // and right seats is given by m_number_left_right_seats
+        this.m_left_seat_array = new Array(20).fill(true);
+        this.m_right_seat_array = new Array(20).fill(true);
 
-        this.m_seat_one_right = "true";
-        this.m_seat_two_right = "true";
-        this.m_seat_three_right = "true";
-        this.m_seat_four_right = "true";
-        this.m_seat_five_right = "true";
-        this.m_seat_six_right = "true";
-        this.m_seat_seven_right = "true";
-        this.m_seat_eight_right = "true";
-        this.m_seat_nine_right = "true";
-        this.m_seat_ten_right = "true";
-        this.m_seat_eleven_right = "true";
-        this.m_seat_twelve_right = "true";
-        this.m_seat_thirteen_right = "true";
-        this.m_seat_fourteen_right = "true";
-        this.m_seat_fifteen_right = "true";
-        this.m_seat_sixteen_right = "true";
-        this.m_seat_seventeen_right = "true";
-        this.m_seat_eightteen_right = "true";
-        this.m_seat_nineteen_right = "true";
-        this.m_seat_twenty_right = "true";
+        // Boolean values for upper and lower seats
+        this.m_seat_upper = false;
+        this.m_seat_lower = false;
 
-        this.m_seat_upper = "true";
-        this.m_seat_lower = "true";
-
+        // Text description of the table
         this.m_text = "";       
     }
 
@@ -655,6 +639,98 @@ class Table
         this.m_text = value;
 
     } // setText
+
+    // Get the boolean value for a left seat with a given seat number (number)
+    getLeftSeatBool(i_seat_number)
+    {
+        if (i_seat_number < 1 || i_seat_number > 20)
+        {
+            alert('ERROR: getLeftSeatBool: i_seat_number must be between 1 and 20. i_seat_number = ' + i_seat_number);
+
+            return false;
+        }
+
+        // console.log('getLeftSeatBool: i_seat_number = ' + i_seat_number + ', this.m_left_seat_array[i_seat_number - 1] = ' + this.m_left_seat_array[i_seat_number - 1]);
+
+        return this.m_left_seat_array[i_seat_number - 1];
+
+    } // getLeftSeatBool
+
+    // Get the boolean value for a right seat with a given seat number (number)
+    getRightSeatBool(i_seat_number)
+    {
+        if (i_seat_number < 1 || i_seat_number > 20)
+        {
+            alert('ERROR: getRightSeatBool: i_seat_number must be between 1 and 20. i_seat_number = ' + i_seat_number);
+
+            return false;
+        }
+
+        // console.log('getRightSeatBool: i_seat_number = ' + i_seat_number + ', this.m_right_seat_array[i_seat_number - 1] = ' + this.m_right_seat_array[i_seat_number - 1]);
+
+        return this.m_right_seat_array[i_seat_number - 1];
+
+    } // getRightSeatBool
+
+
+    // Set the boolean value for a left seat with a given seat number (number)
+    setLeftSeatBool(i_seat_number, i_value)
+    {
+        if (i_seat_number < 1 || i_seat_number > 20)
+        {
+            alert('ERROR: setLeftSeatBool: i_seat_number must be between 1 and 20. i_seat_number = ' + i_seat_number);
+
+            return false;
+        }
+
+        this.m_left_seat_array[i_seat_number - 1] = i_value;
+
+    } // setLeftSeatBool
+
+    // Set the boolean value for a right seat with a given seat number (number)
+    setRightSeatBool(i_seat_number, i_value)
+    {
+        if (i_seat_number < 1 || i_seat_number > 20)
+        {
+            alert('ERROR: setRightSeatBool: i_seat_number must be between 1 and 20. i_seat_number = ' + i_seat_number);
+
+            return false;
+        }
+
+        this.m_right_seat_array[i_seat_number - 1] = i_value;
+
+    } // setRightSeatBool
+
+    // Get the boolean value for the upper seat (number)
+    getSeatUpperBool()
+    {
+       //  console.log('getSeatUpperBool: this.m_seat_upper = ' + this.m_seat_upper);
+        return this.m_seat_upper;
+
+    } // getSeatUpperBool
+
+    // Set the boolean value for the upper seat (number)
+    setSeatUpperBool(value)
+    {
+        this.m_seat_upper = value;
+
+    } // setSeatUpperBool
+
+    // Get the boolean value for the lower seat (number)
+    getSeatLowerBool()
+    {
+        // console.log('getSeatLowerBool: this.m_seat_lower = ' + this.m_seat_lower);
+        return this.m_seat_lower;
+
+    } // getSeatLowerBool
+
+    // Set the boolean value for the lower seat (number)
+    setSeatLowerBool(value)
+    {
+        this.m_seat_lower = value;
+
+    } // setSeatLowerBool
+
 
 } // Table
 

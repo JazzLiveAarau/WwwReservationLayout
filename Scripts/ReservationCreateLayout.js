@@ -16,6 +16,9 @@ var g_create_layout_xml = null;
 // Global variable selected element number in the dropdown control
 var g_current_layout_element_number = -12345;
 
+// Global variable active instance of the class Table
+var g_active_table_object = null;
+
 // Global variables for the controls of the application
 var g_help_create_layout_button = null;
 
@@ -596,27 +599,28 @@ function displayTablesInGroupContainer(i_table_group, i_table_group_number, i_de
 } // displayTablesInGroupContainer
 
 // Set the controls on the table page with the data from the selected table
+// 1. Create an instance of the class LayoutXmlTable with the layout XML object
+// 2. Get the table element for the given table number id. 
+//    Call of getTableElementForTableNumberIdentity
 function setControlsOnTablePage(i_table_number_id)
 {
+    debugCreateLayout('setControlsOnTablePage i_table_number_id= ' + i_table_number_id);
+
     var layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
 
-    var xml_table_number = layout_xml_table.getXmlTableNumberForTableNumberIdentity(i_table_number_id);
+    g_active_table_object = layout_xml_table.getTableElementForTableNumberIdentity(i_table_number_id);
 
-    debugCreateLayout('setControlsOnTablePage xml_table_number= ' + xml_table_number + ' for table_number_id= ' + i_table_number_id);
+    var upper_left_position = g_active_table_object.getUpperLeftX();
 
-    var table_object = layout_xml_table.getTableElement(xml_table_number);
+    var upper_top_position = g_active_table_object.getUpperLeftY();
 
-    var upper_left_position = table_object.getUpperLeftX();
+    var dimension_width = g_active_table_object.getWidth();
 
-    var upper_top_position = table_object.getUpperLeftY();
+    var dimension_height = g_active_table_object.getHeight();
 
-    var dimension_width = table_object.getWidth();
+    var number_seats = g_active_table_object.getNumberLeftRightSeats();
 
-    var dimension_height = table_object.getHeight();
-
-    var number_seats = table_object.getNumberLeftRightSeats();
-
-    var table_text = table_object.getText();
+    var table_text = g_active_table_object.getText();
 
     g_table_page_number_id_textbox.setValue(i_table_number_id);
 
@@ -632,6 +636,7 @@ function setControlsOnTablePage(i_table_number_id)
 
     g_table_page_number_seats_textbox.setValue(number_seats);
 
+     setTablePageSeatControls();
 
 } // setControlsOnTablePage
 
@@ -826,6 +831,360 @@ function setLayoutElementDropdownControl()
     g_drop_down_layout_element.setNameArray(layout_element_array);
 
 } // setLayoutElementDropdownControl
+
+// Set the table page seat controls with the data from the active table 
+// global variable g_active_table_object
+function setTablePageSeatControls()
+{
+    debugCreateLayout('setTablePageSeatControls Enter');
+
+    var number_left_right_seats = g_active_table_object.getNumberLeftRightSeats();
+
+    var el_one_left = document.getElementById('id_div_display_table_seat_left_one');
+    var el_one_right = document.getElementById('id_div_display_table_seat_right_one');
+
+    var el_two_left = document.getElementById('id_div_display_table_seat_left_two');
+    var el_two_right = document.getElementById('id_div_display_table_seat_right_two');
+
+    var el_three_left = document.getElementById('id_div_display_table_seat_left_three');
+    var el_three_right = document.getElementById('id_div_display_table_seat_right_three');
+
+    var el_four_left = document.getElementById('id_div_display_table_seat_left_four');
+    var el_four_right = document.getElementById('id_div_display_table_seat_right_four');
+
+    var el_five_left = document.getElementById('id_div_display_table_seat_left_five');
+    var el_five_right = document.getElementById('id_div_display_table_seat_right_five');
+
+    var el_six_left = document.getElementById('id_div_display_table_seat_left_six');
+    var el_six_right = document.getElementById('id_div_display_table_seat_right_six');
+
+    var el_seven_left = document.getElementById('id_div_display_table_seat_left_seven');
+    var el_seven_right = document.getElementById('id_div_display_table_seat_right_seven');
+
+    var el_eight_left = document.getElementById('id_div_display_table_seat_left_eight');
+    var el_eight_right = document.getElementById('id_div_display_table_seat_right_eight');
+
+    var el_nine_left = document.getElementById('id_div_display_table_seat_left_nine');
+    var el_nine_right = document.getElementById('id_div_display_table_seat_right_nine');
+
+    var el_ten_left = document.getElementById('id_div_display_table_seat_left_ten');
+    var el_ten_right = document.getElementById('id_div_display_table_seat_right_ten');
+
+    var el_eight_upper_element = document.getElementById('id_div_display_table_seat_upper');
+    var el_eight_lower_element = document.getElementById('id_div_display_table_seat_lower');
+
+    var el_mid_table_element = document.getElementById('id_div_display_table_mid');
+
+    var table_height_float = number_left_right_seats/2.0 * 42.0; // From style height of the seat elements
+    var table_height_string = table_height_float.toString() + 'px';
+
+    el_mid_table_element.style.height = table_height_string;
+
+    debugCreateLayout('setTablePageSeatControls Table height= ' + table_height_string);
+
+    if (number_left_right_seats >= 2)
+    {
+        el_one_left.style.display = 'block';
+        el_one_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(1) == true)
+        {
+            el_one_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_one_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(1) == true)
+        {
+            el_one_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_one_right.style.backgroundColor = 'gray';
+        }
+    } // >= 2
+    else
+    {
+        el_one_left.style.display = 'none';
+        el_one_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 4)
+    {
+        el_two_left.style.display = 'block';
+        el_two_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(2) == true)
+        {
+            el_two_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_two_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(2) == true)
+        {
+            el_two_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_two_right.style.backgroundColor = 'gray';
+        }
+    } // >= 4
+    else
+    {
+        el_two_left.style.display = 'none';
+        el_two_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 6)
+    {
+        el_three_left.style.display = 'block';
+        el_three_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(3) == true)
+        {
+            el_three_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_three_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(3) == true)
+        {
+            el_three_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_three_right.style.backgroundColor = 'gray';
+        }
+    } // >= 6
+    else
+    {
+        el_three_left.style.display = 'none';
+        el_three_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 8)
+    {
+        el_four_left.style.display = 'block';
+        el_four_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(4) == true)
+        {
+            el_four_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_four_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(4) == true)
+        {
+            el_four_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_four_right.style.backgroundColor = 'gray';
+        }
+    } // >= 8
+    else
+    {
+        el_four_left.style.display = 'none';
+        el_four_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 10)
+    {
+        el_five_left.style.display = 'block';
+        el_five_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(5) == true)
+        {
+            el_five_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_five_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(5) == true)
+        {
+            el_five_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_five_right.style.backgroundColor = 'gray';
+        }
+    } // >= 10
+    else
+    {
+        el_five_left.style.display = 'none';
+        el_five_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 12)
+    {
+        el_six_left.style.display = 'block';
+        el_six_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(6) == true)
+        {
+            el_six_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_six_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(6) == true)
+        {
+            el_six_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_six_right.style.backgroundColor = 'gray';
+        }
+    } // >= 12
+    else
+    {
+        el_six_left.style.display = 'none';
+        el_six_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 14)
+    {
+        el_seven_left.style.display = 'block';
+        el_seven_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(7) == true)
+        {
+            el_seven_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_seven_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(7) == true)
+        {
+            el_seven_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_seven_right.style.backgroundColor = 'gray';
+        }
+    } // >= 14
+    else
+    {
+        el_seven_left.style.display = 'none';
+        el_seven_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 16)
+    {
+        el_eight_left.style.display = 'block';
+        el_eight_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(8) == true)
+        {
+            el_eight_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_eight_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(8) == true)
+        {
+            el_eight_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_eight_right.style.backgroundColor = 'gray';
+        }
+    } // >= 16
+    else
+    {
+        el_eight_left.style.display = 'none';
+        el_eight_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 18)
+    {
+        el_nine_left.style.display = 'block';
+        el_nine_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(9) == true)
+        {
+            el_nine_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_nine_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(9) == true)
+        {
+            el_nine_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_nine_right.style.backgroundColor = 'gray';
+        }
+    } // >= 18
+    else
+    {
+        el_nine_left.style.display = 'none';
+        el_nine_right.style.display = 'none';
+    }
+
+    if (number_left_right_seats >= 20)
+    {
+        el_ten_left.style.display = 'block';
+        el_ten_right.style.display = 'block';
+        if (g_active_table_object.getLeftSeatBool(10) == true)
+        {
+            el_ten_left.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_ten_left.style.backgroundColor = 'gray';
+        }
+
+        if (g_active_table_object.getRightSeatBool(10) == true)
+        {
+            el_ten_right.style.backgroundColor = 'yellow';
+        }
+        else
+        {
+            el_ten_right.style.backgroundColor = 'gray';
+        }
+    } // >= 20
+    else
+    {
+        el_ten_left.style.display = 'none';
+        el_ten_right.style.display = 'none';
+    }
+
+
+
+
+
+    if (g_active_table_object.getSeatUpperBool() == true)
+    {
+        el_eight_upper_element.style.backgroundColor = 'yellow';
+    }
+    else
+    {
+        el_eight_upper_element.style.backgroundColor = 'gray';
+    }
+
+    if (g_active_table_object.getSeatLowerBool() == true)
+    {
+        el_eight_lower_element.style.backgroundColor = 'yellow';
+    }
+    else
+    {
+        el_eight_lower_element.style.backgroundColor = 'gray';
+    }
+
+} // setTablePageSeatControls
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Controls ////////////////////////////////////////////////
