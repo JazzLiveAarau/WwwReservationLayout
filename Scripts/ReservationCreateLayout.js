@@ -1175,7 +1175,7 @@ function setTablePageSeatControls()
         el_eight_upper_element.style.backgroundColor = 'gray';
     }
 
-    if (g_active_table_object.getSeatLowerBool() == true)
+    if (g_active_table_object.getLowerSeatBool() == true)
     {
         el_eight_lower_element.style.backgroundColor = 'yellow';
     }

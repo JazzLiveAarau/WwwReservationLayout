@@ -199,168 +199,168 @@ class LayoutXmlTable
         if (number_left_right_seats >= 2)
         {
             var seat_one_left = this.m_layout_xml.getTableSeatOneLeft(table_number);
-            ret_table_element.m_seat_one_left = seat_one_left;
+            ret_table_element.setLeftSeatBool(1, seat_one_left);
 			var seat_one_right = this.m_layout_xml.getTableSeatOneRight(table_number);
-			ret_table_element.m_seat_one_right = seat_one_right;
+			ret_table_element.setRightSeatBool(1, seat_one_right);
         }
     
         if (number_left_right_seats >= 4)
         {
             var seat_two_left = this.m_layout_xml.getTableSeatTwoLeft(table_number);
-            ret_table_element.m_seat_two_left = seat_two_left;
+            ret_table_element.setLeftSeatBool(2, seat_two_left);
 			var seat_two_right = this.m_layout_xml.getTableSeatTwoRight(table_number);
-			ret_table_element.m_seat_two_right = seat_two_right;
+			ret_table_element.setRightSeatBool(2, seat_two_right);
         }
 
         if (number_left_right_seats >= 6)
         {
             var seat_three_left = this.m_layout_xml.getTableSeatThreeLeft(table_number);
-            ret_table_element.m_seat_three_left = seat_three_left;
+            ret_table_element.setLeftSeatBool(3, seat_three_left);
             var seat_three_right = this.m_layout_xml.getTableSeatThreeRight(table_number);
-            ret_table_element.m_seat_three_right = seat_three_right;
+            ret_table_element.setRightSeatBool(3, seat_three_right);
         }
 
         if (number_left_right_seats >= 8)
         {
             var seat_four_left = this.m_layout_xml.getTableSeatFourLeft(table_number);
-            ret_table_element.m_seat_four_left = seat_four_left;
+            ret_table_element.setLeftSeatBool(4, seat_four_left);
             var seat_four_right = this.m_layout_xml.getTableSeatFourRight(table_number);
-            ret_table_element.m_seat_four_right = seat_four_right;
+            ret_table_element.setRightSeatBool(4, seat_four_right);
         }
 
         if (number_left_right_seats >= 10)
         {
             var seat_five_left = this.m_layout_xml.getTableSeatFiveLeft(table_number);
-            ret_table_element.m_seat_five_left = seat_five_left;
+            ret_table_element.setLeftSeatBool(5, seat_five_left);
             var seat_five_right = this.m_layout_xml.getTableSeatFiveRight(table_number);
-            ret_table_element.m_seat_five_right = seat_five_right;
+            ret_table_element.setRightSeatBool(5, seat_five_right);
         }
 
         if (number_left_right_seats >= 12)
         {
             var seat_six_left = this.m_layout_xml.getTableSeatSixLeft(table_number);
-            ret_table_element.m_seat_six_left = seat_six_left;
+            ret_table_element.setLeftSeatBool(6, seat_six_left);
             var seat_six_right = this.m_layout_xml.getTableSeatSixRight(table_number);
-            ret_table_element.m_seat_six_right = seat_six_right;
+            ret_table_element.setRightSeatBool(6, seat_six_right);
         }
 
         if (number_left_right_seats >= 14)
         {
             var seat_seven_left = this.m_layout_xml.getTableSeatSevenLeft(table_number);
-            ret_table_element.m_seat_seven_left = seat_seven_left; 
+            ret_table_element.setLeftSeatBool(7, seat_seven_left);
             var seat_seven_right = this.m_layout_xml.getTableSeatSevenRight(table_number);
-            ret_table_element.m_seat_seven_right = seat_seven_right;
+            ret_table_element.setRightSeatBool(7, seat_seven_right);
         }   
 
         if (number_left_right_seats >= 16)
         {
             var seat_eight_left = this.m_layout_xml.getTableSeatEightLeft(table_number);
-            ret_table_element.m_seat_eight_left = seat_eight_left;
+            ret_table_element.setLeftSeatBool(8, seat_eight_left);
             var seat_eight_right = this.m_layout_xml.getTableSeatEightRight(table_number);
-            ret_table_element.m_seat_eight_right = seat_eight_right;
+            ret_table_element.setRightSeatBool(8, seat_eight_right);
         }
 
         if (number_left_right_seats >= 18)
         {
             var seat_nine_left = this.m_layout_xml.getTableSeatNineLeft(table_number);
-            ret_table_element.m_seat_nine_left = seat_nine_left;
+            ret_table_element.setLeftSeatBool(9, seat_nine_left);
             var seat_nine_right = this.m_layout_xml.getTableSeatNineRight(table_number);
-            ret_table_element.m_seat_nine_right = seat_nine_right;
+            ret_table_element.setRightSeatBool(9, seat_nine_right);
         }
 
         if (number_left_right_seats >= 20)
         {
             var seat_ten_left = this.m_layout_xml.getTableSeatTenLeft(table_number);
-            ret_table_element.m_seat_ten_left = seat_ten_left;
+            ret_table_element.setLeftSeatBool(10, seat_ten_left);
             var seat_ten_right = this.m_layout_xml.getTableSeatTenRight(table_number);
-            ret_table_element.m_seat_ten_right = seat_ten_right;
+            ret_table_element.setRightSeatBool(10, seat_ten_right);
         }
 
         if (number_left_right_seats >= 22)
         {
             var seat_eleven_left = this.m_layout_xml.getTableSeatElevenLeft(table_number);
-            ret_table_element.m_seat_eleven_left = seat_eleven_left;
+            ret_table_element.setLeftSeatBool(11, seat_eleven_left);
             var seat_eleven_right = this.m_layout_xml.getTableSeatElevenRight(table_number);
-            ret_table_element.m_seat_eleven_right = seat_eleven_right;
+            ret_table_element.setRightSeatBool(11, seat_eleven_right);
         }
 
         if (number_left_right_seats >= 24)
         {
             var seat_twelve_left = this.m_layout_xml.getTableSeatTwelveLeft(table_number);
-            ret_table_element.m_seat_twelve_left = seat_twelve_left;
+            ret_table_element.setLeftSeatBool(12, seat_twelve_left);
             var seat_twelve_right = this.m_layout_xml.getTableSeatTwelveRight(table_number);
-            ret_table_element.m_seat_twelve_right = seat_twelve_right;
+            ret_table_element.setRightSeatBool(12, seat_twelve_right);
         }
 
         if (number_left_right_seats >= 26)
         {
             var seat_thirteen_left = this.m_layout_xml.getTableSeatThirteenLeft(table_number);
-            ret_table_element.m_seat_thirteen_left = seat_thirteen_left;
+            ret_table_element.setLeftSeatBool(13, seat_thirteen_left);
             var seat_thirteen_right = this.m_layout_xml.getTableSeatThirteenRight(table_number);
-            ret_table_element.m_seat_thirteen_right = seat_thirteen_right;
+            ret_table_element.setRightSeatBool(13, seat_thirteen_right);
         }
 
         if (number_left_right_seats >= 28)
         {
             var seat_fourteen_left = this.m_layout_xml.getTableSeatFourteenLeft(table_number);
-            ret_table_element.m_seat_fourteen_left = seat_fourteen_left;
+            ret_table_element.setLeftSeatBool(14, seat_fourteen_left);
             var seat_fourteen_right = this.m_layout_xml.getTableSeatFourteenRight(table_number);
-            ret_table_element.m_seat_fourteen_right = seat_fourteen_right;  
+            ret_table_element.setRightSeatBool(14, seat_fourteen_right);  
         }
 
         if (number_left_right_seats >= 30)
         {
             var seat_fifteen_left = this.m_layout_xml.getTableSeatFifteenLeft(table_number);
-            ret_table_element.m_seat_fifteen_left = seat_fifteen_left;
+            ret_table_element.setLeftSeatBool(15, seat_fifteen_left);
             var seat_fifteen_right = this.m_layout_xml.getTableSeatFifteenRight(table_number);
-            ret_table_element.m_seat_fifteen_right = seat_fifteen_right;
+            ret_table_element.setRightSeatBool(15, seat_fifteen_right);
         }
 
         if (number_left_right_seats >= 32)
         {
             var seat_sixteen_left = this.m_layout_xml.getTableSeatSixteenLeft(table_number);
-            ret_table_element.m_seat_sixteen_left = seat_sixteen_left;
+            ret_table_element.setLeftSeatBool(16, seat_sixteen_left);
             var seat_sixteen_right = this.m_layout_xml.getTableSeatSixteenRight(table_number);
-            ret_table_element.m_seat_sixteen_right = seat_sixteen_right;
+            ret_table_element.setRightSeatBool(16, seat_sixteen_right);
         }
 
         if (number_left_right_seats >= 34)
         {
             var seat_seventeen_left = this.m_layout_xml.getTableSeatSeventeenLeft(table_number);
-            ret_table_element.m_seat_seventeen_left = seat_seventeen_left;
+            ret_table_element.setLeftSeatBool(17, seat_seventeen_left);
             var seat_seventeen_right = this.m_layout_xml.getTableSeatSeventeenRight(table_number);
-            ret_table_element.m_seat_seventeen_right = seat_seventeen_right;
+            ret_table_element.setRightSeatBool(17, seat_seventeen_right);
         }
 
         if (number_left_right_seats >= 36)
         {
             var seat_eightteen_left = this.m_layout_xml.getTableSeatEightteenLeft(table_number);
-            ret_table_element.m_seat_eightteen_left = seat_eightteen_left;
+            ret_table_element.setLeftSeatBool(18, seat_eightteen_left);
             var seat_eightteen_right = this.m_layout_xml.getTableSeatEightteenRight(table_number);
-            ret_table_element.m_seat_eightteen_right = seat_eightteen_right;
+            ret_table_element.setRightSeatBool(18, seat_eightteen_right);
         }
 
         if (number_left_right_seats >= 38)
         {   
             var seat_nineteen_left = this.m_layout_xml.getTableSeatNineteenLeft(table_number);
-            ret_table_element.m_seat_nineteen_left = seat_nineteen_left;
+            ret_table_element.setLeftSeatBool(19, seat_nineteen_left);
             var seat_nineteen_right = this.m_layout_xml.getTableSeatNineteenRight(table_number);
-            ret_table_element.m_seat_nineteen_right = seat_nineteen_right;
+            ret_table_element.setRightSeatBool(19, seat_nineteen_right);
         }
 
         if (number_left_right_seats >= 40)
         {
             var seat_twenty_left = this.m_layout_xml.getTableSeatTwentyLeft(table_number);
-            ret_table_element.m_seat_twenty_left = seat_twenty_left;
+            ret_table_element.setLeftSeatBool(20, seat_twenty_left);
             var seat_twenty_right = this.m_layout_xml.getTableSeatTwentyRight(table_number);
-            ret_table_element.m_seat_twenty_right = seat_twenty_right;
+            ret_table_element.setRightSeatBool(20, seat_twenty_right);
         }
 
         var seat_upper = this.m_layout_xml.getTableSeatUpper(table_number);
-        ret_table_element.m_seat_upper = seat_upper;
+        ret_table_element.setUpperSeatBool(seat_upper);
 
         var seat_lower = this.m_layout_xml.getTableSeatLower(table_number);
-        ret_table_element.m_seat_lower = seat_lower;
+        ret_table_element.setLowerSeatBool(seat_lower);
 
         return ret_table_element;
 
@@ -674,7 +674,7 @@ class Table
 
 
     // Set the boolean value for a left seat with a given seat number (number)
-    setLeftSeatBool(i_seat_number, i_value)
+    setLeftSeatBool(i_seat_number, i_value_str)
     {
         if (i_seat_number < 1 || i_seat_number > 20)
         {
@@ -683,12 +683,23 @@ class Table
             return false;
         }
 
-        this.m_left_seat_array[i_seat_number - 1] = i_value;
+        var value_bool = true;
+
+        if (i_value_str.toLowerCase() == "true")
+        {
+            value_bool = true;
+        }
+        else if (i_value_str.toLowerCase() == "false")
+        {
+            value_bool = false;
+        }
+
+        this.m_left_seat_array[i_seat_number - 1] = value_bool;
 
     } // setLeftSeatBool
 
     // Set the boolean value for a right seat with a given seat number (number)
-    setRightSeatBool(i_seat_number, i_value)
+    setRightSeatBool(i_seat_number, i_value_str)
     {
         if (i_seat_number < 1 || i_seat_number > 20)
         {
@@ -697,7 +708,18 @@ class Table
             return false;
         }
 
-        this.m_right_seat_array[i_seat_number - 1] = i_value;
+        var value_bool = true;
+
+        if (i_value_str.toLowerCase() == "true")
+        {
+            value_bool = true;
+        }
+        else if (i_value_str.toLowerCase() == "false")
+        {
+            value_bool = false;
+        }
+
+        this.m_right_seat_array[i_seat_number - 1] = value_bool;
 
     } // setRightSeatBool
 
@@ -710,26 +732,48 @@ class Table
     } // getSeatUpperBool
 
     // Set the boolean value for the upper seat (number)
-    setSeatUpperBool(value)
+    setUpperSeatBool(i_value_str)
     {
-        this.m_seat_upper = value;
+        var value_bool = true;
 
-    } // setSeatUpperBool
+        if (i_value_str.toLowerCase() == "true")
+        {
+            value_bool = true;
+        }
+        else if (i_value_str.toLowerCase() == "false")
+        {
+            value_bool = false;
+        }
+
+        this.m_seat_upper = value_bool;
+
+    } // setUpperSeatBool
 
     // Get the boolean value for the lower seat (number)
-    getSeatLowerBool()
+    getLowerSeatBool()
     {
-        // console.log('getSeatLowerBool: this.m_seat_lower = ' + this.m_seat_lower);
+        // console.log('getLowerSeatBool: this.m_seat_lower = ' + this.m_seat_lower);
         return this.m_seat_lower;
 
-    } // getSeatLowerBool
+    } // getLowerSeatBool
 
     // Set the boolean value for the lower seat (number)
-    setSeatLowerBool(value)
+    setLowerSeatBool(i_value_str)
     {
-        this.m_seat_lower = value;
+        var value_bool = true;
 
-    } // setSeatLowerBool
+        if (i_value_str.toLowerCase() == "true")
+        {
+            value_bool = true;
+        }
+        else if (i_value_str.toLowerCase() == "false")
+        {
+            value_bool = false;
+        }
+
+        this.m_seat_lower = value_bool;
+
+    } // setLowerSeatBool
 
 
 } // Table
