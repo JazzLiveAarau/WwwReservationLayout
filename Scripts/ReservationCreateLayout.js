@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-06
+// Date: 2026-05-07
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -18,6 +18,11 @@ var g_current_layout_element_number = -12345;
 
 // Global variable active instance of the class Table
 var g_active_table_object = null;
+
+// Global variable if a table property was changed in the table page
+var g_table_property_was_changed = false;
+
+
 
 // Global variables for the controls of the application
 var g_help_create_layout_button = null;
@@ -356,17 +361,25 @@ function clickTableInGroupContainer(this_table_div)
 
 } // clickTableInGroupContainer
 
-// Global variable if a table property was changed in the table page
-var g_table_property_was_changed = false;
-
 // Event function for the change of a table property in the table page
 function onChangeTableProperty()
 {
-    debugCreateLayout('onChangeTableProperty Enter');
+    debugCreateLayout('onChangeTableProperty The user changed a table property in the table page');
 
      g_table_property_was_changed = true;
 
 } // onChangeTableProperty
+
+// Event function for the click on a table seat in the table page
+function onClickTableSeat(i_seat_id)
+{
+    debugCreateLayout('onClickTableSeat Seat id= ' + i_seat_id);
+
+    onChangeTableProperty();
+
+    execClickTableSeat(i_seat_id);
+
+} // onClickTableSeat
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -1185,6 +1198,89 @@ function setTablePageSeatControls()
     }
 
 } // setTablePageSeatControls
+
+// Event function for the click on a table seat in the table page
+function execClickTableSeat(i_seat_id)
+{
+    debugCreateLayout('execClickTableSeat i_seat_id= ' + i_seat_id);
+
+    if (i_seat_id == 'Upper')
+    {
+        var current_seat_bool = g_active_table_object.getSeatUpperBool();
+
+        if (current_seat_bool == true)
+        {
+            g_active_table_object.setUpperSeatBool(false);
+        }
+        else
+        {
+            g_active_table_object.setUpperSeatBool(true);
+        }
+
+        setTablePageSeatControls();
+        return;
+    }
+
+    if (i_seat_id == 'Lower')
+    {
+        var current_seat_bool = g_active_table_object.getLowerSeatBool();
+
+        if (current_seat_bool == true)
+        {
+            g_active_table_object.setLowerSeatBool(false);
+        }
+        else
+        {
+            g_active_table_object.setLowerSeatBool(true);
+        }
+
+        setTablePageSeatControls();
+
+        return;
+    }
+
+    var seat_number_str = i_seat_id.substring(i_seat_id.lastIndexOf('_') + 1);
+
+    var seat_number = parseInt(seat_number_str);
+
+    //QQ var current_seat_aeeay = null;
+
+    if (i_seat_id.includes('L_'))
+    {
+        var current_seat_bool = g_active_table_object.getLeftSeatBool(seat_number);
+
+        if (current_seat_bool == true)
+        {
+            g_active_table_object.setLeftSeatBool(seat_number, false);
+        }
+        else
+        {
+            g_active_table_object.setLeftSeatBool(seat_number, true);
+        }
+
+    } // L_
+    else if (i_seat_id.includes('R_'))
+    {
+        var current_seat_bool = g_active_table_object.getRightSeatBool(seat_number);
+
+        if (current_seat_bool == true)
+        {
+            g_active_table_object.setRightSeatBool(seat_number, false);
+        }
+        else
+        {
+            g_active_table_object.setRightSeatBool(seat_number, true);
+        }
+    } // R_
+    else
+    {
+        debugCreateLayout('execClickTableSeat No left or right seat clicked');
+        return;
+    }
+
+    setTablePageSeatControls();
+
+} // execClickTableSeat
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Controls ////////////////////////////////////////////////
