@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-06
+File: ReservationCreateLayout.css Date: 2026-05-07
 
 Author: Gunnar Liden
 
@@ -223,6 +223,34 @@ Defines all style classes for the application reservation layout create page.
     margin-left: 15px;
     padding-bottom: 3px;
     float: left;
+}
+
+.cl_div_table_page_number_seats
+{
+    /* border: solid 1px red; */
+    margin-left: 15px;
+    padding-bottom: 3px;
+    float: left;
+}
+
+.cl_div_table_page_number_button
+{
+    /* border: solid 1px blue; */
+    margin-left: 5px;
+    padding-bottom: 3px;
+    width: 45px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+}
+
+/* The plus and minus buttons for the number of seats in the table page */
+.cl_table_page_number_button
+{
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .cl_div_display_table_container

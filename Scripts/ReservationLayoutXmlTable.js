@@ -1,5 +1,5 @@
 // File: ReservationLayoutXmlTable.js
-// Date: 2026-05-07
+// Date: 2026-05-08
 // Author: Gunnar Lidén
 
 // File content
@@ -615,14 +615,14 @@ class Table
     // Get the number of left and right seats (number)
     getNumberLeftRightSeats()
     {
-        return this.m_number_left_right_seats;
+        return parseInt(this.m_number_left_right_seats);
 
     } // getNumberLeftRightSeats
 
     // Set the number of left and right seats (number)
-    setNumberLeftRightSeats(value)
+    setNumberLeftRightSeats(i_left_right_seats)
     {
-        this.m_number_left_right_seats = value;
+        this.m_number_left_right_seats = parseInt(i_left_right_seats);
 
     } // setNumberLeftRightSeats
 

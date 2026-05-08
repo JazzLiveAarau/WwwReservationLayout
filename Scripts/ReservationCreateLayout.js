@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-07
+// Date: 2026-05-08
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -154,6 +154,12 @@ var g_table_page_dimension_height_textbox = null;
 
 // Global variable for the text box with the number of seats of a table
 var g_table_page_number_seats_textbox = null;
+
+// Global variable for the plus button for the number of seats in the table page
+var g_table_page_number_plus_button = null;
+
+// Global variable for the minus button for the number of seats in the table page
+var g_table_page_number_minus_button = null;
 
 // Global variable for the text box with the text of a table
 var g_table_page_text_textbox = null;
@@ -380,6 +386,28 @@ function onClickTableSeat(i_seat_id)
     execClickTableSeat(i_seat_id);
 
 } // onClickTableSeat
+
+// Event function for the click on the plus button for the number of seats in the table page
+function onClickPageNumberPlusButton()
+{
+    debugCreateLayout('onClickPageNumberPlusButton Enter');
+
+    onChangeTableProperty();
+
+    execPageNumberPlusButton();
+
+} // onClickPageNumberPlusButton
+
+// Event function for the click on the minus button for the number of seats in the table page
+function onClickPageNumberMinusButton()
+{
+    debugCreateLayout('onClickPageNumberMinusButton Enter');
+
+    onChangeTableProperty();
+
+    execPageNumberMinusButton();
+
+} // onClickPageNumberMinusButton
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -1282,6 +1310,74 @@ function execClickTableSeat(i_seat_id)
 
 } // execClickTableSeat
 
+// Event function for the click on the plus button for the number of seats in the table page
+function execPageNumberPlusButton()
+{
+    var b_plus = true;
+
+    var n_left_right_seats = getNewNumberOfTableSeats(b_plus);
+
+    debugCreateLayout('execPageNumberPlusButton n_left_right_seats= ' + n_left_right_seats);    
+
+    g_active_table_object.setNumberLeftRightSeats(n_left_right_seats);
+
+    setTablePageSeatControls();
+
+} // execPageNumberPlusButton
+
+// Event function for the click on the minus button for the number of seats in the table page
+function execPageNumberMinusButton()
+{
+    var b_plus = false;
+
+    var n_left_right_seats = getNewNumberOfTableSeats(b_plus);
+
+    debugCreateLayout('execPageNumberMinusButton n_left_right_seats= ' + n_left_right_seats);
+
+    g_active_table_object.setNumberLeftRightSeats(n_left_right_seats);
+
+    setTablePageSeatControls();
+
+} // execPageNumberMinusButton
+
+// Get the new number of table seats for the click on the plus or minus button in the table page
+function getNewNumberOfTableSeats(i_b_plus)
+{
+    var ret_number_seats = 0;
+
+    var current_number_seats = g_active_table_object.getNumberLeftRightSeats();
+
+    if (i_b_plus == true)
+    {
+        if (current_number_seats < 20)
+        {
+            ret_number_seats = current_number_seats + 2;
+        }
+        else
+        {
+            ret_number_seats = current_number_seats;
+        }
+
+    } // Plus button
+ 
+    if (i_b_plus == false)
+    {
+        if (current_number_seats > 2)
+        {
+            ret_number_seats = current_number_seats - 2;
+        }   
+        else        
+        {
+            ret_number_seats = current_number_seats;
+        }
+
+    } // Minus button
+ 
+
+    return ret_number_seats;
+
+} // getNewNumberOfTableSeats
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Controls ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1313,21 +1409,21 @@ function createLayoutCreateControls()
 
     createTextBoxTableGroupFourName();
 
-    createTextBoxTableGroupFiveName();
+     createTextBoxTableGroupFiveName();
 
-    createTextBoxTableGroupSixName();
+     createTextBoxTableGroupSixName();
 
-    createTextBoxTableGroupOneText();
+     createTextBoxTableGroupOneText();
 
-    createTextBoxTableGroupTwoText();
+     createTextBoxTableGroupTwoText();
 
-    createTextBoxTableGroupThreeText();
+     createTextBoxTableGroupThreeText();
 
-    createTextBoxTableGroupFourText();
+     createTextBoxTableGroupFourText();
 
-    createTextBoxTableGroupFiveText();
+     createTextBoxTableGroupFiveText();
 
-    createTextBoxTableGroupSixText();
+     createTextBoxTableGroupSixText();
 
      createTableGroupSaveButton();
 
@@ -1345,6 +1441,10 @@ function createLayoutCreateControls()
 
      createTextBoxTablePageNumberSeats();
 
+     createPageNumberPlusButton();
+
+     createPageNumberMinusButton();
+
      createTextBoxTablePageText();
 
      createTableSaveButton();
@@ -1352,7 +1452,6 @@ function createLayoutCreateControls()
      createTableCancelButton();
 
 } // createLayoutCreateControls
-
 
 // Creates the help button 
 function createHelpCreateLayoutButton()
@@ -1849,15 +1948,59 @@ function createTextBoxTablePageNumberSeats()
 
     g_table_page_number_seats_textbox.setLabelTextPositionLeft();
 
-    g_table_page_number_seats_textbox.setSize("10");
+    g_table_page_number_seats_textbox.setSize("2");
 
-    g_table_page_number_seats_textbox.setReadOnlyFlag(false);
+    g_table_page_number_seats_textbox.setReadOnlyFlag(true);
 
     g_table_page_number_seats_textbox.setOninputFunctionName("onChangeTableProperty");
 
     g_table_page_number_seats_textbox.setTitle("Anzahl Plätze an dem Tisch." + "\n ");
 
 } // createTextBoxTablePageNumberSeats
+
+// Creates the button for increasing the number of seats of a table
+function createPageNumberPlusButton()
+{
+    g_table_page_number_plus_button = new JazzButton('id_table_page_number_plus_button', 'id_div_table_page_number_plus_button');
+
+    g_table_page_number_plus_button.setOnclickFunctionName("onClickPageNumberPlusButton");
+
+    g_table_page_number_plus_button.setCaption('+');
+
+    g_table_page_number_plus_button.setLabelTextPositionLeft();
+
+    g_table_page_number_plus_button.setLabelText("");
+
+    g_table_page_number_plus_button.setWidth("30px");
+
+    g_table_page_number_plus_button.setTitle('Klick hier um die Anzahl der Plätze zu erhöhen. '+ 
+        '\n ');
+
+    g_table_page_number_plus_button.setClass("cl_table_page_number_button");
+
+} // createPageNumberPlusButton
+
+// Creates the button for decreasing the number of seats of a table
+function createPageNumberMinusButton()
+{
+    g_table_page_number_minus_button = new JazzButton('id_table_page_number_minus_button', 'id_div_table_page_number_minus_button');
+
+    g_table_page_number_minus_button.setOnclickFunctionName("onClickPageNumberMinusButton");
+
+    g_table_page_number_minus_button.setCaption('-');
+
+    g_table_page_number_minus_button.setLabelTextPositionLeft();
+
+    g_table_page_number_minus_button.setLabelText("");
+
+    g_table_page_number_minus_button.setWidth("30px");
+
+    g_table_page_number_minus_button.setTitle('Klick hier um die Anzahl der Plätze zu verringern. '+ 
+        '\n ');
+
+    g_table_page_number_minus_button.setClass("cl_table_page_number_button");
+
+} // createPageNumberMinusButton
 
 // Create the text box for the text of a table on the table page
 function createTextBoxTablePageText()
