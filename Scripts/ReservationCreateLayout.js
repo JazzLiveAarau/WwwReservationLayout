@@ -13,6 +13,9 @@
 // Global variable for the layout XML object an instance of the class ReservationLayoutXml
 var g_create_layout_xml = null;
 
+// Global variable for the layout XML table object an instance of the class LayoutXmlTable
+var g_layout_xml_table = null;
+
 // Global variable selected element number in the dropdown control
 var g_current_layout_element_number = -12345;
 
@@ -239,6 +242,9 @@ function callbackAfterLoadOfXmlLayout()
     debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
             result_dir + '/XML/' + result_dir + '.xml');
 
+
+    g_layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
+
     displaySelectContainer();
 
     setLocalStorageData();
@@ -339,6 +345,8 @@ function onClickSaveTableButton()
 {
     debugCreateLayout('onClickSaveTableButton Enter');
 
+    execClickSaveTableToXmlObject();
+
     displayTableGroupPage();
 
 } // onClickSaveTableButton
@@ -412,6 +420,27 @@ function onClickPageNumberMinusButton()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Save Functions ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Event execution function for the click on the button for saving a table
+function execClickSaveTableToXmlObject()
+{
+    debugCreateLayout('execClickSaveTableToXmlObject Enter');
+
+    g_layout_xml_table.setTableElementForTableNumberIdentity(g_active_table_object);
+
+    // TODO Append booleans defined in g_active_table_object
+
+} // execClickSaveTableToXmlObject
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Save Functions //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Set Controls //////////////////////////////////////////////
@@ -1321,6 +1350,8 @@ function execPageNumberPlusButton()
 
     g_active_table_object.setNumberLeftRightSeats(n_left_right_seats);
 
+    g_table_page_number_seats_textbox.setValue(n_left_right_seats);
+
     setTablePageSeatControls();
 
 } // execPageNumberPlusButton
@@ -1335,6 +1366,8 @@ function execPageNumberMinusButton()
     debugCreateLayout('execPageNumberMinusButton n_left_right_seats= ' + n_left_right_seats);
 
     g_active_table_object.setNumberLeftRightSeats(n_left_right_seats);
+
+    g_table_page_number_seats_textbox.setValue(n_left_right_seats);
 
     setTablePageSeatControls();
 

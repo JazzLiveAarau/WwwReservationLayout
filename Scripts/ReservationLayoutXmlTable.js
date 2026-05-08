@@ -26,7 +26,7 @@ class LayoutXmlTable
     // Returns the instance of the class ReservationLayoutXml
     getXmlObject()
     {
-        return this.m_layout_xml;
+        return this.m_layout_xml.getXmlObject();
 
     } // getXmlObject
 
@@ -77,6 +77,219 @@ class LayoutXmlTable
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Append Functions ////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// Start Delete Functions //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+
+    // Delete all seat boolean elements for a given table number identity string
+    // i_table_number_identity_str Table number identity string (string)
+    deleteAllTableSeatBooleanElementsForTableNumberIdentity(i_table_number_identity_str)
+    {
+        var table_number = this.getXmlTableNumberForTableNumberIdentity(i_table_number_identity_str);
+
+        if (table_number <= 0)
+        {
+            debugLayoutXmlTable('deleteAllTableSeatBooleanElementsForTableNumberIdentity: ERROR: No table with table number identity string = ' + i_table_number_identity_str);
+            alert('ERROR: No table with table number identity string = ' + i_table_number_identity_str);
+
+            return;
+        }
+
+        this.deleteAllTableSeatBooleanElements(table_number);
+
+    } // deleteAllTableSeatBooleanElementsForTableNumberIdentity
+
+    // Delete all seat boolean elements for a given table number
+    // i_table_number Table record number (number)
+    deleteAllTableSeatBooleanElements(i_table_number)
+    {
+        debugLayoutXmlTable('deleteAllTableSeatBooleanElements: i_table_number = ' + i_table_number);
+
+        for (var table_pair_number = 1; table_pair_number <= 20; table_pair_number++)
+        {
+            this.deleteTableSeatBooleanPairElements(i_table_number, table_pair_number);
+        }
+
+    } // deleteAllTableSeatBooleanElements
+
+    // Delete a pair of seat boolean elements
+    // i_table_number Table record number (number)
+    // i_table_pair_number Pair number for the seat boolean elements (number): 1-20.                 
+    deleteTableSeatBooleanPairElements(i_table_number, i_table_pair_number)
+    {
+        debugLayoutXmlTable('deleteTableSeatBooleanPairElements: i_table_number = ' + i_table_number + 
+            ', i_table_pair_number = ' + i_table_pair_number);
+
+        var table_node = this.getTableNodeElement(i_table_number);
+
+        if (table_node == null)
+        {
+            alert("deleteTableSeatBooleanPairElements: ERROR: No table node found for table number = " + i_table_number);
+            
+            return;
+        }
+
+        if (i_table_pair_number < 1 || i_table_pair_number > 20)
+        {
+            alert("deleteTableSeatBooleanPairElements: ERROR: Invalid table pair number = " + i_table_pair_number);
+            return;
+        }
+
+        var left_tag_table_element = "";
+
+        var right_tag_table_element = "";
+
+        if (i_table_pair_number == 1)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatOneLeft();
+            right_tag_table_element = this.m_tags.getTableSeatOneRight();
+        }
+        else if (i_table_pair_number == 2)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatTwoLeft();
+            right_tag_table_element = this.m_tags.getTableSeatTwoRight();
+        }
+        else if (i_table_pair_number == 3)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatThreeLeft();
+            right_tag_table_element = this.m_tags.getTableSeatThreeRight();
+        }
+        else if (i_table_pair_number == 4)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatFourLeft();
+            right_tag_table_element = this.m_tags.getTableSeatFourRight();
+        }
+        else if (i_table_pair_number == 5)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatFiveLeft();
+            right_tag_table_element = this.m_tags.getTableSeatFiveRight();
+        }
+        else if (i_table_pair_number == 6)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatSixLeft();
+            right_tag_table_element = this.m_tags.getTableSeatSixRight();
+        }
+        else if (i_table_pair_number == 7)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatSevenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatSevenRight();
+        }
+        else if (i_table_pair_number == 8)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatEightLeft();
+            right_tag_table_element = this.m_tags.getTableSeatEightRight();
+        }   
+        else if (i_table_pair_number == 9)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatNineLeft();
+            right_tag_table_element = this.m_tags.getTableSeatNineRight();
+        }
+        else if (i_table_pair_number == 10)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatTenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatTenRight();
+        }   
+        else if (i_table_pair_number == 11)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatElevenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatElevenRight();
+        }
+        else if (i_table_pair_number == 12)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatTwelveLeft();
+            right_tag_table_element = this.m_tags.getTableSeatTwelveRight();
+        }
+        else if (i_table_pair_number == 13)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatThirteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatThirteenRight();
+        }
+        else if (i_table_pair_number == 14)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatFourteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatFourteenRight();
+        }
+        else if (i_table_pair_number == 15)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatFifteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatFifteenRight();
+        }
+        else if (i_table_pair_number == 16)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatSixteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatSixteenRight();
+        }
+        else if (i_table_pair_number == 17)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatSeventeenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatSeventeenRight();
+        }
+        else if (i_table_pair_number == 18)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatEighteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatEighteenRight();
+        }
+        else if (i_table_pair_number == 19)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatNineteenLeft();
+            right_tag_table_element = this.m_tags.getTableSeatNineteenRight();
+        }
+        else if (i_table_pair_number == 20)
+        {
+            left_tag_table_element = this.m_tags.getTableSeatTwentyLeft();
+            right_tag_table_element = this.m_tags.getTableSeatTwentyRight();
+        }
+
+        this.deleteTableSeatBooleanIfExisting(table_node, left_tag_table_element);
+        this.deleteTableSeatBooleanIfExisting(table_node, right_tag_table_element);
+
+    } // deleteTableSeatBooleanPairElements
+
+    // Delete a seat boolean element if it exists
+    deleteTableSeatBooleanIfExisting(i_table_node, i_tag_table_element)
+    {
+        var table_node_elements = i_table_node.getElementsByTagName(i_tag_table_element);
+
+        if (table_node_elements.length == 0  )
+        {
+            return;
+        }
+        else if (table_node_elements.length > 1)
+        {
+            alert("deleteTableSeatBooleanIfExisting: ERROR: Multiple table node elements found for tag = " + i_tag_table_element);
+            return;
+        }
+
+        var table_child_node = table_node_elements[0];
+
+        table_child_node.parentNode.removeChild(table_child_node);
+
+        debugLayoutXmlTable('deleteTableSeatBooleanIfExisting: Deleted table seat boolean element with tag = ' + i_tag_table_element);
+
+    } // deleteTableSeatBooleanIfExisting
+
+    // Returns the table node value for a given tag name and a given table number
+    getTableNodeElement(i_table_number)
+    {
+        var ret_node_element = null;
+
+        if(!this.m_layout_xml.checkTableNumber(i_table_number)) { return ret_node_element; }
+
+        var index_table = i_table_number - 1;
+        
+        var table_node = this.getXmlObject().getElementsByTagName(this.m_tags.getTable())[index_table];
+
+        ret_node_element = table_node;
+
+        return ret_node_element;
+
+    } // getTableNodeElement
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////// End Delete Functions ////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
@@ -133,6 +346,69 @@ class LayoutXmlTable
 
     } // getTableGroupArray
 
+    // Set a table element in the layout xml object for a given table number identity string
+    // i_table_element is an instance of the class Table
+    setTableElementForTableNumberIdentity(i_table_element)
+    {
+        var table_number_identity_str = i_table_element.getNumber();
+
+        var table_number = this.getXmlTableNumberForTableNumberIdentity(table_number_identity_str);
+
+        if (table_number <= 0)
+        {
+            debugLayoutXmlTable('setTableElementForTableNumberIdentity: ERROR: No table with table number identity string = ' + table_number_identity_str);
+
+            alert('ERROR: No table with table number identity string = ' + i_table_number_identity_str);
+
+            return;
+        }
+
+        this.setTableElement(table_number, i_table_element);
+
+    } // setTableElementForTableNumberIdentity
+
+    // Set a table element in the layout xml object
+    // i_table_number is the table number (number) for the table element to set
+    // i_table_element is an instance of the class Table
+    setTableElement(i_table_number, i_table_element)
+    {
+        var table_number_str = i_table_element.getNumber();
+        this.m_layout_xml.setTableNumber(i_table_number, table_number_str);
+
+        var upper_left_x_int = i_table_element.getUpperLeftX();
+        this.m_layout_xml.setTableUpperLeftX(i_table_number, upper_left_x_int.toString());
+
+        var upper_left_y_int = i_table_element.getUpperLeftY();
+        this.m_layout_xml.setTableUpperLeftY(i_table_number, upper_left_y_int.toString());
+
+        var width_int = i_table_element.getWidth();
+        this.m_layout_xml.setTableWidth(i_table_number, width_int.toString());
+
+        var height_int = i_table_element.getHeight();
+        this.m_layout_xml.setTableHeight(i_table_number, height_int.toString());
+
+        var number_left_right_seats_int = i_table_element.getNumberLeftRightSeats();
+        this.m_layout_xml.setTableNumberLeftRightSeats(i_table_number, number_left_right_seats_int.toString());
+
+        var table_text_str = i_table_element.getText();
+        this.m_layout_xml.setTableText(i_table_number, table_text_str);
+
+        this.setSeatBooleanValuesToTableElement(i_table_number, i_table_element);
+
+    } // setTableElement
+
+    // Set the boolean values for the seats for a given table element in the layout xml object
+    setSeatBooleanValuesToTableElement(i_table_number, i_table_element)
+    {
+        var number_left_right_seats = i_table_element.getNumberLeftRightSeats();
+
+        debugLayoutXmlTable('setSeatBooleanValuesToTableElement: i_table_number = ' + i_table_number + 
+            ', number_left_right_seats = ' + number_left_right_seats);
+
+        this.deleteAllTableSeatBooleanElements(i_table_number);
+
+    } // setSeatBooleanValuesToTableElement
+
     // Returns an instance of the class Table for a given table number
     getTableElement(i_table_number)
     {
@@ -156,11 +432,15 @@ class LayoutXmlTable
         var number_left_right_seats = this.m_layout_xml.getTableNumberLeftRightSeats(i_table_number);
         ret_table_element.setNumberLeftRightSeats(number_left_right_seats);
 
+        var table_text_str = this.m_layout_xml.getTableText(i_table_number);
+        ret_table_element.setText(table_text_str);
+
         debugLayoutXmlTable('getTableElement: \nNumber (string) = ' + ret_table_element.getNumber() + 
         '\nupper_left_x = ' + ret_table_element.getUpperLeftX() + '\nupper_left_y = ' + 
         ret_table_element.getUpperLeftY() + '\nwidth = ' + ret_table_element.getWidth() + 
         '\nheight = ' + ret_table_element.getHeight() + '\nnumber_left_right_seats = ' + 
-        ret_table_element.getNumberLeftRightSeats() + '\ni_table_number = ' + i_table_number);
+        ret_table_element.getNumberLeftRightSeats() + '\ni_table_number = ' + i_table_number +
+        '\ntable_text_str = ' + table_text_str);
 
         ret_table_element = this.addSeatBooleanValuesToTableElement(i_table_number, ret_table_element);
 
@@ -550,65 +830,65 @@ class Table
 
     // Set the table number (string). The table number is used to 
     // identify the table and must be unique in the layout
-    setNumber(value)
+    setNumber(i_number_str)
     {
-        this.m_number = value;
+        this.m_number = i_number_str;
 
     } // setNumber
 
     // Get the upper left x coordinate of the table (number)
     getUpperLeftX()
     {
-        return this.m_upper_left_x;
+        return parseInt(this.m_upper_left_x);
 
     } // getUpperLeftX
 
     // Set the upper left x coordinate of the table (number)
-    setUpperLeftX(value)
+    setUpperLeftX(i_upper_left_x)
     {
-        this.m_upper_left_x = value;
+        this.m_upper_left_x = parseInt(i_upper_left_x);
 
     } // setUpperLeftX
 
     // Get the upper left y coordinate of the table (number)
     getUpperLeftY()
     {
-        return this.m_upper_left_y; 
+        return parseInt(this.m_upper_left_y); 
 
     } // getUpperLeftY
 
     // Set the upper left y coordinate of the table (number)
-    setUpperLeftY(value)
+    setUpperLeftY(i_upper_left_y)
     {
-        this.m_upper_left_y = value;
+        this.m_upper_left_y = parseInt(i_upper_left_y);
 
     } // setUpperLeftY
 
     // Get the width of the table (number)
     getWidth()
     {
-        return this.m_width;
+        return parseInt(this.m_width);
 
     } // getWidth
 
     // Set the width of the table (number)
-    setWidth(value)
+    setWidth(i_width)
     {
-        this.m_width = value;
+        this.m_width = parseInt(i_width);
 
     } // setWidth
 
     // Get the height of the table (number)
     getHeight()
     {
-        return this.m_height;
+        return parseInt(this.m_height);
 
     } // getHeight
 
     // Set the height of the table (number)
-    setHeight(value)
+    setHeight(i_height)
     {
-        this.m_height = value;
+        this.m_height = parseInt(i_height);
 
     } // setHeight
 
@@ -634,9 +914,9 @@ class Table
     } // getText
 
     // Set the text of the table (string)
-    setText(value)
+    setText(i_text_str)
     {
-        this.m_text = value;
+        this.m_text = i_text_str;
 
     } // setText
 

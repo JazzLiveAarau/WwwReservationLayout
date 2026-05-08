@@ -3317,7 +3317,7 @@ class ReservationLayoutTags
     getTableSeatTwelveLeft(){return this.m_tag_table_seat_twelve_left;}
     getTableSeatThirteenLeft(){return this.m_tag_table_seat_thirteen_left;}
     getTableSeatFourteenLeft(){return this.m_tag_table_seat_fourteen_left;}
-    getTableSeatSeatFifteenLeft(){return this.m_tag_table_seat_fifteen_left;}
+    getTableSeatFifteenLeft(){return this.m_tag_table_seat_fifteen_left;}
     getTableSeatSixteenLeft(){return this.m_tag_table_seat_sixteen_left;}
     getTableSeatSeventeenLeft(){return this.m_tag_table_seat_seventeen_left;}
     getTableSeatEighteenLeft(){return this.m_tag_table_seat_eightteen_left;}
@@ -3338,7 +3338,7 @@ class ReservationLayoutTags
     getTableSeatTwelveRight(){return this.m_tag_table_seat_twelve_right;}
     getTableSeatThirteenRight(){return this.m_tag_table_seat_thirteen_right;}
     getTableSeatFourteenRight(){return this.m_tag_table_seat_fourteen_right;}
-    getTableSeatSeatFifteenRight(){return this.m_tag_table_seat_fifteen_right;}
+    getTableSeatFifteenRight(){return this.m_tag_table_seat_fifteen_right;}
     getTableSeatSixteenRight(){return this.m_tag_table_seat_sixteen_right;}
     getTableSeatSeventeenRight(){return this.m_tag_table_seat_seventeen_right;}
     getTableSeatEighteenRight(){return this.m_tag_table_seat_eightteen_right;}
