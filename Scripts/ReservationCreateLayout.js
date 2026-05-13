@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-08
+// Date: 2026-05-13
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -42,7 +42,7 @@ var g_drop_down_layout_element = null;
 // Returns the abs URL to the layout result directory
 function getAbsUrlToResultDir()
 {
-    var result_dir = g_create_layout_result_dir_text_box.getValue();
+    var result_dir = g_create_layout_result_dir_text_box.getValue().trim();
 
     var ret_abs_dir_url = window.location.origin + '/' + g_create_layout_main_dir +result_dir + '/' + 'XML/';
 
@@ -57,7 +57,7 @@ function getAbsUrlResultLayoutXmlFile()
 {
     var abs_url_to_result_dir = getAbsUrlToResultDir();
 
-     var result_dir = g_create_layout_result_dir_text_box.getValue();
+     var result_dir = g_create_layout_result_dir_text_box.getValue().trim();
 
     var ret_abs_file_url = abs_url_to_result_dir + result_dir + '.xml';
 
@@ -201,11 +201,13 @@ function initReservationCreateLayout()
 {
     debugCreateLayout('initReservationCreateLayout Enter');
 
-    //TODO displayStartPage();
+    displayStartPage();
 
-    // TODOhideSelectContainer();
+    hideSelectContainer();
 
-    // TODO hideCreateNewXmlButton();
+    hideCreateNewXmlButton();
+
+    hideDivResultDirMessage();
 
     NewSeasonStorage.initLocal();
 
@@ -226,7 +228,7 @@ function createLayoutXmlObject()
 {
     var organisation_directory_name = 'NotUsed';
 
-    var result_dir = g_create_layout_result_dir_text_box.getValue();
+    var result_dir = g_create_layout_result_dir_text_box.getValue().trim();
 
     debugCreateLayout('createLayoutXmlObject Result directory= ' + result_dir);
 
@@ -237,7 +239,7 @@ function createLayoutXmlObject()
 // Callback function after loading the layout XML file
 function callbackAfterLoadOfXmlLayout()
 {
-    var result_dir = g_create_layout_result_dir_text_box.getValue();
+    var result_dir = g_create_layout_result_dir_text_box.getValue().trim();
 
     debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
             result_dir + '/XML/' + result_dir + '.xml');
@@ -259,7 +261,7 @@ function setLocalStorageData()
 
     create_layout_data.setMainDir('ReservationLayout');
 
-    var result_dir = g_create_layout_result_dir_text_box.getValue();
+    var result_dir = g_create_layout_result_dir_text_box.getValue().trim();
 
     create_layout_data.setResultDir(result_dir);
 
@@ -282,6 +284,10 @@ function onClickHelpButton()
 {
     debugCreateLayout('onClickHelpButton Enter');
 
+    var help_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0202.pdf';
+
+    window.open(help_url,'_blank').focus();
+
 } // onClickHelpButton
 
 // Event function for the click on the IT info button
@@ -289,12 +295,16 @@ function onClickItInfoCreateLayoutButton()
 {
     debugCreateLayout('onClickItInfoCreateLayoutButton Enter');
 
+    var it_info_url = 'https://jazzliveaarau.ch/Tasks/Documents/A0203.pdf';
+
+    window.open(it_info_url,'_blank').focus();
+
 } // onClickItInfoCreateLayoutButton
 
 // Event function for the input of the text box with the result server directory
 function onInputResultDirectory()
 {
-    debugCreateLayout('onInputResultDirectory Value= ' + g_create_layout_result_dir_text_box.getValue());
+    debugCreateLayout('onInputResultDirectory Value= ' + g_create_layout_result_dir_text_box.getValue().trim());
 
     determinIfLayoutResultDirExistsOnServer();
 
@@ -814,6 +824,8 @@ function callbackLayoutDirExists()
 
     getElementDivResultDirectory().style.color = 'black';
 
+    hideDivResultDirMessage();
+
     determinIfLayoutXmlFileExistsOnServer();
 
 } // callbackLayoutDirExists
@@ -828,6 +840,12 @@ function callbackLayoutDirNotExists()
     g_create_layout_result_dir_exists = false;
 
     getElementDivResultDirectory().style.color = 'red';
+
+    messageNotExistingLayout();
+
+    hideSelectContainer();
+
+    hideCreateNewXmlButton();
 
 } // callbackLayoutDirNotExists
 
@@ -867,6 +885,10 @@ function callbackLayoutXmlFileExists()
 
     g_create_layout_xml_file_exists = true;
 
+    hideCreateNewXmlButton();
+
+    displaySelectContainer();
+
     createLayoutXmlObject();
 
 } // callbackLayoutXmlFileExists
@@ -882,6 +904,8 @@ function callbackLayoutXmlFileNotExists()
     g_create_layout_xml_file_exists = false;
 
     displayCreateNewXmlButton();
+
+    hideSelectContainer();
 
 } // callbackLayoutXmlFileNotExists
 
@@ -1529,7 +1553,7 @@ function createTextBoxResultDirectory()
 {
     g_create_layout_result_dir_text_box = new JazzTextBox("id_create_layout_result_dir", 'id_div_create_layout_result_dir');
 
-    g_create_layout_result_dir_text_box.setLabelText(" (auch der Server Ordner Name)");
+    g_create_layout_result_dir_text_box.setLabelText(" (auch der Server Ordner Name des Layouts)");
 
     g_create_layout_result_dir_text_box.setLabelTextPositionRight();
 
@@ -1584,7 +1608,7 @@ function createLayoutElementDropdown()
 
     g_drop_down_layout_element.setOnchangeFunctionName("eventSelectLayoutElementDropDown");
 
-    g_drop_down_layout_element.setLabelText('Layout Element wählen ');
+    g_drop_down_layout_element.setLabelText('Layout Element ');
 
     g_drop_down_layout_element.setLabelTextPositionLeft();
 
@@ -2055,8 +2079,41 @@ function createTextBoxTablePageText()
 } // createTextBoxTablePageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Strings Messages //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Display the message that the resutl directory does not exist. Create with application Reservation New Layout
+function messageNotExistingLayout()
+{
+     displayDivResultDirMessage();
+        
+     getElementDivResultDirMessage().innerHTML = 
+     "Dieses Layout existiert noch nicht. Bitte zuerst mit der App 'Reservation Neues Layout' das Layout " 
+     + " (und den Ordner) erstellen.";
+
+} // messageNotExistingLayout
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Strings Messages ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Display Functions /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Hide the result directory message
+function hideDivResultDirMessage()
+{
+    getElementDivResultDirMessage().style.display = 'none';
+
+} // hideDivResultDirMessage
+
+// Display the result directory message
+function displayDivResultDirMessage()
+{
+    getElementDivResultDirMessage().style.display = 'block';
+
+} // displayDivResultDirMessage
 
 // Display the start page and hide the other pages
 function displayStartPage()
@@ -2392,6 +2449,19 @@ function getIdDivTableGroupOneRightContainer()
 
 } // getIdDivTableGroupOneRightContainer
 
+// Returns the element table group two right container
+function getElementDivResultDirMessage()
+{
+    return document.getElementById(getIdDivResultDirMessage());
+
+} // getElementDivResultDirMessage
+
+// Returns the id of the result dir message element
+function getIdDivResultDirMessage()
+{
+    return 'id_div_result_dir_message';
+
+} // getIdDivResultDirMessage
 
 // Returns the element table group two right container
 function getTablesContainer(i_table_group_number)

@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-07
+File: ReservationCreateLayout.css Date: 2026-05-13
 
 Author: Gunnar Liden
 
@@ -52,6 +52,12 @@ Defines all style classes for the application reservation layout create page.
     float: left;
 }
 
+/* For all <label> elements */
+label
+{
+    font-weight: normal
+}
+
 /* Help and IT info button */
 .cl_help_button
 {
@@ -94,6 +100,16 @@ Defines all style classes for the application reservation layout create page.
     margin-left: 15px;
     padding-bottom: 10px;
     overflow: hidden; 
+}
+
+.cl_div_result_dir_message
+{
+    /* border: solid 1px red; */
+    width: 95%;
+    font-style: italic;
+    margin-left: 15px;
+    padding-bottom: 10px;
+    clear: both;
 }
 
 .cl_div_create_new_xml_button
