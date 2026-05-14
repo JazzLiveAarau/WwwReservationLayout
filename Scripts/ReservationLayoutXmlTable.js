@@ -704,6 +704,41 @@ class LayoutXmlTable
 
     } // getXmlTableNumberForTableNumberIdentity
 
+    // Returns an instance of the class TableProperties with general data for tables 
+    // from the layout xml object
+    getTableProperties()
+    {
+        var ret_table_properties = new TableProperties();
+
+        ret_table_properties.setColor(this.m_layout_xml.getTableColor());
+
+        ret_table_properties.setStrokeColor(this.m_layout_xml.getTableStrokeColor());
+
+        ret_table_properties.setStrokeWidth(this.m_layout_xml.getTableStrokeWidth());
+
+        ret_table_properties.setTextRelXProcent(parseInt(this.m_layout_xml.getTableTextRelXProcent()));
+
+        ret_table_properties.setTextRelYProcent(parseInt(this.m_layout_xml.getTableTextRelYProcent()));
+
+        ret_table_properties.setTextColor(this.m_layout_xml.getTableTextColor());
+
+        return ret_table_properties;
+        
+    } // getTableProperties
+
+    // Sets XML data from an instance of the class TableProperties with general data for tables
+    // TODO  this.setFlagNodeValueIsNotSetForEmptyString()
+    setTableProperties(i_table_properties)
+    {
+        this.m_layout_xml.setTableColor(i_table_properties.getColor());
+        this.m_layout_xml.setTableStrokeColor(i_table_properties.getStrokeColor());
+        this.m_layout_xml.setTableStrokeWidth(i_table_properties.getStrokeWidth());
+        this.m_layout_xml.setTableTextRelXProcent(i_table_properties.getTextRelXProcent().toString());
+        this.m_layout_xml.setTableTextRelYProcent(i_table_properties.getTextRelYProcent().toString());
+        this.m_layout_xml.setTableTextColor(i_table_properties.getTextColor());
+
+    } // setTableProperties
+
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Utility Functions ///////////////////////////
@@ -1127,7 +1162,7 @@ class Table
 } // Table
 
 // Properties for Table element in the class ReservationLayoutXml
-class TableProperty
+class TableProperties
 {
     constructor()
     {
@@ -1210,7 +1245,7 @@ class TableProperty
 
     } // setTextColor
 
-} // TableProperty
+} // TableProperties
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class TableGroup Table TableProperties //////////////////////

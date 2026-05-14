@@ -24,6 +24,9 @@ class ReservationLayoutModel
         // Instances of the class TableGroup
         this.m_table_group_array = [];
 
+        // Instance of the class TableProperties with general data for tables from the layout xml object
+        this.m_table_properties = null;
+
         this.init();
 
     } // constructor
@@ -41,6 +44,8 @@ class ReservationLayoutModel
 
         this.getTableDataFromXml();
 
+        this.getTablePropertiesFromXml();
+
     } // init
 
     // Function to get table data from the layout xml and set it to the class variables
@@ -53,6 +58,17 @@ class ReservationLayoutModel
         this.listTableGroups();
 
     } // getTableDataFromXml
+
+    // Function to get table properties from the layout xml and set it to the class variable
+    getTablePropertiesFromXml()
+    {
+        debugLayoutModel("ReservationLayoutModel.getTablePropertiesFromXml Enter");
+
+        this.m_table_properties = this.m_layout_xml_table.getTableProperties();
+
+        this.listTableProperties();
+
+    } // getTablePropertiesFromXml
 
     // Function to list table groups in the console log
     listTableGroups()
@@ -106,6 +122,20 @@ class ReservationLayoutModel
         debugLayoutModel("\tTable text= " + i_table.getText());
 
     } // listTable
+
+    // List table general data in the console log
+    listTableProperties()
+    {
+        debugLayoutModel("ReservationLayoutModel.listTableProperties Table properties data");
+
+        debugLayoutModel("\tTable color: " + this.m_table_properties.getColor());
+        debugLayoutModel("\tTable stroke color: " + this.m_table_properties.getStrokeColor());
+        debugLayoutModel("\tTable stroke width: " + this.m_table_properties.getStrokeWidth());
+        debugLayoutModel("\tTable text relative X percent: " + this.m_table_properties.getTextRelXProcent());
+        debugLayoutModel("\tTable text relative Y percent: " + this.m_table_properties.getTextRelYProcent());
+        debugLayoutModel("\tTable text color: " + this.m_table_properties.getTextColor());
+
+    } // listTableProperties
 
 } // ReservationLayoutModel
 
