@@ -1,5 +1,5 @@
 // File: ReservationLayoutXmlTable.js
-// Date: 2026-05-08
+// Date: 2026-05-14
 // Author: Gunnar Lidén
 
 // File content
@@ -8,6 +8,24 @@
 // Data classes for the Table element and append functions for Table
 
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class LayoutXmlTable //////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class for the layout xml table element. Contains functions to append a table group 
+// element and a table element to the layout xml object, delete seat boolean elements for 
+// a given table number identity string, delete seat boolean elements for a given table 
+// number, delete a pair of seat boolean elements, delete a seat boolean element if it 
+// exists, get the table node element for a given table number, get an array of instances 
+// of the class TableGroup, set a table element for a given table number identity string, 
+// set a table element for a given table number, set the boolean values for the seats for 
+// a given table element, get a table element for a given table number, get a table element 
+// for a given table number identity string, add the boolean values for the seats to a given 
+// table element, get the table number for a given table number identity string, and 
+// functions to set and remove flag node values for not set values.
+//
+// The functions of this class would normally be part of the class ReservationLayoutXml, 
+// but are put in a separate class to make the code more organized and easier to read.
 class LayoutXmlTable
 {
     // i_layout_xml is an instance of the class ReservationLayoutXml
@@ -742,6 +760,17 @@ class LayoutXmlTable
 
 } // LayoutXmlTable
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class LayoutXmlTable ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class TableGroup Table TableProperties ////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Classes with functions that are holding table data for the layout. These classes are 
+// used to set and get table data to and from the layout xml object in a more structured way.
 
 
 // Set and get class for the TableGroup element in the class ReservationLayoutXml
@@ -1183,10 +1212,14 @@ class TableProperty
 
 } // TableProperty
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class TableGroup Table TableProperties //////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 // Debug function for the class LayoutXmlTable
 function debugLayoutXmlTable(i_text)
 {
-    console.log(i_text);
+    // Temporary QQQQQQQQQQQQQQQQQ console.log(i_text);
 
 } // debugLayoutXmlTable
