@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2025-11-09
+// Date: 2026-05-15
 // Authors: Gunnar Lidén
 
 // Content
@@ -228,7 +228,7 @@ function getPremisesDataFromXml(i_layout_xml)
 ///////////////////////// Start Class Layout File Data ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Class holding layout file Data
+// Class holding layout file data
 class LayoutFileData
 {
     // Creates the instance of the class
