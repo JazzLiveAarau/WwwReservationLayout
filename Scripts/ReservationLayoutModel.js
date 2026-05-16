@@ -1,17 +1,17 @@
-// File: ReservationLayoutModel.js
-// Date: 2026-05-14
+// File: LayoutModel.js
+// Date: 2026-05-16
 // Author: Gunnar Lidén
 
 // Inhalt
 // =============
-//Class holding all data for the layout (CAD) model
+// Class holding all data for the layout (CAD) model
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Class ReservationLayoutModel //////////////////////////////
+///////////////////////// Start Class LayoutModel //////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-class ReservationLayoutModel 
+class LayoutModel 
 {
     constructor(i_layout_xml) 
     {
@@ -31,16 +31,16 @@ class ReservationLayoutModel
 
     } // constructor
 
-    // Init function for the class ReservationLayoutModel. 
+    // Init function for the class LayoutModel. 
     // 1. Create an instance of the class LayoutXmlTable 
     // 2. Get table data from the layout xml and set it to the class variables
     init()
     {
-        debugLayoutModel("ReservationLayoutModel.init start");
+        debugLayoutModel("LayoutModel.init start");
 
         this.m_layout_xml_table = new LayoutXmlTable(this.m_layout_xml);
 
-        debugLayoutModel("ReservationLayoutModel.init Instance of LayoutXmlTable created");
+        debugLayoutModel("LayoutModel.init Instance of LayoutXmlTable created");
 
         this.getTableDataFromXml();
 
@@ -51,7 +51,7 @@ class ReservationLayoutModel
     // Function to get table data from the layout xml and set it to the class variables
     getTableDataFromXml()
     {
-        debugLayoutModel("ReservationLayoutModel.getTableDataFromXml Enter");
+        debugLayoutModel("LayoutModel.getTableDataFromXml Enter");
 
         this.m_table_group_array = this.m_layout_xml_table.getTableGroupArray();
 
@@ -62,7 +62,7 @@ class ReservationLayoutModel
     // Function to get table properties from the layout xml and set it to the class variable
     getTablePropertiesFromXml()
     {
-        debugLayoutModel("ReservationLayoutModel.getTablePropertiesFromXml Enter");
+        debugLayoutModel("LayoutModel.getTablePropertiesFromXml Enter");
 
         this.m_table_properties = this.m_layout_xml_table.getTableProperties();
 
@@ -73,11 +73,11 @@ class ReservationLayoutModel
     // Function to list table groups in the console log
     listTableGroups()
     {
-        debugLayoutModel("ReservationLayoutModel.listTableGroups Enter");
+        debugLayoutModel("LayoutModel.listTableGroups Enter");
 
         var n_table_groups = this.m_table_group_array.length;
 
-        debugLayoutModel("ReservationLayoutModel.listTableGroups n_table_groups: " + n_table_groups);
+        debugLayoutModel("LayoutModel.listTableGroups n_table_groups: " + n_table_groups);
 
         for (var index_group = 0; index_group < n_table_groups; index_group++)
         {
@@ -107,7 +107,7 @@ class ReservationLayoutModel
     // Function to list table data in the console log
     listTable(i_table)
     {
-        debugLayoutModel("ReservationLayoutModel.listTable Table data");
+        debugLayoutModel("LayoutModel.listTable Table data");
     
         debugLayoutModel("\tTable number (identity): " + i_table.getNumber());
 
@@ -126,7 +126,7 @@ class ReservationLayoutModel
     // List table general data in the console log
     listTableProperties()
     {
-        debugLayoutModel("ReservationLayoutModel.listTableProperties Table properties data");
+        debugLayoutModel("LayoutModel.listTableProperties Table properties data");
 
         debugLayoutModel("\tTable color: " + this.m_table_properties.getColor());
         debugLayoutModel("\tTable stroke color: " + this.m_table_properties.getStrokeColor());
@@ -137,14 +137,14 @@ class ReservationLayoutModel
 
     } // listTableProperties
 
-} // ReservationLayoutModel
+} // LayoutModel
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Class ReservationLayoutModel ////////////////////////////////
+///////////////////////// End Class LayoutModel ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Debug function for the class ReservationLayoutModel
+// Debug function for the class LayoutModel
 function debugLayoutModel(i_text)
 {
     console.log(i_text);

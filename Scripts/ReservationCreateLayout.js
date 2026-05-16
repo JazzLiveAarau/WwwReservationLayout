@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-14
+// Date: 2026-05-16
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -10,7 +10,7 @@
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Global variable for the layout model object an instance of the class ReservationLayoutModel
+// Global variable for the layout model object an instance of the class LayoutModel
 var g_layout_model = null;
 
 
@@ -257,7 +257,7 @@ function callbackAfterLoadOfXmlLayout()
 
     setLocalStorageData();
 
-    var g_layout_model = new ReservationLayoutModel(g_create_layout_xml);
+    var g_layout_model = new LayoutModel(g_create_layout_xml);
 
 } // callbackAfterLoadOfXmlLayout
 
