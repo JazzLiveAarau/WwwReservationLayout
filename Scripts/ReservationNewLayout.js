@@ -1,18 +1,6 @@
 // File: ReservationNewLayout.js
-// Date: 2026-04-24
+// Date: 2026-05-17
 // Author: Gunnar Lidén
-
-// TODO  2025-06-16
-//      Determine which files are used by the reservation system
-//      Copy zese files to LibsLayout, copy them with this application
-//      Make the same for PhpLayout
-//      Change references in ReservationLayoutHtml.js to subdirectories Libs
-//      Change references for PHP to subdirectory Php
-// TODO 2025-11-09
-//      - Change reservation scripts so that Events.Xml is used
-//      - Season Program not OK ???
-//      - Save Xml.php is missing
-//      - Allow only one concert/event ??
 
 // Inhalt
 // =============
@@ -110,6 +98,17 @@ var g_remove_tabs_comments = false;
 
 // In order to be able to test the created HTML files some functions are added
 var g_add_temporary_test_functions = false;
+
+
+// Interface query string value for application 'Reservation New Season'
+// Gets new layout query string true
+function getNewLayoutQueryStringTrue()
+{
+    g_new_layout_query_string = '?new_layout=true';
+
+    return g_new_layout_query_string;
+	
+} // getNewLayoutQueryStringTrue
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Main Functions ////////////////////////////////////////////
@@ -287,6 +286,8 @@ function getAbsUrlToLayoutCreateXmlFile()
 //    Call of UtilCopyArray.copyFilesCreateDirs(g_util_copy_array_data)
 function execCopyDirFiles()
 {
+    debugReservationNewLayout("execCopyDirFiles Copy layout directories and files for layout " + g_layout_target_result_dir);
+    
     var domain_url = 'https://jazzliveaarau.ch/';
 
     var origin_url = 'ReservationLayout/';
@@ -527,7 +528,7 @@ function createUploadLayoutFilesAfterCheck()
 
         var button_id_array = file_data.getButtonIdArray();
 
-        var layout_html = new LayoutHtml(g_layout_xml, result_server_directory_name, layout_file_case, layout_file_description, button_id_array);
+        var layout_html = new LayoutHtmlFiles(g_layout_xml, result_server_directory_name, layout_file_case, layout_file_description, button_id_array);
 
         var layout_html_code = layout_html.get();
 
@@ -676,7 +677,7 @@ function onClickCreateNewSeasonFilesButton()
 {
     debugReservationNewLayout("onClickCreateNewSeasonFilesButton User klicked the button create the new season files");
 
-    var rel_new_season_files_url = 'ReservationNewSeason.htm';
+    var rel_new_season_files_url = 'ReservationNewSeason.htm' + getNewLayoutQueryStringTrue();
 
     window.open(rel_new_season_files_url,'_blank').focus();
 
@@ -685,6 +686,10 @@ function onClickCreateNewSeasonFilesButton()
 // User clicked the copying layout directories and files
 function onClickCopyDirFilesButton()
 {
+    setNewSeasonLocalStorageData(); // The main directory is not saved on input, because it is always ReservationLayout for this application
+
+    debugReservationNewLayout("onClickCopyDirFilesButton User klicked the button copy the layout directories and files.");
+
 	execCopyDirFiles();
 
 }// onClickCopyDirFilesButton
@@ -824,6 +829,7 @@ function onInputResultDirectoryName()
 } // onInputResultDirectoryName
 
 // Name of the main directory was changed
+// TODO Remove this function, because the main directory is always ReservationLayout for this application
 function onInputMainDirectoryName()
 {
     setGlobalLayoutXmlVariablesFromControls();
@@ -892,6 +898,9 @@ function setNewSeasonLocalStorageData()
     new_season_data.setResultDir(g_layout_server_dir_text_box.getValue());
 
     NewSeasonStorage.setLocal(new_season_data);
+
+    debugReservationNewLayout("setNewSeasonLocalStorageData New season data is set in local storage: " 
+          +"\nMain " + g_main_directory_new_layout + " Result " + g_layout_server_dir_text_box.getValue());
 
 } // setNewSeasonLocalStorageData
 
@@ -1033,7 +1042,7 @@ function createTextBoxResultDirectory()
 
     g_layout_server_dir_text_box.setOninputFunctionName("onInputResultDirectoryName");
 
-    g_layout_server_dir_text_box.setTitle("Schritt 1: Name des Server-Ordners für den neuen Konzertsaal.");
+    g_layout_server_dir_text_box.setTitle("Schritt 1: Name des Layouts (und Name des Server-Ordners) für den neuen Konzertsaal.");
 
 } // createTextBoxResultDirectory
 

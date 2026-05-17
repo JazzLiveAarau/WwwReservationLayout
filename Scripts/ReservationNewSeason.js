@@ -1,5 +1,5 @@
 // File: ReservationNewSeason.js
-// Date: 2026-04-27
+// Date: 2026-05-17
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -12,9 +12,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Instance of the ApplicationsVersion class
+// The homepage has an XML file that defines the reservation layout that is currently used 
+// in the reservation system. The ApplicationsVersion class retrieves the information from 
+// the XML file and provides functions to get the current reservation layout version (directory).
 var g_applications_version_object = null;
 
-// Current reservation version (directory)
+// Current reservation version (the result directory) retrieved from the object ApplicationsVersion
 var g_current_reservation_version_dir = '';
 
 // Main directory 
@@ -43,6 +46,45 @@ var g_help_button = null;
 // IT info button
 var g_it_info_button = null;
 
+// Interface query string value for (from) the application 'Reservation New Layout'
+
+// Global parameter telling if application 'Reservation New Layout' opened this application
+var g_application_opened_by_new_layout = null;
+
+// Sets the global variable g_application_opened_by_new_layout
+function setParameterWasOpenedByNewLayout()
+{
+	var new_layout_query_string = getNewLayoutQueryStringTrueCopy();
+	
+	var url_query_string = location.search;
+	
+    if (url_query_string == new_layout_query_string)    
+    {
+        g_application_opened_by_new_layout = true;
+
+        debugReservationNewSeason('setParameterWasOpenedByNewLayout - '+
+            'application opened by Reservation New Layout');
+    }
+    else
+    {        
+		g_application_opened_by_new_layout = false;
+
+        debugReservationNewSeason('setParameterWasOpenedByNewLayout - '+
+            'application NOT opened by Reservation New Layout');
+    }
+
+} // setParameterWasOpenedByNewLayout
+
+// Gets new layout query string true
+// Copied code from ReservationNeaLayout.js
+function getNewLayoutQueryStringTrueCopy()
+{
+    g_new_layout_query_string = '?new_layout=true';
+
+    return g_new_layout_query_string;
+	
+} // getNewLayoutQueryStringTrueCopy
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
@@ -67,11 +109,7 @@ function initReservationNewSeason()
 
     createReservationNewSeasonControls();
 
-    new_season_data = NewSeasonStorage.getLocal();
-
-    setNewSeasonControls(new_season_data);
-
-    eventClickCheckBoxMainDir(); // Set the main directory text box according to the main directory check box
+    setParameterWasOpenedByNewLayout();
 
     g_new_season_files_data = null;
 
@@ -109,7 +147,7 @@ function createApplicationsVersionObject(i_callback_function_name)
 // information has been retrieved
 function setCurrentReservationVersionDir()
 {
-    // debugReservationNewSeason('setCurrentReservationVersionDir Enter');
+    debugReservationNewSeason('setCurrentReservationVersionDir Enter');
 
     g_current_reservation_version_dir = '';
 
@@ -157,14 +195,40 @@ function setCurrentReservationVersionDir()
 
     debugReservationNewSeason('setCurrentReservationVersionDir Current reservation version (directory): ' + g_current_reservation_version_dir);
 
+    var new_season_data = NewSeasonStorage.getLocal();
+
+    setNewSeasonControls(new_season_data);
+
 } // setCurrentReservationVersionDir
 
 // Set the controls
 function setNewSeasonControls(i_new_season_data)
 {
-    g_layout_main_dir_text_box.setValue(i_new_season_data.getMainDir());  
+    if (g_application_opened_by_new_layout)
+    {
+        g_layout_main_dir_text_box.setValue("ReservationLayout");
 
-    g_layout_server_dir_text_box.setValue(i_new_season_data.getResultDir()); 
+        g_layout_server_dir_text_box.setValue(i_new_season_data.getResultDir()); 
+
+        g_main_dir_check_box.setCheck("TRUE");
+
+        debugReservationNewSeason('setNewSeasonControls Main directory ReservationLayout: ' 
+         + " Result directory from local storage: " 
+        + i_new_season_data.getResultDir() + ' Checkbox New Layout TRUE');
+
+    }
+    else
+    {
+         g_layout_main_dir_text_box.setValue("Reservation");
+
+         g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
+
+         g_main_dir_check_box.setCheck("FALSE");
+
+        debugReservationNewSeason('setNewSeasonControls Main directory Reservation: ' 
+        + " Result directory from the homepage XML file: " 
+        + g_current_reservation_version_dir + ' Checkbox New Layout FALSE');
+    }
 
 } // setNewSeasonControls
 
@@ -264,7 +328,7 @@ function confirmImportSeasonProgramFile(i_input_data)
     }
  
     var confirm_msg = "Es wird ein neues XML Veranstaltungsprogramm für die neue Saison erstellt. " +
-    "Das bereits vorhandenes Veranstaltungsprogramm wird überschrieben. " +
+    "Es gibt vermutlich ein bereits vorhandenes Veranstaltungsprogramm im Ordner " + main_dir + ", das überschrieben wird. " +
     "Möchten Sie fortfahren?";   
     
     var user_confirmed = confirm(confirm_msg);
@@ -303,7 +367,7 @@ function confirmCreateNewXmlEventFiles(i_input_data)
     }
  
     var confirm_msg = "Es werden neue XML Reservationsdateien für die neue Saison erstellt. " +
-    "Alle bereits vorhandenen XML Reservationsdateien werden überschrieben. " +
+    "Es gibt vermutlich bereits vorhandene XML Reservationsdateien im Order " + main_dir + ", die überschrieben werden. " +
     "Möchten Sie fortfahren?";   
     
     var user_confirmed = confirm(confirm_msg);
@@ -359,38 +423,128 @@ function onClickItInfoButton()
 } // onClickItInfoButton
 
 // User clicked the main directory check box
+// Case Application opened by new layout and checkbox is changed FALSE
+//   The user is creating a new layout and should normally not
+//   change/create event program and reservations for a reservation
+//   layout that is used by the homepage
 function eventClickCheckBoxMainDir()
 {
     var check_box_value = g_main_dir_check_box.getCheck();
 
-    if (check_box_value == "TRUE")
+    var new_season_data = NewSeasonStorage.getLocal();
+
+    if (g_application_opened_by_new_layout && check_box_value == "FALSE")
     {
-        g_layout_main_dir_text_box.setValue("ReservationLayout");
+        debugReservationNewSeason('eventClickCheckBoxMainDir Case ONE: Checkbox value changed to FALSE. Application opened by new layout: ');
 
-        g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
+        var confirm_change_to_release_msg = 
+         "Sie erstellen ein neues Layout und dafür brauchen ein Eventprogramm und XML Reservationsdateien. " +
+         "Jetzt möchten Sie zum aktuellen Layout der Homepage wechseln? " +
+         "Bitte bestätigen Sie, ob Sie fortfahren möchten.";   
+    
+        var user_confirmed_change_to_release = confirm(confirm_change_to_release_msg);
 
-        debugReservationNewSeason('eventClickCheckBoxMainDir Directories: ReservationLayout and ' + g_current_reservation_version_dir);
-    }
-    else    
-    {
-        g_layout_main_dir_text_box.setValue("Reservation");
-
-        var input_data = getNewSeasonDataInput();
-
-        var result_dir = input_data.getResultDir();
-        if (result_dir.length == 0)
+        if (user_confirmed_change_to_release)
         {
+            g_layout_main_dir_text_box.setValue("Reservation");
+
             g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
 
-            debugReservationNewSeason('eventClickCheckBoxMainDir Storage not defined, using default dir: ' + g_current_reservation_version_dir);
+            debugReservationNewSeason('eventClickCheckBoxMainDir User confirmed: Main directory Reservation: ' 
+            + " Result directory from the homepage XML file: " 
+            + g_current_reservation_version_dir + ' Checkbox New Layout FALSE');
+
+            return;
         }
         else
-        {   
-            g_layout_server_dir_text_box.setValue(result_dir);
+        {
+            g_main_dir_check_box.setCheck("TRUE");
+            debugReservationNewSeason('eventClickCheckBoxMainDir User NOT confirmed: Checkbox value set back to: ' 
+                + g_main_dir_check_box.getCheck());
+            return;
 
-            debugReservationNewSeason('eventClickCheckBoxMainDir Directories: Reservation and ' + result_dir);
-        }  
-    }  // Checkbox FALSE
+        } 
+
+    } // Change to relase layout when application opened by new layout
+
+    else if (g_application_opened_by_new_layout && check_box_value == "TRUE")
+    {
+        debugReservationNewSeason('eventClickCheckBoxMainDir Case TWO: Checkbox value changed to TRUE. Application opened by new layout: ');
+		
+        g_layout_main_dir_text_box.setValue("ReservationLayout");
+
+        g_layout_server_dir_text_box.setValue(new_season_data.getResultDir());
+
+        debugReservationNewSeason('eventClickCheckBoxMainDir Main directory ReservationLayout: ' 
+            + " Result directory from local storage: " 
+            + new_season_data.getResultDir() + ' Checkbox New Layout TRUE');
+
+        return;
+    } // Change to development layout when application opened by new layout	
+	
+    else if (!g_application_opened_by_new_layout && check_box_value == "TRUE")
+    {
+        debugReservationNewSeason('eventClickCheckBoxMainDir Case THREE: Checkbox value changed to TRUE. Application NOT opened by new layout: ');
+
+        var confirm_change_to_development_msg = 
+         "Sie haben die Applikation gestartet und möchten ein Eventprogramm und XML Reservationsdateien erstellen für eine neue Saison. " +
+         "Jetzt möchten Sie zu einem neuen (noch nicht verwendet) Layout wechseln? " +
+         "Bitte bestätigen Sie, ob Sie fortfahren möchten.";   
+    
+        var user_confirmed_change_to_development = confirm(confirm_change_to_development_msg);
+
+        if (user_confirmed_change_to_development)
+        {
+            g_layout_main_dir_text_box.setValue("ReservationLayout");
+
+            g_layout_server_dir_text_box.setValue(new_season_data.getResultDir());
+
+            debugReservationNewSeason('eventClickCheckBoxMainDir User confirmed: Main directory ReservationLayout: ' 
+            + " Result directory from local storage: " 
+            + new_season_data.getResultDir() + ' Checkbox New Layout TRUE');
+
+            return;
+        }
+        else
+        {
+            g_main_dir_check_box.setCheck("FALSE");
+
+            debugReservationNewSeason('eventClickCheckBoxMainDir User NOT confirmed: Checkbox value set back to: ' 
+                + g_main_dir_check_box.getCheck());
+            
+            return;
+
+        } 
+
+    } // Change to development layout when user directly opened the application 
+
+    else if (!g_application_opened_by_new_layout && check_box_value == "FALSE")
+    {
+        debugReservationNewSeason('eventClickCheckBoxMainDir Case FOUR: Checkbox value changed to FALSE. Application NOT opened by new layout: ');
+		
+		g_layout_main_dir_text_box.setValue("Reservation");
+		
+		g_layout_server_dir_text_box.setValue(g_current_reservation_version_dir);
+		
+		debugReservationNewSeason('eventClickCheckBoxMainDir Main directory Reservation: ' 
+            + " Result directory from homepage XML file: " 
+            + g_current_reservation_version_dir + ' Checkbox New Layout FALSE');
+			
+	} // Change to relase layout when application NOT was opened by new layout
+		
+    else
+    {
+        var error_msg = "Ungültige Fall. Bitte IT kontaktieren. " +
+        "Checkbox value: " + check_box_value +
+        " Application opened by new layout: " + g_application_opened_by_new_layout;
+
+        debugReservationNewSeason('eventClickCheckBoxMainDir TODO case. Checkbox value: ' + check_box_value +
+        ' Application opened by new layout: ' + g_application_opened_by_new_layout);
+
+        alert(error_msg);
+
+        return;
+    }
 
 } // eventClickCheckBoxMainDir
 
