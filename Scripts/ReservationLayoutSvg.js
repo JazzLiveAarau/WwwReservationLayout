@@ -1036,7 +1036,7 @@ class TableSvg
     // The implemented two loops (groups and tables) is a preparation for the
     // future. Geometry (SVG) elements may be implemnted that shows the groups-
     // For instance group of tables and groups of seat rows.
-    execute()
+    execute() 
     {
         if (this.m_layout_xml == null)
         {
