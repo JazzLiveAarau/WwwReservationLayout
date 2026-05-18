@@ -20,6 +20,15 @@ class LayoutGraphics
 
         this.m_container_html_element = i_container_html_element;
 
+        // The id for the div element with position relative to the container HTML element
+        this.m_id_div_graphics_pos_relative = 'id_div_layout_graphics_pos_relative';
+
+        // The div element with position relative to the container HTML element
+        this.m_el_div_graphics_pos_relative = null;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = 0.123456789;
+
         // Array of HTML code for the drawing of the group of tables as rectangles
         this.m_group_rectangles_html_array = [];
 
@@ -38,9 +47,41 @@ class LayoutGraphics
             return;
         }
 
+        this.addContainerPositionRelative();
+
+        this.setConcersionFactorMmToPixel();
+
         this.createGroupRectanglesHtmlArray();
 
+        this.addTableGroupsRectangles();
+
     } // init
+
+    // Add a div element with position relative to the container HTML element
+    addContainerPositionRelative()
+    {
+        var div_relative_htm = '<div id= "' + this.m_id_div_graphics_pos_relative + '"   class="cl_div_layout_graphics_pos_relative">';
+
+        this.m_container_html_element.innerHTML = div_relative_htm;
+
+        this.m_el_div_graphics_pos_relative = document.getElementById(this.m_id_div_graphics_pos_relative);
+
+        LayoutGraphics.toConsole('LayoutGraphics.addContainerPositionRelative div_relative_htm: \n' + div_relative_htm);
+    }
+
+    // Set the conversion factor mm to pixel
+    setConcersionFactorMmToPixel()
+    {
+        var width_mm = this.m_layout_model.m_premises_data.getWidth();
+       
+        var width_pixel = this.m_el_div_graphics_pos_relative.offsetWidth;
+
+        this.m_scale_dimension = width_pixel / width_mm;
+
+        LayoutGraphics.toConsole('LayoutGraphics.setConcersionFactorMmToPixel width_mm: ' + width_mm + 
+            ' width_pixel: ' + width_pixel + ' m_scale_dimension: ' + this.m_scale_dimension);
+
+    } // setConcersionFactorMmToPixel
 
     // Create the array of HTML code for the drawing of the group of tables as rectangles
     createGroupRectanglesHtmlArray()
@@ -53,25 +94,39 @@ class LayoutGraphics
         {
             var table_group_data = this.m_group_data_array[index_group];
 
-            var scale_dimension = 0.5678; // TODO
-
             var b_boundary = false; // TODO
 
             var table_group_html_input_data = 
-            new TableGroupHtmlData(table_group_data, scale_dimension, b_boundary, 'table-group', 'table');
+            new TableGroupHtmlData(table_group_data, this.m_scale_dimension, b_boundary, 'table-group_TODO', 'cl_div_table_rectangle_pos_absolute');
 
             var table_group_html = new TableGroupHtml(table_group_html_input_data);
             
-            // this.m_group_rectangles_html_array.push(table_group_html.get());
+            this.m_group_rectangles_html_array.push(table_group_html.get());
         }
 
     } // createGroupRectanglesHtmlArray
 
     // Draw the layout (CAD) model
-    drawLayout()
+    addTableGroupsRectangles()
     {
-        // TODO
-    } // drawLayout
+        LayoutGraphics.toConsole('LayoutGraphics.addTableGroupsRectangles Enter');
+
+        var n_groups = this.m_group_rectangles_html_array.length;
+
+        var all_groups_html = '';
+
+        for (var index_group = 0; index_group < n_groups; index_group++)
+        {
+            var group_rectangle_html = this.m_group_rectangles_html_array[index_group];
+
+            all_groups_html += group_rectangle_html + '\n';
+        }
+
+        this.m_el_div_graphics_pos_relative.innerHTML = all_groups_html;
+
+        LayoutGraphics.toConsole('LayoutGraphics.addTableGroupsRectangles all_groups_html: \n' + all_groups_html);
+
+    } // addTableGroupsRectangles
 
     // Debuc to console
     static toConsole(i_text_str)

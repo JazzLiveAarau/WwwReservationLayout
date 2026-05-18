@@ -381,8 +381,27 @@ label
     border: solid 1px red;
     width: 98%;
     margin: 1%;
-    overflow: hidden; 
-    min-height: 400px;
+    
+    min-height: 1200px;
 
     clear: both;
+}
+
+.cl_div_layout_graphics_pos_relative
+{
+    position: relative;
+    width: 96%;
+    height: 96%;
+    margin: 1%;
+    
+    clear: both;
+}
+
+.cl_div_table_rectangle_pos_absolute
+{
+    position: absolute;
+    border: solid 2px black;
+    background-color: lightgray;
+    text-align: center;
+    cursor: pointer;
 }

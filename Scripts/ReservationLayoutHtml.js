@@ -71,12 +71,13 @@ class TableGroupHtml
         for (var index_table = 0; index_table < n_tables; index_table++)
         {
             var table_data = table_group_data.m_tables[index_table];
-            TableGroupHtml.toConsole('TableGroupHtml.execute: Processing table ' + table_data.getNumber());
+
+            // TableGroupHtml.toConsole('TableGroupHtml.execute: Processing table ' + table_data.getNumber());
 
             var table_html_object = 
             new TableRectangleHtml(table_data, this.m_table_group_html_data.m_scale_dimension, this.m_table_group_html_data.m_cl_table);
 
-            this.m_html_code += table_html_object.get();
+            this.m_html_code += table_html_object.get() + '\n';
 
         } // index_table
 
@@ -131,60 +132,53 @@ class TableRectangleHtml
     // Create (construct) the HTML code for the rectangle (table)
     execute()
     {
-        TableGroupHtml.toConsole('TableRectangleHtml.execute Enter');
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute Enter');
 
          this.m_html_code = '';
 
          var table_id = this.m_table_data.getNumber();
 
-         TableGroupHtml.toConsole('TableRectangleHtml.execute table_id: ' + table_id);
+         // TableGroupHtml.toConsole('TableRectangleHtml.execute table_id: ' + table_id);
 
         var upper_left_corner_x = this.m_table_data.getUpperLeftX();
         var upper_left_corner_y = this.m_table_data.getUpperLeftY();
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
-        TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
 
-        var scaled_x = upper_left_corner_x * this.m_scale_dimension;
-        var scaled_y = upper_left_corner_y * this.m_scale_dimension;
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_x: ' + scaled_x);
-        TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_y: ' + scaled_y);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_x: ' + scaled_x);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_y: ' + scaled_y);
 
          var rect_width = this.m_table_data.getWidth();
          var rect_height = this.m_table_data.getHeight();
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width: ' + rect_width);
-        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height: ' + rect_height);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width: ' + rect_width);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height: ' + rect_height);
 
-        var rect_width_scaled = rect_width * this.m_scale_dimension;
-        var rect_height_scaled = rect_height * this.m_scale_dimension;
+        var rect_width_scaled = parseInt(rect_width * this.m_scale_dimension);
+        var rect_height_scaled = parseInt(rect_height * this.m_scale_dimension);
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width_scaled: ' + rect_width_scaled);
-        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height_scaled: ' + rect_height_scaled);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width_scaled: ' + rect_width_scaled);
+        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height_scaled: ' + rect_height_scaled);
 
         var number_left_right_seats = this.m_table_data.getNumberLeftRightSeats();
 
         var table_text = this.m_table_data.getText();
 
+        var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze: ' + number_left_right_seats; 
+
         var one_rectangle_html = '<div id="' + table_id + '" class="' + this.m_cl_table + 
         '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
         'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;">' 
-        + table_text    
+        + display_text    
         + '</div>';
-
-         TableGroupHtml.toConsole('TableRectangleHtml.execute one_rectangle_html: \n' + one_rectangle_html);
-
-        /* TODO
-       
-
-
-       
 
         this.m_html_code += one_rectangle_html;
 
-        TODO */
-
+        TableGroupHtml.toConsole('TableRectangleHtml.execute Rectangle div= \n' + one_rectangle_html);
 
     } // execute
 
