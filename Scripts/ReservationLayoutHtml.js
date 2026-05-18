@@ -133,19 +133,35 @@ class TableRectangleHtml
     {
         TableGroupHtml.toConsole('TableRectangleHtml.execute Enter');
 
-        /* TODO
-        this.m_html_code = '';
+         this.m_html_code = '';
 
-        var table_id = this.m_table_data.getNumber();
+         var table_id = this.m_table_data.getNumber();
+
+         TableGroupHtml.toConsole('TableRectangleHtml.execute table_id: ' + table_id);
 
         var upper_left_corner_x = this.m_table_data.getUpperLeftX();
         var upper_left_corner_y = this.m_table_data.getUpperLeftY();
 
+        TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
+        TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
+
         var scaled_x = upper_left_corner_x * this.m_scale_dimension;
         var scaled_y = upper_left_corner_y * this.m_scale_dimension;
 
-        var rect_width_scaled = this.m_table_data.getWidth() * this.m_scale_dimension;
-        var rect_height_scaled = this.m_table_data.getHeight() * this.m_scale_dimension;
+        TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_x: ' + scaled_x);
+        TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_y: ' + scaled_y);
+
+         var rect_width = this.m_table_data.getWidth();
+         var rect_height = this.m_table_data.getHeight();
+
+        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width: ' + rect_width);
+        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height: ' + rect_height);
+
+        var rect_width_scaled = rect_width * this.m_scale_dimension;
+        var rect_height_scaled = rect_height * this.m_scale_dimension;
+
+        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width_scaled: ' + rect_width_scaled);
+        TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height_scaled: ' + rect_height_scaled);
 
         var number_left_right_seats = this.m_table_data.getNumberLeftRightSeats();
 
@@ -154,10 +170,16 @@ class TableRectangleHtml
         var one_rectangle_html = '<div id="' + table_id + '" class="' + this.m_cl_table + 
         '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
         'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;">' 
-        //TODO + table_text    
+        + table_text    
         + '</div>';
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute one_rectangle_html: \n' + one_rectangle_html);
+         TableGroupHtml.toConsole('TableRectangleHtml.execute one_rectangle_html: \n' + one_rectangle_html);
+
+        /* TODO
+       
+
+
+       
 
         this.m_html_code += one_rectangle_html;
 

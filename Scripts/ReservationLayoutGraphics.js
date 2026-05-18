@@ -53,7 +53,12 @@ class LayoutGraphics
         {
             var table_group_data = this.m_group_data_array[index_group];
 
-            var table_group_html_input_data = new TableGroupHtmlData(table_group_data, this.m_layout_model.m_scale_dimension, true, 'table-group', 'table');
+            var scale_dimension = 0.5678; // TODO
+
+            var b_boundary = false; // TODO
+
+            var table_group_html_input_data = 
+            new TableGroupHtmlData(table_group_data, scale_dimension, b_boundary, 'table-group', 'table');
 
             var table_group_html = new TableGroupHtml(table_group_html_input_data);
             
