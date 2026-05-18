@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-16
+// Date: 2026-05-18
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -12,6 +12,9 @@
 
 // Global variable for the layout model object an instance of the class LayoutModel
 var g_layout_model = null;
+
+// Global variable for the layout graphics object an instance of the class LayoutGraphics
+var g_layout_graphics = null;
 
 
 
@@ -257,7 +260,9 @@ function callbackAfterLoadOfXmlLayout()
 
     setLocalStorageData();
 
-    var g_layout_model = new LayoutModel(g_create_layout_xml);
+    g_layout_model = new LayoutModel(g_create_layout_xml);
+
+    g_layout_graphics = new LayoutGraphics(g_layout_model, getElementDivLayoutModelView());
 
 } // callbackAfterLoadOfXmlLayout
 
@@ -2515,6 +2520,20 @@ function getTablesContainer(i_table_group_number)
 
 
 } // getTablesContainer
+
+// Returns the div element layout model view
+function getElementDivLayoutModelView()
+{
+    return document.getElementById(getIdDivLayoutModelView());
+
+} // getElementDivLayoutModelView
+
+// Returns the id of the div layout model view element
+function getIdDivLayoutModelView()
+{
+    return 'id_div_layout_model_view';
+
+} // getIdDivLayoutModelView
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Element Functions ///////////////////////////////////////////

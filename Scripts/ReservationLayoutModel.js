@@ -1,4 +1,4 @@
-// File: LayoutModel.js
+// File: ReservationLayoutModel.js
 // Date: 2026-05-18
 // Author: Gunnar Lidén
 
@@ -11,6 +11,7 @@
 ///////////////////////// Start Class LayoutModel /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Class for the layout (CAD) model. This class holds all data for the layout (CAD) model
 class LayoutModel 
 {
     constructor(i_layout_xml) 
@@ -71,6 +72,7 @@ class LayoutModel
 
         this.getAllLayoutDataObjects();
 
+        this.listAllLayoutDataObjects();
 
     } // init
 
@@ -110,7 +112,7 @@ class LayoutModel
 
         debugLayoutModel("LayoutModel.getTableGroupDataArray Number of table groups: " + n_groups);
 
-        this.listTableGroups();
+        //QQthis.listTableGroups();
 
     } // getTableGroupDataArray
 
@@ -121,7 +123,7 @@ class LayoutModel
     {
         this.m_premises_data = getPremisesDataFromXml(this.m_layout_xml);
 
-        this.listPremisesData();
+        // this.listPremisesData();
 
     } // getPremisesData
 
@@ -131,7 +133,7 @@ class LayoutModel
     {
         this.m_general_table_data = getGeneralTableDataFromXml(this.m_layout_xml);
 
-        this.listGeneralTableData();
+        // this.listGeneralTableData();
 
     } // getGeneralTableData
 
@@ -141,7 +143,7 @@ class LayoutModel
     {
         this.m_stage_data = getStageDataFromXml(this.m_layout_xml);
 
-        this.listStageData();
+        // this.listStageData();
 
     } // getStageData
 
@@ -151,7 +153,7 @@ class LayoutModel
     {
         this.m_cashier_data = getCashierDataFromXml(this.m_layout_xml);
 
-        this.listCashierData();
+        // this.listCashierData();
 
     } // getCashierData
 
@@ -161,7 +163,7 @@ class LayoutModel
     {
         this.m_text_image_captions = getTextImageCaptionsFromXml(this.m_layout_xml);
 
-        this.listImageCaptions();
+        // this.listImageCaptions();
 
     } // getTextImageCaptions
 
@@ -170,7 +172,7 @@ class LayoutModel
     {
         this.m_button_data_array = getButtonDataArrayFromXml(this.m_layout_xml);
 
-        this.listButtonDataArray();
+        // this.listButtonDataArray();
 
     } // getButtonDataArray
 
@@ -179,7 +181,7 @@ class LayoutModel
     {
         this.m_door_data_array = getDoorDataArrayFromXml(this.m_layout_xml);
 
-        this.listDoorDataArray();
+        // this.listDoorDataArray();
 
     } // getDoorDataArray
 
@@ -188,10 +190,37 @@ class LayoutModel
     {
         this.m_tables_seats_array = getAllTablesSeatDataArray(this.m_layout_xml);
 
-        this.listTablesSeatsDataArray();
+        // this.listTablesSeatsDataArray();
 
     } // getTablesSeatsDataArray
 
+
+    /////////////////////////////////// List functions for layout data objects //////////////////////////////////////////
+
+    // Function to list all layout data objects in the console log
+    listAllLayoutDataObjects()
+    {
+        debugLayoutModel("LayoutModel.listAllLayoutDataObjects Enter");
+
+        this.listTableGroups();
+
+        //this.listPremisesData();
+
+        //this.listGeneralTableData();
+
+        //this.listTableGroups();
+
+        //this.listCashierData();
+
+        //this.listImageCaptions();
+
+        //this.listButtonDataArray();
+
+        //this.listDoorDataArray();
+
+        //this.listTablesSeatsDataArray();
+
+    } // listAllLayoutDataObjects
 
 
 
