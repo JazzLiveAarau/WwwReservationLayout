@@ -49,7 +49,9 @@ class LayoutGraphics
 
         this.addContainerPositionRelative();
 
-        this.setConcersionFactorMmToPixel();
+        this.setConversionFactorMmToPixel();
+
+        this.setContainerHeight();
 
         this.createGroupRectanglesHtmlArray();
 
@@ -70,7 +72,7 @@ class LayoutGraphics
     }
 
     // Set the conversion factor mm to pixel
-    setConcersionFactorMmToPixel()
+    setConversionFactorMmToPixel()
     {
         var width_mm = this.m_layout_model.m_premises_data.getWidth();
        
@@ -78,10 +80,24 @@ class LayoutGraphics
 
         this.m_scale_dimension = width_pixel / width_mm;
 
-        LayoutGraphics.toConsole('LayoutGraphics.setConcersionFactorMmToPixel width_mm: ' + width_mm + 
+        LayoutGraphics.toConsole('LayoutGraphics.setConversionFactorMmToPixel width_mm: ' + width_mm + 
             ' width_pixel: ' + width_pixel + ' m_scale_dimension: ' + this.m_scale_dimension);
 
-    } // setConcersionFactorMmToPixel
+    } // setConversionFactorMmToPixel
+
+    // Set the height of the container HTML element based on the height of the layout model and the conversion factor mm to pixel
+    setContainerHeight()
+    {
+        var height_mm = this.m_layout_model.m_premises_data.getHeight();
+
+        var height_pixel = parseInt(height_mm * this.m_scale_dimension);
+
+        LayoutGraphics.toConsole('LayoutGraphics.setContainerHeight Container height_mm: ' + height_mm +
+            ' height_pixel: ' + height_pixel);
+
+        this.m_container_html_element.style.height = height_pixel + 'px';
+
+    } // setContainerHeight
 
     // Create the array of HTML code for the drawing of the group of tables as rectangles
     createGroupRectanglesHtmlArray()

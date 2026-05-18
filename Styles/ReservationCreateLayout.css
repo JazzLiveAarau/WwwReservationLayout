@@ -382,7 +382,7 @@ label
     width: 98%;
     margin: 1%;
     
-    min-height: 1200px;
+    /* min-height: 1200px; */
 
     clear: both;
 }
