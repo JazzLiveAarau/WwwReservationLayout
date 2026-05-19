@@ -32,6 +32,9 @@ class LayoutGraphics
         // Array of HTML code for the drawing of the group of tables as rectangles
         this.m_group_rectangles_html_array = [];
 
+        // Array of HTML code for the drawing of the buttons
+        this.m_all_buttons_html_array = [];
+
         this.init();
 
     } // constructor
@@ -56,6 +59,10 @@ class LayoutGraphics
         this.createGroupRectanglesHtmlArray();
 
         this.addTableGroupsRectangles();
+
+        this.createAllButtonsHtmlArray();
+
+        this.addAllButtons();
 
     } // init
 
@@ -152,6 +159,50 @@ class LayoutGraphics
         LayoutGraphics.toConsole('LayoutGraphics.addTableGroupsRectangles all_groups_html: \n' + all_groups_html);
 
     } // addTableGroupsRectangles
+
+    // this.m_all_buttons_html_array = [];
+
+    // Create the array of HTML code for the drawing of the buttons
+    createAllButtonsHtmlArray()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createAllButtonsHtmlArray Enter');
+
+        this.m_button_data_array = this.m_layout_model.m_button_data_array;
+
+        for (var index_button = 0; index_button < this.m_button_data_array.length; index_button++)
+        {
+            var button_data = this.m_button_data_array[index_button];
+
+            var button_html = new ButtonHtml(button_data, this.m_scale_dimension, 'cl_div_button_pos_absolute');
+            
+            this.m_all_buttons_html_array.push(button_html.get());
+        }
+
+    } // createAllButtonsHtmlArray
+
+    // Add the buttons to the layout (CAD) model drawing
+    addAllButtons()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addAllButtons Enter');
+
+        this.m_button_data_array = this.m_layout_model.m_button_data_array;
+
+        var n_buttons = this.m_all_buttons_html_array.length;
+
+        var all_buttons_html = '';
+
+        for (var index_button = 0; index_button < n_buttons; index_button++)
+        {
+            var button_html = this.m_all_buttons_html_array[index_button];
+
+            all_buttons_html += button_html + '\n';
+        }
+
+        this.m_el_div_graphics_pos_relative.innerHTML += all_buttons_html;
+
+        LayoutGraphics.toConsole('LayoutGraphics.addAllButtons all_buttons_html: \n' + all_buttons_html);
+
+    } // addAllButtons
 
     // Debuc to console
     static toConsole(i_text_str)

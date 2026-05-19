@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2026-05-18
+// Date: 2026-05-19
 // Authors: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +168,7 @@ class TableRectangleHtml
 
         var table_text = this.m_table_data.getText();
 
-        var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze: ' + number_left_right_seats; 
+        var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze <br>' + number_left_right_seats; 
 
         var one_rectangle_html = '<div id="' + table_id + '" class="' + this.m_cl_table + 
         '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
@@ -193,4 +193,88 @@ class TableRectangleHtml
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Table Rectangle Html //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Button Html /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for a button in the layout
+class ButtonHtml
+{
+    constructor(i_button_data, i_scale_dimension, i_cl_button) 
+    {
+        // Instance of the class ButtonData
+        this.m_button_data = i_button_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the button
+        this.m_cl_button = i_cl_button;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the button
+    execute()
+    {
+        ButtonHtml.toConsole('ButtonHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        var upper_left_corner_x = this.m_button_data.getUpperLeftX();
+        var upper_left_corner_y = this.m_button_data.getUpperLeftY();
+
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+         var button_width = this.m_button_data.getWidth();
+         var button_height = this.m_button_data.getHeight();
+
+        var button_width_scaled = parseInt(button_width * this.m_scale_dimension);
+        var button_height_scaled = parseInt(button_height * this.m_scale_dimension);
+
+        var button_id = this.m_button_data.getId();
+
+        // var button_title = this.m_button_data.getTitle();
+
+        // var button_text = 'Id= ' + button_id + ' ' + button_title;
+
+        var one_button_html = '<div id="' + button_id + '" class="' + this.m_cl_button + 
+        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
+        'width:' + button_width_scaled + 'px; height:' + button_height_scaled + 'px;">' 
+        + button_id    
+        + '</div>';
+
+        this.m_html_code += one_button_html;
+
+        TableGroupHtml.toConsole('ButtonHtml.execute Button div= \n' + one_button_html);
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // ButtonHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Button Html ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
