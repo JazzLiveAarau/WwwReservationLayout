@@ -133,7 +133,7 @@ class LayoutModel
 
         this.getTablesSeatsDataArray();
 
-        this.getSetBounderyBoxes();
+        this.setBoundingBoxes();
 
     } // getAllLayoutDataObjects
 
@@ -232,11 +232,11 @@ class LayoutModel
     ///////////////////////// Layout Bounding Box Functions //////////////////////////////////////
 
     // Get and set the boundary boxes for the layout elements
-    getSetBounderyBoxes()
+    setBoundingBoxes()
     {
         this.m_premises_data_bounding_box = getPremisesBoundingBoxFromXml(this.m_layout_xml);
 
-        var debug_txt = "LayoutModel.getSetBounderyBoxes For premises element \n" +
+        var debug_txt = "LayoutModel.setBoundingBoxes For premises element \n" +
             " MinX= " + this.m_premises_data_bounding_box.getXMin() + 
             " MaxX= " + this.m_premises_data_bounding_box.getXMax() + 
             " MinY= " + this.m_premises_data_bounding_box.getYMin() + 
@@ -246,7 +246,7 @@ class LayoutModel
 
         this.m_group_data_bounding_box = getAllGroupDataBoundingBoxFromXml(this.m_layout_xml);
 
-        var debug_txt = "LayoutModel.getSetBounderyBoxes For all tables without seats \n" +
+        var debug_txt = "LayoutModel.setBoundingBoxes For all tables without seats \n" +
             " MinX= " + this.m_group_data_bounding_box.getXMin() + 
             " MaxX= " + this.m_group_data_bounding_box.getXMax() + 
             " MinY= " + this.m_group_data_bounding_box.getYMin() + 
@@ -256,7 +256,7 @@ class LayoutModel
 
         this.m_group_data_bounding_box_seats = getAllGroupDataWithSeatsBoundingBoxFromXml(this.m_layout_xml);
 
-        debug_txt = "LayoutModel.getSetBounderyBoxes For all tables with seats \n" +
+        debug_txt = "LayoutModel.setBoundingBoxes For all tables with seats \n" +
             " MinX= " + this.m_group_data_bounding_box_seats.getXMin() + 
             " MaxX= " + this.m_group_data_bounding_box_seats.getXMax() + 
             " MinY= " + this.m_group_data_bounding_box_seats.getYMin() + 
@@ -266,7 +266,7 @@ class LayoutModel
 
         this.m_stage_bounding_box = getStageBoundingBoxFromXml(this.m_layout_xml);
 
-        debug_txt = "LayoutModel.getSetBounderyBoxes For stage element \n" +
+        debug_txt = "LayoutModel.setBoundingBoxes For stage element \n" +
             " MinX= " + this.m_stage_bounding_box.getXMin() + 
             " MaxX= " + this.m_stage_bounding_box.getXMax() + 
             " MinY= " + this.m_stage_bounding_box.getYMin() + 
@@ -276,7 +276,7 @@ class LayoutModel
 
         this.m_buttons_bounding_box = getAllButtonsBoundingBoxFromXml(this.m_layout_xml);
 
-        debug_txt = "LayoutModel.getSetBounderyBoxes For all button elements \n" +
+        debug_txt = "LayoutModel.setBoundingBoxes For all button elements \n" +
             " MinX= " + this.m_buttons_bounding_box.getXMin() + 
             " MaxX= " + this.m_buttons_bounding_box.getXMax() + 
             " MinY= " + this.m_buttons_bounding_box.getYMin() + 
@@ -284,7 +284,42 @@ class LayoutModel
 
         debugLayoutModel(debug_txt);
   
-    } // getSetBounderyBoxes
+    } // setBoundingBoxes
+
+    // Get the bounding box for the premises element
+    getPremisesDataBoundingBox()
+    {
+        return this.m_premises_data_bounding_box;
+
+    } // getPremisesDataBoundingBox
+
+    // Get the bounding box for all table groups without seats
+    getGroupDataBoundingBox()
+    {
+        return this.m_group_data_bounding_box;
+
+    } // getGroupDataBoundingBox
+
+    // Get the bounding box for all table groups with seats
+    getGroupDataWithSeatsBoundingBox()
+    {
+        return this.m_group_data_bounding_box_seats;
+
+    } // getGroupDataWithSeatsBoundingBox
+
+    // Get the bounding box for the stage element
+    getStageBoundingBox()
+    {
+        return this.m_stage_bounding_box;
+
+    } // getStageBoundingBox
+
+    // Get the bounding box for all button elements
+    getButtonsBoundingBox()
+    {
+        return this.m_buttons_bounding_box;
+
+    } // getButtonsBoundingBox
 
     ////////////////////// List functions for layout data objects //////////////////////////////
    

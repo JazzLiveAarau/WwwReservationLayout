@@ -85,15 +85,24 @@ class LayoutGraphics
 
     } // setConversionFactorMmToPixel
 
-    // Set the height of the container HTML element based on the height of the layout model and the conversion factor mm to pixel
+    // Set the height of the container HTML element based on the height of premises 
+    // bounding box and the conversion factor mm to pixel
     setContainerHeight()
     {
-        var height_mm = this.m_layout_model.m_premises_data.getHeight();
+        var premises_bounding_box = this.m_layout_model.getPremisesDataBoundingBox();
+
+        var width_mm = premises_bounding_box.getWidth();
+
+        var height_mm = premises_bounding_box.getHeight();
+
+        var width_pixel = parseInt(width_mm * this.m_scale_dimension);
 
         var height_pixel = parseInt(height_mm * this.m_scale_dimension);
 
-        LayoutGraphics.toConsole('LayoutGraphics.setContainerHeight Container height_mm: ' + height_mm +
-            ' height_pixel: ' + height_pixel);
+        LayoutGraphics.toConsole('LayoutGraphics.setContainerHeight Container width_mm: ' + width_mm + ' height_mm: ' + height_mm +
+            ' width_pixel: ' + width_pixel + ' height_pixel: ' + height_pixel);
+
+        this.m_container_html_element.style.width = width_pixel + 'px';
 
         this.m_container_html_element.style.height = height_pixel + 'px';
 

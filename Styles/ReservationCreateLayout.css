@@ -376,24 +376,20 @@ label
     float: right;
 }
 
+// Height and width is set by a LayoutGraphics function 
 .cl_div_layout_model_view
 {
-    border: solid 1px red;
-    width: 98%;
-    margin: 1%;
-    
-    /* min-height: 1200px; */
-
+    overflow: hidden; 
     clear: both;
 }
 
 .cl_div_layout_graphics_pos_relative
 {
+    border: solid 2px blue;
     position: relative;
-    width: 96%;
-    height: 96%;
+    width: 98%;
+    height: 98%;
     margin: 1%;
-    
     clear: both;
 }
 

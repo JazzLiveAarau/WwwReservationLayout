@@ -2953,6 +2953,17 @@ class BoundingBox
     getYMin(){ return this.m_y_min; }
     getYMax(){ return this.m_y_max; }
 
+    // Returns the width of the bounding box in millimeters
+    getWidth()
+    {
+        return this.m_x_max - this.m_x_min;
+    }
+    // Returns the height of the bounding box in millimeters
+    getHeight()
+    {
+        return this.m_y_max - this.m_y_min;
+    }   
+
     // Display the bounding box data in the console
     toConsole(i_function_name)
     {
