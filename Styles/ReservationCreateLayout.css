@@ -376,7 +376,7 @@ label
     float: right;
 }
 
-// Height and width is set by a LayoutGraphics function 
+/* Height and width is set by a LayoutGraphics function */
 .cl_div_layout_model_view
 {
     overflow: hidden; 
