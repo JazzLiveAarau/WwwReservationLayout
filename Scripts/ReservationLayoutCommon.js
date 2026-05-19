@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2026-05-15
+// Date: 2026-05-19
 // Authors: Gunnar Lidén
 
 // Content
@@ -54,6 +54,9 @@ class PremisesData
        this.m_sponsors_image = "";
        this.m_sponsors_image_width = "";
        this.m_sponsors_image_height = "";
+
+       // Instance of the class BoundingBox
+       this.m_boundimg_box = null;
 	   
        this.execute();
 
@@ -65,6 +68,8 @@ class PremisesData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBox();
         }
         else
         {
@@ -72,6 +77,18 @@ class PremisesData
         }
 
     } // execute
+
+    // Sets the bounding box for the premises based on the width and height of the premises
+    setBoundingBox()
+    {
+        this.m_boundimg_box = new BoundingBox('Premises');
+
+        this.m_boundimg_box.updateLeftDim(0, 0, this.m_width, this.m_height);
+
+    } // SetBoundingBox
+
+    // Returns the bounding box for the premises
+    getBoundingBox(){ return this.m_boundimg_box; }
 
     // Get and set organizer is defined
     organizerIsDefined(){return this.m_organizer_is_defined;}
@@ -587,6 +604,9 @@ class StageData
         this.m_image_width = "";
         this.m_image_height = "";
 
+       // Instance of the class BoundingBox
+       this.m_boundimg_box = null;
+
         this.execute();
         
     } // constructor
@@ -597,6 +617,8 @@ class StageData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBox();
         }
         else
         {
@@ -604,6 +626,21 @@ class StageData
         }
 
     } // execute
+
+    // Sets the bounding box for the stage based on the width and height of the stage
+    setBoundingBox()
+    {
+        this.m_boundimg_box = new BoundingBox('Stage');
+
+        this.m_boundimg_box.updateLeftDim(this.m_upper_left_x, this.m_upper_left_y, this.m_width, this.m_height);
+
+    } // SetBoundingBox
+
+    // Returns the bounding box for the stage
+    getBoundingBox()
+	{ 
+		return this.m_boundimg_box; 
+	}
 
     // Get and set cashier is defined
     stageIsDefined(){return this.m_stage_is_defined;}
@@ -1024,6 +1061,9 @@ class ButtonData
        this.m_image_height = "";
        this.m_type = "";
 
+       // Instance of the class BoundingBox
+       this.m_boundimg_box = null;
+
        this.execute();
 
     } // constructor
@@ -1034,6 +1074,8 @@ class ButtonData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBox();
         }
         else
         {
@@ -1041,6 +1083,22 @@ class ButtonData
         }
 
     } // execute
+
+    // Sets the bounding box for the button based on the width and height of the button
+    setBoundingBox()
+    {
+        this.m_boundimg_box = new BoundingBox('Button data');
+
+        this.m_boundimg_box.updateLeftDim(this.m_upper_left_x, this.m_upper_left_y, this.m_width, this.m_height);
+
+    } // SetBoundingBox
+
+    // Returns the bounding box for the button
+    getBoundingBox()
+	{ 
+		return this.m_boundimg_box; 
+	}
+	
 
     // Get and set functions for the member variables
     getId(){ return this.m_id; }
@@ -1400,6 +1458,12 @@ class TableData
 	   this.m_seat_lower = "";
 	   this.m_text = "";
 
+       // Instance of the class BoundingBox for table only
+       this.m_boundimg_box = null;
+
+       // Instance of the class BoundingBox for table with seats
+       this.m_boundimg_box_seats = null;
+
        this.initSeatData();
 
 	   this.execute();
@@ -1412,6 +1476,8 @@ class TableData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBoxes();
         }
         else
         {
@@ -1419,6 +1485,34 @@ class TableData
         }
 
     } // execute
+
+    // Sets the bounding box for the table and for table with seats
+    setBoundingBoxes()
+    {
+        this.m_boundimg_box = new BoundingBox('Table');
+
+        this.m_boundimg_box.updateLeftDim(this.m_upper_left_x, this.m_upper_left_y, this.m_width, this.m_height);
+
+        this.m_boundimg_box_seats = new BoundingBox('TableWithSeats');
+
+        this.m_boundimg_box_seats.updateTableSeats(this.m_upper_left_x, this.m_upper_left_y, this.m_width, this.m_height);
+
+    } // SetBoundingBoxes
+
+    // Returns the bounding box for the table without seats
+    getBoundingBox()
+	{ 
+		return this.m_boundimg_box; 
+
+	} // getBoundingBox
+	
+	// Returns the bounding box for the table with seats
+    getBoundingBoxSeats()
+	{ 
+		return this.m_boundimg_box_seats; 
+
+	} // getBoundingBoxSeats
+	
 
     // Get and set functions for the member variables
     getNumber(){ return this.m_number; }
@@ -2398,6 +2492,12 @@ class GroupData
 
        this.m_text = "";
        this.m_tables = [];
+
+        // Instance of the class BoundingBox for the table group without seats.
+       this.m_boundimg_box = null;
+
+       // Instance of the class BoundingBox for the table group with seats.
+       this.m_boundimg_box_seats = null;
 	   
        this.execute();
 
@@ -2409,6 +2509,8 @@ class GroupData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBoxes();
         }
         else
         {
@@ -2416,6 +2518,44 @@ class GroupData
         }
 
     } // execute
+
+    // Sets the bounding box for the table group based on the tables in the group. 
+    // The bounding box is calculated both for the tables and for the tables with seats.
+    setBoundingBoxes()
+    {
+        this.m_boundimg_box = new BoundingBox('TableGroupNoSeats');
+
+        this.m_boundimg_box_seats = new BoundingBox('TableGroupWithSeats');
+
+        var n_tables = this.m_tables.length;
+
+        for (var index_table=0; index_table < n_tables; index_table++)
+        {
+            var table_data = this.m_tables[index_table];
+
+            var table_bounding_box = table_data.getBoundingBox();
+
+            this.m_boundimg_box.updateBox(table_bounding_box);
+
+            var table_bounding_box_seats = table_data.getBoundingBoxSeats();
+
+            this.m_boundimg_box_seats.updateBox(table_bounding_box_seats);
+        }    
+    } // SetBoundingBoxes
+
+    // Returns the bounding box for the table group without seats
+    getBoundingBox()
+	{ 
+		return this.m_boundimg_box; 
+
+	} // getBoundingBox
+
+    // Returns the bounding box for the table group with seats
+    getBoundingBoxSeats()
+    {
+        return this.m_boundimg_box_seats;
+
+    } // getBoundingBoxSeats
 
     // Get and set functions for the member variables
     getText(){ return this.m_text; }
@@ -2526,8 +2666,230 @@ function getGroupDataArrayFromXml(i_layout_xml)
  
 } // getGroupDataArrayFromXml
 
+// Returns the bounding box for a given table group witout seats. 
+// The bounding box is calculated based on the tables in the group.
+// i_layout_xml: Object for a reservation layout XML file
+function getGroupDataBoundingBoxFromXml(i_layout_xml, i_group_number)
+{
+    var layout_case = "get_data_from_xml";
+
+    var input_data_object = null;
+
+    var group_object = new GroupData(layout_case, i_layout_xml, input_data_object, i_group_number);
+
+    if (!group_object.checkData())
+    {
+        return null;
+    }
+
+    var ret_bounding_box = group_object.getBoundingBox();
+
+    return ret_bounding_box;
+
+} // getGroupDataBoundingBoxFromXml
+
+// Returns the bounding box for a given table group with seats. 
+// The bounding box is calculated based on the tables in the group and the seats around the tables.
+// i_layout_xml: Object for a reservation layout XML file
+function getGroupDataBoundingBoxSeatsFromXml(i_layout_xml, i_group_number)
+{
+    var layout_case = "get_data_from_xml";
+
+    var input_data_object = null;
+
+    var group_object = new GroupData(layout_case, i_layout_xml, input_data_object, i_group_number);
+
+    if (!group_object.checkData())
+    {
+        return null;
+    }
+
+    var ret_bounding_box = group_object.getBoundingBoxSeats();
+
+    return ret_bounding_box;
+
+} // getGroupDataBoundingBoxSeatsFromXml
+
+// Returns the bounding box for all table groups with seats. 
+// The bounding box is calculated based on the tables in the 
+// groups and the seats around the tables.
+// i_layout_xml: Object for a reservation layout XML file
+function getAllGroupDataBoundingBoxFromXml(i_layout_xml)
+{
+    var ret_bounding_box_array = [];
+
+    var all_groups_bounding_box = new BoundingBox('AllTableGroupsWithSeats');
+
+    var n_table_groups = i_layout_xml.getNumberOfGroups();
+
+    for (var group_number=1; group_number <=  n_table_groups; group_number++)
+    {
+        var bounding_box = getGroupDataBoundingBoxFromXml(i_layout_xml, group_number);
+
+        all_groups_bounding_box.updateBox(bounding_box);
+    }
+
+    return all_groups_bounding_box;
+
+} // getAllGroupDataBoundingBoxFromXml
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Group Data ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Bounding Box ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Class for bounding box data and functions
+// The elements in the layout XML file are defined in millimeters
+class BoundingBox
+{
+    constructor(i_description)
+    {
+        // Description of the bounding box. E.g. "Bounding box for tables"
+        this.m_description = i_description;
+
+        // Minimum and maximum x and y values for the bounding box
+        this.m_x_min = 500000;
+
+        // Maximum x value for the bounding box
+        this.m_x_max = -500000;
+
+        // Minimum y value for the bounding box
+        this.m_y_min = 500000;
+
+        // Maximum y value for the bounding box
+        this.m_y_max = -500000;
+
+        // Seat diameter in millimeters. Used for calculating the bounding box for seats
+        this.m_seat_size = 500;
+
+    } // BoundingBox
+
+    // Set function for the seat size in millimeters
+    setSeatSize(i_seat_size)
+    {
+        this.m_seat_size = parseInt(i_seat_size);
+
+    } // setSeatSize
+
+    // Get function for the seat size in millimeters
+    getSeatSize()
+    {
+        return this.m_seat_size;
+
+    } // getSeatSize
+
+    // Update the bounding box with another bounding box
+    updateBox(i_bounding_box)
+    {
+        if (i_bounding_box.getXMin() < this.m_x_min)
+        {
+            this.m_x_min = i_bounding_box.getXMin();
+        }
+
+        if (i_bounding_box.getXMax() > this.m_x_max)
+        {
+            this.m_x_max = i_bounding_box.getXMax();
+        }
+
+        if (i_bounding_box.getYMin() < this.m_y_min)
+        {
+            this.m_y_min = i_bounding_box.getYMin();
+        }
+
+        if (i_bounding_box.getYMax() > this.m_y_max)
+        {
+            this.m_y_max = i_bounding_box.getYMax();
+        }
+
+        this.toConsole("updateBox");
+
+    } // updateBox
+
+    // Update the bounding box with a table defined by upper left 
+    // corner and width and height. The bounding box is updated with 
+    // the dimensions of the table and the seats around the table
+    updateTableSeats(i_upper_x, i_upper_y, i_width, i_height)
+    {
+        var upper_x_seats = parseInt(i_upper_x) - this.getSeatSize();
+
+        var upper_y_seats = parseInt(i_upper_y) - this.getSeatSize();
+
+        var width_seats = parseInt(i_width) + 2*this.getSeatSize();
+
+        var height_seats = parseInt(i_height) + 2*this.getSeatSize();
+
+        this.updateLeftDim(upper_x_seats, upper_y_seats, width_seats, height_seats);
+
+        this.toConsole("updateTableSeats");
+
+    } // updateTableSeats
+
+    // Update with an element defined by upper left corner and width and height
+    updateLeftDim(i_upper_x, i_upper_y, i_width, i_height)
+    {
+        var x_min = parseInt(i_upper_x);
+
+        var x_max = parseInt(i_upper_x) + parseInt(i_width);
+
+        var y_min = parseInt(i_upper_y);
+
+        var y_max = parseInt(i_upper_y) + parseInt(i_height);
+
+        if (x_min < this.m_x_min)
+        {
+            this.m_x_min = x_min;
+        }
+        
+        if (x_max > this.m_x_max)
+        {
+            this.m_x_max = x_max;
+        }
+
+        if (y_min < this.m_y_min)
+        {
+            this.m_y_min = y_min;
+        }
+
+        if (y_max > this.m_y_max)
+        {
+            this.m_y_max = y_max;
+        }
+
+        this.toConsole("updateLeftDim");
+
+    } // updateLeftDim
+
+    // Returns the description of the bounding box
+    getDescription()
+    {
+        return this.m_description;
+    }
+
+    // Returns the minimum and maximum x and y values (millimeters) for the bounding box
+    getXMin(){ return this.m_x_min; }
+    getXMax(){ return this.m_x_max; }
+    getYMin(){ return this.m_y_min; }
+    getYMax(){ return this.m_y_max; }
+
+    //
+    toConsole(i_function_name)
+    {
+        console.log("BoundingBox." + i_function_name + " " +
+            this.m_description +
+            " MinX= " + this.getXMin() + " MaxX= " + this.getXMax() + 
+            " MinY= " + this.getYMin() + " MaxY= " + this.getYMax() );
+    } // toConsole
+
+} // BoundingBox
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Bounding Box //////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
