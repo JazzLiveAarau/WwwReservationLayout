@@ -237,6 +237,23 @@ function getPremisesDataFromXml(i_layout_xml)
 
 } // getPremisesDataFromXml
 
+// Returns the bounding box for the premises layout element. 
+// i_layout_xml: Object for a reservation layout XML file
+function getPremisesBoundingBoxFromXml(i_layout_xml)
+{
+    var premises_data_object = getPremisesDataFromXml(i_layout_xml);
+
+    if (!premises_data_object.checkData())
+    {
+        return null;
+    }
+
+    var ret_premises_bounding_box = premises_data_object.getBoundingBox();
+
+    return ret_premises_bounding_box;
+
+} // getPremisesBoundingBoxFromXml
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Premises Data /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -762,6 +779,23 @@ function getStageDataFromXml(i_layout_xml)
 
 } // getStageDataFromXml
 
+// Returns the bounding box for the stage layout element. 
+// i_layout_xml: Object for a reservation layout XML file
+function getStageBoundingBoxFromXml(i_layout_xml)
+{
+    var stage_data_object = getStageDataFromXml(i_layout_xml);
+
+    if (!stage_data_object.checkData())
+    {
+        return null;
+    }
+
+    var ret_stage_bounding_box = stage_data_object.getBoundingBox();
+
+    return ret_stage_bounding_box;
+
+} // getStageBoundingBoxFromXml
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Stage Data ////////////////////////////////////////////
@@ -1258,6 +1292,27 @@ function getButtonDataForId(i_layout_xml, i_button_id)
     return ret_button_data;
 
 } // getButtonDataForId
+
+// Returns the bounding box for all button elements
+// i_layout_xml: Object for a reservation layout XML file
+function getAllButtonsBoundingBoxFromXml(i_layout_xml)
+{
+    var all_buttons_bounding_box = new BoundingBox('AllButtons');
+
+    var n_buttons = i_layout_xml.getNumberOfButtons();
+
+    for (var button_number=1; button_number <=  n_buttons; button_number++)
+    {
+        var button_data = getButtonDataFromXml(i_layout_xml, button_number);
+
+        var button_bounding_box = button_data.getBoundingBox();
+
+        all_buttons_bounding_box.updateBox(button_bounding_box);
+    }
+
+    return all_buttons_bounding_box;
+
+} // getAllButtonsBoundingBoxFromXml
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Layout Button Data ////////////////////////////////////
@@ -2733,6 +2788,30 @@ function getAllGroupDataBoundingBoxFromXml(i_layout_xml)
 
 } // getAllGroupDataBoundingBoxFromXml
 
+// Returns the bounding box for all table groups with seats. 
+// The bounding box is calculated based on the tables in the 
+// groups and the seats around the tables.
+// i_layout_xml: Object for a reservation layout XML file 
+function getAllGroupDataWithSeatsBoundingBoxFromXml(i_layout_xml)
+{
+    var ret_bounding_box_array = [];
+
+    var all_groups_bounding_box = new BoundingBox('AllTableGroupsWithSeats');
+
+    var n_table_groups = i_layout_xml.getNumberOfGroups();
+
+    for (var group_number=1; group_number <=  n_table_groups; group_number++)
+    {
+        var bounding_box_seats = getGroupDataBoundingBoxSeatsFromXml(i_layout_xml, group_number);
+
+        all_groups_bounding_box.updateBox(bounding_box_seats);
+
+    }
+
+    return all_groups_bounding_box;
+
+} // getAllGroupDataWithSeatsBoundingBoxFromXml
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Group Data ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -2874,13 +2953,16 @@ class BoundingBox
     getYMin(){ return this.m_y_min; }
     getYMax(){ return this.m_y_max; }
 
-    //
+    // Display the bounding box data in the console
     toConsole(i_function_name)
     {
+        /* Too much output in the console ....
         console.log("BoundingBox." + i_function_name + " " +
             this.m_description +
             " MinX= " + this.getXMin() + " MaxX= " + this.getXMax() + 
             " MinY= " + this.getYMin() + " MaxY= " + this.getYMax() );
+        */
+
     } // toConsole
 
 } // BoundingBox

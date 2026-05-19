@@ -1,5 +1,5 @@
 // File: ReservationLayoutModel.js
-// Date: 2026-05-18
+// Date: 2026-05-19
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -16,11 +16,15 @@ class LayoutModel
 {
     constructor(i_layout_xml) 
     {
+        ///////////////////////// Layout XML Objects ////////////////////////////////////////////////
+
         // Instance of the class ReservationLayoutXml
         this.m_layout_xml = i_layout_xml;
 
         // Instance of the class LayoutXmlTable
         this.m_layout_xml_table = null;
+
+        ///////////////////////// Layout Data Objects //////////////////////////////////////////////
 
         // Array of TableGroupData objects from the layout xml object
         this.m_group_data_array = [];
@@ -50,13 +54,39 @@ class LayoutModel
         // Array of TableSeatsData objects with data for all table seats from the layout xml object
         this.m_tables_seats_array = null;
 
-
         // getTextImageCaptionsFromXml
 
+
+        ///////////////////////// Bounding Boxes //////////////////////////////////////////////////////
+
+        // Bounding box for the premises element
+        this.m_premises_data_bounding_box = null;
+        
+        // Bounding box for all table groups without seats. 
+        this.m_group_data_bounding_box = null;
+
+        // Bounding box for all table groups with seats. 
+        this.m_group_data_bounding_box_seats = null;
+
+        // Bounding box for the stage element
+        this.m_stage_bounding_box = null;
+
+        // Bounding box for all button elements
+        // Please note that the buttons are graphical layout elements
+        this.m_buttons_bounding_box = null;
+
+        // Please note that CashierData, DoorData and wall elements are graphical layout elements
+        // - CashierData is only an image with image witdt and height defined in pixels
+        // - DoorData is an element inside a wall
+        // - Walls are defined as graphical representation of the premises element.
+
+        ///////////////////////// Init Function //////////////////////////////////////////////////////
 
         this.init();
 
     } // constructor
+
+    ///////////////////////// Init Function //////////////////////////////////////////////////////
 
     // Init function for the class LayoutModel. 
     // 1. Create an instance of the class LayoutXmlTable 
@@ -75,6 +105,8 @@ class LayoutModel
         this.listAllLayoutDataObjects();
 
     } // init
+
+    ///////////////////////// Layout Data Object Functions ///////////////////////////////////////
 
     // Get all geometry elements as data objects of the from the layout XML object 
     // store them in this class. 
@@ -100,6 +132,8 @@ class LayoutModel
         this.getDoorDataArray();
 
         this.getTablesSeatsDataArray();
+
+        this.getSetBounderyBoxes();
 
     } // getAllLayoutDataObjects
 
@@ -195,8 +229,65 @@ class LayoutModel
     } // getTablesSeatsDataArray
 
 
-    /////////////////////////////////// List functions for layout data objects //////////////////////////////////////////
+    ///////////////////////// Layout Bounding Box Functions //////////////////////////////////////
 
+    // Get and set the boundary boxes for the layout elements
+    getSetBounderyBoxes()
+    {
+        this.m_premises_data_bounding_box = getPremisesBoundingBoxFromXml(this.m_layout_xml);
+
+        var debug_txt = "LayoutModel.getSetBounderyBoxes For premises element \n" +
+            " MinX= " + this.m_premises_data_bounding_box.getXMin() + 
+            " MaxX= " + this.m_premises_data_bounding_box.getXMax() + 
+            " MinY= " + this.m_premises_data_bounding_box.getYMin() + 
+            " MaxY= " + this.m_premises_data_bounding_box.getYMax();
+
+        debugLayoutModel(debug_txt);
+
+        this.m_group_data_bounding_box = getAllGroupDataBoundingBoxFromXml(this.m_layout_xml);
+
+        var debug_txt = "LayoutModel.getSetBounderyBoxes For all tables without seats \n" +
+            " MinX= " + this.m_group_data_bounding_box.getXMin() + 
+            " MaxX= " + this.m_group_data_bounding_box.getXMax() + 
+            " MinY= " + this.m_group_data_bounding_box.getYMin() + 
+            " MaxY= " + this.m_group_data_bounding_box.getYMax();
+
+        debugLayoutModel(debug_txt);
+
+        this.m_group_data_bounding_box_seats = getAllGroupDataWithSeatsBoundingBoxFromXml(this.m_layout_xml);
+
+        debug_txt = "LayoutModel.getSetBounderyBoxes For all tables with seats \n" +
+            " MinX= " + this.m_group_data_bounding_box_seats.getXMin() + 
+            " MaxX= " + this.m_group_data_bounding_box_seats.getXMax() + 
+            " MinY= " + this.m_group_data_bounding_box_seats.getYMin() + 
+            " MaxY= " + this.m_group_data_bounding_box_seats.getYMax();
+
+        debugLayoutModel(debug_txt);    
+
+        this.m_stage_bounding_box = getStageBoundingBoxFromXml(this.m_layout_xml);
+
+        debug_txt = "LayoutModel.getSetBounderyBoxes For stage element \n" +
+            " MinX= " + this.m_stage_bounding_box.getXMin() + 
+            " MaxX= " + this.m_stage_bounding_box.getXMax() + 
+            " MinY= " + this.m_stage_bounding_box.getYMin() + 
+            " MaxY= " + this.m_stage_bounding_box.getYMax();
+
+        debugLayoutModel(debug_txt);
+
+        this.m_buttons_bounding_box = getAllButtonsBoundingBoxFromXml(this.m_layout_xml);
+
+        debug_txt = "LayoutModel.getSetBounderyBoxes For all button elements \n" +
+            " MinX= " + this.m_buttons_bounding_box.getXMin() + 
+            " MaxX= " + this.m_buttons_bounding_box.getXMax() + 
+            " MinY= " + this.m_buttons_bounding_box.getYMin() + 
+            " MaxY= " + this.m_buttons_bounding_box.getYMax();
+
+        debugLayoutModel(debug_txt);
+  
+    } // getSetBounderyBoxes
+
+    ////////////////////// List functions for layout data objects //////////////////////////////
+   
     // Function to list all layout data objects in the console log
     listAllLayoutDataObjects()
     {
@@ -221,9 +312,6 @@ class LayoutModel
         //this.listTablesSeatsDataArray();
 
     } // listAllLayoutDataObjects
-
-
-
 
    // Function to list table groups in the console log
     listTableGroups()
