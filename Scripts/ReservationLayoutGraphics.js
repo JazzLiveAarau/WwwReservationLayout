@@ -67,39 +67,69 @@ class LayoutGraphics
 
         this.addContainerPositionRelative();
 
+        this.drawAllHtmlGraphics();
+
+    } // init
+
+    // Draw all the graphics (HTML code) for the layout (CAD) model
+    drawAllHtmlGraphics()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.drawAllHtmlGraphics Enter');
+
         this.setConversionFactorMmToPixel();
+
+        this.createAllGraphics();
+
+        this.addAllGraphics();
+
+    } //drawAllHtmlGraphics
+
+    // Create the graphics HTML objects for the layout (CAD) model
+    createAllGraphics()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createAllGraphics Enter');
 
         this.setContainerHeight();
 
         this.createGroupRectanglesHtmlArray();
 
-        this.addTableGroupsRectangles();
-
         this.createAllButtonsHtmlArray();
 
-        this.addAllButtons();
-        
         this.createStageHtml();
-
-        this.addStage();
 
         this.createWallsHtml();
 
-        this.addWalls();   
-
         this.createOrganizerHtml();
-
-        this.addOrganizer();
 
         this.createCashierHtml();
 
-        this.addCashier();
-
         this.createAllDoorsHtmlArray();
+
+    } // createAllGraphics
+
+    // Add the graphics HTML objects for the layout (CAD) model to the 
+    // graphics container HTML element
+    addAllGraphics()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addAllGraphics Enter');
+
+        this.m_el_div_graphics_pos_relative.innerHTML = '';
+
+        this.addTableGroupsRectangles();
+
+        this.addAllButtons();
+        
+        this.addStage();
+
+        this.addWalls();   
+
+        this.addOrganizer();
+
+        this.addCashier();
 
         this.addAllDoors();
 
-    } // init
+    } // addAllGraphics
 
     // Add a div element with position relative to the container HTML element
     addContainerPositionRelative()
@@ -189,7 +219,8 @@ class LayoutGraphics
             all_groups_html += group_rectangle_html + '\n';
         }
 
-        this.m_el_div_graphics_pos_relative.innerHTML = all_groups_html;
+        // Note += to add to the existing HTML code in the graphics div container
+        this.m_el_div_graphics_pos_relative.innerHTML += all_groups_html; 
 
         LayoutGraphics.toConsole('LayoutGraphics.addTableGroupsRectangles all_groups_html: \n' + all_groups_html);
 
@@ -233,6 +264,7 @@ class LayoutGraphics
             all_buttons_html += button_html + '\n';
         }
 
+        // Note += to add to the existing HTML code in the graphics div container
         this.m_el_div_graphics_pos_relative.innerHTML += all_buttons_html;
 
         LayoutGraphics.toConsole('LayoutGraphics.addAllButtons all_buttons_html: \n' + all_buttons_html);
@@ -259,6 +291,7 @@ class LayoutGraphics
 
         if (this.m_stage_html_str)
         {
+            // Note += to add to the existing HTML code in the graphics div container
             this.m_el_div_graphics_pos_relative.innerHTML += this.m_stage_html_str;
         }
 
@@ -284,6 +317,7 @@ class LayoutGraphics
 
         if (this.m_walls_html_str)
         {
+            // Note += to add to the existing HTML code in the graphics div container
             this.m_el_div_graphics_pos_relative.innerHTML += this.m_walls_html_str;
         }
 
@@ -309,6 +343,7 @@ class LayoutGraphics
 
         if (this.m_organizer_html_str)
         {
+            // Note += to add to the existing HTML code in the graphics div container
             this.m_el_div_graphics_pos_relative.innerHTML += this.m_organizer_html_str;
         }
 
@@ -334,11 +369,11 @@ class LayoutGraphics
 
         if (this.m_cashier_html_str)
         {
+            // Note += to add to the existing HTML code in the graphics div container
             this.m_el_div_graphics_pos_relative.innerHTML += this.m_cashier_html_str;
         }
 
     } // addCashier
-
 
     // Create the array of HTML code for the drawing of the doors
     createAllDoorsHtmlArray()
@@ -380,6 +415,7 @@ class LayoutGraphics
             all_doors_html += door_html + '\n';
         }
 
+        // Note += to add to the existing HTML code in the graphics div container
         this.m_el_div_graphics_pos_relative.innerHTML += all_doors_html;
 
         LayoutGraphics.toConsole('LayoutGraphics.addAllDoors all_doors_html: \n' + all_doors_html);
