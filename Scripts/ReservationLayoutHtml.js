@@ -843,6 +843,8 @@ class DoorHtml
 
         var door_text = this.m_door_data.getText();
 
+        var door_text_vertical = this.doorTextVertical(door_text);
+
         var wall_thickness_mm = parseInt(this.m_premises_data.getWallThickness());
         var wall_thickness_scaled = parseInt(wall_thickness_mm * this.m_scale_dimension);
         
@@ -854,15 +856,15 @@ class DoorHtml
 
         if ("right" == door_type)
         {
-            var right_coordinate_x_scaled = premises_width_scaled - parseInt(1.5*wall_thickness_scaled); // ?
+            var right_coordinate_x_scaled = premises_width_scaled - parseInt(1.6*wall_thickness_scaled); // ?
             var right_coordinate_y_scaled = door_position_scaled;
-            var right_width_scaled = premises_width_scaled;
+            var right_width_scaled = wall_thickness_scaled;
             var right_height_scaled = door_height_scaled;
 
             var right_door_html = '<div id="' + this.m_id_door + '" class="' + this.m_cl_door + 
             '" style="left:' + right_coordinate_x_scaled + 'px; top:' + right_coordinate_y_scaled + 'px; '+
             'width:' + right_width_scaled + 'px; height:' + right_height_scaled + 'px;">' 
-            + door_text    
+            + door_text_vertical    
             + '</div>';
 
             this.m_html_code += right_door_html;
@@ -871,26 +873,70 @@ class DoorHtml
         }
         else if ("left" == door_type)
         {
+            var left_coordinate_x_scaled = 0; 
+            var left_coordinate_y_scaled = door_position_scaled;
+            var left_width_scaled = wall_thickness_scaled;
+            var left_height_scaled = door_height_scaled;
 
+            var left_door_html = '<div id="' + this.m_id_door + '" class="' + this.m_cl_door + 
+            '" style="left:' + left_coordinate_x_scaled + 'px; top:' + left_coordinate_y_scaled + 'px; '+
+            'width:' + left_width_scaled + 'px; height:' + left_height_scaled + 'px;">' 
+            + door_text_vertical    
+            + '</div>';
+
+            this.m_html_code += left_door_html;
+
+            DoorHtml.toConsole('DoorHtml.execute Door div= \n' + left_door_html);
         }
         else if ("upper" == door_type)
         {
+            DoorHtml.toConsole('DoorHtml.execute Upper door is not yet implemented. No door div is created.');
 
+            return;
         }
         else if ("lower" == door_type)
         {
+            var lower_coordinate_x_scaled = door_position_scaled; 
+            var lower_coordinate_y_scaled = premises_height_scaled - parseInt(2.0*wall_thickness_scaled); // ?
+            var lower_width_scaled = door_height_scaled;
+            var lower_height_scaled = wall_thickness_scaled;
 
+            var lower_door_html = '<div id="' + this.m_id_door + '" class="' + this.m_cl_door + 
+            '" style="left:' + lower_coordinate_x_scaled + 'px; top:' + lower_coordinate_y_scaled + 'px; '+
+            'width:' + lower_width_scaled + 'px; height:' + lower_height_scaled + 'px;">' 
+            + door_text    
+            + '</div>';
+
+            this.m_html_code += lower_door_html;
+
+            DoorHtml.toConsole('DoorHtml.execute Door div= \n' + lower_door_html);
         }
         else
         {
             DoorHtml.toConsole('DoorHtml.execute Unknown door type: ' + door_type + '. No door div is created.');
         }
 
-
-
-
-
     } // execute
+
+    // Returns the door text in vertical direction (with line breaks)
+    doorTextVertical(i_text)
+    {
+        var vertical_text = '';
+
+        var n_chars = i_text.length;
+
+        for (var index_char = 0; index_char < n_chars; index_char++)
+        {
+            var char = i_text.charAt(index_char);
+
+            vertical_text += char + '<br>';
+
+        } // index_char
+
+
+        return vertical_text;
+
+    } // doorTextVertical
 
     // Get all HTML code
     get()

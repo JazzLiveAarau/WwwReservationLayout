@@ -456,7 +456,7 @@ label
     position: absolute;
     border: solid 1px black;
     background-color: rgb(255, 200, 200);
-    font-size: 6px;
+    font-size: 11px;
     text-align: center;
     cursor: pointer;
 }
