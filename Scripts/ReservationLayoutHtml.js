@@ -375,3 +375,148 @@ class StageHtml
 ///////////////////////// End Class Stage Html ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Walls Html //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for a wall in the layout
+class WallHtml
+{
+    constructor(i_premises_data, i_scale_dimension, i_cl_wall) 
+    {
+        // Instance of the class PremisesData
+        this.m_premises_data = i_premises_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the wall
+        this.m_cl_wall = i_cl_wall;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the wall
+    execute()
+    {
+        WallHtml.toConsole('WallsHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        var wall_thickness_mm = parseInt(this.m_premises_data.getWallThickness());
+
+        if (wall_thickness_mm <= 0)
+        {
+            WallHtml.toConsole('WallHtml.execute Wall thickness is zero. No wall divs are created.');
+
+            return;
+        }
+
+        // Not used var upper_left_corner_x = 0;
+        // Not used var upper_left_corner_y = 0;
+
+        var premises_width = this.m_premises_data.getWidth(); 
+        var premises_height = this.m_premises_data.getHeight();
+
+        var premises_width_scaled = parseInt(premises_width * this.m_scale_dimension);
+        var premises_height_scaled = parseInt(premises_height * this.m_scale_dimension);
+
+        var wall_thickness_scaled = parseInt(wall_thickness_mm * this.m_scale_dimension);
+
+        // Position and dimension of the left wall	
+        var wall_left_x_scaled = 0;
+        var wall_left_y_scaled = 0;
+        var wall_left_width_scaled = wall_thickness_scaled;
+        var wall_left_height_scaled = premises_height_scaled - wall_thickness_scaled;
+
+        // Position and dimension of the right wall		
+        var wall_right_x_scaled = premises_width_scaled - parseInt(1.5*wall_thickness_scaled); // ?
+        var wall_right_y_scaled = 0;
+        var wall_right_width_scaled = wall_thickness_scaled;
+        var wall_right_height_scaled = premises_height_scaled - wall_thickness_scaled; 
+
+        // Position and dimension of the upper wall	(height = 3 X wall thickness)	  
+        var wall_upper_x_scaled = 0;
+        var wall_upper_y_scaled = 0;
+        var wall_upper_width_scaled = premises_width_scaled;
+        var wall_upper_height_scaled = 3*wall_thickness_scaled;
+
+        // Position and dimension of the lower wall	
+        var wall_lower_x_scaled = 0;
+        var wall_lower_y_scaled = premises_height_scaled - parseInt(2*wall_thickness_scaled); // ?
+        var wall_lower_width_scaled = premises_width_scaled;
+        var wall_lower_height_scaled = wall_thickness_scaled;
+
+
+        var wall_left_id = 'id_div_wall_pos_absolute_left';
+
+        var left_wall_html = '<div id="' + wall_left_id + '" class="' + this.m_cl_wall + 
+        '" style="left:' + wall_left_x_scaled + 'px; top:' + wall_left_y_scaled + 'px; '+
+        'width:' + wall_left_width_scaled + 'px; height:' + wall_left_height_scaled + 'px;">' 
+        + '</div>';
+
+        this.m_html_code += left_wall_html;
+
+        WallHtml.toConsole('WallHtml.execute Wall div= \n' + left_wall_html);
+
+        var wall_right_id = 'id_div_wall_pos_absolute_right';
+
+        var right_wall_html = '<div id="' + wall_right_id + '" class="' + this.m_cl_wall + 
+        '" style="left:' + wall_right_x_scaled + 'px; top:' + wall_right_y_scaled + 'px; '+
+        'width:' + wall_right_width_scaled + 'px; height:' + wall_right_height_scaled + 'px;">' 
+        + '</div>';
+
+        this.m_html_code += right_wall_html;
+
+        WallHtml.toConsole('WallHtml.execute Wall div= \n' + right_wall_html);
+
+        var wall_upper_id = 'id_div_wall_pos_absolute_upper';
+
+        var upper_wall_html = '<div id="' + wall_upper_id + '" class="' + this.m_cl_wall + 
+        '" style="left:' + wall_upper_x_scaled + 'px; top:' + wall_upper_y_scaled + 'px; '+
+        'width:' + wall_upper_width_scaled + 'px; height:' + wall_upper_height_scaled + 'px;">' 
+        + '</div>';
+
+        this.m_html_code += upper_wall_html;
+
+        WallHtml.toConsole('WallHtml.execute Wall div= \n' + upper_wall_html);
+
+        var wall_lower_id = 'id_div_wall_pos_absolute_lower';
+
+        var lower_wall_html = '<div id="' + wall_lower_id + '" class="' + this.m_cl_wall + 
+        '" style="left:' + wall_lower_x_scaled + 'px; top:' + wall_lower_y_scaled + 'px; '+
+        'width:' + wall_lower_width_scaled + 'px; height:' + wall_lower_height_scaled + 'px;">' 
+        + '</div>';
+
+        this.m_html_code += lower_wall_html;
+
+        WallHtml.toConsole('WallHtml.execute Wall div= \n' + lower_wall_html);
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // WallHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Walls Html ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

@@ -38,6 +38,9 @@ class LayoutGraphics
         // The HTML code for the drawing of the stage
         this.m_stage_html_str = '';
 
+        // The HTML code for the drawing of the walls
+        this.m_walls_html_str = '';
+
         this.init();
 
     } // constructor
@@ -70,6 +73,11 @@ class LayoutGraphics
         this.createStageHtml();
 
         this.addStage();
+
+        this.createWallsHtml();
+
+        this.addWalls();   
+
     } // init
 
     // Add a div element with position relative to the container HTML element
@@ -234,6 +242,31 @@ class LayoutGraphics
         }
 
     } // addStage
+
+    // Create the HTML code for the drawing of the walls
+    createWallsHtml()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createWallsHtml Enter');
+
+        var premises_data = this.m_layout_model.m_premises_data;
+
+        var wall_html = new WallHtml(premises_data, this.m_scale_dimension, 'cl_div_wall_pos_absolute');
+
+        this.m_walls_html_str = wall_html.get();
+
+    } // createWallsHtml
+
+    // Add the walls to the layout (CAD) model drawing
+    addWalls()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addWalls Enter');
+
+        if (this.m_walls_html_str)
+        {
+            this.m_el_div_graphics_pos_relative.innerHTML += this.m_walls_html_str;
+        }
+
+    } // addWalls
 
     // Debug to console
     static toConsole(i_text_str)
