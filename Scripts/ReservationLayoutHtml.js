@@ -773,3 +773,143 @@ class CashierHtml
 ///////////////////////// End Class Cashier Html //////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Door Html /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for a door in the layout
+class DoorHtml
+{
+    constructor(i_door_data, i_premises_data, i_scale_dimension, i_cl_door, i_id_door) 
+    {
+        // Instance of the class DoorData
+        this.m_door_data = i_door_data;
+
+        // Instance of the class PremisesData
+        this.m_premises_data = i_premises_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the door
+        this.m_cl_door = i_cl_door;
+
+        // The id for the door div
+        this.m_id_door = i_id_door;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the door
+    execute()
+    {
+        DoorHtml.toConsole('DoorHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        // var door_id = this.m_door_data.getId();
+
+        /* Not yet used
+        var door_image = this.m_door_data.getImage();
+
+        var door_image_width = this.m_door_data.getImageWidth();
+
+        var door_image_height = this.m_door_data.getImageHeight();
+
+        Not yet used */
+
+        var door_type = this.m_door_data.getType();
+
+        var door_position_mm = this.m_door_data.getPosition();
+
+        var door_position_scaled = parseInt(door_position_mm * this.m_scale_dimension);
+
+        //QQ var upper_left_corner_x = this.m_door_data.getUpperLeftX();
+        //QQ var upper_left_corner_y = this.m_door_data.getUpperLeftY();
+
+        //QQ var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        //QQ var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+         //QQ var door_width = this.m_door_data.getWidth();
+         var door_height = this.m_door_data.getHeight();
+
+        //QQ var door_width_scaled = parseInt(door_width * this.m_scale_dimension);
+        var door_height_scaled = parseInt(door_height * this.m_scale_dimension);
+
+        var door_text = this.m_door_data.getText();
+
+        var wall_thickness_mm = parseInt(this.m_premises_data.getWallThickness());
+        var wall_thickness_scaled = parseInt(wall_thickness_mm * this.m_scale_dimension);
+        
+        var premises_width = this.m_premises_data.getWidth(); 
+        var premises_height = this.m_premises_data.getHeight();
+
+        var premises_width_scaled = parseInt(premises_width * this.m_scale_dimension);
+        var premises_height_scaled = parseInt(premises_height * this.m_scale_dimension);
+
+        if ("right" == door_type)
+        {
+            var right_coordinate_x_scaled = premises_width_scaled - parseInt(1.5*wall_thickness_scaled); // ?
+            var right_coordinate_y_scaled = door_position_scaled;
+            var right_width_scaled = premises_width_scaled;
+            var right_height_scaled = door_height_scaled;
+
+            var right_door_html = '<div id="' + this.m_id_door + '" class="' + this.m_cl_door + 
+            '" style="left:' + right_coordinate_x_scaled + 'px; top:' + right_coordinate_y_scaled + 'px; '+
+            'width:' + right_width_scaled + 'px; height:' + right_height_scaled + 'px;">' 
+            + door_text    
+            + '</div>';
+
+            this.m_html_code += right_door_html;
+
+            DoorHtml.toConsole('DoorHtml.execute Door div= \n' + right_door_html);
+        }
+        else if ("left" == door_type)
+        {
+
+        }
+        else if ("upper" == door_type)
+        {
+
+        }
+        else if ("lower" == door_type)
+        {
+
+        }
+        else
+        {
+            DoorHtml.toConsole('DoorHtml.execute Unknown door type: ' + door_type + '. No door div is created.');
+        }
+
+
+
+
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // DoorHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Door Html /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

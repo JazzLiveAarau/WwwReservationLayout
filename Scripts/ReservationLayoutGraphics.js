@@ -47,6 +47,9 @@ class LayoutGraphics
         // The HTML code for the drawing of the cashier
         this.m_cashier_html_str = '';
 
+        // Array of HTML code for the drawing of the doors
+        this.m_all_doors_html_array = [];
+
         this.init();
 
     } // constructor
@@ -91,6 +94,10 @@ class LayoutGraphics
         this.createCashierHtml();
 
         this.addCashier();
+
+        this.createAllDoorsHtmlArray();
+
+        this.addAllDoors();
 
     } // init
 
@@ -331,6 +338,67 @@ class LayoutGraphics
         }
 
     } // addCashier
+
+
+    // Create the array of HTML code for the drawing of the doors
+    createAllDoorsHtmlArray()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createAllDoorsHtmlArray Enter');
+
+        this.m_door_data_array = this.m_layout_model.m_door_data_array;
+
+         var premises_data = this.m_layout_model.m_premises_data;
+
+        for (var index_door = 0; index_door < this.m_door_data_array.length; index_door++)
+        {
+            var door_data = this.m_door_data_array[index_door];
+
+            var door_id = 'id_door_' + (index_door +1).toString();
+
+            var door_html = new DoorHtml(door_data, premises_data, this.m_scale_dimension, 'cl_div_door_pos_absolute', door_id);
+            
+            this.m_all_doors_html_array.push(door_html.get());
+        }
+
+    } // createAllDoorsHtmlArray
+
+    // Add the doors to the layout (CAD) model drawing
+    addAllDoors()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addAllDoors Enter');
+
+        this.m_door_data_array = this.m_layout_model.m_door_data_array;
+
+        var n_doors = this.m_all_doors_html_array.length;
+
+        var all_doors_html = '';
+
+        for (var index_door = 0; index_door < n_doors; index_door++)
+        {
+            var door_html = this.m_all_doors_html_array[index_door];
+
+            all_doors_html += door_html + '\n';
+        }
+
+        this.m_el_div_graphics_pos_relative.innerHTML += all_doors_html;
+
+        LayoutGraphics.toConsole('LayoutGraphics.addAllDoors all_doors_html: \n' + all_doors_html);
+
+    } // addAllDoors
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Debug: Write text to the console
     static toConsole(i_text_str)

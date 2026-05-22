@@ -450,3 +450,13 @@ label
     text-align: center;
     cursor: pointer;
 }
+
+.cl_div_door_pos_absolute
+{
+    position: absolute;
+    border: solid 1px black;
+    background-color: rgb(255, 200, 200);
+    font-size: 6px;
+    text-align: center;
+    cursor: pointer;
+}
