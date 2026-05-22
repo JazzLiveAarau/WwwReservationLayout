@@ -520,3 +520,143 @@ class WallHtml
 ///////////////////////// End Class Walls Html ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Organizer Html //////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for organizer div in the layout
+class OrganizerHtml
+{
+    constructor(i_premises_data, i_scale_dimension, i_cl_organizer) 
+    {
+        // Instance of the class PremisesData
+        this.m_premises_data = i_premises_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the organizer div
+        this.m_cl_organizer = i_cl_organizer;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the organizer div
+    execute()
+    {
+        OrganizerHtml.toConsole('OrganizerHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        if (!this.m_premises_data.organizerIsDefined())
+        {
+            OrganizerHtml.toConsole('OrganizerHtml.execute Organizer is not defined. No organizer div is created.');
+
+            return;
+        }
+
+        var organizer_name = this.m_premises_data.getOrganizerName();
+
+        var organizer_text_logo = this.m_premises_data.getOrganizerTextLogo();
+
+        //TODO var organizer_text_logo_width = this.m_premises_data.getOrganizerTextLogoWidth();
+
+        // TODO var organizer_text_logo_height = this.m_premises_data.getOrganizerTextLogoHeight();
+
+        // TODO var organizer_logo = this.m_premises_data.getOrganizerLogo();
+
+        // TODO var organizer_logo_width = this.m_premises_data.getOrganizerLogoWidth();
+        // TODO var organizer_logo_height = this.m_premises_data.getOrganizerLogoHeight();
+
+        OrganizerHtml.toConsole('OrganizerHtml.execute organizer_name: ' + organizer_name);
+
+/*
+
+  <OrganizerName>JAZZ live AARAU</OrganizerName>
+  <OrganizerTextLogo>ImagesLayout/jazz_live_aarau_text_logo.png</OrganizerTextLogo>
+  <OrganizerTextLogoWidth>400px</OrganizerTextLogoWidth>
+  <OrganizerTextLogoHeight>40px</OrganizerTextLogoHeight>
+  <OrganizerLogo>ImagesLayout/jazz_live_aarau_logo.png</OrganizerLogo>
+  <OrganizerLogoWidth>384px</OrganizerLogoWidth>
+  <OrganizerLogoHeight>392px</OrganizerLogoHeight>
+
+        // 	JAZZ live AARAU text logo position
+        var jazz_text_x_pixel = wall_upper_x_pixel + parseInt(wall_upper_width_pixel*0.28);
+        var jazz_text_y_pixel = wall_upper_y_pixel + wall_upper_height_pixel - parseInt(wall_upper_height_pixel*0.96);
+        
+        // JAZZ live AARAU text object
+        var text_svg = LayoutSvg.tab(4) + '<text x=' + jazz_text_x_pixel + ' y=' + jazz_text_y_pixel + 
+                  LayoutSvg.fontBig() + LayoutSvg.colorJazzLiveAarau() + '>' + 
+                  organizer_name + '</text>';
+        // premises_svg = premises_svg + text_svg + LayoutSvg.endRow();   
+        
+        var image_width = '400px';
+        var image_height = '40px';
+        var image_file = organizer_text_logo;
+        
+        var image_svg = LayoutSvg.tab(4) + '<image x= ' + jazz_text_x_pixel + ' y= ' + jazz_text_y_pixel + 
+                        ' width=' + image_width + ' height=' + image_height + 
+                        ' xlink:href=' +image_file + '>' +
+                        ' <title>'+ organizer_name +' Text Logo</title> ' + 
+                        ' </image>';	
+
+*/
+        var premises_width = this.m_premises_data.getWidth(); 
+        var premises_height = this.m_premises_data.getHeight();
+
+        var premises_width_scaled = parseInt(premises_width * this.m_scale_dimension);
+        var premises_height_scaled = parseInt(premises_height * this.m_scale_dimension);
+
+
+        var rel_dist_x = 0.28;
+        
+
+        var upper_left_corner_x = premises_width*rel_dist_x;
+        var upper_left_corner_y = 10;
+
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+        var organizer_width_scaled = 290;
+        var organizer_height_scaled = 30;
+
+        var organizer_id = 'id_div_organizer_pos_absolute';
+
+        var organizer_html = '<div id="' + organizer_id + '" class="' + this.m_cl_organizer + 
+        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
+        'width:' + organizer_width_scaled + 'px; height:' + organizer_height_scaled + 'px;">' 
+        + organizer_name    
+        + '</div>';
+
+        this.m_html_code += organizer_html;
+
+        OrganizerHtml.toConsole('OrganizerHtml.execute Organizer div= \n' + organizer_html);
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // OrganizerHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Organizer Html ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

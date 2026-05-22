@@ -41,6 +41,9 @@ class LayoutGraphics
         // The HTML code for the drawing of the walls
         this.m_walls_html_str = '';
 
+        // The HTML code for the drawing of the organizer
+        this.m_organizer_html_str = '';
+
         this.init();
 
     } // constructor
@@ -77,6 +80,10 @@ class LayoutGraphics
         this.createWallsHtml();
 
         this.addWalls();   
+
+        this.createOrganizerHtml();
+
+        this.addOrganizer();
 
     } // init
 
@@ -267,6 +274,31 @@ class LayoutGraphics
         }
 
     } // addWalls
+
+    // Create the HTML code for the drawing of the organizer
+    createOrganizerHtml()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createOrganizerHtml Enter');
+
+        var premises_data = this.m_layout_model.m_premises_data;
+
+        var organizer_html = new OrganizerHtml(premises_data, this.m_scale_dimension, 'cl_div_organizer_pos_absolute');
+
+        this.m_organizer_html_str = organizer_html.get();
+
+    } // createOrganizerHtml
+
+    // Add the organizer to the layout (CAD) model drawing
+    addOrganizer()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addOrganizer Enter');
+
+        if (this.m_organizer_html_str)
+        {
+            this.m_el_div_graphics_pos_relative.innerHTML += this.m_organizer_html_str;
+        }
+
+    } // addOrganizer
 
     // Debug to console
     static toConsole(i_text_str)
