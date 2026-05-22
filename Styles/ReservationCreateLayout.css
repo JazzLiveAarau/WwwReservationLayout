@@ -440,3 +440,13 @@ label
     text-align: center;
     cursor: pointer;
 }
+
+.cl_div_cashier_pos_absolute
+{
+    position: absolute;
+    border: solid 1px rgb(51, 124, 63);
+    background-color: rgb(159, 156, 156);
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+}

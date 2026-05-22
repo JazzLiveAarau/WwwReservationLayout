@@ -660,3 +660,116 @@ class OrganizerHtml
 ///////////////////////// End Class Organizer Html ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Cashier Html ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for the cashier div in the layout
+class CashierHtml
+{
+    constructor(i_cashier_data, i_scale_dimension, i_cl_cashier) 
+    {
+        // Instance of the class CashierData
+        this.m_cashier_data = i_cashier_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the cashier
+        this.m_cl_cashier = i_cl_cashier;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the cashier div
+    execute()
+    {
+        CashierHtml.toConsole('CashierHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        if (!this.m_cashier_data.cashierIsDefined())
+        {
+            CashierHtml.toConsole('CashierHtml.execute Cashier is not defined. No cashier div is created.');
+
+            return;
+        }
+
+        var upper_left_corner_x = this.m_cashier_data.getUpperLeftX();
+        var upper_left_corner_y = this.m_cashier_data.getUpperLeftY();
+
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+        var image_width_pixel = this.m_cashier_data.getImageWidth();
+
+        var image_height_pixel = this.m_cashier_data.getImageHeight();
+
+        var image_width_pixel_length = image_width_pixel.length;
+
+        var image_height_pixel_length = image_height_pixel.length;
+
+        var index_px = image_width_pixel.indexOf('px');
+
+        var image_width_int = image_width_pixel.substring(0, index_px);
+
+        index_px = image_height_pixel.indexOf('px');
+
+        var image_height_int = image_height_pixel.substring(0, index_px);
+/*
+    getImage(){ return this.m_image; }
+    setImage(i_image){ this.m_image = i_image; }
+
+    getImageWidth(){ return this.m_image_width; }
+    setImageWidth(i_image_width){ this.m_image_width = i_image_width; }
+
+    getImageHeight(){ return this.m_image_height; }
+    setImageHeight(i_image_height){ this.m_image_height = i_image_height; }
+
+*/
+
+        var cashier_width_scaled = image_width_int;
+        var cashier_height_scaled = image_height_int;
+
+        var cashier_text = 'Kasse';
+
+        var cashier_id = 'id_div_cashier_pos_absolute';
+
+        var cashier_html = '<div id="' + cashier_id + '" class="' + this.m_cl_cashier + 
+        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
+        'width:' + cashier_width_scaled + 'px; height:' + cashier_height_scaled + 'px;">' 
+        + '<br>'+ cashier_text    
+        + '</div>';
+
+        this.m_html_code += cashier_html;
+
+        CashierHtml.toConsole('CashierHtml.execute Cashier div= \n' + cashier_html);
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // CashierHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Cashier Html //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

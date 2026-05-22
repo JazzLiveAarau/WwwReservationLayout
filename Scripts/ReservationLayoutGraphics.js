@@ -44,6 +44,9 @@ class LayoutGraphics
         // The HTML code for the drawing of the organizer
         this.m_organizer_html_str = '';
 
+        // The HTML code for the drawing of the cashier
+        this.m_cashier_html_str = '';
+
         this.init();
 
     } // constructor
@@ -84,6 +87,10 @@ class LayoutGraphics
         this.createOrganizerHtml();
 
         this.addOrganizer();
+
+        this.createCashierHtml();
+
+        this.addCashier();
 
     } // init
 
@@ -300,7 +307,32 @@ class LayoutGraphics
 
     } // addOrganizer
 
-    // Debug to console
+    // Create the HTML code for the drawing of the cashier
+    createCashierHtml()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createCashierHtml Enter'); 
+
+        var cashier_data = this.m_layout_model.m_cashier_data;
+
+        var cashier_html = new CashierHtml(cashier_data, this.m_scale_dimension, 'cl_div_cashier_pos_absolute');
+
+        this.m_cashier_html_str = cashier_html.get();
+
+    } // createCashierHtml
+
+    // Add the cashier to the layout (CAD) model drawing
+    addCashier()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addCashier Enter');
+
+        if (this.m_cashier_html_str)
+        {
+            this.m_el_div_graphics_pos_relative.innerHTML += this.m_cashier_html_str;
+        }
+
+    } // addCashier
+
+    // Debug: Write text to the console
     static toConsole(i_text_str)
     {
         console.log(i_text_str);
