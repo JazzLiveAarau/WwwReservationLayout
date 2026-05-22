@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2026-05-19
+// Date: 2026-05-22
 // Authors: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ class TableRectangleHtml
 
         this.m_html_code += one_rectangle_html;
 
-        TableGroupHtml.toConsole('TableRectangleHtml.execute Rectangle div= \n' + one_rectangle_html);
+        TableRectangleHtml.toConsole('TableRectangleHtml.execute Rectangle div= \n' + one_rectangle_html);
 
     } // execute
 
@@ -188,6 +188,13 @@ class TableRectangleHtml
         return this.m_html_code;
 
     } // get
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
 
 } // TableRectangleHtml
 
@@ -254,7 +261,7 @@ class ButtonHtml
 
         this.m_html_code += one_button_html;
 
-        TableGroupHtml.toConsole('ButtonHtml.execute Button div= \n' + one_button_html);
+        ButtonHtml.toConsole('ButtonHtml.execute Button div= \n' + one_button_html);
 
     } // execute
 
@@ -278,3 +285,93 @@ class ButtonHtml
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Button Html ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Stage Html //////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for a stage in the layout
+class StageHtml
+{
+    constructor(i_stage_data, i_scale_dimension, i_cl_stage) 
+    {
+        // Instance of the class StageData
+        this.m_stage_data = i_stage_data;
+
+        // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the stage
+        this.m_cl_stage = i_cl_stage;
+
+        // All HTML code from this class
+        this.m_html_code = '';
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the stage
+    execute()
+    {
+        StageHtml.toConsole('StageHtml.execute Enter');
+
+        this.m_html_code = '';
+
+        if (!this.m_stage_data.stageIsDefined())
+        {
+            StageHtml.toConsole('StageHtml.execute Stage is not defined. No stage div is created.');
+
+            return;
+        }
+
+        var upper_left_corner_x = this.m_stage_data.getUpperLeftX();
+        var upper_left_corner_y = this.m_stage_data.getUpperLeftY();
+
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+         var stage_width = this.m_stage_data.getWidth();
+         var stage_height = this.m_stage_data.getHeight();
+
+        var stage_width_scaled = parseInt(stage_width * this.m_scale_dimension);
+        var stage_height_scaled = parseInt(stage_height * this.m_scale_dimension);
+
+        var stage_text = this.m_stage_data.getText();
+
+        var stage_id = 'id_div_stage_pos_absolute';
+
+        var one_stage_html = '<div id="' + stage_id + '" class="' + this.m_cl_stage + 
+        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
+        'width:' + stage_width_scaled + 'px; height:' + stage_height_scaled + 'px;">' 
+        + '<br>'+ stage_text    
+        + '</div>';
+
+        this.m_html_code += one_stage_html;
+
+        StageHtml.toConsole('StageHtml.execute Stage div= \n' + one_stage_html);
+
+    } // execute
+
+    // Get all HTML code
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // StageHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Stage Html ////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+

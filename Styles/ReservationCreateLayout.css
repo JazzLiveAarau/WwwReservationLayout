@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-19
+File: ReservationCreateLayout.css Date: 2026-05-22
 
 Author: Gunnar Liden
 
@@ -408,6 +408,16 @@ label
     border: solid 1px rgb(4, 76, 4);
     background-color: rgb(243, 178, 178);
     font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cl_div_stage_pos_absolute
+{
+    position: absolute;
+    border: solid 1px rgb(0, 0, 255);
+    background-color: rgb(173, 216, 230);
+    font-size: 18px;
     text-align: center;
     cursor: pointer;
 }

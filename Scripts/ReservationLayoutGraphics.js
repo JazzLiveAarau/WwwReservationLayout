@@ -1,5 +1,5 @@
 // File: ReservationLayoutGraphics.js
-// Date: 2026-05-18
+// Date: 2026-05-22
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -35,6 +35,9 @@ class LayoutGraphics
         // Array of HTML code for the drawing of the buttons
         this.m_all_buttons_html_array = [];
 
+        // The HTML code for the drawing of the stage
+        this.m_stage_html_str = '';
+
         this.init();
 
     } // constructor
@@ -63,7 +66,10 @@ class LayoutGraphics
         this.createAllButtonsHtmlArray();
 
         this.addAllButtons();
+        
+        this.createStageHtml();
 
+        this.addStage();
     } // init
 
     // Add a div element with position relative to the container HTML element
@@ -204,7 +210,32 @@ class LayoutGraphics
 
     } // addAllButtons
 
-    // Debuc to console
+    // Create the HTML code for the drawing of the stage
+    createStageHtml()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createStageHtml Enter');
+
+        var stage_data = this.m_layout_model.m_stage_data;
+
+        var stage_html = new StageHtml(stage_data, this.m_scale_dimension, 'cl_div_stage_pos_absolute');
+
+        this.m_stage_html_str = stage_html.get();
+
+    } // createStageHtml
+
+    // Add the stage to the layout (CAD) model drawing
+    addStage()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addStage Enter');
+
+        if (this.m_stage_html_str)
+        {
+            this.m_el_div_graphics_pos_relative.innerHTML += this.m_stage_html_str;
+        }
+
+    } // addStage
+
+    // Debug to console
     static toConsole(i_text_str)
     {
         console.log(i_text_str);
