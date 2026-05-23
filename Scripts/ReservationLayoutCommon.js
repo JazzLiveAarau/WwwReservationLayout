@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2026-05-19
+// Date: 2026-05-23
 // Authors: Gunnar Lidén
 
 // Content
@@ -606,16 +606,16 @@ class StageData
 
        this.m_stage_is_defined = false;
 
-        this.m_upper_left_x = "";
-        this.m_upper_left_y = "";
-        this.m_width = "";
-        this.m_height = "";
+        this.m_upper_left_x = -12345;
+        this.m_upper_left_y = -12345;
+        this.m_width = -12345;
+        this.m_height = -12345;
         this.m_text = "";
         this.m_color = "";
         this.m_stroke_color = "";
-        this.m_stroke_width = "";
-        this.m_text_rel_x_procent = "";
-        this.m_text_rel_y_procent = "";
+        this.m_stroke_width = -12345;
+        this.m_text_rel_x_procent = -12345;
+        this.m_text_rel_y_procent = -12345;
         this.m_text_color = "";
         this.m_image = "";
         this.m_image_width = "";
@@ -634,6 +634,12 @@ class StageData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setBoundingBox();
+        }
+        else if (this.m_case == "get_default_data")
+        {
+            this.setDefaultData();
 
             this.setBoundingBox();
         }
@@ -659,8 +665,15 @@ class StageData
 		return this.m_boundimg_box; 
 	}
 
-    // Get and set cashier is defined
+    // Get boolean that tells if stage data is defined in the XML layout file
+    // This function is used by functions in other classes to determine if a
+    // stage is defined for a layout.
     stageIsDefined(){return this.m_stage_is_defined;}
+
+    // Set boolean that tells if stage data is defined in the XML layout file
+    // The function is used in the function setDataFromXml to set the value, i,e,
+    // when the stageData object is created. The ReservationLayoutXml function 
+    // stageIsDefined() checks that all stage XML elements are defined.
     setStageIsDefined(i_stage_is_defined){this.m_stage_is_defined = i_stage_is_defined;}
 
     // Get and set functions for the member variables
@@ -706,23 +719,27 @@ class StageData
     getImageHeight(){ return this.m_image_height; }
     setImageHeight(i_image_height){ this.m_image_height = i_image_height; }
 
-    // Sets the dat from the XML object m_layout_xml
+    // Sets the data from the XML object m_layout_xml
+    // Determine if (all) stage data is defined in XML layout file. If this is the case
+    // set the flag that data is set in this object and set all the data.
+    // If stage data is not defined in the XML layout file, set the flag that stage 
+    // data is not defined in this object.
     setDataFromXml()
     {
         if (this.m_layout_xml.stageIsDefined())
         {
             this.setStageIsDefined(true);
 
-            this.m_upper_left_x = this.m_layout_xml.getStageUpperLeftX();
-            this.m_upper_left_y = this.m_layout_xml.getStageUpperLeftY();
-            this.m_width = this.m_layout_xml.getStageWidth();
-            this.m_height = this.m_layout_xml.getStageHeight();
+            this.m_upper_left_x = parseInt(this.m_layout_xml.getStageUpperLeftX());
+            this.m_upper_left_y = parseInt(this.m_layout_xml.getStageUpperLeftY());
+            this.m_width = parseInt(this.m_layout_xml.getStageWidth());
+            this.m_height = parseInt(this.m_layout_xml.getStageHeight());
             this.m_text = this.m_layout_xml.getStageText();
             this.m_color = this.m_layout_xml.getStageColor();
             this.m_stroke_color = this.m_layout_xml.getStageStrokeColor();
-            this.m_stroke_width = this.m_layout_xml.getStageStrokeWidth();
-            this.m_text_rel_x_procent = this.m_layout_xml.getStageTextRelXProcent();
-            this.m_text_rel_y_procent = this.m_layout_xml.getStageTextRelYProcent();
+            this.m_stroke_width = parseInt(this.m_layout_xml.getStageStrokeWidth());
+            this.m_text_rel_x_procent = parseInt(this.m_layout_xml.getStageTextRelXProcent());
+            this.m_text_rel_y_procent = parseInt(this.m_layout_xml.getStageTextRelYProcent());
             this.m_text_color = this.m_layout_xml.getStageTextColor();
             this.m_image = this.m_layout_xml.getStageImage();
             this.m_image_width = this.m_layout_xml.getStageImageWidth();
@@ -736,6 +753,90 @@ class StageData
 
     } // setDataFromXml
 
+    // Sets default data for the stage. 
+    // The function is used when no stage data is defined in the XML layout file
+    // (assuming that it will be added, i.e. stage is defined) 
+    setDefaultData()
+    {
+        this.m_stage_is_defined = true;
+
+        this.m_upper_left_x = 600;
+
+        this.m_upper_left_y = 970;
+
+        this.m_width = 6800;
+
+        this.m_height = 950;
+
+        this.m_text = "Bühne";
+
+        this.m_color = "rgb(244, 241, 66)";
+
+        this.m_stroke_color = "rgb(135, 132, 5)";
+
+        this.m_stroke_width = 10;
+
+        this.m_text_rel_x_procent = 30;
+
+        this.m_text_rel_y_procent = 46;
+
+        this.m_text_color = "blue";
+
+        this.m_image = "ImagesLayout/icon_stage.png";
+
+        this.m_image_width = "750px";
+
+        this.m_image_height = "150px";
+
+    } // setDefaultData
+
+    // Sets the data in the XML object m_layout_xml from the data in this object
+    setXmlFromData()
+    {
+        if (!this.checkData())
+        {
+            alert("StageData.setXmlFromData Data in stage data object is not correct. TODO Implement more detailed error messages.");
+
+            return;
+        }
+
+        if (this.m_layout_xml.stageIsDefined())
+        {
+            this.m_add_reservations.m_layout_xml.setStageUpperLeftX(this.getUpperLeftX().toString());
+
+            this.m_layout_xml.setStageUpperLeftY(this.getUpperLeftY().toString());
+
+            this.m_layout_xml.setStageWidth(this.getWidth().toString());
+
+            this.m_layout_xml.setStageHeight(this.getHeight().toString());
+
+            this.m_layout_xml.setStageText(this.getText());
+
+            this.m_layout_xml.setStageColor(this.getColor());
+
+            this.m_layout_xml.setStageStrokeColor(this.getStrokeColor());
+
+            this.m_layout_xml.setStageStrokeWidth(this.getStrokeWidth().toString());
+
+            this.m_layout_xml.setStageTextRelXProcent(this.getTextRelXProcent().toString());
+
+            this.m_layout_xml.setStageTextRelYProcent(this.getTextRelYProcent().toString());
+
+            this.m_layout_xml.setStageTextColor(this.getTextColor());
+
+            this.m_layout_xml.setStageImage(this.getImage());
+
+            this.m_layout_xml.setStageImageWidth(this.getImageWidth());
+
+            this.m_layout_xml.setStageImageHeight(this.getImageHeight());            
+        }
+        else
+        {
+            alert("StageData.setXmlFromData Stage data is not defined. TODO Implement appendStageData .");
+        }
+
+    } // setXmlFromData
+
     // Checks the data
     checkData()
     {
@@ -748,15 +849,24 @@ class StageData
             return ret_b_check;
         }
 
-        // TODO Add checks of member variables
+        var class_name = "StageData";
 
+        var value_array = [this.m_upper_left_x, this.m_upper_left_y, 
+                           this.m_width, this.m_height, this.m_stroke_width, 
+                           this.m_text_rel_x_procent, this.m_text_rel_y_procent];
 
+        var name_array = ["m_upper_left_x", "m_upper_left_y", 
+                          "m_width", "m_height", "m_stroke_width", 
+                          "m_text_rel_x_procent", "m_text_rel_y_procent"];
+
+        if (!LayoutDataInput.checkPositiveInteger(class_name, value_array, name_array))
+        {
+            ret_b_check = false;
+        }
 
         return ret_b_check;
 
     } // checkData
-
-
 
 } // StageData
 
@@ -3019,6 +3129,38 @@ class LayoutDataInput
         return ret_b_input;
 
     } // check
+
+    // Checks if the values in i_value_array are positive integers. 
+    // If not, an alert is displayed with the unvalid values and false is returned
+    static checkPositiveInteger(i_class_name, i_value_array, i_name_array)
+    {
+        var ret_b_check = true;
+
+        var error_msg = "LayoutDataInput.checkPositiveInteger Unvalid value for " + i_class_name + " ";
+
+        var n_values = i_value_array.length;
+
+        for (var index_value=0; index_value < n_values; index_value++)
+        {
+            var value = i_value_array[index_value];
+
+            if (value < 0 || !Number.isInteger(value))
+            {
+                
+                error_msg = error_msg + i_name_array[index_value] + "= " + value.toString() + "\n";
+
+                ret_b_check = false;
+            }
+        }
+
+        if (!ret_b_check)
+        {
+            alert(error_msg);
+        }
+
+        return ret_b_check;
+
+    } // checkPositiveInteger
 
 } // LayoutDataInput
 
