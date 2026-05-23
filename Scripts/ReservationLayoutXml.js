@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2026-05-04
+// Date: 2026-05-23
 // Author: Gunnar Lidén
 
 // File content
@@ -2818,6 +2818,118 @@ class ReservationLayoutXml
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////// End Number Records  /////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Append Node Functions /////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+   // Append stage nodes to the XML document for a given number of stages
+    // i_stage_data An instance of the StageData class with values (may be null)
+    // 1. If the stage nodes are already defined in the layout XML, no stage nodes 
+    //    are appended and an alert is shown
+    // 2. Create all nodes and append them to the XML document. 
+    // 3. Set values from the input stageDataObject if defined.
+    appendStageNodes(i_stage_data)
+    {
+        if (this.stageIsDefined())   
+        {
+             alert("ReservationLayoutXml.appendStageNodes Stage is already defined in the layout XML. No stage nodes are appended.");
+             return;
+        }
+
+        var upper_left_x_node = this.getXmlObject().createElement(this.m_tags.getStageUpperLeftX());
+        var upper_left_x_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        upper_left_x_node.appendChild(upper_left_x_text);
+        this.getXmlObject().documentElement.appendChild(upper_left_x_node);	
+
+        var upper_left_y_node = this.getXmlObject().createElement(this.m_tags.getStageUpperLeftY());
+        var upper_left_y_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        upper_left_y_node.appendChild(upper_left_y_text);
+        this.getXmlObject().documentElement.appendChild(upper_left_y_node);
+
+        var width_node = this.getXmlObject().createElement(this.m_tags.getStageWidth());
+        var width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        width_node.appendChild(width_text);
+        this.getXmlObject().documentElement.appendChild(width_node);
+
+        var height_node = this.getXmlObject().createElement(this.m_tags.getStageHeight());
+        var height_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        height_node.appendChild(height_text);
+        this.getXmlObject().documentElement.appendChild(height_node);
+
+        var text_stage_node = this.getXmlObject().createElement(this.m_tags.getStageText());
+        var text_stage_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_stage_node.appendChild(text_stage_text);
+        this.getXmlObject().documentElement.appendChild(text_stage_node);
+
+        var color_node = this.getXmlObject().createElement(this.m_tags.getStageColor());
+        var color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        color_node.appendChild(color_text);
+        this.getXmlObject().documentElement.appendChild(color_node);
+
+        var stroke_color_node = this.getXmlObject().createElement(this.m_tags.getStageStrokeColor());
+        var stroke_color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        stroke_color_node.appendChild(stroke_color_text);
+        this.getXmlObject().documentElement.appendChild(stroke_color_node);
+
+        var stroke_width_node = this.getXmlObject().createElement(this.m_tags.getStageStrokeWidth());
+        var stroke_width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        stroke_width_node.appendChild(stroke_width_text);
+        this.getXmlObject().documentElement.appendChild(stroke_width_node);
+
+        var image_node = this.getXmlObject().createElement(this.m_tags.getStageImage());
+        var image_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        image_node.appendChild(image_text);
+        this.getXmlObject().documentElement.appendChild(image_node);
+
+        var image_width_node = this.getXmlObject().createElement(this.m_tags.getStageImageWidth());
+        var image_width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        image_width_node.appendChild(image_width_text);
+        this.getXmlObject().documentElement.appendChild(image_width_node);
+
+        var image_height_node = this.getXmlObject().createElement(this.m_tags.getStageImageHeight());
+        var image_height_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        image_height_node.appendChild(image_height_text);
+        this.getXmlObject().documentElement.appendChild(image_height_node);
+
+        var text_rel_x_procent_node = this.getXmlObject().createElement(this.m_tags.getStageTextRelXProcent());
+        var text_rel_x_procent_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_rel_x_procent_node.appendChild(text_rel_x_procent_text);
+        this.getXmlObject().documentElement.appendChild(text_rel_x_procent_node);
+
+        var text_rel_y_procent_node = this.getXmlObject().createElement(this.m_tags.getStageTextRelYProcent());
+        var text_rel_y_procent_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_rel_y_procent_node.appendChild(text_rel_y_procent_text);
+        this.getXmlObject().documentElement.appendChild(text_rel_y_procent_node);
+
+        var text_color_node = this.getXmlObject().createElement(this.m_tags.getStageTextColor());
+        var text_color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_color_node.appendChild(text_color_text);
+        this.getXmlObject().documentElement.appendChild(text_color_node);
+
+        if (i_stage_data != null)
+        {
+            this.setStageUpperLeftX(i_stage_data.getUpperLeftX().toString());
+            this.setStageUpperLeftY(i_stage_data.getUpperLeftY().toString());
+            this.setStageWidth(i_stage_data.getWidth().toString());
+            this.setStageHeight(i_stage_data.getHeight().toString());
+            this.setStageText(i_stage_data.getText());
+            this.setStageColor(i_stage_data.getColor());
+            this.setStageStrokeColor(i_stage_data.getStrokeColor());
+            this.setStageStrokeWidth(i_stage_data.getStrokeWidth().toString());
+            this.setStageImage(i_stage_data.getImage());
+            this.setStageImageWidth(i_stage_data.getImageWidth());
+            this.setStageImageHeight(i_stage_data.getImageHeight());
+            this.setStageTextRelXProcent(i_stage_data.getTextRelXProcent().toString());
+            this.setStageTextRelYProcent(i_stage_data.getTextRelYProcent().toString());
+            this.setStageTextColor(i_stage_data.getTextColor());
+        }
+
+    } // appendStageNodes
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Append Node Functions ///////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
