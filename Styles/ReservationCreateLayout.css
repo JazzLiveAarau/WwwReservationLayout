@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-22
+File: ReservationCreateLayout.css Date: 2026-05-24
 
 Author: Gunnar Liden
 
@@ -268,6 +268,57 @@ label
     font-size: 16px;
     font-weight: bold;
 }
+
+
+
+
+.cl_div_stage_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 200px;
+}
+
+.cl_div_stage_page_text_boxes
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
+.cl_stage_page_property_textbox
+{
+    /* border: solid 1px yellow; */
+    margin-left: 15px;
+    padding-bottom: 3px;
+    float: left;
+}
+
+.cl_div_stage_page_number_seats
+{
+    /* border: solid 1px red; */
+    margin-left: 15px;
+    padding-bottom: 3px;
+    float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .cl_div_display_table_container
 {
