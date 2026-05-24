@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2026-05-23
+// Date: 2026-05-24
 // Author: Gunnar Lidén
 
 // File content
@@ -2930,6 +2930,75 @@ class ReservationLayoutXml
 
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////// End Append Node Functions ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+	///////////////////////// Start Delete Node Functions  ////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Deletes the stage nodes from the XML document.
+    deleteStageNodes()
+    {
+        if (!this.stageIsDefined())   
+        {
+             alert("ReservationLayoutXml.deleteStageNodes Stage is not defined in the layout XML. No stage nodes are deleted.");
+
+             return;
+        }
+
+        if (this.deleteSingleNode(this.m_tags.getStageUpperLeftX()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageUpperLeftY()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageWidth()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageHeight()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageText()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageColor()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageStrokeColor()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageStrokeWidth()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageTextRelXProcent()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageTextRelYProcent()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageTextColor()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageImage()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageImageWidth()) == false) { return; }
+        if (this.deleteSingleNode(this.m_tags.getStageImageHeight()) == false) { return; }
+
+    } // deleteStageNodes
+
+    // Deletes the single node with the input tag name. 
+    deleteSingleNode(i_tag_node)
+    {
+        var node_elements = this.getXmlObject().getElementsByTagName(i_tag_node);
+
+        if (node_elements.length == 0)
+        {
+            alert("ReservationLayoutXml.deleteSingleNode Number of node elements with tag " 
+                + i_tag_node + " is zero (0). No node is deleted.");
+
+            return false;
+        }
+
+        if (node_elements.length > 1)
+        {
+            alert("ReservationLayoutXml.deleteSingleNode Number of node elements with tag " 
+                + i_tag_node + " is larger than one (1). No node is deleted.");
+
+            return false;
+        }
+
+        //QQ var node_element = node_elements[0];
+
+        //QQ this.getXmlObject().documentElement.removeChild(node_element);
+
+        var child_node = node_elements[0];
+
+        child_node.parentNode.removeChild(child_node);
+
+        return true;
+
+    } // deleteSingleNode
+
+
+    ///////////////////////////////////////////////////////////////////////////
+	///////////////////////// End Delete Node Functions  //////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
