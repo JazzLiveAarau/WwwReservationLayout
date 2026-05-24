@@ -306,6 +306,16 @@ label
     float: left;
 }
 
+.cl_div_stage_page_exit_container
+{
+    /* border: solid 1px blue; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
 
 
 

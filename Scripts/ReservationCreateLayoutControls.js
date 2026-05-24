@@ -128,13 +128,32 @@ var g_table_cancel_button = null;
 
 ///////////////////////////////// Start Stage Page /////////////////////////////////////////
 
+// Global variable for the text box with the position of a stage left upper corner
 var g_stage_page_position_left_textbox = null;
 
+// Global variable for the text box with the position of a stage top upper corner
 var g_stage_page_position_top_textbox = null;
 
+// Global variable for the text box with the dimension width of a stage
 var g_stage_page_dimension_width_textbox = null;
 
+// Global variable for the text box with the dimension height of a stage
 var g_stage_page_dimension_height_textbox = null;
+
+// Global variable for the text box with the text of a stage
+var g_stage_page_text_textbox = null;
+
+// Global variable for the button for saving a stage
+var g_stage_save_button = null;
+
+// Global variable for the button for adding a stage
+var g_stage_add_button = null;
+
+// Global variable for the button for deleting a stage
+var g_stage_delete_button = null;
+
+// Global variable for the button for canceling a stage
+var g_stage_cancel_button = null;
 
 ///////////////////////////////// End Stage Page //////////////////////////////////////////
 
@@ -218,6 +237,16 @@ function createLayoutCreateControls()
      createTextBoxStagePageDimensionWidth();
 
      createTextBoxStagePageDimensionHeight();
+
+    createTextBoxStagePageText();
+
+    createStageSaveButton();
+
+    createStageAddButton();
+
+    createStageDeleteButton();
+
+    createStageCancelButton();
 
 } // createLayoutCreateControls
 
@@ -868,6 +897,106 @@ function createTextBoxStagePageDimensionHeight()
     g_stage_page_dimension_height_textbox.setTitle("Tisch Dimension: Höhe." + "\n ");
 
 } // createTextBoxStagePageDimensionHeight
+
+// Create the text box for the text of a stage on the stage page
+function createTextBoxStagePageText()
+{
+    g_stage_page_text_textbox = new JazzTextBox("id_stage_page_text", 'id_div_stage_page_text');
+
+    g_stage_page_text_textbox.setLabelText("Text ");
+
+    g_stage_page_text_textbox.setLabelTextPositionLeft();
+
+    g_stage_page_text_textbox.setSize("60");
+
+    g_stage_page_text_textbox.setReadOnlyFlag(false);
+
+    //QQQ g_stage_page_text_textbox.setOninputFunctionName("onChangeTableProperty");
+
+    g_stage_page_text_textbox.setTitle("Name und/oder Beschreibung der Bühne." + "\n ");
+
+} // createTextBoxStagePageText
+
+// Creates the button for saving the changes of a stage
+function createStageSaveButton()
+{
+    g_stage_save_button = new JazzButton('id_stage_save_button', 'id_div_stage_page_save_button');
+
+    g_stage_save_button.setOnclickFunctionName("onClickSaveStageButton");
+
+    g_stage_save_button.setCaption('Speichern');
+
+     g_stage_save_button.setLabelTextPositionLeft();
+
+    g_stage_save_button.setLabelText("");
+
+    g_stage_save_button.setWidth("100px");
+
+    g_stage_save_button.setTitle('Klick hier um die Änderungen der Bühne zu speichern. '+ 
+        '\n ');
+
+} // createStageSaveButton
+
+// Creates the button for adding a new stage
+function createStageAddButton()
+{
+    g_stage_add_button = new JazzButton('id_stage_add_button', 'id_div_stage_page_add_button');
+
+    g_stage_add_button.setOnclickFunctionName("onClickAddStageButton");
+
+    g_stage_add_button.setCaption('Hinzufügen');
+
+     g_stage_add_button.setLabelTextPositionLeft();
+
+    g_stage_add_button.setLabelText("");
+
+    g_stage_add_button.setWidth("100px");
+
+    g_stage_add_button.setTitle('Klick hier um eine neue Bühne hinzuzufügen. '+ 
+        '\n ');
+
+} // createStageAddButton
+
+// Creates the button for deleting a stage
+function createStageDeleteButton()
+{
+    g_stage_delete_button = new JazzButton('id_stage_delete_button', 'id_div_stage_page_delete_button');
+
+    g_stage_delete_button.setOnclickFunctionName("onClickDeleteStageButton");
+
+    g_stage_delete_button.setCaption('Löschen');
+
+     g_stage_delete_button.setLabelTextPositionLeft();
+
+    g_stage_delete_button.setLabelText("");
+
+    g_stage_delete_button.setWidth("100px");
+
+    g_stage_delete_button.setTitle('Klick hier um die Bühne zu löschen. '+ 
+        '\n ');
+
+} // createStageDeleteButton
+
+// Creates the button for canceling the changes of a stage
+function createStageCancelButton()
+{
+    g_stage_cancel_button = new JazzButton('id_stage_cancel_button', 'id_div_stage_page_cancel_button');
+
+    g_stage_cancel_button.setOnclickFunctionName("onClickCancelStageButton");
+
+    g_stage_cancel_button.setCaption('Abbrechen');
+
+     g_stage_cancel_button.setLabelTextPositionLeft();
+
+    g_stage_cancel_button.setLabelText("");
+
+    g_stage_cancel_button.setWidth("100px");
+
+    g_stage_cancel_button.setTitle('Klick hier um die Änderungen der Bühne abzubrechen. '+ 
+        '\n ');
+
+} // createStageCancelButton
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Create Controls /////////////////////////////////////////////

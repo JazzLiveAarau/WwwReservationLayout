@@ -325,6 +325,38 @@ function onClickPageNumberMinusButton()
 
 } // onClickPageNumberMinusButton
 
+// Event function for the click on the button for saving a stage
+function onClickSaveStageButton()
+{
+    debugCreateLayout('onClickSaveStageButton Enter');
+
+    displayStartPage();
+
+} // onClickSaveStageButton
+
+// Event function for the click on the button for adding a stage
+function onClickAddStageButton()
+{
+    debugCreateLayout('onClickAddStageButton Enter');
+
+} // onClickAddStageButton
+
+// Event function for the click on the button for deleting a stage
+function onClickDeleteStageButton()
+{
+    debugCreateLayout('onClickDeleteStageButton Enter');
+
+} // onClickDeleteStageButton
+
+// Event function for the click on the button for canceling a stage
+function onClickCancelStageButton()
+{
+    debugCreateLayout('onClickCancelStageButton Enter');
+
+    displayStartPage();
+
+} // onClickCancelStageButton   
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -670,16 +702,31 @@ function getDeltaHeightForTable(i_table_group_array)
 } // getDeltaHeightForTable
 
 // Set the controls on the stage page with the data from the active stage object
+// 1. Get the StageData object from the layout model object
 function setControlsForStagePage()
 {
     debugCreateLayout('setControlsForStagePage Enter');
-    /* TODO
-    g_stage_page_position_left_textbox.setValue(g_active_stage_object.getPositionLeft());
-    g_stage_page_position_top_textbox.setValue(g_active_stage_object.getPositionTop());
-    g_stage_page_dimension_width_textbox.setValue(g_active_stage_object.getDimensionWidth());
-    g_stage_page_dimension_height_textbox.setValue(g_active_stage_object.getDimensionHeight());
 
-    TODO */
+    var stage_data = g_layout_model.m_stage_data;
+
+    var b_defined_stage = stage_data.stageIsDefined();
+
+    if (!b_defined_stage)
+    {
+        alert('setControlsForStagePage\nEs ist keine Bühne definiert. TODO Only show cancel and add buttons.');
+
+        return;
+    }
+
+    g_stage_page_position_left_textbox.setValue(stage_data.getUpperLeftX());
+
+    g_stage_page_position_top_textbox.setValue(stage_data.getUpperLeftY());
+
+    g_stage_page_dimension_width_textbox.setValue(stage_data.getWidth());
+
+    g_stage_page_dimension_height_textbox.setValue(stage_data.getHeight());
+
+    g_stage_page_text_textbox.setValue(stage_data.getText());
 
 } // setControlsForStagePage
 
