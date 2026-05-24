@@ -339,12 +339,24 @@ function onClickAddStageButton()
 {
     debugCreateLayout('onClickAddStageButton Enter');
 
+    g_layout_model.addStageData();
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+    displayStartPage();
+
 } // onClickAddStageButton
 
 // Event function for the click on the button for deleting a stage
 function onClickDeleteStageButton()
 {
     debugCreateLayout('onClickDeleteStageButton Enter');
+
+    g_layout_model.deleteStageData();
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+    displayStartPage();
 
 } // onClickDeleteStageButton
 

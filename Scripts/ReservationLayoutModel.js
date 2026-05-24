@@ -1,5 +1,5 @@
 // File: ReservationLayoutModel.js
-// Date: 2026-05-19
+// Date: 2026-05-24
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -173,6 +173,8 @@ class LayoutModel
 
     // Get stage data as data object (instance of class StageData) 
     // from the layout XML object
+    // Please note that a stage object will be set (returned) even if stage data 
+    // not is definded in the layout XML object. Member variable is set to not defined.
     getStageData()
     {
         this.m_stage_data = getStageDataFromXml(this.m_layout_xml);
@@ -180,6 +182,52 @@ class LayoutModel
         // this.listStageData();
 
     } // getStageData
+
+    // Delete stage data from the layout model and layout XML object
+    // 1. Set stage is defined to false in the stage data object
+    // 2. Delete stage element from the layout XML object
+    // 3. Bounding box for stage element is set to null
+    deleteStageData()
+    {
+        if (!this.m_stage_data.stageIsDefined()) 
+        {
+            debugLayoutModel("LayoutModel.deleteStageData Stage is not defined in the layout model");
+
+            return;
+        }
+
+        this.m_stage_data.setStageIsDefined(false);
+
+        this.m_layout_xml.deleteStageElement();
+
+        this.m_stage_bounding_box = null;
+
+    } // deleteStageData
+
+    // Add stage data to the layout model and layout XML object
+    // 1. Create stage data object with default values and set stage is defined to true
+    // 2. Add stage element to the layout XML object with the stage data
+    // 3. Get and set bounding box for stage element TODO
+    addStageData()
+    {
+        if (this.m_stage_data.stageIsDefined()) 
+        {
+            debugLayoutModel("LayoutModel.addStageData Stage is already defined in the layout model");
+
+            return;
+        }
+
+        var stage_case = 'get_default_data';
+
+        var input_data_object = null;
+
+        this.m_stage_data = new StageData(stage_case, this.m_layout_xml, input_data_object);
+
+        // ??? setBoundingBoxForStageData(this.m_stage_data, this.m_layout_xml);
+
+        //???? this.m_layout_xml.addStageElement(this.m_stage_data);
+        
+    } // addStageData
 
     // Get cashier data as data object (instance of class CashierData) 
     // from the layout XML object
@@ -266,11 +314,18 @@ class LayoutModel
 
         this.m_stage_bounding_box = getStageBoundingBoxFromXml(this.m_layout_xml);
 
-        debug_txt = "LayoutModel.setBoundingBoxes For stage element \n" +
-            " MinX= " + this.m_stage_bounding_box.getXMin() + 
-            " MaxX= " + this.m_stage_bounding_box.getXMax() + 
-            " MinY= " + this.m_stage_bounding_box.getYMin() + 
-            " MaxY= " + this.m_stage_bounding_box.getYMax();
+        if (this.m_stage_bounding_box != null)
+        {
+            debug_txt = "LayoutModel.setBoundingBoxes For stage element \n" +
+                " MinX= " + this.m_stage_bounding_box.getXMin() + 
+                " MaxX= " + this.m_stage_bounding_box.getXMax() + 
+                " MinY= " + this.m_stage_bounding_box.getYMin() + 
+                " MaxY= " + this.m_stage_bounding_box.getYMax();           
+        }
+        else
+        {
+            debug_txt = "LayoutModel.setBoundingBoxes Stage element is not defined in the layout xml";
+        }
 
         debugLayoutModel(debug_txt);
 

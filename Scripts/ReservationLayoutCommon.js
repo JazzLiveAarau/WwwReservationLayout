@@ -653,6 +653,13 @@ class StageData
     // Sets the bounding box for the stage based on the width and height of the stage
     setBoundingBox()
     {
+        if (!this.stageIsDefined())
+        {
+            this.m_boundimg_box = null;
+            
+            return;
+        }
+
         this.m_boundimg_box = new BoundingBox('Stage');
 
         this.m_boundimg_box.updateLeftDim(this.m_upper_left_x, this.m_upper_left_y, this.m_width, this.m_height);
@@ -849,6 +856,11 @@ class StageData
             return ret_b_check;
         }
 
+        if (this.m_stage_is_defined == false)
+        {
+            return ret_b_check;
+        }
+
         var class_name = "StageData";
 
         var value_array = [this.m_upper_left_x, this.m_upper_left_y, 
@@ -894,6 +906,11 @@ function getStageDataFromXml(i_layout_xml)
 function getStageBoundingBoxFromXml(i_layout_xml)
 {
     var stage_data_object = getStageDataFromXml(i_layout_xml);
+
+    if (stage_data_object.stageIsDefined() == false)
+    {
+        return null;
+    }
 
     if (!stage_data_object.checkData())
     {
