@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2026-05-24
+// Date: 2026-05-25
 // Author: Gunnar Lidén
 
 // File content

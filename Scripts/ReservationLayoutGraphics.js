@@ -1,5 +1,5 @@
 // File: ReservationLayoutGraphics.js
-// Date: 2026-05-22
+// Date: 2026-05-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -71,10 +71,44 @@ class LayoutGraphics
 
     } // init
 
+    // Initialize the model for the layout (CAD) graphics
+    initModel()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.initModel Enter');
+
+       // The conversion factor mm to pixel
+        this.m_scale_dimension = 0.123456789;
+
+        // Array of HTML code for the drawing of the group of tables as rectangles
+        this.m_group_rectangles_html_array = [];
+
+        // Array of HTML code for the drawing of the buttons
+        this.m_all_buttons_html_array = [];
+
+        // The HTML code for the drawing of the stage
+        this.m_stage_html_str = '';
+
+        // The HTML code for the drawing of the walls
+        this.m_walls_html_str = '';
+
+        // The HTML code for the drawing of the organizer
+        this.m_organizer_html_str = '';
+
+        // The HTML code for the drawing of the cashier
+        this.m_cashier_html_str = '';
+
+        // Array of HTML code for the drawing of the doors
+        this.m_all_doors_html_array = [];
+    
+    
+    } // initModel
+
     // Draw all the graphics (HTML code) for the layout (CAD) model
     drawAllHtmlGraphics()
     {
         LayoutGraphics.toConsole('LayoutGraphics.drawAllHtmlGraphics Enter');
+
+        this.initModel();
 
         this.setConversionFactorMmToPixel();
 

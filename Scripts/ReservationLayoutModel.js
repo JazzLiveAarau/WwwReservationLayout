@@ -1,5 +1,5 @@
 // File: ReservationLayoutModel.js
-// Date: 2026-05-24
+// Date: 2026-05-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -184,8 +184,8 @@ class LayoutModel
     } // getStageData
 
     // Delete stage data from the layout model and layout XML object
-    // 1. Set stage is defined to false in the stage data object
-    // 2. Delete stage element from the layout XML object
+    // 1. Delete stage element from the layout XML object
+    // 2. Set stage is defined to false in the stage data object
     // 3. Bounding box for stage element is set to null
     deleteStageData()
     {
@@ -196,9 +196,9 @@ class LayoutModel
             return;
         }
 
-        this.m_stage_data.setStageIsDefined(false);
+        this.m_layout_xml.deleteStageNodes();
 
-        this.m_layout_xml.deleteStageElement();
+        this.m_stage_data.setStageIsDefined(false);
 
         this.m_stage_bounding_box = null;
 
@@ -222,6 +222,8 @@ class LayoutModel
         var input_data_object = null;
 
         this.m_stage_data = new StageData(stage_case, this.m_layout_xml, input_data_object);
+
+        this.m_layout_xml.appendStageNodes(this.m_stage_data);
 
         // ??? setBoundingBoxForStageData(this.m_stage_data, this.m_layout_xml);
 
