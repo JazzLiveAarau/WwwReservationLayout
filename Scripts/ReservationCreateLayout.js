@@ -325,49 +325,6 @@ function onClickPageNumberMinusButton()
 
 } // onClickPageNumberMinusButton
 
-// Event function for the click on the button for saving a stage
-function onClickSaveStageButton()
-{
-    debugCreateLayout('onClickSaveStageButton Enter');
-
-    displayStartPage();
-
-} // onClickSaveStageButton
-
-// Event function for the click on the button for adding a stage
-function onClickAddStageButton()
-{
-    debugCreateLayout('onClickAddStageButton Enter');
-
-    g_layout_model.addStageData();
-
-    g_layout_graphics.drawAllHtmlGraphics();
-
-    displayStartPage();
-
-} // onClickAddStageButton
-
-// Event function for the click on the button for deleting a stage
-function onClickDeleteStageButton()
-{
-    debugCreateLayout('onClickDeleteStageButton Enter');
-
-    g_layout_model.deleteStageData();
-
-    g_layout_graphics.drawAllHtmlGraphics();
-
-    displayStartPage();
-
-} // onClickDeleteStageButton
-
-// Event function for the click on the button for canceling a stage
-function onClickCancelStageButton()
-{
-    debugCreateLayout('onClickCancelStageButton Enter');
-
-    displayStartPage();
-
-} // onClickCancelStageButton   
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -713,56 +670,6 @@ function getDeltaHeightForTable(i_table_group_array)
 
 } // getDeltaHeightForTable
 
-// Set the controls on the stage page with the data from the active stage object
-// 1. Get the StageData object from the layout model object
-function setControlsForStagePage()
-{
-    debugCreateLayout('setControlsForStagePage Enter');
-
-    var stage_data = g_layout_model.m_stage_data;
-
-    var b_defined_stage = stage_data.stageIsDefined();
-
-    if (b_defined_stage)
-    {
-        displayElementDivStagePagePosition();
-
-        displayElementDivStagePageDimension();
-
-        displayElementDivStagePageSaveButton();
-
-        hideElementDivStagePageAddButton();
-
-        displayElementDivStagePageDeleteButton();
-
-        displayElementDivStagePageText();
-    }
-    else
-    {
-        hideElementDivStagePagePosition();
-
-        hideElementDivStagePageDimension();
-
-        hideElementDivStagePageSaveButton();
-
-        displayElementDivStagePageAddButton();
-
-        hideElementDivStagePageDeleteButton();
-
-        hideElementDivStagePageText();
-    }
-
-    g_stage_page_position_left_textbox.setValue(stage_data.getUpperLeftX());
-
-    g_stage_page_position_top_textbox.setValue(stage_data.getUpperLeftY());
-
-    g_stage_page_dimension_width_textbox.setValue(stage_data.getWidth());
-
-    g_stage_page_dimension_height_textbox.setValue(stage_data.getHeight());
-
-    g_stage_page_text_textbox.setValue(stage_data.getText());
-
-} // setControlsForStagePage
 
 // Set the controls with data from local storage
 function setLayoutCreateControls(i_create_layout_data)
@@ -1517,18 +1424,6 @@ function displayTablePage()
 
 } // displayTablePage
 
-function displayStagePage()
-{
-    getElementDivStartPage().style.display = 'none';
-
-    getElementDivTableGroupPage().style.display = 'none';
-
-    getElementDivTablePage().style.display = 'none';
-
-    getElementDivStagePage().style.display = 'block';
-
-} // displayStagePage
-
 // Display the select layout elements container
 function displaySelectContainer()
 {
@@ -1637,90 +1532,6 @@ function displayTableGroupSixContainer()
     getElementDivTableGroupSixContainer().style.display = 'block';
 
 } // displayTableGroupSixContainer
-
-// Display the stage page position container
-function displayElementDivStagePagePosition()
-{
-    getElementDivStagePagePosition().style.display = 'block';
-
-} // displayElementDivStagePagePosition
-
-// Hide the stage page position container
-function hideElementDivStagePagePosition()
-{
-    getElementDivStagePagePosition().style.display = 'none';
-
-} // hideElementDivStagePagePosition
-
-// Display the stage page dimension container
-function displayElementDivStagePageDimension()
-{
-    getElementDivStagePageDimension().style.display = 'block';
-
-} // displayElementDivStagePageDimension
-
-// Hide the stage page dimension container
-function hideElementDivStagePageDimension()
-{
-    getElementDivStagePageDimension().style.display = 'none';
-
-} // hideElementDivStagePageDimension
-
-// Display the stage page text container
-function displayElementDivStagePageSaveButton()
-{
-    getElementDivStagePageSaveButton().style.display = 'block';
-
-} // displayElementDivStagePageSaveButton
-
-// Hide the stage page save button
-function hideElementDivStagePageSaveButton()
-{
-    getElementDivStagePageSaveButton().style.display = 'none';
-
-} // hideElementDivStagePageSaveButton
-
-// Display the stage page add button
-function displayElementDivStagePageAddButton()
-{
-    getElementDivStagePageAddButton().style.display = 'block';
-
-} // displayElementDivStagePageAddButton
-
-// Hide the stage page add button
-function hideElementDivStagePageAddButton()
-{
-    getElementDivStagePageAddButton().style.display = 'none';
-
-} // hideElementDivStagePageAddButton
-
-// Display the stage page delete button
-function displayElementDivStagePageDeleteButton()
-{
-    getElementDivStagePageDeleteButton().style.display = 'block';
-
-} // displayElementDivStagePageDeleteButton
-
-// Hide the stage page delete button
-function hideElementDivStagePageDeleteButton()
-{
-    getElementDivStagePageDeleteButton().style.display = 'none';
-
-} // hideElementDivStagePageDeleteButton
-
-// Display the stage page text container
-function displayElementDivStagePageText()
-{
-    getElementDivStagePageText().style.display = 'block';
-
-} // displayElementDivStagePageText
-
-// Hide the stage page text container
-function hideElementDivStagePageText()
-{
-    getElementDivStagePageText().style.display = 'none';
-
-} // hideElementDivStagePageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Display Functions ///////////////////////////////////////////
