@@ -383,6 +383,8 @@ function setAndOpenPageControlsForSelectedElement()
 
         displayStagePage();
 
+        initActiveStageData();
+
         setControlsForStagePage();
     }
     else if (g_gurrent_layout_element_number == 5)

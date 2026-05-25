@@ -11,6 +11,49 @@
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// An instance of the class stageData
+var g_original_stage_data = null;
+
+// Creates a copy of a StageData object.
+// The clone keeps the class prototype and references to layout XML,
+// but gets its own primitive values and bounding box instance.
+function cloneStageData(i_stage_data)
+{
+    if (i_stage_data == null)
+    {
+        return null;
+    }
+
+    var ret_stage_data = Object.assign(
+        Object.create(Object.getPrototypeOf(i_stage_data)),
+        i_stage_data
+    );
+
+    ret_stage_data.setBoundingBox();
+
+    return ret_stage_data;
+
+} // cloneStageData
+
+function getOriginalStageDataFromXml()
+{
+    return getStageDataFromXml(g_layout_model.m_layout_xml);
+}
+
+// Set the global variable for the active stage data with the stage data from the 
+// layout model
+function initActiveStageData()
+{
+    debugCreateLayout('initActiveStageData Enter');
+
+    // g_original_stage_data = cloneStageData(g_layout_model.m_stage_data);
+
+    g_original_stage_data = getOriginalStageDataFromXml();
+
+} // initActiveStageData
+
+
+
 // Global variable for the text box with the position of a stage left upper corner
 var g_stage_page_position_left_textbox = null;
 
@@ -86,9 +129,66 @@ function onClickCancelStageButton()
 {
     debugCreateLayout('onClickCancelStageButton Enter');
 
+    // g_layout_model.m_stage_data = cloneStageData(g_original_stage_data);
+    g_layout_model.m_stage_data = g_original_stage_data;
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
     displayStartPage();
 
 } // onClickCancelStageButton   
+
+// Event function for the change of the text box for the position left of a stage
+function onChangeStagePositionLeft()
+{
+    debugCreateLayout('onChangeStagePositionLeft Enter');
+
+    var new_value = g_stage_page_position_left_textbox.getValue();
+
+    g_layout_model.m_stage_data.setUpperLeftX(new_value);
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+} // onChangeStagePositionLeft
+
+//
+function onChangeStagePositionTop()
+{
+    debugCreateLayout('onChangeStagePositionTop Enter');
+
+    var new_value = g_stage_page_position_top_textbox.getValue();
+
+    g_layout_model.m_stage_data.setUpperLeftY(new_value);
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+} // onChangeStagePositionTop
+
+// Event function for the change of the text box for the dimension width of a stage
+function onChangeStageDimensionWidth()
+{
+    debugCreateLayout('onChangeStageDimensionWidth Enter');
+
+    var new_value = g_stage_page_dimension_width_textbox.getValue();
+
+    g_layout_model.m_stage_data.setWidth(new_value);
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+} // onChangeStageDimensionWidth
+
+// Event function for the change of the text box for the dimension height of a stage
+function onChangeStageDimensionHeight()
+{
+    debugCreateLayout('onChangeStageDimensionHeight Enter');
+
+    var new_value = g_stage_page_dimension_height_textbox.getValue();
+
+    g_layout_model.m_stage_data.setHeight(new_value);
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+} // onChangeStageDimensionHeight
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -113,9 +213,7 @@ function setControlsForStagePage()
 {
     debugCreateLayout('setControlsForStagePage Enter');
 
-    var stage_data = g_layout_model.m_stage_data;
-
-    var b_defined_stage = stage_data.stageIsDefined();
+    var b_defined_stage = g_layout_model.m_stage_data.stageIsDefined();
 
     if (b_defined_stage)
     {
@@ -146,15 +244,15 @@ function setControlsForStagePage()
         hideElementDivStagePageText();
     }
 
-    g_stage_page_position_left_textbox.setValue(stage_data.getUpperLeftX());
+    g_stage_page_position_left_textbox.setValue(g_layout_model.m_stage_data.getUpperLeftX());
 
-    g_stage_page_position_top_textbox.setValue(stage_data.getUpperLeftY());
+    g_stage_page_position_top_textbox.setValue(g_layout_model.m_stage_data.getUpperLeftY());
 
-    g_stage_page_dimension_width_textbox.setValue(stage_data.getWidth());
+    g_stage_page_dimension_width_textbox.setValue(g_layout_model.m_stage_data.getWidth());
 
-    g_stage_page_dimension_height_textbox.setValue(stage_data.getHeight());
+    g_stage_page_dimension_height_textbox.setValue(g_layout_model.m_stage_data.getHeight());
 
-    g_stage_page_text_textbox.setValue(stage_data.getText());
+    g_stage_page_text_textbox.setValue(g_layout_model.m_stage_data.getText());
 
 } // setControlsForStagePage
 
@@ -284,7 +382,7 @@ function createTextBoxStagePagePositionLeft()
 
     g_stage_page_position_left_textbox.setReadOnlyFlag(false);
 
-    g_stage_page_position_left_textbox.setOninputFunctionName("onChangeTableProperty");
+    g_stage_page_position_left_textbox.setOninputFunctionName("onChangeStagePositionLeft");
 
     g_stage_page_position_left_textbox.setTitle("Tisch Position: Linke Ecke." + "\n ");
 
@@ -303,7 +401,7 @@ function createTextBoxStagePagePositionTop()
 
     g_stage_page_position_top_textbox.setReadOnlyFlag(false);
 
-    g_stage_page_position_top_textbox.setOninputFunctionName("onChangeTableProperty");
+    g_stage_page_position_top_textbox.setOninputFunctionName("onChangeStagePositionTop");
 
     g_stage_page_position_top_textbox.setTitle("Tisch Position: Obere Ecke." + "\n ");
 
@@ -322,7 +420,7 @@ function createTextBoxStagePageDimensionWidth()
 
     g_stage_page_dimension_width_textbox.setReadOnlyFlag(false);
 
-    g_stage_page_dimension_width_textbox.setOninputFunctionName("onChangeTableProperty");
+    g_stage_page_dimension_width_textbox.setOninputFunctionName("onChangeStageDimensionWidth");
 
     g_stage_page_dimension_width_textbox.setTitle("Tisch Dimension: Breite." + "\n ");
 
@@ -341,7 +439,7 @@ function createTextBoxStagePageDimensionHeight()
 
     g_stage_page_dimension_height_textbox.setReadOnlyFlag(false);
 
-    g_stage_page_dimension_height_textbox.setOninputFunctionName("onChangeTableProperty");
+    g_stage_page_dimension_height_textbox.setOninputFunctionName("onChangeStageDimensionHeight");
 
     g_stage_page_dimension_height_textbox.setTitle("Tisch Dimension: Höhe." + "\n ");
 
