@@ -2830,6 +2830,7 @@ class ReservationLayoutXml
     //    are appended and an alert is shown
     // 2. Create all nodes and append them to the XML document. 
     // 3. Set values from the input stageDataObject if defined.
+    //    Call of setStageNodes
     appendStageNodes(i_stage_data)
     {
         if (this.stageIsDefined())   
@@ -2910,20 +2911,7 @@ class ReservationLayoutXml
 
         if (i_stage_data != null)
         {
-            this.setStageUpperLeftX(i_stage_data.getUpperLeftX().toString());
-            this.setStageUpperLeftY(i_stage_data.getUpperLeftY().toString());
-            this.setStageWidth(i_stage_data.getWidth().toString());
-            this.setStageHeight(i_stage_data.getHeight().toString());
-            this.setStageText(i_stage_data.getText());
-            this.setStageColor(i_stage_data.getColor());
-            this.setStageStrokeColor(i_stage_data.getStrokeColor());
-            this.setStageStrokeWidth(i_stage_data.getStrokeWidth().toString());
-            this.setStageImage(i_stage_data.getImage());
-            this.setStageImageWidth(i_stage_data.getImageWidth());
-            this.setStageImageHeight(i_stage_data.getImageHeight());
-            this.setStageTextRelXProcent(i_stage_data.getTextRelXProcent().toString());
-            this.setStageTextRelYProcent(i_stage_data.getTextRelYProcent().toString());
-            this.setStageTextColor(i_stage_data.getTextColor());
+            this.setStageNodes(i_stage_data);
         }
 
     } // appendStageNodes
@@ -3052,6 +3040,40 @@ class ReservationLayoutXml
     ///////////////////////////////////////////////////////////////////////////
     /////// Start Utility Functions ///////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+    // Sets the stage nodes for a given stageData object. 
+    // The stage nodes must already exist in the XML document.
+    setStageNodes(i_stage_data)
+    {
+        if (i_stage_data == null)
+        {
+            alert("ReservationLayoutXml.setStageNodes Input stage data object is null. No stage nodes are set.");
+
+            return;
+        }
+
+        if (!this.stageIsDefined())   
+        {
+             alert("ReservationLayoutXml.setStageNodes Stage is not defined in the layout XML. No stage nodes are set.");
+             return;
+        }
+        
+        this.setStageUpperLeftX(i_stage_data.getUpperLeftX().toString());
+        this.setStageUpperLeftY(i_stage_data.getUpperLeftY().toString());
+        this.setStageWidth(i_stage_data.getWidth().toString());
+        this.setStageHeight(i_stage_data.getHeight().toString());
+        this.setStageText(i_stage_data.getText());
+        this.setStageColor(i_stage_data.getColor());
+        this.setStageStrokeColor(i_stage_data.getStrokeColor());
+        this.setStageStrokeWidth(i_stage_data.getStrokeWidth().toString());
+        this.setStageImage(i_stage_data.getImage());
+        this.setStageImageWidth(i_stage_data.getImageWidth());
+        this.setStageImageHeight(i_stage_data.getImageHeight());
+        this.setStageTextRelXProcent(i_stage_data.getTextRelXProcent().toString());
+        this.setStageTextRelYProcent(i_stage_data.getTextRelYProcent().toString());
+        this.setStageTextColor(i_stage_data.getTextColor());
+
+    } // setStageNodes
 
     // Returns the reservation layout XML file name
     getXmlLayoutFileName()

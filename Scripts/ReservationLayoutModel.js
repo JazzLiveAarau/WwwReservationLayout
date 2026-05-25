@@ -207,7 +207,8 @@ class LayoutModel
     // Add stage data to the layout model and layout XML object
     // 1. Create stage data object with default values and set stage is defined to true
     // 2. Add stage element to the layout XML object with the stage data
-    // 3. Get and set bounding box for stage element TODO
+    // The calling function should call LayoutGraphics.drawAllHtmlGraphics after 
+    // this function. Then will the bounding box be created.
     addStageData()
     {
         if (this.m_stage_data.stageIsDefined()) 
@@ -224,10 +225,6 @@ class LayoutModel
         this.m_stage_data = new StageData(stage_case, this.m_layout_xml, input_data_object);
 
         this.m_layout_xml.appendStageNodes(this.m_stage_data);
-
-        // ??? setBoundingBoxForStageData(this.m_stage_data, this.m_layout_xml);
-
-        //???? this.m_layout_xml.addStageElement(this.m_stage_data);
         
     } // addStageData
 

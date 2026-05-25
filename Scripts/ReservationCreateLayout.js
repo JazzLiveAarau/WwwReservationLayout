@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-24
+// Date: 2026-05-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -723,11 +723,33 @@ function setControlsForStagePage()
 
     var b_defined_stage = stage_data.stageIsDefined();
 
-    if (!b_defined_stage)
+    if (b_defined_stage)
     {
-        alert('setControlsForStagePage\nEs ist keine Bühne definiert. TODO Only show cancel and add buttons.');
+        displayElementDivStagePagePosition();
 
-        return;
+        displayElementDivStagePageDimension();
+
+        displayElementDivStagePageSaveButton();
+
+        hideElementDivStagePageAddButton();
+
+        displayElementDivStagePageDeleteButton();
+
+        displayElementDivStagePageText();
+    }
+    else
+    {
+        hideElementDivStagePagePosition();
+
+        hideElementDivStagePageDimension();
+
+        hideElementDivStagePageSaveButton();
+
+        displayElementDivStagePageAddButton();
+
+        hideElementDivStagePageDeleteButton();
+
+        hideElementDivStagePageText();
     }
 
     g_stage_page_position_left_textbox.setValue(stage_data.getUpperLeftX());
@@ -1462,6 +1484,11 @@ function displayStartPage()
 
     getElementDivStagePage().style.display = 'none';
 
+    if (g_drop_down_layout_element != null) // If created
+    {
+        g_drop_down_layout_element.setSelectOptionNumber(1);
+    }
+
 } // displayStartPage
 
 // Display the table group page and hide the other pages
@@ -1562,55 +1589,138 @@ function hideTableGroupFiveContainer()
 
 } // hideTableGroupFiveContainer
 
-//
+// Display the table group six container
 function hideTableGroupSixContainer()
 {
     getElementDivTableGroupSixContainer().style.display = 'none';
 
 } // hideTableGroupSixContainer
 
-
-// Hide the table group one container
+// Display the table group one container
 function displayTableGroupOneContainer()
 {
     getElementDivTableGroupOneContainer().style.display = 'block';
 
 } // displayTableGroupOneContainer
 
-// Hide the table group two container
+// Display the table group two container
 function displayTableGroupTwoContainer()
 {
     getElementDivTableGroupTwoContainer().style.display = 'block';
 
 } // displayTableGroupTwoContainer
 
-// Hide the table group three container
+// Display the table group three container
 function displayTableGroupThreeContainer()
 {
     getElementDivTableGroupThreeContainer().style.display = 'block';
 
 } // displayTableGroupThreeContainer
 
-// Hide the table group four container
+// Display the table group four container
 function displayTableGroupFourContainer()
 {
     getElementDivTableGroupFourContainer().style.display = 'block';
 
 } // displayTableGroupFourContainer
 
-// Hide the table group five container
+// Display the table group five container
 function displayTableGroupFiveContainer()
 {
     getElementDivTableGroupFiveContainer().style.display = 'block';  
 
 } // displayTableGroupFiveContainer
 
-//
+// Display the table group six container
 function displayTableGroupSixContainer()
 {
     getElementDivTableGroupSixContainer().style.display = 'block';
 
 } // displayTableGroupSixContainer
+
+// Display the stage page position container
+function displayElementDivStagePagePosition()
+{
+    getElementDivStagePagePosition().style.display = 'block';
+
+} // displayElementDivStagePagePosition
+
+// Hide the stage page position container
+function hideElementDivStagePagePosition()
+{
+    getElementDivStagePagePosition().style.display = 'none';
+
+} // hideElementDivStagePagePosition
+
+// Display the stage page dimension container
+function displayElementDivStagePageDimension()
+{
+    getElementDivStagePageDimension().style.display = 'block';
+
+} // displayElementDivStagePageDimension
+
+// Hide the stage page dimension container
+function hideElementDivStagePageDimension()
+{
+    getElementDivStagePageDimension().style.display = 'none';
+
+} // hideElementDivStagePageDimension
+
+// Display the stage page text container
+function displayElementDivStagePageSaveButton()
+{
+    getElementDivStagePageSaveButton().style.display = 'block';
+
+} // displayElementDivStagePageSaveButton
+
+// Hide the stage page save button
+function hideElementDivStagePageSaveButton()
+{
+    getElementDivStagePageSaveButton().style.display = 'none';
+
+} // hideElementDivStagePageSaveButton
+
+// Display the stage page add button
+function displayElementDivStagePageAddButton()
+{
+    getElementDivStagePageAddButton().style.display = 'block';
+
+} // displayElementDivStagePageAddButton
+
+// Hide the stage page add button
+function hideElementDivStagePageAddButton()
+{
+    getElementDivStagePageAddButton().style.display = 'none';
+
+} // hideElementDivStagePageAddButton
+
+// Display the stage page delete button
+function displayElementDivStagePageDeleteButton()
+{
+    getElementDivStagePageDeleteButton().style.display = 'block';
+
+} // displayElementDivStagePageDeleteButton
+
+// Hide the stage page delete button
+function hideElementDivStagePageDeleteButton()
+{
+    getElementDivStagePageDeleteButton().style.display = 'none';
+
+} // hideElementDivStagePageDeleteButton
+
+// Display the stage page text container
+function displayElementDivStagePageText()
+{
+    getElementDivStagePageText().style.display = 'block';
+
+} // displayElementDivStagePageText
+
+// Hide the stage page text container
+function hideElementDivStagePageText()
+{
+    getElementDivStagePageText().style.display = 'none';
+
+} // hideElementDivStagePageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Display Functions ///////////////////////////////////////////

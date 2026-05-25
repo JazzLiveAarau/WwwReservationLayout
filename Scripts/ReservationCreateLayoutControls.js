@@ -1,5 +1,5 @@
 // File: ReservationCreateLayoutControls.js
-// Date: 2026-05-24
+// Date: 2026-05-25
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -1275,6 +1275,91 @@ function getIdDivLayoutModelView()
     return 'id_div_layout_model_view';
 
 } // getIdDivLayoutModelView
+
+
+// Returns the div element stage page position
+function getElementDivStagePagePosition()
+{
+    return document.getElementById(getIdDivStagePagePosition());
+
+} // getElementDivStagePagePosition
+
+// Returns the id of the div stage page position element
+function getIdDivStagePagePosition()
+{
+    return 'id_div_stage_page_position';
+
+} // getIdDivStagePagePosition
+
+// Returns the div element stage page dimension
+function getElementDivStagePageDimension()
+{
+    return document.getElementById(getIdDivStagePageDimension());
+
+} // getElementDivStagePageDimension
+
+// Returns the id of the div stage page dimension element
+function getIdDivStagePageDimension()
+{
+    return 'id_div_stage_page_dimension';
+
+} // getIdDivStagePageDimension
+
+// Returns the div element stage page save button
+function getElementDivStagePageSaveButton()
+{
+    return document.getElementById(getIdDivStagePageSaveButton());
+
+} // getElementDivStagePageSaveButton
+
+// Returns the id of the div stage page save button element
+function getIdDivStagePageSaveButton()
+{
+    return 'id_div_stage_page_save_button';
+
+} // getIdDivStagePageSaveButton
+
+// Returns the div element stage page add button
+function getElementDivStagePageAddButton()
+{
+    return document.getElementById(getIdDivStagePageAddButton());
+
+} // getElementDivStagePageAddButton
+
+// Returns the id of the div stage page add button element
+function getIdDivStagePageAddButton()
+{
+    return 'id_div_stage_page_add_button';
+
+} // getIdDivStagePageAddButton
+
+// Returns the div element stage page delete button
+function getElementDivStagePageDeleteButton()
+{
+    return document.getElementById(getIdDivStagePageDeleteButton());
+
+} // getElementDivStagePageDeleteButton
+
+// Returns the id of the div stage page delete button element
+function getIdDivStagePageDeleteButton()
+{
+    return 'id_div_stage_page_delete_button';
+
+} // getIdDivStagePageDeleteButton
+
+// Returns the div element stage page text
+function getElementDivStagePageText()
+{
+    return document.getElementById(getIdDivStagePageText());
+
+} // getElementDivStagePageText
+
+// Returns the id of the div stage page text element
+function getIdDivStagePageText()
+{
+    return 'id_div_stage_page_text';
+
+} // getIdDivStagePageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Element Functions ///////////////////////////////////////////
