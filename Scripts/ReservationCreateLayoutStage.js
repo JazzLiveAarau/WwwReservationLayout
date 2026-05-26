@@ -595,6 +595,20 @@ function createStageCancelButton()
 ///////////////////////// Start Element Functions /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Returns the div element stage page
+function getElementDivStagePage()
+{
+    return document.getElementById(getIdStagePage());    
+
+} // getElementDivStagePage
+
+// Returns the id of the stage page div element
+function getIdStagePage()
+{
+    return 'id_div_stage_page';
+
+} // getIdStagePage
+
 // Returns the div element stage page position
 function getElementDivStagePagePosition()
 {
