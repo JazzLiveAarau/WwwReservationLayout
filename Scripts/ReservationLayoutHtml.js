@@ -113,6 +113,7 @@ class TableRectangleHtml
 {
     constructor(i_table_data, i_scale_dimension, i_cl_table) 
     {
+        // Instance of the class TableData
         this.m_table_data = i_table_data;
 
          // The conversion factor mm to pixel
@@ -170,9 +171,11 @@ class TableRectangleHtml
 
         var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze <br>' + number_left_right_seats; 
 
+        var click_str = 'onclick="onClickHtmlElementTable('+ table_id + ')"';
+
         var one_rectangle_html = '<div id="' + table_id + '" class="' + this.m_cl_table + 
         '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
-        'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;">' 
+        'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;" ' + click_str + '>' 
         + display_text    
         + '</div>';
 
