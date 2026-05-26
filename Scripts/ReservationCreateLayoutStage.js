@@ -212,6 +212,27 @@ function onChangeStageText()
 
 } // onChangeStageText
 
+function onClickHtmlElementStage()
+{
+    debugCreateLayout('onClickHtmlElementStage Enter');
+
+    execClickStage();
+
+} // onClickHtmlElementStage
+
+// Execute when the user selects a stage in the dropdown or clicks on the stage HTML element
+function execClickStage()
+{
+    debugCreateLayout('execClickStage Enter');
+
+    displayStagePage();
+
+    initActiveStageData();
+
+    setControlsForStagePage();
+
+} // execClickStage
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////

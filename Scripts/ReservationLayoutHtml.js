@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2026-05-22
+// Date: 2026-05-26
 // Authors: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -342,9 +342,11 @@ class StageHtml
 
         var stage_id = 'id_div_stage_pos_absolute';
 
+        var click_str = 'onclick="onClickHtmlElementStage()"';
+
         var one_stage_html = '<div id="' + stage_id + '" class="' + this.m_cl_stage + 
         '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
-        'width:' + stage_width_scaled + 'px; height:' + stage_height_scaled + 'px;">' 
+        'width:' + stage_width_scaled + 'px; height:' + stage_height_scaled + 'px;" ' + click_str + '>' 
         + '<br>'+ stage_text    
         + '</div>';
 

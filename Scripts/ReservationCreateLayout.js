@@ -411,11 +411,7 @@ function setAndOpenPageControlsForSelectedElement()
     {
         debugCreateLayout('setAndOpenPageControlsForSelectedElement Bühne selected');
 
-        displayStagePage();
-
-        initActiveStageData();
-
-        setControlsForStagePage();
+        execClickStage();
     }
     else if (g_gurrent_layout_element_number == 5)
     {
