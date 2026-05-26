@@ -1,5 +1,5 @@
 // File: ReservationCreateLayoutStage.js
-// Date: 2026-05-25
+// Date: 2026-05-26
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -90,9 +90,18 @@ var g_stage_cancel_button = null;
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Event function for the click on the button for saving a stage
+// 1. Set the stage nodes in the layout XML with the stage data from the layout model
+// 2. Save the layout XML to the server. Call of saveXmlObjectToServer
+// 3. Display the start page. Call of displayStartPage
 function onClickSaveStageButton()
 {
     debugCreateLayout('onClickSaveStageButton Enter');
+
+    g_layout_model.m_layout_xml.setStageNodes(g_layout_model.m_stage_data);
+
+    var callback_function = xmlObjectSavedToServer;
+
+    saveXmlObjectToServer(callback_function);
 
     displayStartPage();
 
@@ -189,6 +198,19 @@ function onChangeStageDimensionHeight()
     g_layout_graphics.drawAllHtmlGraphics();
 
 } // onChangeStageDimensionHeight
+
+// Event function for the change of the text box for the text of a stage
+function onChangeStageText()
+{
+    debugCreateLayout('onChangeStageText Enter');
+
+    var new_value = g_stage_page_text_textbox.getValue();
+
+    g_layout_model.m_stage_data.setText(new_value);
+
+    g_layout_graphics.drawAllHtmlGraphics();
+
+} // onChangeStageText
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
@@ -458,7 +480,7 @@ function createTextBoxStagePageText()
 
     g_stage_page_text_textbox.setReadOnlyFlag(false);
 
-    //QQQ g_stage_page_text_textbox.setOninputFunctionName("onChangeTableProperty");
+    g_stage_page_text_textbox.setOninputFunctionName("onChangeStageText");
 
     g_stage_page_text_textbox.setTitle("Name und/oder Beschreibung der Bühne." + "\n ");
 

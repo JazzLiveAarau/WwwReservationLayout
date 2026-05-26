@@ -1,5 +1,5 @@
 // File: ReservationLayoutXml.js
-// Date: 2026-05-25
+// Date: 2026-05-26
 // Author: Gunnar Lidén
 
 // File content
@@ -3186,6 +3186,38 @@ class ReservationLayoutXml
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Load Functions ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Save Functions //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Save XML object as XML file
+    saveFile(i_file_name_full_path, i_callback_after_save_function_name)
+    {
+        console.log('ReservationLayoutXml.saveFile file_name_full_path= ' + i_file_name_full_path);
+
+        var pretty_print = new PrettyPrintXml(this.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        UtilServer.saveCallback(i_file_name_full_path, xml_content_str, i_callback_after_save_function_name);
+
+    } // saveFile
+
+    // Returns the XML content as a pretty print string
+    prettyPrintHtml()
+    {
+        var pretty_print = new PrettyPrintXml(this.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToHtmlFormattedString();
+
+        return xml_content_str;
+
+    } // prettyPrintHtml
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Save Functions ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 

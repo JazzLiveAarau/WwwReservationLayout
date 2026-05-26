@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-25
+// Date: 2026-05-26
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -138,6 +138,7 @@ function callbackAfterLoadOfXmlLayout()
     debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
             result_dir + '/XML/' + result_dir + '.xml');
 
+    var pretty_print = g_create_layout_xml.prettyPrintHtml();
 
     g_layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
 
@@ -333,6 +334,33 @@ function onClickPageNumberMinusButton()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Save Functions ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Save the layout XML object to the server
+// 1. Get the absolute URL to the layout XML file on the server. 
+//    Call of getAbsUrlResultLayoutXmlFile
+// 2. Call the saveFile function of the layout XML object 
+//    Call of ReservationLayoutXml.saveFile
+function saveXmlObjectToServer(i_callback_after_save_function_name)
+{
+    debugCreateLayout('saveXmlObjectToServer Enter');
+
+    var url_abs = getAbsUrlResultLayoutXmlFile();
+
+    var pretty_print = g_layout_model.m_layout_xml.prettyPrintXml();
+
+    // TODO g_layout_model.m_layout_xml.saveFile(url_abs, i_callback_after_save_function_name);
+   
+} // saveXmlObjectToServer
+
+// Callback function after saving the layout XML object to the server
+function xmlObjectSavedToServer()
+{
+    debugCreateLayout('xmlObjectSavedToServer File name= ' + getAbsUrlResultLayoutXmlFile());
+
+    // TODO Implement the logic for handling the XML object after it has been saved to the server
+
+} // xmlObjectSavedToServer
 
 // Event execution function for the click on the button for saving a table
 function execClickSaveTableToXmlObject()
