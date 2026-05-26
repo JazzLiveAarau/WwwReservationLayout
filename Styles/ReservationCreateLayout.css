@@ -316,19 +316,16 @@ label
     clear: both;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.cl_div_debug_page
+{
+    border: solid 1px red;
+    width: 99%;
+    min-height: 200px;
+    margin-top: 10px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
 
 .cl_div_display_table_container
 {

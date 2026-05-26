@@ -1,5 +1,5 @@
 // File: ReservationCreateLayoutControls.js
-// Date: 2026-05-25
+// Date: 2026-05-26
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -1064,6 +1064,20 @@ function getIdDivLayoutModelView()
     return 'id_div_layout_model_view';
 
 } // getIdDivLayoutModelView
+
+// Returns the element debug page
+function getElementDivDebugPage()
+{
+    return document.getElementById(getIdDivDebugPage());
+
+} // getElementDivDebugPage
+
+// Returns the id of the debug page element
+function getIdDivDebugPage()
+{
+    return 'id_div_debug_page';
+
+} // getIdDivDebugPage
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Element Functions ///////////////////////////////////////////

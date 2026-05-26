@@ -140,6 +140,8 @@ function callbackAfterLoadOfXmlLayout()
 
     var pretty_print = g_create_layout_xml.prettyPrintHtml();
 
+    getElementDivDebugPage().innerHTML = pretty_print;
+
     g_layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
 
     displaySelectContainer();
@@ -1562,6 +1564,20 @@ function displayTableGroupSixContainer()
     getElementDivTableGroupSixContainer().style.display = 'block';
 
 } // displayTableGroupSixContainer
+
+// Display the debug page
+function displayDebugPage()
+{
+    getElementDivDebugPage().style.display = 'block';
+
+} // displayDebugPage
+
+// Hide the debug page
+function hideDebugPage()
+{
+    getElementDivDebugPage().style.display = 'none';
+
+} // hideDebugPage
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Display Functions ///////////////////////////////////////////
