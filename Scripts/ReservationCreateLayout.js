@@ -138,9 +138,9 @@ function callbackAfterLoadOfXmlLayout()
     debugCreateLayout("callbackAfterLoadOfXmlLayout Object created for the layout XML file \n/" + 
             result_dir + '/XML/' + result_dir + '.xml');
 
-    var pretty_print = g_create_layout_xml.prettyPrintHtml();
+    // var pretty_print_win = g_create_layout_xml.prettyPrintWin();
 
-    getElementDivDebugPage().innerHTML = pretty_print;
+    // var pretty_print_html = g_create_layout_xml.prettyPrintHtml();
 
     g_layout_xml_table = new LayoutXmlTable(g_create_layout_xml);
 
@@ -349,9 +349,9 @@ function saveXmlObjectToServer(i_callback_after_save_function_name)
 
     var url_abs = getAbsUrlResultLayoutXmlFile();
 
-    var pretty_print = g_layout_model.m_layout_xml.prettyPrintXml();
+    //QQQ var pretty_print = g_layout_model.m_layout_xml.prettyPrintWin();
 
-    // TODO g_layout_model.m_layout_xml.saveFile(url_abs, i_callback_after_save_function_name);
+    g_layout_model.m_layout_xml.saveFile(url_abs, i_callback_after_save_function_name);
    
 } // saveXmlObjectToServer
 

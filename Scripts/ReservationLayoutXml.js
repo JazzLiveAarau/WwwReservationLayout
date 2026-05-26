@@ -887,6 +887,9 @@ class ReservationLayoutXml
     // Returns true if the stage is defined in the XML file
     stageIsDefined()
     {
+        var stage_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageData());
+        var n_stage = stage_nodes.length; // TODO
+
         var stage_upper_left_x_rec_nodes = this.getXmlObject().getElementsByTagName(this.m_tags.getStageUpperLeftX());
         var n_stage_upper_left_x = stage_upper_left_x_rec_nodes.length;
 
@@ -2839,75 +2842,79 @@ class ReservationLayoutXml
              return;
         }
 
+        var stage_node = this.getXmlObject().createElement(this.m_tags.getStageData());
+
         var upper_left_x_node = this.getXmlObject().createElement(this.m_tags.getStageUpperLeftX());
         var upper_left_x_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         upper_left_x_node.appendChild(upper_left_x_text);
-        this.getXmlObject().documentElement.appendChild(upper_left_x_node);	
+        stage_node.appendChild(upper_left_x_node);	
 
         var upper_left_y_node = this.getXmlObject().createElement(this.m_tags.getStageUpperLeftY());
         var upper_left_y_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         upper_left_y_node.appendChild(upper_left_y_text);
-        this.getXmlObject().documentElement.appendChild(upper_left_y_node);
+        stage_node.appendChild(upper_left_y_node);
 
         var width_node = this.getXmlObject().createElement(this.m_tags.getStageWidth());
         var width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         width_node.appendChild(width_text);
-        this.getXmlObject().documentElement.appendChild(width_node);
+        stage_node.appendChild(width_node);
 
         var height_node = this.getXmlObject().createElement(this.m_tags.getStageHeight());
         var height_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         height_node.appendChild(height_text);
-        this.getXmlObject().documentElement.appendChild(height_node);
+        stage_node.appendChild(height_node);
 
         var text_stage_node = this.getXmlObject().createElement(this.m_tags.getStageText());
         var text_stage_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         text_stage_node.appendChild(text_stage_text);
-        this.getXmlObject().documentElement.appendChild(text_stage_node);
+        stage_node.appendChild(text_stage_node);
 
         var color_node = this.getXmlObject().createElement(this.m_tags.getStageColor());
         var color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         color_node.appendChild(color_text);
-        this.getXmlObject().documentElement.appendChild(color_node);
+        stage_node.appendChild(color_node);
 
         var stroke_color_node = this.getXmlObject().createElement(this.m_tags.getStageStrokeColor());
         var stroke_color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         stroke_color_node.appendChild(stroke_color_text);
-        this.getXmlObject().documentElement.appendChild(stroke_color_node);
+        stage_node.appendChild(stroke_color_node);
 
         var stroke_width_node = this.getXmlObject().createElement(this.m_tags.getStageStrokeWidth());
         var stroke_width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         stroke_width_node.appendChild(stroke_width_text);
-        this.getXmlObject().documentElement.appendChild(stroke_width_node);
+        stage_node.appendChild(stroke_width_node);
 
         var image_node = this.getXmlObject().createElement(this.m_tags.getStageImage());
         var image_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         image_node.appendChild(image_text);
-        this.getXmlObject().documentElement.appendChild(image_node);
+        stage_node.appendChild(image_node);
 
         var image_width_node = this.getXmlObject().createElement(this.m_tags.getStageImageWidth());
         var image_width_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         image_width_node.appendChild(image_width_text);
-        this.getXmlObject().documentElement.appendChild(image_width_node);
+        stage_node.appendChild(image_width_node);
 
         var image_height_node = this.getXmlObject().createElement(this.m_tags.getStageImageHeight());
         var image_height_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         image_height_node.appendChild(image_height_text);
-        this.getXmlObject().documentElement.appendChild(image_height_node);
+        stage_node.appendChild(image_height_node);
 
         var text_rel_x_procent_node = this.getXmlObject().createElement(this.m_tags.getStageTextRelXProcent());
         var text_rel_x_procent_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         text_rel_x_procent_node.appendChild(text_rel_x_procent_text);
-        this.getXmlObject().documentElement.appendChild(text_rel_x_procent_node);
+        stage_node.appendChild(text_rel_x_procent_node);
 
         var text_rel_y_procent_node = this.getXmlObject().createElement(this.m_tags.getStageTextRelYProcent());
         var text_rel_y_procent_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         text_rel_y_procent_node.appendChild(text_rel_y_procent_text);
-        this.getXmlObject().documentElement.appendChild(text_rel_y_procent_node);
+        stage_node.appendChild(text_rel_y_procent_node);
 
         var text_color_node = this.getXmlObject().createElement(this.m_tags.getStageTextColor());
         var text_color_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
         text_color_node.appendChild(text_color_text);
-        this.getXmlObject().documentElement.appendChild(text_color_node);
+        stage_node.appendChild(text_color_node);
+
+        this.getXmlObject().documentElement.appendChild(stage_node);
 
         if (i_stage_data != null)
         {
@@ -2948,6 +2955,8 @@ class ReservationLayoutXml
         if (this.deleteSingleNode(this.m_tags.getStageImage()) == false) { return; }
         if (this.deleteSingleNode(this.m_tags.getStageImageWidth()) == false) { return; }
         if (this.deleteSingleNode(this.m_tags.getStageImageHeight()) == false) { return; }
+
+        if (this.deleteSingleNode(this.m_tags.getStageData()) == false) { return; } // Could replace all above TODO
 
     } // deleteStageNodes
 
@@ -3205,7 +3214,7 @@ class ReservationLayoutXml
 
     } // saveFile
 
-    // Returns the XML content as a pretty print string
+    // Returns the XML content as a pretty print string in HTML format.
     prettyPrintHtml()
     {
         var pretty_print = new PrettyPrintXml(this.getXmlObject());
@@ -3215,6 +3224,17 @@ class ReservationLayoutXml
         return xml_content_str;
 
     } // prettyPrintHtml
+
+   // Returns the XML content as a pretty print string in Windows format (with new lines and tabs).
+    prettyPrintWin()
+    {
+        var pretty_print = new PrettyPrintXml(this.getXmlObject());
+
+        var xml_content_str = pretty_print.xmlToWinFormattedString();
+
+        return xml_content_str;
+
+    } // prettyPrintWin
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Save Functions ////////////////////////////////////////////////
@@ -3232,6 +3252,8 @@ class ReservationLayoutTags
         //////////////////////////////////////////////////////////
         ////////////// General Data //////////////////////////////
         //////////////////////////////////////////////////////////
+
+        this.m_tag_premises = "Premises";
 
         this.m_tag_premises_name = "PremisesName";
         this.m_tag_premises_width = "PremisesWidth";
@@ -3266,6 +3288,7 @@ class ReservationLayoutTags
         this.m_tag_sponsors_image_height = "SponsorsImageHeight";
 
         // General data tables
+        this.m_tag_general_table_data = "GeneralTableData";
         this.m_tag_table_color = "TableColor";
         this.m_tag_table_stroke_color = "TableStrokeColor";
         this.m_tag_table_stroke_width = "TableStrokeWidth";
@@ -3274,6 +3297,7 @@ class ReservationLayoutTags
         this.m_tag_table_text_color = "TableTextColor";
 
         // Data for the stage
+        this.m_tag_stage = "StageData";
         this.m_tag_stage_upper_left_x = "StageUpperLeftX";
         this.m_tag_stage_upper_left_y = "StageUpperLeftY";
         this.m_tag_stage_width = "StageWidth";
@@ -3290,6 +3314,7 @@ class ReservationLayoutTags
         this.m_tag_stage_image_height = "StageImageHeight";
 
         // Data for the cashier desk
+        this.m_tag_cashier_data = "CashierData";
         this.m_tag_cash_upper_left_x = "CashUpperLeftX";
         this.m_tag_cash_upper_left_y = "CashUpperLeftY";
         this.m_tag_cash_image = "CashImage";
@@ -3410,6 +3435,7 @@ class ReservationLayoutTags
     // Get member variable functions
     // =============================
 
+    getPremises(){return this.m_tag_premises;}
     getPremisesName(){return this.m_tag_premises_name;} 
     getPremisesWidth(){return this.m_tag_premises_width;} 
     getPremisesHeight(){return this.m_tag_premises_height;} 
@@ -3444,6 +3470,7 @@ class ReservationLayoutTags
     getSponsorsImageHeight(){return this.m_tag_sponsors_image_height;}
 
     // General data tables
+    getGeneralTableData(){return this.m_tag_general_table_data;}
     getTableColor(){return this.m_tag_table_color;} 
     getTableStrokeColor(){return this.m_tag_table_stroke_color;} 
     getTableStrokeWidth(){return this.m_tag_table_stroke_width;} 
@@ -3452,6 +3479,7 @@ class ReservationLayoutTags
     getTableTextColor(){return this.m_tag_table_text_color;} 
 
     // Data for the stage
+    getStageData(){return this.m_tag_stage;}
     getStageUpperLeftX(){return this.m_tag_stage_upper_left_x;} 
     getStageUpperLeftY(){return this.m_tag_stage_upper_left_y;} 
     getStageWidth(){return this.m_tag_stage_width;} 
@@ -3468,6 +3496,7 @@ class ReservationLayoutTags
     getStageImageHeight(){return this.m_tag_stage_image_height;}
 
     // Data for the cashier desk
+    getCashierData(){return this.m_tag_cashier_data;}
     getCashUpperLeftX(){return this.m_tag_cash_upper_left_x;}
     getCashUpperLeftY(){return this.m_tag_cash_upper_left_y;}
     getCashImage(){return this.m_tag_cash_image;}
