@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2026-05-23
+// Date: 2026-06-02
 // Authors: Gunnar Lidén
 
 // Content
@@ -2066,6 +2066,8 @@ class SeatData
         return this.m_text_identity;
     }
 
+    // Sets the identities of the circle element and the text element for the seat based on the seat type, 
+    // table or row number and seat number or character
     setIdentities()
     {
         if (this.m_seat_type =='rect_table')
@@ -2101,12 +2103,54 @@ class SeatData
         
     } // setIdentities
 
+    // Constructs the identity of the circle element for a seat at a table. 
+    // The identity is in the form tableNumber_seatCharacter
     static getTableSeatCircleId(i_table_number, i_seat_character)
     {
         return  i_table_number + "_" + i_seat_character;
 
     } // getTableSeatCircleId
 
+    // Returns the table or row number from a circle identity. 
+    // The circle identity is in the form tableOrRowNumber_seatCharacter
+    static getTableOrRowNumberFromCircleId(i_circle_id)
+    {
+        var index_underscore = i_circle_id.indexOf("_");
+
+        if (index_underscore < 0)
+        {
+            alert("SeatData.getTableOrRowNumberFromCircleId Error. No underscore in i_circle_id= " + i_circle_id);
+
+            return "";
+        }
+
+        var table_or_row_number = i_circle_id.split("_")[0];
+        
+        return table_or_row_number;
+
+    } // getTableOrRowNumberFromCircleId
+
+    // Returns the seat character from a circle identity. 
+    // The circle identity is in the form tableOrRowNumber_seatCharacter
+    static getSeatCharacterFromCircleId(i_circle_id)
+    {
+        var index_underscore = i_circle_id.indexOf("_");
+        
+        if (index_underscore < 0)
+        {
+            alert("SeatData.getSeatCharacterFromCircleId Error. No underscore in i_circle_id= " + i_circle_id);
+
+            return "";
+        }
+
+        var seat_character = i_circle_id.split("_")[1];
+
+        return seat_character;
+
+    } // getSeatCharacterFromCircleId
+
+    // Constructs the identity of the text element for a seat at a table. 
+    // The identity is in the form cir_text_tableNumber_seatCharacter
     static getTableSeatTextId(i_table_number, i_seat_character)
     {
         return  "cir_text_" + i_table_number + "_" + i_seat_character;;
