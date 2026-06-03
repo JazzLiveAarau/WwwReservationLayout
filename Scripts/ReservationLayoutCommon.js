@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2026-06-02
+// Date: 2026-06-03
 // Authors: Gunnar Lidén
 
 // Content
@@ -56,7 +56,7 @@ class PremisesData
        this.m_sponsors_image_height = "";
 
        // Instance of the class BoundingBox
-       this.m_boundimg_box = null;
+       this.m_bounding_box = null;
 	   
        this.execute();
 
@@ -81,14 +81,14 @@ class PremisesData
     // Sets the bounding box for the premises based on the width and height of the premises
     setBoundingBox()
     {
-        this.m_boundimg_box = new BoundingBox('Premises');
+        this.m_bounding_box = new BoundingBox('Premises');
 
-        this.m_boundimg_box.updateLeftDim(0, 0, this.m_width, this.m_height);
+        this.m_bounding_box.updateLeftDim(0, 0, this.m_width, this.m_height);
 
     } // SetBoundingBox
 
     // Returns the bounding box for the premises
-    getBoundingBox(){ return this.m_boundimg_box; }
+    getBoundingBox(){ return this.m_bounding_box; }
 
     // Get and set organizer is defined
     organizerIsDefined(){return this.m_organizer_is_defined;}
@@ -109,10 +109,10 @@ class PremisesData
     setHeight(i_height){ this.m_height = i_height; }
 
     getWallThickness(){ return this.m_wall_thickness; }
-    setWallThickness(i_height){ this.m_wall_thickness = i_wall_thickness; }
+    setWallThickness(i_wall_thickness){ this.m_wall_thickness = i_wall_thickness; }
 
     getMaxWidthPixel(){ return this.m_max_width_pixel; }
-    setMaxWidthPixel(i_wall_thickness){ this.m_max_width_pixel = i_max_width_pixel; }
+    setMaxWidthPixel(i_max_width_pixel){ this.m_max_width_pixel = i_max_width_pixel; }
 
     getMaxReservationPercentage(){ return this.m_max_reservation_procent; }
     setMaxReservationPercentage(i_max_reservation_procent){ this.m_max_reservation_procent = i_max_reservation_procent; }
@@ -484,6 +484,11 @@ class GeneralTableData
        this.m_text_rel_y_procent = "";
        this.m_text_color = "";
 
+       // Radius of the circle representing a seat. 
+       // This is used for all tables. 
+       // The value is set in the XML layout file and is used for all tables in the layout.
+       this.m_seat_circle_radius = -12345;
+
        this.execute();
 
     } // constructor
@@ -521,6 +526,9 @@ class GeneralTableData
     getTextColor(){ return this.m_text_color; }
     setTextColor(i_text_color){ this.m_text_color = i_text_color; }
 
+    getSeatCircleRadius(){ return this.m_seat_circle_radius; }
+    setSeatCircleRadius(i_seat_circle_radius){ this.m_seat_circle_radius = i_seat_circle_radius; }
+
     // Sets the dat from the XML object m_layout_xml
     setDataFromXml()
     {
@@ -530,6 +538,9 @@ class GeneralTableData
         this.m_text_rel_x_procent = this.m_layout_xml.getTableTextRelXProcent();
         this.m_text_rel_y_procent = this.m_layout_xml.getTableTextRelYProcent();
         this.m_text_color = this.m_layout_xml.getTableTextColor();
+
+        //TODO this.m_seat_circle_radius = this.m_layout_xml.getTableSeatCircleRadius();
+        this.m_seat_circle_radius = 150;
 
     } // setDataFromXml
 

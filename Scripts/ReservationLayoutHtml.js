@@ -1,28 +1,29 @@
 // File: ReservationLayoutHtml.js
-// Date: 2026-05-26
+// Date: 2026-06-03
 // Authors: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Class Layout Table Group Html /////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Imput data for creating the HTML code for a group of tables in the layout
+// Input data for creating the HTML code for a group of tables in the layout
 class TableGroupHtmlData
 {
     constructor(i_table_group_data, i_scale_dimension, i_b_group_boundary, i_cl_table_group,  i_cl_table) 
     {
+        // Instance of the class TableGroupData
         this.m_table_group_data = i_table_group_data;
 
        // The conversion factor mm to pixel
        this.m_scale_dimension = i_scale_dimension;
 
-       // Flag tellin if he boundary of the group of tables shall be drawn
+       // Flag telling if the boundary of the group of tables shall be drawn
         this.m_b_group_boundary = i_b_group_boundary;
 
         // The style for the group of tables
         this.m_cl_table_group = i_cl_table_group;
 
-        // The the for a table
+        // The style for a table
         this.m_cl_table = i_cl_table;
 
 
@@ -133,37 +134,37 @@ class TableRectangleHtml
     // Create (construct) the HTML code for the rectangle (table)
     execute()
     {
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute Enter');
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute Enter');
 
          this.m_html_code = '';
 
          var table_id = this.m_table_data.getNumber();
 
-         // TableGroupHtml.toConsole('TableRectangleHtml.execute table_id: ' + table_id);
+         // TableRectangleHtml.toConsole('TableRectangleHtml.execute table_id: ' + table_id);
 
         var upper_left_corner_x = this.m_table_data.getUpperLeftX();
         var upper_left_corner_y = this.m_table_data.getUpperLeftY();
 
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
 
         var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
         var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
 
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_x: ' + scaled_x);
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute scaled_y: ' + scaled_y);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute scaled_x: ' + scaled_x);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute scaled_y: ' + scaled_y);
 
          var rect_width = this.m_table_data.getWidth();
          var rect_height = this.m_table_data.getHeight();
 
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width: ' + rect_width);
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height: ' + rect_height);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute rect_width: ' + rect_width);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute rect_height: ' + rect_height);
 
         var rect_width_scaled = parseInt(rect_width * this.m_scale_dimension);
         var rect_height_scaled = parseInt(rect_height * this.m_scale_dimension);
 
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_width_scaled: ' + rect_width_scaled);
-        // TableGroupHtml.toConsole('TableRectangleHtml.execute rect_height_scaled: ' + rect_height_scaled);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute rect_width_scaled: ' + rect_width_scaled);
+        // TableRectangleHtml.toConsole('TableRectangleHtml.execute rect_height_scaled: ' + rect_height_scaled);
 
         var number_left_right_seats = this.m_table_data.getNumberLeftRightSeats();
 
@@ -203,6 +204,151 @@ class TableRectangleHtml
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Class Table Rectangle Html //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Class Table Seat Circles Html /////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create the HTML code for table seats as circles in the layout
+class TableSeatCirclesHtml
+{
+    constructor(i_table_data, i_general_table_data, i_scale_dimension, i_cl_table_seat) 
+    {
+        // Instance of the class TableData
+        this.m_table_data = i_table_data;
+
+        // Instance of the class GeneralTableData with data that is common for all tables
+        this.m_general_table_data = i_general_table_data;
+
+         // The conversion factor mm to pixel
+        this.m_scale_dimension = i_scale_dimension;
+
+        // The style for the table seat
+        this.m_cl_table_seat = i_cl_table_seat;
+
+        // All HTML code from this class
+        this.m_html_code = '';    
+
+        // Create (construct) the HTML code
+        this.execute();
+
+    } // constructor
+
+    // Create (construct) the HTML code for the seats around the table
+    execute()
+    {
+         this.m_html_code = '';
+
+         var table_id = this.m_table_data.getNumber();
+
+         TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute table_id: ' + table_id);
+
+        var upper_left_corner_x = this.m_table_data.getUpperLeftX();
+        var upper_left_corner_y = this.m_table_data.getUpperLeftY();
+
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute upper_left_corner_x: ' + upper_left_corner_x);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute upper_left_corner_y: ' + upper_left_corner_y);
+
+        var scaled_x = parseInt(upper_left_corner_x * this.m_scale_dimension);
+        var scaled_y = parseInt(upper_left_corner_y * this.m_scale_dimension);
+
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute scaled_x: ' + scaled_x);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute scaled_y: ' + scaled_y);
+
+         var rect_width = this.m_table_data.getWidth();
+         var rect_height = this.m_table_data.getHeight();
+
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute rect_width: ' + rect_width);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute rect_height: ' + rect_height);
+
+        var rect_width_scaled = parseInt(rect_width * this.m_scale_dimension);
+        var rect_height_scaled = parseInt(rect_height * this.m_scale_dimension);
+
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute rect_width_scaled: ' + rect_width_scaled);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute rect_height_scaled: ' + rect_height_scaled);
+
+        var seat_circle_radius = this.m_general_table_data.getSeatCircleRadius();
+        var seat_circle_radius_scaled = parseInt(seat_circle_radius * this.m_scale_dimension);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute seat_circle_radius: ' + seat_circle_radius);
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute seat_circle_radius_scaled: ' + seat_circle_radius_scaled);
+
+        var number_left_right_seats = this.m_table_data.getNumberLeftRightSeats();
+
+        var circle_one_seat_html = this.oneSeatHtml(table_id + '_seat_1', scaled_x - seat_circle_radius_scaled, scaled_y + rect_height_scaled/2 - seat_circle_radius_scaled, seat_circle_radius_scaled, this.m_cl_table_seat);
+
+         this.m_html_code += circle_one_seat_html;
+
+         TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + circle_one_seat_html);
+        
+        /* TODO
+        var click_str = 'onclick="onClickHtmlElementTable('+ table_id + ')"';
+
+        var one_seat_html = '<div id="' + table_id + '" class="' + this.m_cl_table_seat + 
+        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
+        'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;" ' + click_str + '>'  
+        + '</div>';
+
+        this.m_html_code += one_seat_html;
+
+        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + one_seat_html);
+
+        TODO */
+
+    } // execute
+
+    // Create the HTML code for one seat as a circle
+    oneSeatHtml(i_seat_id, i_scaled_x, i_scaled_y, i_seat_circle_radius_scaled, i_cl_table_seat)
+    {
+        var click_str = 'onclick="onClickHtmlElementTableSeat('+ i_seat_id + ')"';
+
+        var one_seat_html = '<div id="' + i_seat_id + '" class="' + i_cl_table_seat +
+        '" style="left:' + i_scaled_x + 'px; top:' + i_scaled_y + 'px; '+
+        'width:' + (i_seat_circle_radius_scaled * 2) + 'px; height:' + (i_seat_circle_radius_scaled * 2) + 'px;" ' + click_str + '>'  
+        + '</div>';
+
+        return one_seat_html;
+
+    } // oneSeatHtml
+
+/*
+.cl_div_display_table_seat
+{
+    border: solid 3px black;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin: 5px;
+    text-align: center;
+    font-size: 11px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    cursor: pointer;
+    clear: both;
+}
+
+
+*/
+
+    // Get all HTML code 
+    get()
+    {
+        return this.m_html_code;
+
+    } // get
+
+    //Debug: Write text to the console
+    static toConsole(i_text_str)
+    {
+        console.log(i_text_str);
+
+    } // toConsole
+
+} // TableSeatCirclesHtml
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Class Table Seat Circles Html ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
