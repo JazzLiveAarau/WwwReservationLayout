@@ -1,5 +1,5 @@
 // File: ReservationCreateLayoutTable.js
-// Date: 2026-05-26
+// Date: 2026-06-03
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -283,6 +283,10 @@ function getNewNumberOfTableSeats(i_b_plus)
 function onClickHtmlElementTable(i_table_number_id)
 {
     debugCreateLayout('onClickHtmlElementTable i_table_number_id= ' + i_table_number_id);
+
+    displayTablePage();
+
+    setControlsOnTablePage(i_table_number_id);
 
 } // onClickHtmlElementTable
 
