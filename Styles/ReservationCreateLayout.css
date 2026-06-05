@@ -460,6 +460,16 @@ label
     cursor: pointer;
 }
 
+.cl_div_table_seat_pos_absolute
+{
+    position: absolute;
+    border: solid 2px black;
+    border-radius: 50%;
+    background-color: yellow;
+    text-align: center;
+    cursor: pointer;
+}
+
 .cl_div_button_pos_absolute
 {
     position: absolute;

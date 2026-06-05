@@ -1,5 +1,5 @@
 // File: ReservationLayoutGraphics.js
-// Date: 2026-05-25
+// Date: 2026-06-05
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -82,6 +82,9 @@ class LayoutGraphics
         // Array of HTML code for the drawing of the group of tables as rectangles
         this.m_group_rectangles_html_array = [];
 
+        // Array of HTML code for the drawing of the group of table seats as circles
+        this.m_group_table_seats_html_array = [];
+
         // Array of HTML code for the drawing of the buttons
         this.m_all_buttons_html_array = [];
 
@@ -127,6 +130,8 @@ class LayoutGraphics
 
         this.createGroupRectanglesHtmlArray();
 
+        //TODO this.createGroupTableSeatsHtmlArray();
+
         this.createAllButtonsHtmlArray();
 
         this.createStageHtml();
@@ -150,6 +155,8 @@ class LayoutGraphics
         this.m_el_div_graphics_pos_relative.innerHTML = '';
 
         this.addTableGroupsRectangles();
+
+        // TODO  this.addTableGroupTableSeats();
 
         this.addAllButtons();
         
@@ -228,7 +235,8 @@ class LayoutGraphics
             var b_boundary = false; // TODO
 
             var table_group_html_input_data = 
-            new TableGroupHtmlData(table_group_data, this.m_scale_dimension, b_boundary, 'table-group_TODO', 'cl_div_table_rectangle_pos_absolute');
+            new TableGroupHtmlData(table_group_data, this.m_scale_dimension, b_boundary, 
+                'table-group_TODO', 'cl_div_table_rectangle_pos_absolute', 'cl_div_table_seat_pos_absolute');
 
             var table_group_html = new TableGroupHtml(table_group_html_input_data);
             
@@ -260,7 +268,59 @@ class LayoutGraphics
 
     } // addTableGroupsRectangles
 
-    // this.m_all_buttons_html_array = [];
+    // Create the array of HTML code for the drawing of the group of table seats as circles
+    createGroupTableSeatsHtmlArray()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.createGroupTableSeatsHtmlArray Enter');
+
+        this.m_group_table_seats_html_array = [];
+
+        this.m_group_data_array = this.m_layout_model.m_group_data_array;
+
+        var general_table_data = this.m_layout_model.m_general_table_data;
+
+        for (var index_group = 0; index_group < this.m_group_data_array.length; index_group++)
+        {
+            var table_group_data = this.m_group_data_array[index_group];
+
+            var table_array = table_group_data.getTables();
+
+            for (var index_table = 0; index_table < table_array.length; index_table++)
+            {
+                var table_data = table_array[index_table];
+
+                var table_seats_html = new TableSeatCirclesHtml(table_data, general_table_data, this.m_scale_dimension, 'cl_div_table_seat_pos_absolute');
+
+                this.m_group_table_seats_html_array.push(table_seats_html.get());
+
+            } // index_table
+
+        } // index_group
+
+    } // createGroupTableSeatsHtmlArray
+
+    // Draw the seats in layout (CAD) model
+    addTableGroupTableSeats()
+    {
+        LayoutGraphics.toConsole('LayoutGraphics.addTableGroupTableSeats Enter');
+
+        var n_groups = this.m_group_table_seats_html_array.length;
+
+        var all_group_seats_html = '';
+
+        for (var index_group = 0; index_group < n_groups; index_group++)
+        {
+            var group_table_seats_html = this.m_group_table_seats_html_array[index_group];
+
+            all_group_seats_html += group_table_seats_html + '\n';
+        }
+
+        // Note += to add to the existing HTML code in the graphics div container
+        this.m_el_div_graphics_pos_relative.innerHTML += all_group_seats_html; 
+
+        LayoutGraphics.toConsole('LayoutGraphics.addTableGroupTableSeats all_group_seats_html: \n' + all_group_seats_html);
+
+    } // addTableGroupTableSeats
 
     // Create the array of HTML code for the drawing of the buttons
     createAllButtonsHtmlArray()
