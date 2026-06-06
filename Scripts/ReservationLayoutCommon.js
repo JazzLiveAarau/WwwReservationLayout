@@ -1,5 +1,5 @@
 // File: ReservationLayoutCommon.js
-// Date: 2026-06-03
+// Date: 2026-06-06
 // Authors: Gunnar Lidén
 
 // Content
@@ -1646,10 +1646,21 @@ class TableData
 	   // The array defines the right seats that shall be defined (that shall be available)
 	   this.m_right_seats = [];
 	   
-	   
 	   this.m_seat_upper = "";
 	   this.m_seat_lower = "";
 	   this.m_text = "";
+
+       // Array of SeatData objects for the left seats
+       this.m_seat_data_left_array = [];
+
+       // Array of SeatData objects for the right seats
+       this.m_seat_data_right_array = [];
+
+       // SeatData object for the upper seat
+       this.m_seat_data_upper = null;
+
+       // SeatData object for the lower seat
+       this.m_seat_data_lower = null;
 
        // Instance of the class BoundingBox for table only
        this.m_boundimg_box = null;
@@ -1669,6 +1680,8 @@ class TableData
         if (this.m_case == "get_data_from_xml")
         {
             this.setDataFromXml();
+
+            this.setSeatData();
 
             this.setBoundingBoxes();
         }
@@ -1741,6 +1754,18 @@ class TableData
     // Defines if the lower seat shall be defined (shall be available)
     getSeatLower(){ return this.m_seat_lower; }
     setSeatLower(i_seat_lower){ this.m_seat_lower = i_seat_lower; }
+
+    getSeatDataLeftArray(){ return this.m_seat_data_left_array; }
+    setSeatDataLeftArray(i_seat_data_left_array){ this.m_seat_data_left_array = i_seat_data_left_array; }
+
+    getSeatDataRightArray(){ return this.m_seat_data_right_array; }
+    setSeatDataRightArray(i_seat_data_right_array){ this.m_seat_data_right_array = i_seat_data_right_array; }
+
+    getSeatDataUpper(){ return this.m_seat_data_upper; }
+    setSeatDataUpper(i_seat_data_upper){ this.m_seat_data_upper = i_seat_data_upper; }
+
+    getSeatDataLower(){ return this.m_seat_data_lower; }
+    setSeatDataLower(i_seat_data_lower){ this.m_seat_data_lower = i_seat_data_lower; }
 
     getText(){ return this.m_text; }
     setText(i_text){ this.m_text = i_text; }
@@ -1949,6 +1974,186 @@ class TableData
         }
 
     } // initSeatData
+
+    // Sets the seat data arrays m_seat_data_left_array, m_seat_data_right_array, 
+    // m_seat_data_upper, m_seat_data_lower based on the seat data in the XML object m_layout_xml
+    setSeatData()
+    {
+       this.m_seat_data_left_array = [];
+
+       this.m_seat_data_right_array = [];
+
+       this.m_seat_data_upper = null;
+
+       this.m_seat_data_lower = null;
+
+        var index_seat_data_array = 0;
+
+        var seat_type = 'rect_table';
+
+        var seat_data = null;
+
+        var table_number = this.getNumber();
+
+        var b_seat_left_array = this.getSeatLeftArray();
+
+        var b_seat_right_array = this.getSeatRightArray();
+
+        var b_seat_upper = this.getSeatUpper();
+
+        var b_seat_lower = this.getSeatLower();
+
+        var n_rows = b_seat_left_array.length - 1;
+
+        var row_number= -12345;
+
+        var n_rows = b_seat_left_array.length - 1;
+
+        var row_number= -12345;
+
+        for (var index_row=0; index_row <= n_rows; index_row++)
+        {
+            row_number= index_row + 1;
+
+            var seat_char_left = SeatData.getSeatCharacterLeft(row_number, b_seat_left_array.length);
+
+            var seat_char_right = SeatData.getSeatCharacterRight(row_number, b_seat_right_array.length);
+
+            var b_seat_left = b_seat_left_array[index_row];
+
+            var b_seat_right = b_seat_right_array[index_row];
+
+            seat_data = new SeatData(seat_type, table_number, seat_char_left, b_seat_left);
+
+            checkIfCharIsSet(seat_data, row_number, b_seat_left_array.length);
+
+            this.m_seat_data_left_array[index_seat_data_array] = seat_data;
+
+            seat_data = new SeatData(seat_type, table_number, seat_char_right, b_seat_right);
+
+            checkIfCharIsSet(seat_data, row_number, b_seat_right_array.length);
+
+            this.m_seat_data_right_array[index_seat_data_array] = seat_data;
+
+            index_seat_data_array = index_seat_data_array + 1;
+
+        } // index_row
+
+        var character_upper  = SeatData.getSeatCharacterLeft(row_number + 1, b_seat_left_array.length);
+
+        var character_lower  = SeatData.getSeatCharacterRight(row_number + 1, b_seat_right_array.length);
+
+        seat_data = new SeatData(seat_type, table_number, character_upper, b_seat_upper);
+
+        checkIfCharIsSet(seat_data, row_number + 1, b_seat_left_array.length);
+
+        this.m_seat_data_upper = seat_data;
+
+        seat_data = new SeatData(seat_type, table_number, character_lower, b_seat_lower);
+
+        checkIfCharIsSet(seat_data, row_number + 1, b_seat_right_array.length);
+
+        this.m_seat_data_lower = seat_data;
+
+    } // setSeatData
+
+/*
+// Get an array of SeatData objects for a table. 
+// An instance of TableData is given as input. 
+// The seat data is retrieved from the table data.
+function getTableSeatDataArray(i_table_data)
+{
+    var ret_seat_data_array = [];
+
+    var index_seat_data_array = 0;
+
+    var seat_type = 'rect_table';
+
+    var seat_data = null;
+
+    var table_number = i_table_data.getNumber();
+
+    var b_seat_left_array = i_table_data.getSeatLeftArray();
+
+    var b_seat_right_array = i_table_data.getSeatRightArray();
+
+    var b_seat_upper = i_table_data.getSeatUpper();
+
+    var b_seat_lower = i_table_data.getSeatLower();
+
+    var n_rows = b_seat_left_array.length - 1;
+
+    var row_number= -12345;
+
+    var table_data = table_data_array[table_index];
+
+    var table_number = table_data.getNumber();
+
+    var b_seat_left_array = table_data.getSeatLeftArray();
+
+    var b_seat_right_array = table_data.getSeatRightArray();
+
+    var b_seat_upper = table_data.getSeatUpper();
+
+    var b_seat_lower = table_data.getSeatLower();
+
+    var n_rows = b_seat_left_array.length - 1;
+
+    var row_number= -12345;
+
+    for (var index_row=0; index_row <= n_rows; index_row++)
+    {
+        row_number= index_row + 1;
+
+        var seat_char_left = SeatData.getSeatCharacterLeft(row_number, b_seat_left_array.length);
+
+        var seat_char_right = SeatData.getSeatCharacterRight(row_number, b_seat_right_array.length);
+
+        var b_seat_left = b_seat_left_array[index_row];
+
+        var b_seat_right = b_seat_right_array[index_row];
+
+        seat_data = new SeatData(seat_type, table_number, seat_char_left, b_seat_left);
+
+        checkIfCharIsSet(seat_data, row_number, b_seat_left_array.length);
+
+        ret_seat_data_array[index_seat_data_array] = seat_data;
+
+        index_seat_data_array = index_seat_data_array + 1;
+
+        seat_data = new SeatData(seat_type, table_number, seat_char_right, b_seat_right);
+
+        checkIfCharIsSet(seat_data, row_number, b_seat_right_array.length);
+
+        ret_seat_data_array[index_seat_data_array] = seat_data;
+
+        index_seat_data_array = index_seat_data_array + 1;
+
+    } // index_row
+
+    var character_upper  = SeatData.getSeatCharacterLeft(row_number + 1, b_seat_left_array.length);
+
+    var character_lower  = SeatData.getSeatCharacterRight(row_number + 1, b_seat_right_array.length);
+
+    seat_data = new SeatData(seat_type, table_number, character_upper, b_seat_upper);
+
+    checkIfCharIsSet(seat_data, row_number + 1, b_seat_left_array.length);
+
+    ret_seat_data_array[index_seat_data_array] = seat_data;
+
+    index_seat_data_array = index_seat_data_array + 1;
+
+    seat_data = new SeatData(seat_type, table_number, character_lower, b_seat_lower);
+
+    checkIfCharIsSet(seat_data, row_number + 1, b_seat_right_array.length);
+
+    ret_seat_data_array[index_seat_data_array] = seat_data;
+
+    return ret_seat_data_array;
+
+} // getTableSeatDataArray
+
+*/
 
     // Checks the data
     checkData()
@@ -2610,6 +2815,7 @@ function getAllTablesSeatDataArray(i_layout_xml)
     return ret_seat_data_array
 
 } // getAllTablesSeatDataArray
+
 
 function checkIfCharIsSet(i_data_seat, i_row_number, i_array_length)
 {

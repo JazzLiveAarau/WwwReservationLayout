@@ -1,5 +1,5 @@
 // File: ReservationLayoutGraphics.js
-// Date: 2026-06-05
+// Date: 2026-06-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -130,7 +130,7 @@ class LayoutGraphics
 
         this.createGroupRectanglesHtmlArray();
 
-        //TODO this.createGroupTableSeatsHtmlArray();
+        this.createGroupTableSeatsHtmlArray();
 
         this.createAllButtonsHtmlArray();
 
@@ -156,7 +156,7 @@ class LayoutGraphics
 
         this.addTableGroupsRectangles();
 
-        // TODO  this.addTableGroupTableSeats();
+        this.addTableGroupTableSeats();
 
         this.addAllButtons();
         

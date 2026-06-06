@@ -1,5 +1,5 @@
 // File: ReservationLayoutHtml.js
-// Date: 2026-06-05
+// Date: 2026-06-06
 // Authors: Gunnar Lidén
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -287,9 +287,9 @@ class TableSeatCirclesHtml
             rect_width_scaled, rect_height_scaled, seat_circle_radius_scaled, number_left_right_seats);
 
 
-        var seat_left_array = this.m_table_data.getSeatLeftArray();
+        var seat_left_array = this.m_table_data.getSeatDataLeftArray();
 
-        var seat_right_array = this.m_table_data.getSeatRightArray();
+        var seat_right_array = this.m_table_data.getSeatDataRightArray();
 
         for (var index_row_seat = 0; index_row_seat < seat_left_array.length; index_row_seat++)
         {
@@ -321,7 +321,7 @@ class TableSeatCirclesHtml
 
         } // index_row_seat
 
-        var seat_data_upper = this.m_table_data.getSeatUpper();
+        var seat_data_upper = this.m_table_data.getSeatDataUpper();
 
         var seat_id_upper = seat_data_upper.getCircleId();
 
@@ -334,7 +334,7 @@ class TableSeatCirclesHtml
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + circle_upper_seat_html);
 
-        var seat_data_lower = this.m_table_data.getSeatLower();
+        var seat_data_lower = this.m_table_data.getSeatDataLower();
 
         var seat_id_lower = seat_data_lower.getCircleId();
 
@@ -436,7 +436,7 @@ class TableSeatCirclesPosition
         this.m_s_r = i_seat_circle_radius_scaled;
 
         // The number of seats on the left and right side of the table rectangle
-        this.m_n_l_r_s = i_number_left_right_seats;
+        this.m_n_l_r_s = parseInt(i_number_left_right_seats);
 
         // The number of rows of seats on the left and right side of the table rectangle
         this.m_n_rows = parseInt((this.m_n_l_r_s + 1)/2);
@@ -445,7 +445,7 @@ class TableSeatCirclesPosition
         this.m_d_h = -12345;
 
         // Minimum delta between seats and to table rectangle (TODO: Find a better value)
-        this.m_d_h_min = 10;
+        this.m_d_h_min = 5;
 
         this.execute();
     }
@@ -462,6 +462,8 @@ class TableSeatCirclesPosition
 
         this.m_d_h = (this.m_r_h - this.m_n_rows * 2 * this.m_s_r ) /  (this.m_n_rows-1) ;
 
+        //this.m_d_h = this.m_d_h_min; // TEST TODO
+
         if (this.m_d_h < this.m_d_h_min)
         {
             alert('TableSeatCirclesPosition.execute Mach bitte den Tisch größer.');
@@ -476,9 +478,9 @@ class TableSeatCirclesPosition
     // Get the position of a seat circle on the left side of the table rectangle for a given row number (1, 2, ...)
     getLeftSeatPosition(i_row_number)
     {
-        var seat_x = this.m_u_l_x - 2*this.m_s_r - this.m_d_h;
+        var seat_x = this.m_u_l_x - 2*this.m_s_r - this.m_d_h_min;
 
-        var seat_y = this.m_u_l_y + i_row_number * (2*this.m_s_r + this.m_d_h);
+        var seat_y = this.m_u_l_y + (i_row_number - 1) * (2*this.m_s_r + this.m_d_h);
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesPosition.getLeftSeatPosition row: ' + i_row_number + ' seat_x: ' + seat_x + ' seat_y: ' + seat_y);
 
@@ -490,9 +492,9 @@ class TableSeatCirclesPosition
     // Get the position of a seat circle on the right side of the table rectangle for a given row number (1, 2, ...)
     getRightSeatPosition(i_row_number)
     {
-        var seat_x = this.m_u_l_x + this.m_r_w + this.m_d_h;
+        var seat_x = this.m_u_l_x + this.m_r_w + this.m_d_h_min;
 
-        var seat_y = this.m_u_l_y + i_row_number * (2*this.m_s_r + this.m_d_h);
+        var seat_y = this.m_u_l_y + (i_row_number - 1)* (2*this.m_s_r + this.m_d_h);
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesPosition.getRightSeatPosition row: ' + i_row_number + ' seat_x: ' + seat_x + ' seat_y: ' + seat_y);
         
@@ -505,7 +507,7 @@ class TableSeatCirclesPosition
     {
         var seat_x = parseInt(this.m_u_l_x + this.m_r_w/2 - this.m_s_r);
 
-        var seat_y = this.m_u_l_y - 2*this.m_s_r - this.m_d_h;
+        var seat_y = this.m_u_l_y - 2*this.m_s_r - this.m_d_h_min;
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesPosition.getUpperSeatPosition seat_x: ' + seat_x + ' seat_y: ' + seat_y);
 
@@ -519,7 +521,7 @@ class TableSeatCirclesPosition
     {
         var seat_x = parseInt(this.m_u_l_x + this.m_r_w/2 - this.m_s_r);
 
-        var seat_y = this.m_u_l_y + this.m_r_h + this.m_d_h;
+        var seat_y = this.m_u_l_y + this.m_r_h + this.m_d_h_min;
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesPosition.getLowerSeatPosition seat_x: ' + seat_x + ' seat_y: ' + seat_y);
 
