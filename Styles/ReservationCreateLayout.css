@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-05-24
+File: ReservationCreateLayout.css Date: 2026-06-06
 
 Author: Gunnar Liden
 
@@ -466,6 +466,7 @@ label
     border: solid 2px black;
     border-radius: 50%;
     background-color: yellow;
+    padding-top: 3px;
     text-align: center;
     cursor: pointer;
 }

@@ -174,7 +174,9 @@ class TableRectangleHtml
 
         var table_text = this.m_table_data.getText();
 
-        var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze <br>' + number_left_right_seats; 
+        //QQQ var display_text = '<br>Tisch<br>' + table_id + '<br><br>Plätze <br>' + number_left_right_seats; 
+
+        var display_text = '<br>Tisch<br>' + table_id; 
 
         var click_str = 'onclick="onClickHtmlElementTable('+ table_id + ')"';
 
@@ -315,10 +317,16 @@ class TableSeatCirclesHtml
 
             TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + circle_right_seat_html);
 
-            this.m_html_code += circle_left_seat_html;
-
-            this.m_html_code += circle_right_seat_html;
-
+            if (seat_data_left.getCreateSeat())
+            {
+                this.m_html_code += circle_left_seat_html;
+            }
+            
+            if (seat_data_right.getCreateSeat())
+            {
+                this.m_html_code += circle_right_seat_html;
+            }
+                
         } // index_row_seat
 
         var seat_data_upper = this.m_table_data.getSeatDataUpper();
@@ -330,7 +338,10 @@ class TableSeatCirclesHtml
         var circle_upper_seat_html = this.oneSeatHtml(seat_id_upper, seat_position_upper.x, seat_position_upper.y,
                 seat_circle_radius_scaled, this.m_cl_table_seat);
 
-        this.m_html_code += circle_upper_seat_html;
+        if (seat_data_upper.getCreateSeat())
+        {
+            this.m_html_code += circle_upper_seat_html;
+        }
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + circle_upper_seat_html);
 
@@ -343,35 +354,28 @@ class TableSeatCirclesHtml
         var circle_lower_seat_html = this.oneSeatHtml(seat_id_lower, seat_position_lower.x, seat_position_lower.y,
                 seat_circle_radius_scaled, this.m_cl_table_seat);
 
-        this.m_html_code += circle_lower_seat_html;
+        if (seat_data_lower.getCreateSeat())
+        {
+            this.m_html_code += circle_lower_seat_html;
+        }
 
         TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + circle_lower_seat_html);
-
-
-        /* TODO
-        var click_str = 'onclick="onClickHtmlElementTable('+ table_id + ')"';
-
-        var one_seat_html = '<div id="' + table_id + '" class="' + this.m_cl_table_seat + 
-        '" style="left:' + scaled_x + 'px; top:' + scaled_y + 'px; '+
-        'width:' + rect_width_scaled + 'px; height:' + rect_height_scaled + 'px;" ' + click_str + '>'  
-        + '</div>';
-
-        this.m_html_code += one_seat_html;
-
-        TableSeatCirclesHtml.toConsole('TableSeatCirclesHtml.execute Seat circle div= \n' + one_seat_html);
-
-        TODO */
 
     } // execute
 
     // Create the HTML code for one seat as a circle
     oneSeatHtml(i_seat_id, i_scaled_x, i_scaled_y, i_seat_circle_radius_scaled, i_cl_table_seat)
     {
-        var click_str = 'onclick="onClickHtmlElementTableSeat('+ i_seat_id + ')"';
+        //QQQ var click_str = 'onclick="onClickHtmlElementTableSeat('+ i_seat_id + ')"';
+
+        var click_str = 'onclick="onClickHtmlElementTableSeat(this)"';
+
+        var seat_text = SeatData.getSeatCharacterFromCircleId(i_seat_id);
 
         var one_seat_html = '<div id="' + i_seat_id + '" class="' + i_cl_table_seat +
         '" style="left:' + i_scaled_x + 'px; top:' + i_scaled_y + 'px; '+
         'width:' + (i_seat_circle_radius_scaled * 2) + 'px; height:' + (i_seat_circle_radius_scaled * 2) + 'px;" ' + click_str + '>'  
+        + seat_text
         + '</div>';
 
         return one_seat_html;

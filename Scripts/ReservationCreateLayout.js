@@ -1,5 +1,5 @@
 // File: ReservationCreateLayout.js
-// Date: 2026-05-26
+// Date: 2026-06-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -232,6 +232,15 @@ function eventSelectLayoutElementDropDown()
     setAndOpenPageControlsForSelectedElement();
 
 } // eventSelectLayoutElementDropDown
+
+// Event function for the click on a table seat HTML element
+function onClickHtmlElementTableSeat(i_seat_el)
+{
+    debugCreateLayout('onClickHtmlElementTableSeat Enter Seat ID= ' + i_seat_el.id);
+
+    // TODO Implement the logic for handling the click on a table seat
+
+} // onClickHtmlElementTableSeat
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Event Functions /////////////////////////////////////////////
