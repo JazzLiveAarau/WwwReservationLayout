@@ -1,5 +1,5 @@
 /* 
-File: ReservationCreateLayout.css Date: 2026-06-06
+File: ReservationCreateLayout.css Date: 2026-06-07
 
 Author: Gunnar Liden
 
@@ -314,6 +314,33 @@ label
     padding-bottom: 3px;
     overflow: hidden; 
     clear: both;
+}
+
+
+.cl_div_cashier_page
+{
+    border: solid 2px blue;
+    width: 99%;
+    overflow: hidden; 
+    min-height: 200px;
+}
+
+.cl_div_cashier_page_text_boxes
+{
+    /* border: solid 1px green; */
+    width: 95%;
+    margin-left: 15px;
+    padding-bottom: 3px;
+    overflow: hidden; 
+    clear: both;
+}
+
+.cl_cashier_page_property_textbox
+{
+    /* border: solid 1px yellow; */
+    margin-left: 15px;
+    padding-bottom: 3px;
+    float: left;
 }
 
 .cl_div_debug_page

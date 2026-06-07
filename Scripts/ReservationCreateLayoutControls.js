@@ -1,5 +1,5 @@
 // File: ReservationCreateLayoutControls.js
-// Date: 2026-05-26
+// Date: 2026-06-07
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -133,6 +133,24 @@ function createLayoutCreateControls()
     createStageDeleteButton();
 
     createStageCancelButton();
+
+    createTextBoxCashierPagePositionLeft();
+
+    createTextBoxCashierPagePositionTop();
+
+    createTextBoxCashierPageDimensionWidth();
+
+    createTextBoxCashierPageDimensionHeight();
+
+    createTextBoxCashierImageUrl();
+
+    createCashierSaveButton();
+
+    createCashierAddButton();
+
+    createCashierDeleteButton();
+
+    createCashierCancelButton();
 
 } // createLayoutCreateControls
 

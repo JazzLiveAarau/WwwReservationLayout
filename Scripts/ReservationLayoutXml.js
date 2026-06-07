@@ -2923,6 +2923,57 @@ class ReservationLayoutXml
 
     } // appendStageNodes
 
+    // Append cashier nodes to the XML document for a given number of cashiers
+    // i_cashier_data An instance of the CashierData class with values (may be null)
+    // 1. If the cashier nodes are already defined in the layout XML, no cashier nodes are appended. An alert is shown
+    // 2. Create all nodes and append them to the XML document. 
+    // 3. Set values from the input cashierDataObject if defined.
+    //    Call of setCashierNodes
+    appendCashierNodes(i_cashier_data)
+    {
+        if (this.cashierIsDefined())
+        {
+             alert("ReservationLayoutXml.appendCashierNodes Cashier is already defined in the layout XML. No cashier nodes are appended.");
+             return;
+        }
+
+        var cashier_node = this.getXmlObject().createElement(this.m_tags.getCashierData());
+
+        var upper_left_x_node = this.getXmlObject().createElement(this.m_tags.getCashUpperLeftX());
+        var upper_left_x_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        upper_left_x_node.appendChild(upper_left_x_text);
+        cashier_node.appendChild(upper_left_x_node);	
+
+        var upper_left_y_node = this.getXmlObject().createElement(this.m_tags.getCashUpperLeftY());
+        var upper_left_y_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        upper_left_y_node.appendChild(upper_left_y_text);
+        cashier_node.appendChild(upper_left_y_node);
+
+        var image_node = this.getXmlObject().createElement(this.m_tags.getCashImage());
+        var image_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        image_node.appendChild(image_text);
+        cashier_node.appendChild(image_node);
+
+        var image_height_node = this.getXmlObject().createElement(this.m_tags.getCashImageHeight());
+        var image_height_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        image_height_node.appendChild(image_height_text);
+        cashier_node.appendChild(image_height_node);
+
+        var text_rel_x_procent_node = this.getXmlObject().createElement(this.m_tags.getCashTextRelXProcent());
+        var text_rel_x_procent_text = this.getXmlObject().createTextNode(this.m_not_yet_set_node_value);
+        text_rel_x_procent_node.appendChild(text_rel_x_procent_text);
+        cashier_node.appendChild(text_rel_x_procent_node);
+
+        this.getXmlObject().documentElement.appendChild(cashier_node);
+
+        if (i_cashier_data != null)
+        {
+            this.setCashierNodes(i_cashier_data);
+        }
+
+    } // appendCashierNodes
+
+
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////// End Append Node Functions ///////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -2960,6 +3011,20 @@ class ReservationLayoutXml
 
     } // deleteStageNodes
 
+    // Deletes the cashier nodes from the XML document.
+    deleteCashierNodes()
+    {
+        if (!this.cashierIsDefined())   
+        {
+             alert("ReservationLayoutXml.deleteCashierNodes Cashier is not defined in the layout XML. No cashier nodes are deleted.");
+
+                return;
+        }
+
+        if (this.deleteSingleNode(this.m_tags.getCashierData()) == false) { return; }
+
+    } // deleteCashierNodes
+
     // Deletes the single node with the input tag name. 
     deleteSingleNode(i_tag_node)
     {
@@ -2980,10 +3045,6 @@ class ReservationLayoutXml
 
             return false;
         }
-
-        //QQ var node_element = node_elements[0];
-
-        //QQ this.getXmlObject().documentElement.removeChild(node_element);
 
         var child_node = node_elements[0];
 
@@ -3083,6 +3144,32 @@ class ReservationLayoutXml
         this.setStageTextColor(i_stage_data.getTextColor());
 
     } // setStageNodes
+
+    // Sets the cashier nodes for a given cashierData object. 
+    // The cashier nodes must already exist in the XML document.
+    setCashierNodes(i_cashier_data)
+    {
+        if (i_cashier_data == null)
+        {
+            alert("ReservationLayoutXml.setCashierNodes Input cashier data object is null. No cashier nodes are set.");
+
+            return;
+        }
+
+        if (!this.cashierIsDefined())   
+        {
+             alert("ReservationLayoutXml.setCashierNodes Cashier is not defined in the layout XML. No cashier nodes are set.");
+             return;
+        }
+
+        this.setCashierUpperLeftX(i_cashier_data.getUpperLeftX().toString());
+        this.setCashierUpperLeftY(i_cashier_data.getUpperLeftY().toString());
+
+        this.setCashierImage(i_cashier_data.getImage());
+        this.setCashierImageWidth(i_cashier_data.getImageWidth());
+        this.setCashierImageHeight(i_cashier_data.getImageHeight());
+
+    } // setCashierNodes
 
     // Returns the reservation layout XML file name
     getXmlLayoutFileName()
