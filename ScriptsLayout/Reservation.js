@@ -303,6 +303,8 @@ function MainMakeReservationAfterLoadEventProgramXml()
 
     setSeasonConcertArrays();
 
+	g_current_event_number = g_requested_concert_number_make_reservaion; // 20260831
+
     setConcertTitleText();
 
     constructNameLoadReservationXMLDoc(g_add_to_xml_file_name_make_reservation, g_requested_concert_number_make_reservaion);
